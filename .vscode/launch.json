@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-IfacSiApiApplication<ifac_si_api>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "ifac.si.com.ifac_si_api.IfacSiApiApplication",
+            "projectName": "ifac_si_api",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

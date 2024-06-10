@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -40,6 +41,9 @@ public class Post implements Serializable{
 
     @Column(nullable = false)
     private String legenda;
+
+    @OneToMany
+    private List<Imagem> imagens;
 
     public Long getId() {
         return id;
@@ -103,6 +107,14 @@ public class Post implements Serializable{
 
     public void setLegenda(String legenda) {
         this.legenda = legenda;
+    }
+
+    public List<Imagem> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<Imagem> imagens) {
+        this.imagens = imagens;
     }
 
     //Testar relacionamentos e engenharia reserva no workbench
