@@ -22,4 +22,7 @@ public class Post implements Serializable{
     private String texto;
     private Date data;
     private String legenda;
+
+    //Tem que colocar as notações ManytoOne, OnetoMany e tag
+    
 }
