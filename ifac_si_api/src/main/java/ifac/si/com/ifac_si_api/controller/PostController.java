@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ifac.si.com.ifac_si_api.model.Post;
-import ifac.si.com.ifac_si_api.model.Tag;
 import ifac.si.com.ifac_si_api.service.PostService;
 
 @RestController
