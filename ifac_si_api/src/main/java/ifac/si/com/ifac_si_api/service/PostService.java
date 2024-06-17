@@ -26,8 +26,7 @@ public class PostService implements IService<Post>{
 
     @Override
     public List<Post> get(String termoBusca) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        return repo.busca(termoBusca);
     }
 
     @Override

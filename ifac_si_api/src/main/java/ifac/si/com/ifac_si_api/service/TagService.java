@@ -26,8 +26,7 @@ public class TagService implements IService<Tag>{
 
     @Override
     public List<Tag> get(String termoBusca) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        return repo.busca(termoBusca);
 
         //Ver no repositório porque precisa query, vou montar a estrutura básica primeiro
     }

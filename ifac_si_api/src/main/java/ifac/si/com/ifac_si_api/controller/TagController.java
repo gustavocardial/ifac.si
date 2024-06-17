@@ -39,9 +39,10 @@ public class TagController implements IController<Tag>{
     }
 
     @Override
+    @GetMapping("/busca/{termoBusca}")
     public ResponseEntity<List<Tag>> get(String termoBusca) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        List<Tag> registros = servico.get(termoBusca);
+        return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @Override

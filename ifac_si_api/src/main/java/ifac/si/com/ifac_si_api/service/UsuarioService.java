@@ -26,8 +26,7 @@ public class UsuarioService implements IService<Usuario>{
 
     @Override
     public List<Usuario> get(String termoBusca) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        return repo.busca(termoBusca);
     }
 
     @Override

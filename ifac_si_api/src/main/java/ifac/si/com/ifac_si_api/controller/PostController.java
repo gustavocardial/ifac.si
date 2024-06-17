@@ -38,9 +38,10 @@ public class PostController implements IController<Post>{
     }
 
     @Override
+    @GetMapping("/busca/{termoBusca}")
     public ResponseEntity<List<Post>> get(String termoBusca) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        List<Post> registros = servico.get(termoBusca);
+        return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @Override
