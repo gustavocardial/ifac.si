@@ -5,35 +5,33 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ifac.si.com.ifac_si_api.model.Tag;
-import ifac.si.com.ifac_si_api.repository.TagRepository;
+import ifac.si.com.ifac_si_api.model.Post;
+import ifac.si.com.ifac_si_api.repository.PostRepository;
 
 @Service
-public class TagService implements IService<Tag>{
+public class PostService implements IService<Post>{
 
     @Autowired
-    private TagRepository repo;
+    private PostRepository repo;
 
     @Override
-    public List<Tag> get() {
+    public List<Post> get() {
         return repo.findAll();
     }
 
     @Override
-    public Tag get(Long id) {
+    public Post get(Long id) {
         return repo.findById(id).orElse(null);
     }
 
     @Override
-    public List<Tag> get(String termoBusca) {
+    public List<Post> get(String termoBusca) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
-
-        //Ver no repositório porque precisa query, vou montar a estrutura básica primeiro
     }
 
     @Override
-    public Tag save(Tag objeto) {
+    public Post save(Post objeto) {
         return repo.save(objeto);
     }
 
