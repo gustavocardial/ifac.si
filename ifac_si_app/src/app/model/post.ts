@@ -8,9 +8,9 @@ export type Post = {
     titulo: string,
     usuario: Usuario,
     categoria: Categoria,
-    tags: Tag,
+    tags: Tag[],
     texto: string,
     data: Date,
     legenda: string,
-    imagem: Imagem
+    imagem: Imagem[]
 }
