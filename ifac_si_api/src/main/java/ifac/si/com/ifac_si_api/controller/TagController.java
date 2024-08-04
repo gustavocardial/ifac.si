@@ -40,7 +40,7 @@ public class TagController implements IController<Tag>{
 
     @Override
     @GetMapping("/busca/{termoBusca}")
-    public ResponseEntity<List<Tag>> get(String termoBusca) {
+    public ResponseEntity<List<Tag>> get(@PathVariable("termoBusca") String termoBusca) {
         List<Tag> registros = servico.get(termoBusca);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }

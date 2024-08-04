@@ -33,7 +33,7 @@ public class CategoriaController implements IController<Categoria> {
 
     @Override
     @GetMapping("/busca/{termoBusca}")
-    public ResponseEntity<List<Categoria>> get(String termoBusca) {
+    public ResponseEntity<List<Categoria>> get(@PathVariable("termoBusca") String termoBusca) {
         List<Categoria> registros = servico.get(termoBusca);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
