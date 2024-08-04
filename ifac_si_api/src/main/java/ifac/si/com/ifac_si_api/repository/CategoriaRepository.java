@@ -10,6 +10,6 @@ import java.util.List;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 
     @Query(
-            "SELECT c FROM Categoria t WHERE t.nome LIKE %?1%"
+            "SELECT c FROM Categoria c WHERE c.nome LIKE %?1%"
     )List<Categoria> busca(String termoBusca);
 }

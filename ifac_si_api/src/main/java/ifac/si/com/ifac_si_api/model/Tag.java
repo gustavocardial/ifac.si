@@ -3,6 +3,8 @@ package ifac.si.com.ifac_si_api.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +24,7 @@ public class Tag implements Serializable{
     private String nome;
 
     @ManyToMany(mappedBy = "tags")
+    @JsonBackReference
     private List<Post> posts;
 
     public Long getId() {

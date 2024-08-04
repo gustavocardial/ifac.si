@@ -1,13 +1,13 @@
 package ifac.si.com.ifac_si_api.service;
 
 import ifac.si.com.ifac_si_api.model.Categoria;
-import ifac.si.com.ifac_si_api.model.Tag;
 import ifac.si.com.ifac_si_api.repository.CategoriaRepository;
-import ifac.si.com.ifac_si_api.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CategoriaService implements IService<Categoria>{
 
     @Autowired

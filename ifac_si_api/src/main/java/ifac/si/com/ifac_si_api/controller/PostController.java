@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,21 +40,21 @@ public class PostController implements IController<Post>{
 
     @Override
     @GetMapping("/busca/{termoBusca}")
-    public ResponseEntity<List<Post>> get(String termoBusca) {
+    public ResponseEntity<List<Post>> get(@PathVariable("id") String termoBusca) {
         List<Post> registros = servico.get(termoBusca);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @Override
     @PostMapping("/")
-    public ResponseEntity<Post> insert(Post objeto) {
+    public ResponseEntity<Post> insert(@RequestBody Post objeto) {
         Post registro = servico.save(objeto);
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
     @Override
     @PutMapping("/")
-    public ResponseEntity<Post> update(Post objeto) {
+    public ResponseEntity<Post> update(@RequestBody Post objeto) {
         Post registro = servico.save(objeto);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
