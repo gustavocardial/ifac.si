@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import ifac.si.com.ifac_si_api.model.Usuario;
 import ifac.si.com.ifac_si_api.service.UsuarioService;
 
+@RestController
+@RequestMapping("/usuario")
 public class UsuarioController implements IController<Usuario>{
 
     @Autowired
