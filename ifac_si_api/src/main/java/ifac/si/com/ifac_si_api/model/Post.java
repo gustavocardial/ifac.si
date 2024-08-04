@@ -29,7 +29,7 @@ public class Post implements Serializable{
     @ManyToOne(optional = false)
     private Usuario usuario;
 
-    @OneToOne
+    @ManyToOne
     private Categoria categoria;
 
     @ManyToMany
