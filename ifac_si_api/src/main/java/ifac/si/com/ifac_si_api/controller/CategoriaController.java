@@ -1,11 +1,7 @@
 package ifac.si.com.ifac_si_api.controller;
 
 import ifac.si.com.ifac_si_api.model.Categoria;
-import ifac.si.com.ifac_si_api.model.Post;
-import ifac.si.com.ifac_si_api.model.Tag;
 import ifac.si.com.ifac_si_api.service.CategoriaService;
-import ifac.si.com.ifac_si_api.service.PostService;
-import ifac.si.com.ifac_si_api.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
