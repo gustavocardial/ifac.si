@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
@@ -27,7 +28,7 @@ public class Tag implements Serializable{
     private String nome;
 
     @ManyToMany(mappedBy = "tags")
-    @JsonBackReference
+    @JsonIgnoreProperties("tags")
     private List<Post> posts;
 
     public Long getId() {

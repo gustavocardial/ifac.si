@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -35,7 +36,7 @@ public class Post implements Serializable{
     private Categoria categoria;
 
     @ManyToMany
-    @JsonManagedReference
+    @JsonIgnoreProperties("posts")
     private List<Tag> tags;
 
     @Column(nullable = false)
