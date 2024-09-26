@@ -9,15 +9,16 @@
                         [(ngModel)]="registro.nomeUsuario"
                         placeholder="Usuário">
 
-                <input type="text" name="senha" id="senha" required
-                    [(ngModel)]="registro.senha"
-                    placeholder="Senha">
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="password" name="senha" id="senha" required [(ngModel)]="registro.senha" placeholder="Senha" style="padding-right: 2.5em;">
+                    <span toggle="#senha" class="fa fa-fw fa-eye toggle-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></span>
+                </div>            
             </div>
         </div>
         <div id="formButton">
             <!-- <a type="button" value="Esqueceu sua senha?" routerLink="../" id="forgottenPassword"> -->
             <a routerLink="../" id="forgottenPassword">Esqueceu sua senha?</a>
-            <input type="submit" value="ENTRAR" [disabled]="form.invalid" id="enterButton">
+            <input type="submit" value="ENTRAR" [disabled]="form.invalid" id="enterButton" #enterButton>
         </div>
     </form>
 </div>

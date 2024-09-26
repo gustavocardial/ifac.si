@@ -11,7 +11,7 @@ form label::after {
 form div.grid {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 0.5em;
 }
 
 form div.flexContainer {
@@ -44,12 +44,18 @@ input, select {
 input::placeholder {
     padding-left: 10px;
     color: black;
-    font-weight: 600;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input:focus {
+    padding-left: 10px;
 }
 
 form div.grid input,
 form div.grid select {
-    width: 15em;
+    height: 2.5em;
+    width: 16em;
     margin: 0 auto 0 0;
 }
 
@@ -102,10 +108,17 @@ form div#formButton a#forgottenPassword {
 
 form div#formButton input#enterButton {
     width: 150px;
-    background-color: rgba(0, 0, 0, 0.445);
-    color: rgba(255, 255, 255, 0.575);
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     display: block;
     margin: 0 auto;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+form div#formButton input#enterButton.valid {
+    cursor: pointer; 
+    opacity: 1;
 }
 
 form h4 {
@@ -116,4 +129,34 @@ form h4 {
 form img {
     display: block;
     margin: 0 auto;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d; /* cor padrão para o ícone */
+}
+
+input[type="password"] {
+  padding-right: 2.5em; /* adiciona espaço para o ícone de olho */
+}
+
+/* Mudança de ícone ao clicar */
+.fa-eye {
+  display: none;
+}
+
+.fa-eye-slash {
+  display: block;
+}
+
+input[type="text"] ~ .fa-eye-slash {
+  display: none;
+}
+
+input[type="text"] ~ .fa-eye {
+  display: block;
 }
