@@ -11,7 +11,8 @@
                [(ngModel)]="registro.senha">
     </div>
 
-    <input type="button" value="Esqueceu sua senha?" routerLink="../">
-    <input type="submit" value="ENTRAR" [disabled]="form.invalid">
-
+    <div id="formButton">
+        <input type="button" value="Esqueceu sua senha?" routerLink="../" id="esqueceSenha">
+        <input type="submit" value="ENTRAR" [disabled]="form.invalid">
+    </div>
 </form>
