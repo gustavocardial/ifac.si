@@ -1,0 +1,24 @@
+<div #formDiv>
+    <form (submit)="save()" #form="ngForm">
+        <img src="../../../assets/images/logo-login.svg" alt="ifac.si logo">
+        <h4>ADMINISTRATIVO</h4>
+
+        <div class="flexContainer">
+            <div class="grid">
+                <input type="text" name="nomeUsuario" id="nomeUsuario" required
+                        [(ngModel)]="registro.nomeUsuario"
+                        placeholder="Usuário">
+
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="password" name="senha" id="senha" required [(ngModel)]="registro.senha" placeholder="Senha" style="padding-right: 2.5em;">
+                    <span toggle="#senha" class="fa fa-fw fa-eye toggle-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></span>
+                </div>            
+            </div>
+        </div>
+        <div id="formButton">
+            <!-- <a type="button" value="Esqueceu sua senha?" routerLink="../" id="forgottenPassword"> -->
+            <a routerLink="../" id="forgottenPassword">Esqueceu sua senha?</a>
+            <input type="submit" value="ENTRAR" [disabled]="form.invalid" id="enterButton" #enterButton>
+        </div>
+    </form>
+</div>
