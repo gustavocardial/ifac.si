@@ -1,7 +1,16 @@
+html, body {
+    height: 100%; /* Garante que o body ocupe 100% da altura da viewport */
+    margin: 0; /* Remove margens padrão */
+    display: flex; /* Usa flexbox para centralização */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
 div#formDiv {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 form label::after {
