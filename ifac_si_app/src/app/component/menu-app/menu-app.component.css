@@ -18,6 +18,10 @@ nav ul li {
     padding: 0 40px;
 }
 
+nav ul li a{
+    text-decoration: none;
+}
+
 nav ul div#subMenu {
     padding-left: 50px;
 }
