@@ -1,1 +1,17 @@
-<p>login works!</p>
+<form (submit)="save()" #form="ngForm">
+
+    <div class="grid">
+
+        <label for="nomeUsuario">Usuário</label>
+        <input type="text" name="nomeUsuario" id="nomeUsuario" required
+                [(ngModel)]="registro.nomeUsuario">
+
+        <label for="senha">Senha</label>
+        <input type="text" name="senha" id="senha" required
+               [(ngModel)]="registro.senha">
+    </div>
+
+    <input type="button" value="Esqueceu sua senha?" routerLink="../">
+    <input type="submit" value="ENTRAR" [disabled]="form.invalid">
+
+</form>
