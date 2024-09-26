@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Usuario } from '../../model/usuario';
 
 @Component({
@@ -6,11 +6,11 @@ import { Usuario } from '../../model/usuario';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
   @ViewChild('enterButton') enterButton!: ElementRef;
   @ViewChild('senha', { static: false }) senhaField!: ElementRef;
   
-  ngOnInit() {
+  ngAfterViewInit() {
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => {
       input.addEventListener('blur', () => {

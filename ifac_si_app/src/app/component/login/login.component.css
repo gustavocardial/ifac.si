@@ -104,6 +104,7 @@ form div#formButton a#forgottenPassword {
     text-decoration: none;
     color: white;
     font-weight: 400;
+    width: fit-content;
 }
 
 form div#formButton input#enterButton {
@@ -137,7 +138,7 @@ form img {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #6c757d; /* cor padrão para o ícone */
+    color: #000; /* cor preta para garantir contraste com o fundo branco */
 }
 
 input[type="password"] {
