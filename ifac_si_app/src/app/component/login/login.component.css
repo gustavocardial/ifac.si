@@ -1,20 +1,32 @@
+div#formDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 form label::after {
     content: ":";
 }
 
 form div.grid {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 0.5em;
-    margin-bottom: 0.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+form div.flexContainer {
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 form {
     background-color: #3FA14C;
-    width: fit-content;
+    width: 400px;
     margin: auto auto 1em auto;
     text-align: right;
+    border-radius: 1em;
+    margin: auto;
 }
 
 form.inativo {
@@ -25,22 +37,41 @@ input, select {
     height: 2em;
     border-width: 1px;
     border-style: solid;
-    border-radius: 5px;
+    border-radius: 15px;
     box-sizing: border-box;
+}
+
+input::placeholder {
+    padding-left: 10px;
+    color: black;
+    font-weight: 600;
 }
 
 form div.grid input,
 form div.grid select {
     width: 15em;
+    margin: 0 auto 0 0;
 }
 
-form div.grid input {
-    margin: 0 20px 0 0;
+form div.grid label {
+    font-weight: 600;
 }
 
-input:invalid,
-select:invalid {
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
+.invalid {
     border-color: red;
+    animation: shake 0.5s;
+}
+
+.invalid::placeholder {
+    color: red;
+    font-weight: bold;
 }
 
 /* form div.grid input[type="checkbox"] {
@@ -62,6 +93,27 @@ form div#formButton :first-child {
     margin-bottom: 8px;
 }
 
-form div#formButton input#esqueceSenha {
+form div#formButton a#forgottenPassword {
     text-align: start;
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+}
+
+form div#formButton input#enterButton {
+    width: 150px;
+    background-color: rgba(0, 0, 0, 0.445);
+    color: rgba(255, 255, 255, 0.575);
+    display: block;
+    margin: 0 auto;
+}
+
+form h4 {
+    color: white;
+    text-align: center;
+}
+
+form img {
+    display: block;
+    margin: 0 auto;
 }

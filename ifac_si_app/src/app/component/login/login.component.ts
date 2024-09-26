@@ -7,6 +7,19 @@ import { Usuario } from '../../model/usuario';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  ngOnInit() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        if (!input.value) {
+          input.classList.add('invalid');
+        } else {
+          input.classList.remove('invalid');
+        }
+      });
+    });
+  }
+  
   registro: Usuario = <Usuario>{};
   
   save() {
