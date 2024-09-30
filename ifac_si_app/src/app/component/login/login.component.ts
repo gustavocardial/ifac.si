@@ -17,8 +17,13 @@ export class LoginComponent implements AfterViewInit {
   constructor(private renderer: Renderer2) {}
   
   ngAfterViewInit() {
-    this.setupInputListeners();
-    this.updateButtonState();
+    if (this.nomeUsuarioField && this.senhaField) {
+      console.log(this.nomeUsuarioField);  // Verificar se o elemento está acessível
+      console.log(this.senhaField);
+
+      this.setupInputListeners();
+      this.updateButtonState();
+    }
   }
 
   setupInputListeners() {
