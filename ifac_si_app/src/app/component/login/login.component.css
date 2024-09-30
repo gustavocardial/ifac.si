@@ -1,9 +1,9 @@
-html, body {
-    height: 100%; /* Garante que o body ocupe 100% da altura da viewport */
-    margin: 0; /* Remove margens padrão */
-    display: flex; /* Usa flexbox para centralização */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
 }
 
 div#formDiv {
