@@ -29,6 +29,17 @@ nav ul li:first-child {
 
 nav ul li a{
     text-decoration: none;
+    color: black;
+}
+
+nav ul li a:hover {
+    color: #3FA14C;
+    font-weight: bold;
+}
+
+nav ul li a:active {
+    color: #623CEA;
+    font-weight: bold;  
 }
 
 nav ul div#subMenu {
