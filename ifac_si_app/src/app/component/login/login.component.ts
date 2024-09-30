@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Usuario } from '../../model/usuario';
 
 @Component({
@@ -7,70 +7,59 @@ import { Usuario } from '../../model/usuario';
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements AfterViewInit {
-  @ViewChild('enterButton') enterButton!: ElementRef;
+  @ViewChild('enterButton', { static: false }) enterButton!: ElementRef;
   @ViewChild('senha', { static: false }) senhaField!: ElementRef;
+  @ViewChild('nomeUsuario', { static: false }) nomeUsuarioField!: ElementRef;
 
   showPassword = false;
+  registro: Usuario = <Usuario>{};
+
+  constructor(private renderer: Renderer2) {}
   
   ngAfterViewInit() {
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => {
-      input.addEventListener('blur', () => {
-        if (!input.value) {
-          input.classList.add('invalid');
+    this.setupInputListeners();
+    this.updateButtonState();
+  }
+
+  setupInputListeners() {
+    [this.nomeUsuarioField, this.senhaField].forEach(field => {
+      this.renderer.listen(field.nativeElement, 'blur', () => {
+        if (!field.nativeElement.value) {
+          this.renderer.addClass(field.nativeElement, 'invalid');
           alert('Preencha nome de usuário e senha!');
         } else {
-          input.classList.remove('invalid');
+          this.renderer.removeClass(field.nativeElement, 'invalid');
         }
       });
-      input.addEventListener('input', () => {
+      this.renderer.listen(field.nativeElement, 'input', () => {
         this.updateButtonState();
       });
     });
-
-    this.updateButtonState();
-
-    const togglePassword = document.querySelector('.toggle-password');
-    if (togglePassword) {
-      togglePassword.addEventListener('click', () => {
-        this.togglePasswordVisibility();
-      });
-    }
   }
 
   updateButtonState() {
-    const form = document.querySelector('form');
-    if (form && form.checkValidity()) {
-      this.enterButton.nativeElement.classList.add('valid');
-    } else if (form) {
-      this.enterButton.nativeElement.classList.remove('valid');
+    if (this.nomeUsuarioField.nativeElement.value && this.senhaField.nativeElement.value) {
+      this.renderer.addClass(this.enterButton.nativeElement, 'valid');
+    } else {
+      this.renderer.removeClass(this.enterButton.nativeElement, 'valid');
     }
   }
 
-  // togglePasswordVisibility() {
-  //   const senhaField = this.senhaField.nativeElement;
-  //   const togglePassword = document.querySelector('.toggle-password');
-  //   if (senhaField && togglePassword) {
-  //     if (senhaField.type === 'password') {
-  //       senhaField.type = 'text';
-  //       togglePassword.classList.add('bi bi-eye-slash');
-  //       togglePassword.classList.remove('bi bi-eye');
-  //     } else {
-  //       senhaField.type = 'password';
-  //       togglePassword.classList.add('bi bi-eye');
-  //       togglePassword.classList.remove('bi bi-eye-slash');
-  //     }
-  //   }
-  // }
-
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+    this.renderer.setAttribute(
+      this.senhaField.nativeElement,
+      'type',
+      this.showPassword ? 'text' : 'password'
+    );
   }
-
-  registro: Usuario = <Usuario>{};
   
   save() {
-    console.log(this.registro.nomeUsuario + ' entrou com senha ' + this.registro.senha);
+    if (this.registro.nomeUsuario && this.registro.senha) {
+      console.log(this.registro.nomeUsuario + ' entrou com senha ' + this.registro.senha);
+    } else {
+      alert('Por favor, preencha todos os campos.');
+    }
   }
 
 }
