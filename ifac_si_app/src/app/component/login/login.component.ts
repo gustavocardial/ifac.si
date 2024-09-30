@@ -16,6 +16,7 @@ export class LoginComponent implements AfterViewInit {
       input.addEventListener('blur', () => {
         if (!input.value) {
           input.classList.add('invalid');
+          alert('Preencha nome de usuário e senha!');
         } else {
           input.classList.remove('invalid');
         }
