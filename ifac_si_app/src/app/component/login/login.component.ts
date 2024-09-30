@@ -9,6 +9,8 @@ import { Usuario } from '../../model/usuario';
 export class LoginComponent implements AfterViewInit {
   @ViewChild('enterButton') enterButton!: ElementRef;
   @ViewChild('senha', { static: false }) senhaField!: ElementRef;
+
+  showPassword = false;
   
   ngAfterViewInit() {
     const inputs = document.querySelectorAll('input');
@@ -45,20 +47,24 @@ export class LoginComponent implements AfterViewInit {
     }
   }
 
+  // togglePasswordVisibility() {
+  //   const senhaField = this.senhaField.nativeElement;
+  //   const togglePassword = document.querySelector('.toggle-password');
+  //   if (senhaField && togglePassword) {
+  //     if (senhaField.type === 'password') {
+  //       senhaField.type = 'text';
+  //       togglePassword.classList.add('bi bi-eye-slash');
+  //       togglePassword.classList.remove('bi bi-eye');
+  //     } else {
+  //       senhaField.type = 'password';
+  //       togglePassword.classList.add('bi bi-eye');
+  //       togglePassword.classList.remove('bi bi-eye-slash');
+  //     }
+  //   }
+  // }
+
   togglePasswordVisibility() {
-    const senhaField = this.senhaField.nativeElement;
-    const togglePassword = document.querySelector('.toggle-password');
-    if (senhaField && togglePassword) {
-      if (senhaField.type === 'password') {
-        senhaField.type = 'text';
-        togglePassword.classList.add('fa-eye-slash');
-        togglePassword.classList.remove('fa-eye');
-      } else {
-        senhaField.type = 'password';
-        togglePassword.classList.add('fa-eye');
-        togglePassword.classList.remove('fa-eye-slash');
-      }
-    }
+    this.showPassword = !this.showPassword;
   }
 
   registro: Usuario = <Usuario>{};
