@@ -8,8 +8,8 @@ import { Usuario } from '../../model/usuario';
 })
 export class LoginComponent implements AfterViewInit {
   @ViewChild('enterButton', { static: false }) enterButton!: ElementRef;
-  @ViewChild('senha', { static: false }) senhaField!: ElementRef;
-  @ViewChild('nomeUsuario', { static: false }) nomeUsuarioField!: ElementRef;
+  @ViewChild('senhaField', { static: false }) senhaField!: ElementRef;
+  @ViewChild('nomeUsuarioField', { static: false }) nomeUsuarioField!: ElementRef;
 
   showPassword = false;
   registro: Usuario = <Usuario>{};
@@ -18,12 +18,12 @@ export class LoginComponent implements AfterViewInit {
   
   ngAfterViewInit() {
     if (this.nomeUsuarioField && this.senhaField) {
-      console.log(this.nomeUsuarioField);  // Verificar se o elemento está acessível
-      console.log(this.senhaField);
+      // console.log(this.nomeUsuarioField);  // Verificar se o elemento está acessível
+      // console.log(this.senhaField);
 
       this.setupInputListeners();
       this.updateButtonState();
-    }
+    } 
   }
 
   setupInputListeners() {
