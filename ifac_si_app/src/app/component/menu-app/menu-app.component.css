@@ -4,7 +4,12 @@ nav {
     flex-direction: row;
     width: 100%;
     padding: 10px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+}
+
+nav > img {
+    margin-left: 30px;
+    margin-right: 10px;
 }
 
 nav ul{
@@ -18,11 +23,31 @@ nav ul li {
     padding: 0 40px;
 }
 
+nav ul li:first-child {
+    padding-left: 0;
+}
+
 nav ul li a{
     text-decoration: none;
 }
 
 nav ul div#subMenu {
-    padding-left: 50px;
+    display: flex;
+    padding-left: auto;
+    align-self: flex-end;
 }
 
+nav ul#menuPrincipal {
+    display: flex;
+    align-self: flex-start;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+}
+
+.bi {
+    margin-right: 10px; 
+}
