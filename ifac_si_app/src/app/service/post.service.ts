@@ -15,16 +15,28 @@ export class PostService implements IService<Post>{
   apiUrl: string = environment.API_URL + '/post';
 
   get(termoBusca?: string): Observable<Post[]> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl;
+    if (termoBusca) {
+      url += "busca/" + termoBusca;
+    }
+    return this.http.get<Post[]>(url);
   }
   getById(id: number): Observable<Post> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl + id;
+    return this.http.get<Post>(url);
   }
   save(objeto: Post): Observable<Post> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl;
+    
+    if (objeto.id) {
+      return this.http.put<Post>(url, objeto);
+    } else {
+      return this.http.post<Post>(url, objeto);
+    }
   }
   delete(id: number): Observable<void> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl + id;
+    return this.http.delete<void>(url);
   }
 
 
