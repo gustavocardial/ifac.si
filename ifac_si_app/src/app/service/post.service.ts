@@ -1,29 +1,31 @@
 import { Injectable } from '@angular/core';
 import { IService } from './I-service';
-import { Usuario } from '../model/usuario';
+import { Post } from '../model/post';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService implements IService<Usuario> {
+export class PostService implements IService<Post>{
 
   constructor(private http: HttpClient) { }
 
-  apiUrl: string = environment.API_URL + '/usuario';
-  
-  get(termoBusca?: string): Observable<Usuario[]> {
+  apiUrl: string = environment.API_URL + '/post';
+
+  get(termoBusca?: string): Observable<Post[]> {
     throw new Error('Method not implemented.');
   }
-  getById(id: number): Observable<Usuario> {
+  getById(id: number): Observable<Post> {
     throw new Error('Method not implemented.');
   }
-  save(objeto: Usuario): Observable<Usuario> {
+  save(objeto: Post): Observable<Post> {
     throw new Error('Method not implemented.');
   }
   delete(id: number): Observable<void> {
     throw new Error('Method not implemented.');
   }
+
+
 }
