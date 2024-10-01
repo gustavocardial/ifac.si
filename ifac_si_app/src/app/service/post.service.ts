@@ -21,7 +21,7 @@ export class PostService implements IService<Post>{
     }
     return this.http.get<Post[]>(url);
   }
-  
+
   getById(id: number): Observable<Post> {
     let url = this.apiUrl + id;
     return this.http.get<Post>(url);
@@ -41,6 +41,5 @@ export class PostService implements IService<Post>{
     let url = this.apiUrl + id;
     return this.http.delete<void>(url);
   }
-
 
 }
