@@ -15,15 +15,30 @@ export class CategoriaService implements IService<Categoria>{
   apiUrl: string = environment.API_URL + '/categoria';
 
   get(termoBusca?: string): Observable<Categoria[]> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl;
+    if (termoBusca) {
+      url += "busca/" + termoBusca;
+    }
+    return this.http.get<Categoria[]>(url);
   }
+
   getById(id: number): Observable<Categoria> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl + id;
+    return this.http.get<Categoria>(url);
   }
+
   save(objeto: Categoria): Observable<Categoria> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl;
+    
+    if (objeto.id) {
+      return this.http.put<Categoria>(url, objeto);
+    } else {
+      return this.http.post<Categoria>(url, objeto);
+    }
   }
+
   delete(id: number): Observable<void> {
-    throw new Error('Method not implemented.');
+    let url = this.apiUrl + id;
+    return this.http.delete<void>(url);
   }
 }

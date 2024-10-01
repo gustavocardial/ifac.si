@@ -21,10 +21,12 @@ export class TagService implements IService<Tag>{
     }
     return this.http.get<Tag[]>(url);
   }
+
   getById(id: number): Observable<Tag> {
     let url = this.apiUrl + id;
     return this.http.get<Tag>(url);
   }
+
   save(objeto: Tag): Observable<Tag> {
     let url = this.apiUrl;
     
@@ -34,6 +36,7 @@ export class TagService implements IService<Tag>{
       return this.http.post<Tag>(url, objeto);
     }
   }
+  
   delete(id: number): Observable<void> {
     let url = this.apiUrl + id;
     return this.http.delete<void>(url);
