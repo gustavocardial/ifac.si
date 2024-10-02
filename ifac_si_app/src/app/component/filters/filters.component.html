@@ -2,7 +2,14 @@
 <div id="flex-container-filter">
     <button><i class="bi bi-sliders2"></i>Todos os filtros</button>
     <div class="dropdown">
-        <button #category>Categoria <i class="bi bi-chevron-down"></i></button>
+        <button #category>Categoria 
+            <ng-template [ngIf]="!filtersC" [ngIfElse]="dropdownIcon">
+                <i class="bi bi-chevron-down"></i>
+            </ng-template>
+            <ng-template #dropdownIcon>
+                <i class="bi bi-chevron-up"></i>
+            </ng-template>
+        </button>
         <div class="dropdown-content tags-scroll" *ngIf="filtersC">
             <p *ngFor="let categoria of categorias" (click)="handleFilterClick(categoria.id)">
                 {{ categoria.nome }}
@@ -10,7 +17,14 @@
         </div>
     </div>
     <div class="dropdown">
-        <button #tag>Tags <i class="bi bi-chevron-down"></i></button>
+        <button #tag>Tags 
+            <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
+                <i class="bi bi-chevron-down"></i>
+            </ng-template>
+            <ng-template #dropdownIcon>
+                <i class="bi bi-chevron-up"></i>
+            </ng-template>
+        </button>
         <div class="dropdown-content tags-scroll" *ngIf="filtersT">
             <p *ngFor="let tag of tags" (click)="handleFilterClick(tag.id)">
                 {{ tag.nome }}
