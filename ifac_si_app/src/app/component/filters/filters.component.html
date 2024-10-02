@@ -1,21 +1,20 @@
 <!-- <p>Filtrar por: </p> -->
 <div id="flex-container-filter">
     <button><i class="bi bi-sliders2"></i>Todos os filtros</button>
-    <div class="select-wrapper">
-        <select [(ngModel)]="categorias"> 
-          <option value="" disabled selected>Categoria</option>
-          <option *ngFor="let categoria of categorias" [value]="categoria.id">
-            {{categoria.nome}}
-          </option>
-        </select>
+    <div class="dropdown">
+        <button>Categoria <i class="bi bi-chevron-down"></i></button>
+        <div class="dropdown-content tags-scroll">
+            <p *ngFor="let categoria of categorias" (click)="handleFilterClick(categoria.id)">
+                {{ categoria.nome }}
+            </p>
+        </div>
     </div>
-    
-    <div class="select-wrapper">
-        <select [(ngModel)]="tags" multiple>
-            <option value="" disabled>Tags</option>
-            <option *ngFor="let tag of tags" [value]="tag.id">
-            {{tag.nome}}
-            </option>
-        </select>
+    <div class="dropdown">
+        <button>Tags <i class="bi bi-chevron-down"></i></button>
+        <div class="dropdown-content tags-scroll">
+            <p *ngFor="let tag of tags" (click)="handleFilterClick(tag.id)">
+                {{ tag.nome }}
+            </p>
+        </div>
     </div>
 </div>

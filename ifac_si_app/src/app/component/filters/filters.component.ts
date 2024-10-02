@@ -10,6 +10,9 @@ import { Tag } from '../../model/tag';
   styleUrl: './filters.component.css'
 })
 export class FiltersComponent implements OnInit{
+handleFilterClick(arg0: number) {
+throw new Error('Method not implemented.');
+}
   constructor (
     private servicoCategoria : CategoriaService,
     private servicoTag : TagService

@@ -12,7 +12,7 @@ export class PostService implements IService<Post>{
 
   constructor(private http: HttpClient) { }
 
-  apiUrl: string = environment.API_URL + '/post';
+  apiUrl: string = environment.API_URL + '/post/';
 
   get(termoBusca?: string): Observable<Post[]> {
     let url = this.apiUrl;

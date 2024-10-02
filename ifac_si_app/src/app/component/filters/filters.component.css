@@ -23,30 +23,36 @@ div#flex-container-filter button:last-child {
     margin-left: 40px;
 }
 
-.select-wrapper {
+.dropdown {
     position: relative;
+    display: inline-block;
 }
 
-.select-wrapper::after {
-    content: '\25BC';
+.dropdown-content {
+    display: none;
     position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
-select {
-    appearance: none;
+.dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content p:hover {
     background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    padding: 10px 30px 10px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 150px;
 }
 
-select:focus {
-    outline: none;
-    border-color: #007bff;
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.tags-scroll {
+    max-height: 150px;
+    overflow-y: auto;
 }

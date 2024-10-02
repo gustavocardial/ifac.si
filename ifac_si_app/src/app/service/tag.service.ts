@@ -12,7 +12,7 @@ export class TagService implements IService<Tag>{
 
   constructor(private http: HttpClient) { }
 
-  apiUrl: string = environment.API_URL + '/tag';
+  apiUrl: string = environment.API_URL + '/tag/';
 
   get(termoBusca?: string): Observable<Tag[]> {
     let url = this.apiUrl;
