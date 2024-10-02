@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { FiltersComponent } from './component/filters/filters.component';
 import { PostsAppComponent } from './component/posts-app/posts-app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [
     provideClientHydration()
