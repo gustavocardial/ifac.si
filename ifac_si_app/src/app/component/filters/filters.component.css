@@ -22,3 +22,31 @@ div#flex-container-filter button:first-child {
 div#flex-container-filter button:last-child {
     margin-left: 40px;
 }
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+select {
+    appearance: none;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    padding: 10px 30px 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 150px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #007bff;
+}
