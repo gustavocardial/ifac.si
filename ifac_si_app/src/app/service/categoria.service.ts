@@ -12,7 +12,7 @@ export class CategoriaService implements IService<Categoria>{
 
   constructor(private http: HttpClient) { }
 
-  apiUrl: string = environment.API_URL + '/categoria';
+  apiUrl: string = environment.API_URL + '/categoria/';
 
   get(termoBusca?: string): Observable<Categoria[]> {
     let url = this.apiUrl;

@@ -7,6 +7,9 @@ import { MenuAppComponent } from './component/menu-app/menu-app.component';
 import { LoginComponent } from './component/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { FiltersComponent } from './component/filters/filters.component';
+import { PostsAppComponent } from './component/posts-app/posts-app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -14,11 +17,14 @@ import { FiltersComponent } from './component/filters/filters.component';
     MenuAppComponent,
     LoginComponent,
     FiltersComponent,
+    PostsAppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    CommonModule
   ],
   providers: [
     provideClientHydration()

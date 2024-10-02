@@ -12,7 +12,7 @@ export class UsuarioService implements IService<Usuario> {
 
   constructor(private http: HttpClient) { }
 
-  apiUrl: string = environment.API_URL + '/usuario';
+  apiUrl: string = environment.API_URL + '/usuario/';
   
   get(termoBusca?: string): Observable<Usuario[]> {
     let url = this.apiUrl;
