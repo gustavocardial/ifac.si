@@ -10,6 +10,7 @@ import { FiltersComponent } from './component/filters/filters.component';
 import { PostsAppComponent } from './component/posts-app/posts-app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { AddNewPostComponent } from './component/add-new-post/add-new-post.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CommonModule } from '@angular/common';
     LoginComponent,
     FiltersComponent,
     PostsAppComponent,
+    AddNewPostComponent,
   ],
   imports: [
     BrowserModule,
