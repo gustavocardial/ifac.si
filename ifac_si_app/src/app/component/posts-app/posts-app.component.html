@@ -1,2 +1,20 @@
-<p>posts-app works!</p>
 <app-filters></app-filters>
+
+<div class="postList">
+    <div *ngFor="let post of posts">
+        <div class="postView">
+            <div id="postComposition" #postComposition>
+                <div id="postImage" #postImage>
+                    <button class="eyeButton"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
+                    <img src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
+                </div>
+            </div>
+            <div id="postAction" #postAction>
+                <button><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
+                <button><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+            </div>
+        </div>
+        <p> {{post.titulo}} </p>
+        <p> {{post.data}} </p>
+    </div>
+</div>

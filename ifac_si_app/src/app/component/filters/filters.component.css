@@ -4,7 +4,7 @@ button {
     border-color: #623CEA;
     color: #623CEA;
     background-color: transparent;
-    margin: 0 20px;
+    margin: 30px 20px 5px 0;
 }
 
 button:first-child i:first-child {

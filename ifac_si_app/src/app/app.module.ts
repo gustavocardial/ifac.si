@@ -10,7 +10,8 @@ import { FiltersComponent } from './component/filters/filters.component';
 import { PostsAppComponent } from './component/posts-app/posts-app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
+import { AddNewPostComponent } from './component/add-new-post/add-new-post.component';
+import { QuillModule } from 'ngx-quill';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,13 +19,15 @@ import { CommonModule } from '@angular/common';
     LoginComponent,
     FiltersComponent,
     PostsAppComponent,
+    AddNewPostComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    QuillModule.forRoot() 
   ],
   providers: [
     provideClientHydration()

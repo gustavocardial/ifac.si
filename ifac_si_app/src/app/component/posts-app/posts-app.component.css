@@ -1,0 +1,99 @@
+div.postList {
+    margin: 20px 60px;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+}
+
+div.postView {
+    width: 250px; 
+    height: 250px; 
+    border-radius: 10px;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+div.postView div#postComposition {
+    flex: 1;
+    position: relative;
+}
+
+div.postView div#postComposition div#postImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+div.postView div#postComposition div#postImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+div.postView::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+div.postView:hover::before {
+    background-color: rgba(63, 161, 76, 0.74);
+}
+
+button.eyeButton {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 2; 
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+}
+
+button.eyeButton:hover,  div#postAction button:hover{
+    background-color: #623CEA;
+    color: white;
+}
+
+div.postView:hover button.eyeButton { 
+    opacity: 1;
+}
+
+div#postAction {
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: transparent;
+    padding: 10px 0;
+    opacity: 0; 
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+div.postView:hover div#postAction { 
+    opacity: 1;
+    background-color: rgba(14, 88, 24, 0.829);
+    z-index: 1;
+}
+
+div#postAction button, button.eyeButton {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
+}
