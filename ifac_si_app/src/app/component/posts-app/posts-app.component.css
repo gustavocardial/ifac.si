@@ -7,8 +7,8 @@ div.postList {
 div.postView {
     height: 10%;
     width: 30%;
-    background-color: aquamarine;
-    position: relative;
+    border-radius: 10px;
+    /* background-color: rgba(63, 161, 76, 0.74); */
 }
 
 div.postView div#postComposition div#postImage {
@@ -26,22 +26,35 @@ div.postView div#postComposition div#postImage img {
     height: auto;
 }
 
+div.postView div#postComposition div#postImage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(63, 161, 76, 0.74);
+    z-index: 1;
+}
+
 button.eyeButton {
     position: absolute;
     top: 50%; /* Centraliza verticalmente */
     left: 50%; /* Centraliza horizontalmente */
     transform: translate(-50%, -50%); /* Ajusta para ficar exatamente no centro */
-    background: none;
-    border: none;
     z-index: 1; /* Garante que o botão com o ícone fique sobre a imagem */
-    font-size: 24px; /* Ajusta o tamanho do ícone, se necessário */
-}
-
-div.postView div#postComposition div#postImage i {
-    z-index: 1;
 }
 
 div#postAction {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    background-color: rgba(14, 88, 24, 0.829);
+    padding: 10px 0;
+}
+
+div#postAction button, button.eyeButton {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
 }
