@@ -63,6 +63,11 @@ button.eyeButton {
     transition: opacity 0.3s ease;
 }
 
+button.eyeButton:hover,  div#postAction button:hover{
+    background-color: #623CEA;
+    color: white;
+}
+
 div.postView:hover button.eyeButton { 
     opacity: 1;
 }
