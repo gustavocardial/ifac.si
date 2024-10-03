@@ -8,10 +8,10 @@ div.postList {
 }
 
 div.postView {
-    width: 250px; /* 50% da largura do pai menos metade do gap */
-    height: 250px; /* Altura reduzida */
+    width: 250px; 
+    height: 250px; 
     border-radius: 10px;
-    overflow: hidden; /* Para manter os cantos arredondados */
+    overflow: hidden; 
     display: flex;
     flex-direction: column;
     position: relative;
