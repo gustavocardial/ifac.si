@@ -10,23 +10,28 @@
         </li>
       </ul>
     </div> -->
-    <div class="row">
-      <div class="col-nd-12">
-        <quill-editor [styles]="{height: '200px'}" [modules]="modules" 
-        (onEditorChanged)="changedEditor($event)" #content="ngModel" 
-        [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
-        </quill-editor>
+    <div class="col-md-10" id="editorElement">
+      <div class="row">
+        <div class="col-nd-12">
+          <quill-editor [styles]="{height: '200px'}" [modules]="modules" 
+          (onEditorChanged)="changedEditor($event)" #content="ngModel" 
+          [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
+          </quill-editor>
+        </div>
+      </div>
+      <div class="row">
+        <h3 style="text-align: left;">Output</h3>
+        <div class="col-md-8 bg-light">
+          <p [innerHTML]="post.texto"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-primary" (click)="saveContent()">Salvar</button>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <h3 style="text-align: left;">Output</h3>
-      <div class="col-md-8 bg-light">
-        <p [innerHTML]="post.texto"></p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <button class="btn btn-primary" (click)="saveContent()">Salvar</button>
-      </div>
+    <div class="col-md-2" id="postInfo">
+      Teste
     </div>
   </div>
