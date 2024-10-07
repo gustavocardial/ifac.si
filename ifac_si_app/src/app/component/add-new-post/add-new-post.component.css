@@ -7,10 +7,19 @@ div#postInfo {
 
 .container {
     display: flex;
-    width: 90%;
+    width: 100%;
+    padding: 0;
     /* margin: auto 20px; */
     justify-content: center;
     align-items: center;
+}
+
+.container > .row {
+    width: 90%;
+}
+
+.col-md-3 {
+    width: 24%;
 }
 
 #editorElement {
