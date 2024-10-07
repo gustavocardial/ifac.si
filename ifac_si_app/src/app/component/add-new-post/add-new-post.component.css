@@ -1,4 +1,9 @@
+div#postInfo {
+    background-color: aliceblue;
+    /* margin-left: 10px; */
+}
+
 .container {
-    display: flex;
-    justify-content: space-between;
+    width: max-content;
+    
 }
