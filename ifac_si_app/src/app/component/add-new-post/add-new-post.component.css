@@ -14,12 +14,8 @@ div#postInfo {
     align-items: center;
 }
 
-.container > .row {
-    width: 90%;
-}
-
-.col-md-3 {
-    width: 24%;
+.row {
+    display: flex; /* Garante que as colunas estejam lado a lado */
 }
 
 #editorElement {
