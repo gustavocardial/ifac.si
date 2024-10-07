@@ -13,6 +13,9 @@ export class FiltersComponent implements OnInit{
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tag') tagButton!: ElementRef;
 
+  // @ViewChild('categorysApp', { static: false }) categoryDropDown!: ElementRef;
+  // @ViewChild('tagsApp', { static: false }) tagDropDown!: ElementRef;
+
   categorias: Categoria[] = Array<Categoria>();
   tags: Tag[] = Array<Tag>();
   filtersC: boolean = false;
@@ -20,6 +23,9 @@ export class FiltersComponent implements OnInit{
 
   private categoryListener: (() => void) | undefined;
   private tagListener: (() => void) | undefined;
+
+  private catListen: (() => void) | undefined;
+  private tagListen: (() => void) | undefined;
 
   constructor (
     private servicoCategoria : CategoriaService,
@@ -51,6 +57,14 @@ export class FiltersComponent implements OnInit{
     this.tagListener = this.renderer.listen(this.tagButton.nativeElement, 'click', (event) => {
       this.onTagClick();
     });
+
+    // this.catListen = this.renderer.listen(this.categoryDropDown.nativeElement, 'blur', (event) => {
+    //   this.onCategoryClick();
+    // })
+
+    // this.tagListen = this.renderer.listen(this.tagDropDown.nativeElement, 'blur', (event) => {
+    //   this.onTagClick();
+    // })
   }
 
   // Função chamada ao clicar no botão de categoria
@@ -74,6 +88,6 @@ export class FiltersComponent implements OnInit{
   }
 
   handleFilterClick(arg0: number) {
-  throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
   }
 }
