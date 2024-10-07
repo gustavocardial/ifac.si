@@ -1,9 +1,18 @@
 div#postInfo {
     background-color: aliceblue;
+    /* width: inherit; */
     /* margin-left: 10px; */
+    flex: 1;
 }
 
 .container {
-    width: max-content;
-    
+    display: flex;
+    width: 90%;
+    /* margin: auto 20px; */
+    justify-content: center;
+    align-items: center;
+}
+
+#editorElement {
+    margin-right: 10px;
 }
