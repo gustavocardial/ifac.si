@@ -12,8 +12,8 @@ export class PostsAppComponent implements OnInit{
   @ViewChild('editButton') editButton! : ElementRef;
   posts: Post[] = Array<Post>();
 
-  private editListener: (() => void) | undefined;
-  private deleteListener: (() => void) | undefined;
+  private editButtonListener: (() => void) | undefined;
+  private deleteButtonListener: (() => void) | undefined;
 
   constructor (
     private postServico : PostService,
@@ -29,7 +29,22 @@ export class PostsAppComponent implements OnInit{
   }
 
   ngAfterViewInit(): void {
-    
+    this.editButtonListener = this.renderer.listen(this.editButton.nativeElement, 'click', (event) => {
+      alert('Edit selecionado');
+    })
+
+    this.deleteButtonListener = this.renderer.listen(this.deleteButton.nativeElement, 'click', (event) => {
+      alert('Delete selecionado');
+    })
+  }
+
+  ngOnDestroy(): void {
+    if (this.editButtonListener) {
+      this.editButtonListener();
+    }
+    if (this.deleteButtonListener) {
+      this.deleteButtonListener();
+    }
   }
   
 }

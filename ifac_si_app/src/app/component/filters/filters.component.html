@@ -10,7 +10,7 @@
                 <i class="bi bi-chevron-up"></i>
             </ng-template>
         </button>
-        <div class="dropdown-content tags-scroll" id="category" *ngIf="filtersC" #categorysApp>
+        <div #categorysApp class="dropdown-content tags-scroll" id="category" *ngIf="filtersC">
             <p *ngFor="let categoria of categorias" (click)="handleFilterClick(categoria.id)">
                 {{ categoria.nome }}
             </p>
@@ -25,7 +25,7 @@
                 <i class="bi bi-chevron-up"></i>
             </ng-template>
         </button>
-        <div class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT" #tagsApp>
+        <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
             <p *ngFor="let tag of tags" (click)="handleFilterClick(tag.id)">
                 {{ tag.nome }}
             </p>
