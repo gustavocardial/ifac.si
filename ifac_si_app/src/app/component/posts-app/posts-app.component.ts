@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { PostService } from '../../service/post.service';
 import { Post } from '../../model/post';
 
@@ -8,12 +8,11 @@ import { Post } from '../../model/post';
   styleUrl: './posts-app.component.css'
 })
 export class PostsAppComponent implements OnInit{
-  @ViewChild('deleteButton') deleteButton! : ElementRef;
-  @ViewChild('editButton') editButton! : ElementRef;
+  @ViewChildren('deleteButton') deleteButtons!: QueryList<ElementRef>;
+  @ViewChildren('editButton') editButtons!: QueryList<ElementRef>;
   posts: Post[] = Array<Post>();
 
-  private editButtonListener: (() => void) | undefined;
-  private deleteButtonListener: (() => void) | undefined;
+  private listeners: (() => void)[] = [];
 
   constructor (
     private postServico : PostService,
@@ -29,22 +28,24 @@ export class PostsAppComponent implements OnInit{
   }
 
   ngAfterViewInit(): void {
-    this.editButtonListener = this.renderer.listen(this.editButton.nativeElement, 'click', (event) => {
-      alert('Edit selecionado');
-    })
+    this.deleteButtons.forEach(button => {
+      const listener = this.renderer.listen(button.nativeElement, 'click', (event) => {
+        alert('Delete selecionado');
+      });
+      this.listeners.push(listener);
+    });
 
-    this.deleteButtonListener = this.renderer.listen(this.deleteButton.nativeElement, 'click', (event) => {
-      alert('Delete selecionado');
-    })
+    this.editButtons.forEach(button => {
+      const listener = this.renderer.listen(button.nativeElement, 'click', (event) => {
+        alert('Edit selecionado');
+      });
+      this.listeners.push(listener);
+    });
+
   }
 
   ngOnDestroy(): void {
-    if (this.editButtonListener) {
-      this.editButtonListener();
-    }
-    if (this.deleteButtonListener) {
-      this.deleteButtonListener();
-    }
+    this.listeners.forEach(listener => listener());
   }
   
 }
