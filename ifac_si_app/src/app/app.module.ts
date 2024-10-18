@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { AddNewPostComponent } from './component/add-new-post/add-new-post.component';
 import { QuillModule } from 'ngx-quill';
 import { DeleteFormComponent } from './component/delete-form/delete-form.component';
+import { LoaderComponent } from './component/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DeleteFormComponent } from './component/delete-form/delete-form.compone
     PostsAppComponent,
     AddNewPostComponent,
     DeleteFormComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
