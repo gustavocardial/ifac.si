@@ -10,3 +10,7 @@
     align-items: center;
     z-index: 10000;
 }
+
+.popUp {
+    background-color: white;
+}
