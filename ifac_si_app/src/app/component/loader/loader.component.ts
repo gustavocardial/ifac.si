@@ -12,7 +12,7 @@ export class LoaderComponent {
   constructor(private servico: LoaderService) {
     this.servico.isLoading.subscribe(valor => {
       this.loading = valor;
-      console.log(valor)
+      // console.log(valor)
     });
   }
 }

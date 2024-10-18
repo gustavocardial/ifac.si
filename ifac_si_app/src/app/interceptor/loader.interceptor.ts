@@ -10,7 +10,7 @@ export class loaderInterceptor implements HttpInterceptor{
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.loaderService.isLoading.next(true);
     return next.handle(request).pipe(
-      delay(10000),
+      // delay(10000),
       finalize(() => this.loaderService.isLoading.next(false))
     );
   }
