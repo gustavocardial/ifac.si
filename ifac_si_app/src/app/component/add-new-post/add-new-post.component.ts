@@ -36,6 +36,8 @@ export class AddNewPostComponent {
   }
 
   saveContent(): void {
+    if (!this.post.data) this.post.data = new Date('2024-10-17');
+    console.log(this.post.data)
     this.servicoPost.save(this.post).subscribe({complete: () => {console.log (this.post)}});  
     // Aqui você pode fazer algo com o conteúdo do editor
     // console.log(this.escapeHtml(this.data.content));

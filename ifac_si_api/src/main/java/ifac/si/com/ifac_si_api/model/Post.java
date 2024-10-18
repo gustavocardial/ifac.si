@@ -2,6 +2,7 @@ package ifac.si.com.ifac_si_api.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 // import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -43,7 +44,7 @@ public class Post implements Serializable{
     private String texto;
 
     @Column(nullable = false)
-    private Date data;
+    private LocalDate data;
 
     @Column(nullable = false)
     private String legenda;
@@ -99,11 +100,11 @@ public class Post implements Serializable{
         this.texto = texto;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
@@ -122,6 +123,7 @@ public class Post implements Serializable{
     public void setImagens(List<Imagem> imagens) {
         this.imagens = imagens;
     }
+
 
     //Testar relacionamentos e engenharia reserva no workbench
 }

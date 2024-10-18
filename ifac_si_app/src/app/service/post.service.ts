@@ -31,8 +31,6 @@ export class PostService implements IService<Post>{
     let url = this.apiUrl;
     
     if (objeto.id) {
-      if(!objeto.data) objeto.data = new Date();
-
       return this.http.put<Post>(url, objeto);
     } else {
       return this.http.post<Post>(url, objeto);
