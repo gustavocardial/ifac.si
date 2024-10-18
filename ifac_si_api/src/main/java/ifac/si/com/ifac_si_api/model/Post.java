@@ -1,7 +1,7 @@
 package ifac.si.com.ifac_si_api.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+// import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,10 +27,10 @@ public class Post implements Serializable{
     @Column(nullable = false, updatable = false)
     private Long id;
     
-    @Column(nullable = false)
     private String titulo;
     
-    @ManyToOne(optional = false)
+    // @ManyToOne(optional = false)
+    @ManyToOne
     private Usuario usuario;
 
     @ManyToOne
@@ -46,7 +46,6 @@ public class Post implements Serializable{
     @Column(nullable = false)
     private LocalDate data;
 
-    @Column(nullable = false)
     private String legenda;
 
     @OneToMany

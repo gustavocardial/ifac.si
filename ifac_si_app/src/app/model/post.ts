@@ -10,7 +10,7 @@ export type Post = {
     categoria: Categoria,
     tags: Tag[],
     texto: string,
-    data?: Date,
+    data?: string,
     legenda: string,
     imagem: Imagem[]
 }

@@ -36,7 +36,11 @@ export class AddNewPostComponent {
   }
 
   saveContent(): void {
-    if (!this.post.data) this.post.data = new Date('2024-10-17');
+    if (!this.post.data) {
+      const now = new Date();
+      this.post.data = now.toISOString().split('T')[0]; 
+    }
+
     console.log(this.post.data)
     this.servicoPost.save(this.post).subscribe({complete: () => {console.log (this.post)}});  
     // Aqui você pode fazer algo com o conteúdo do editor
