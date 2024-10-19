@@ -11,6 +11,7 @@ export class PostsAppComponent implements OnInit{
   @ViewChildren('deleteButton') deleteButtons!: QueryList<ElementRef>;
   @ViewChildren('editButton') editButtons!: QueryList<ElementRef>;
   posts: Post[] = Array<Post>();
+  show: boolean = false;
 
   private listeners: (() => void)[] = [];
 
@@ -42,6 +43,7 @@ export class PostsAppComponent implements OnInit{
     this.deleteButtons.forEach(button => {
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
         alert('Delete selecionado');
+        this.showDelete();
       });
       this.listeners.push(listener);
     });
@@ -58,4 +60,7 @@ export class PostsAppComponent implements OnInit{
     this.listeners.forEach(listener => listener());
   }
   
+  showDelete(): void {
+    this.show = !this.show
+  }
 }

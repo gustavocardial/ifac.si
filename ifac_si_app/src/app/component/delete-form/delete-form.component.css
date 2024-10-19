@@ -12,5 +12,12 @@
 }
 
 .popUp {
+    padding: 10px;
     background-color: white;
+    border-radius: 5px;
+}
+
+.buttonActions{
+    display: flex;
+    justify-content: space-between;
 }
