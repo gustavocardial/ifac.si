@@ -34,10 +34,11 @@ export class PostsAppComponent implements OnInit{
   }
 
   private setupButtonListeners(): void {
+    // Remove os listeners existentes
     this.listeners.forEach(listener => listener());
     this.listeners = [];
 
-    // Adicione novos listeners
+    // Adiciona novos listeners
     this.deleteButtons.forEach(button => {
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
         alert('Delete selecionado');
