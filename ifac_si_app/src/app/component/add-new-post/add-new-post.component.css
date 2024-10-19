@@ -1,0 +1,23 @@
+div#postInfo {
+    background-color: aliceblue;
+    /* width: inherit; */
+    /* margin-left: 10px; */
+    flex: 1;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    padding: 0;
+    /* margin: auto 20px; */
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    display: flex; /* Garante que as colunas estejam lado a lado */
+}
+
+#editorElement {
+    margin-right: 10px;
+}
