@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { PostService } from '../../service/post.service';
 import { Post } from '../../model/post';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts-app',
@@ -18,7 +19,8 @@ export class PostsAppComponent implements OnInit{
   constructor (
     private postServico : PostService,
     private renderer: Renderer2,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +50,10 @@ export class PostsAppComponent implements OnInit{
       this.listeners.push(listener);
     });
 
-    this.editButtons.forEach(button => {
+    this.editButtons.forEach((button, index) => {
+      const postId = button.nativeElement.getAttribute('data-post-id');
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
-        alert('Edit selecionado');
+        this.editPost(postId);
       });
       this.listeners.push(listener);
     });
@@ -62,5 +65,11 @@ export class PostsAppComponent implements OnInit{
   
   showDelete(): void {
     this.show = !this.show
+  }
+
+  editPost(postId: number) {
+    this.router.navigate(['/new_post'], { 
+      queryParams: { postId: postId }
+    });
   }
 }

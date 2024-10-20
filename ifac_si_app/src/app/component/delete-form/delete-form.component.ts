@@ -9,6 +9,7 @@ export class DeleteFormComponent implements AfterViewInit{
   constructor(
     private renderer: Renderer2,
   ) {}
+
   @ViewChild('cancelButton') cancelButton!: ElementRef;
   @Output() cancelForm = new EventEmitter;
 

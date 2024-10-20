@@ -1,16 +1,25 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Post } from '../../model/post';
 import { PostService } from '../../service/post.service';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-post',
   templateUrl: './add-new-post.component.html',
   styleUrl: './add-new-post.component.css'
 })
-export class AddNewPostComponent {
-  constructor (private servicoPost: PostService) {}
-  
+export class AddNewPostComponent implements OnInit{
+  constructor (
+    private servicoPost: PostService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
+  ngOnInit(): void {
+    const id = this.route.snapshot.queryParamMap.get('postId');
+    if (id) alert(`Chegou post com id ${id}`);
+  }
+
   // ngOnInit(): void {
   //   this.get();    
   // }
