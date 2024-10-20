@@ -42,7 +42,7 @@ export class PostsAppComponent implements OnInit{
     // Adiciona novos listeners
     this.deleteButtons.forEach(button => {
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
-        alert('Delete selecionado');
+        // alert('Delete selecionado');
         this.showDelete();
       });
       this.listeners.push(listener);

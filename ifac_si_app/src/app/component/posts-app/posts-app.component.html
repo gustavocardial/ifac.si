@@ -1,5 +1,7 @@
 <app-filters></app-filters>
-<app-delete-form *ngIf="show"></app-delete-form>
+<div *ngIf="show">
+    <app-delete-form (cancelForm)="showDelete()"></app-delete-form>
+</div>
 <div class="postList">
     <div *ngFor="let post of posts">
         <div class="postView">
