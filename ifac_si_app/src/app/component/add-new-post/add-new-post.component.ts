@@ -15,9 +15,17 @@ export class AddNewPostComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
   ) {}
+
   ngOnInit(): void {
     const id = this.route.snapshot.queryParamMap.get('postId');
-    if (id) alert(`Chegou post com id ${id}`);
+    if (id){
+      this.servicoPost.getById(+id).subscribe({
+        next: (resposta: Post) => {
+          this.post = resposta;
+        }
+      })
+    }
+    // if (id) alert(`Chegou post com id ${id}`);
   }
 
   // ngOnInit(): void {
