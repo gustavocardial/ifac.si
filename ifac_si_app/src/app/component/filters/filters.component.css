@@ -22,7 +22,7 @@ div#flex-container-filter {
     flex-wrap: nowrap;
     justify-content: flex-start;
     margin: 10px 2px 10px 60px;
-    width: 100%;
+    width: fit-content;
 }
 
 .dropdown {
