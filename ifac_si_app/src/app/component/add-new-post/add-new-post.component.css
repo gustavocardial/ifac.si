@@ -21,3 +21,16 @@ div#postInfo {
 #editorElement {
     margin-right: 10px;
 }
+
+label::after {
+    content: ":";
+}
+
+input {
+    /* margin-left: 10px; */
+    width: 100%;
+}
+
+#topEditor {
+    margin: 10px auto;
+}
