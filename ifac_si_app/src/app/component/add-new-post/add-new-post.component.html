@@ -14,6 +14,16 @@
       <div class="col-md-9" id="editorElement">
         <div class="row">
           <div class="col-nd-12">
+            <label for="tituloPost">Título</label>
+            <input type="text" name="tituloPost" id="tituloPost" [(ngModel)]="post.titulo">
+          </div>
+          <div class="col-nd-12">
+            <label for="LegendaPost">Legenda</label>
+            <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-nd-12">
             <quill-editor [styles]="{height: '200px'}" [modules]="modules" 
             (onEditorChanged)="changedEditor($event)" #content="ngModel" 
             [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
