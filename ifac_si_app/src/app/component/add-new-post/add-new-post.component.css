@@ -32,7 +32,7 @@ input {
     width: 100%;
 }
 
-input, label {
+input, label, button {
     margin: 10px auto;
 }
 
