@@ -13,6 +13,7 @@ export class PostsAppComponent implements OnInit{
   @ViewChildren('editButton') editButtons!: QueryList<ElementRef>;
   posts: Post[] = Array<Post>();
   show: boolean = false;
+  postIdToDelete!: number;
 
   private listeners: (() => void)[] = [];
 
@@ -45,6 +46,7 @@ export class PostsAppComponent implements OnInit{
     this.deleteButtons.forEach(button => {
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
         // alert('Delete selecionado');
+        this.postIdToDelete = +button.nativeElement.getAttribute('data-post-id');
         this.showDelete();
       });
       this.listeners.push(listener);
@@ -70,6 +72,15 @@ export class PostsAppComponent implements OnInit{
   editPost(postId: number) {
     this.router.navigate(['/new_post'], { 
       queryParams: { postId: postId }
+    });
+  }
+
+  deletePost() {
+    this.postServico.delete(this.postIdToDelete).subscribe({
+      complete: () => {
+        this.ngOnInit();
+        this.showDelete();// Fecha a confirmação de deleção
+      }
     });
   }
 }
