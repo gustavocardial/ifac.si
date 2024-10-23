@@ -24,6 +24,7 @@ div#postInfo {
 
 label::after {
     content: ":";
+    padding-right: 10px;
 }
 
 input {
@@ -31,6 +32,11 @@ input {
     width: 100%;
 }
 
+input, label {
+    margin: 10px auto;
+}
+
 #topEditor {
     margin: 10px auto;
 }
+

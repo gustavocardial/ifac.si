@@ -12,12 +12,12 @@
         </ul>
       </div> -->
       <div class="col-md-9" id="editorElement">
-        <div class="col-nd-12" id="topEditor">
-          <div class="col-nd-6">
+        <div class="col-nd-auto" id="topEditor">
+          <div class="row">
             <label for="tituloPost">Título</label>
             <input type="text" name="tituloPost" id="tituloPost" [(ngModel)]="post.titulo">
           </div>
-          <div class="col-nd-6">
+          <div class="row">
             <label for="LegendaPost">Legenda</label>
             <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda">
           </div>
@@ -30,12 +30,12 @@
             </quill-editor>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <h3 style="text-align: left;">Output</h3>
           <div class="col-md-8 bg-light">
             <p [innerHTML]="post.texto"></p>
           </div>
-        </div>
+        </div> -->
         <div class="row">
           <div class="col-md-12">
             <button class="btn btn-primary" (click)="saveContent()">Salvar</button>
