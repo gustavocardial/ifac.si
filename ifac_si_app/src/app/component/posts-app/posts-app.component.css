@@ -1,3 +1,7 @@
+div.viewPost {
+    margin: auto 100px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -8,14 +12,14 @@ body {
 .container {
     width: 100%;
     max-width: 1200px; /* Ou o valor que você preferir */
-    margin: 0 100px;
+    /* margin: 0 100px; */
     padding: 0 20px;
     box-sizing: border-box;
     overflow-x: hidden;
 }
 
 div.postList {
-    margin: 20px 40px;
+    /* margin: 20px 40px; */
     /* height: 100%; */
     width: 100%;
     display: flex;
