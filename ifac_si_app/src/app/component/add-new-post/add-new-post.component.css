@@ -76,13 +76,13 @@ div#accordion {
     padding: 8px 0;
 }
 
-button.btn#buttonSave {
+button#buttonSave {
     background-color: white;
     border-color: #623CEA;
     color: #623CEA;
 }
 
-button.btn#buttonSave:hover {
+button#buttonSave:hover {
     background-color: #623CEA;
     color: white;
 }
