@@ -28,8 +28,19 @@ label::after {
 }
 
 input {
-    /* margin-left: 10px; */
+    padding: 8px 12px;
+    border-radius: 4px;  /* bordas bem arredondadas */
+    border: 1px solid #3b3b3b;
+    background: white;
     width: 100%;
+    box-shadow: none;
+    outline: none;
+}
+
+input:focus {
+    border-color: #ccc;
+    box-shadow: none;
+    outline: none;
 }
 
 input, label, button {

@@ -6,14 +6,11 @@
   <div class="row">
       <div class="col-md-9" id="editorElement">
           <div class="col-nd-auto" id="topEditor">
-              <div class="row">
                   <label for="tituloPost">Título</label>
-                  <input type="text" name="tituloPost" id="tituloPost" [(ngModel)]="post.titulo">
-              </div>
-              <div class="row">
+                  <input type="text" name="tituloPost" id="tituloPost" [(ngModel)]="post.titulo" placeholder="Título da postagem">
+              <!-- <div class="row"> -->
                   <label for="LegendaPost">Legenda</label>
-                  <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda">
-              </div>
+                  <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda" placeholder="Legenda ou resumo da postagem">
           </div>
           <div class="row">
               <div class="col-nd-12">
