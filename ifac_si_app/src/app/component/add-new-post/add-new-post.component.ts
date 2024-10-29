@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Post } from '../../model/post';
 import { PostService } from '../../service/post.service';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
@@ -10,10 +10,19 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './add-new-post.component.css'
 })
 export class AddNewPostComponent implements OnInit{
+  private statusListener: (() => void) | undefined;
+  private categoryListener: (() => void) | undefined;
+  private tagListener: (() => void) | undefined;
+
+  @ViewChild('category') categoryButton!: ElementRef;
+  @ViewChild('tags') tagButton!: ElementRef;
+  @ViewChild('status') statusButton!: ElementRef;
+
   constructor (
     private servicoPost: PostService,
     private router: Router,
     private route: ActivatedRoute,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -28,10 +37,33 @@ export class AddNewPostComponent implements OnInit{
     // if (id) alert(`Chegou post com id ${id}`);
   }
 
+  ngAfterViewInit(): void {
+    // Adicionando o listener para o botão de categorias
+    this.statusListener = this.renderer.listen(this.categoryButton.nativeElement, 'click', (event) => {
+      this.onCategoryClick();
+      // this.initializeCategoryDropdownListener();
+    });
+
+    // Adicionando o listener para o botão de tags
+    this.tagListener = this.renderer.listen(this.tagButton.nativeElement, 'click', (event) => {
+      this.onTagClick();
+      // this.initializeTagDropdownListener();
+    });
+
+    this.statusListener = this.renderer.listen(this.statusButton.nativeElement, 'click', (event) => {
+      this.onStatusClick();
+      // this.initializeTagDropdownListener();
+    });
+  }
+
   // ngOnInit(): void {
   //   this.get();    
   // }
   post: Post = <Post>{};
+  accordionView: boolean = false;
+  buttonS: boolean = false;
+  buttonC: boolean = false;
+  buttonT: boolean = false;
 
   title = 'teste';
   @ViewChild('editor') editor: any;
@@ -72,6 +104,30 @@ export class AddNewPostComponent implements OnInit{
         this.post = resposta;
       }
     })
+  }
+
+  onTagClick(): void {
+    this.buttonT = !this.buttonT;
+  }
+
+  onStatusClick(): void {
+    this.buttonS = !this.buttonS;
+  }
+
+  onCategoryClick(): void {
+    this.buttonC = !this.buttonC;
+  }
+
+  ngOnDestroy(): void {
+    if (this.categoryListener) {
+      this.categoryListener();
+    }
+    if (this.tagListener) {
+      this.tagListener();
+    }
+    if (this.statusListener) {
+      this.statusListener();
+    }
   }
 
   // get(): void {

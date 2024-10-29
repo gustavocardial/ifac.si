@@ -57,5 +57,18 @@ div.card-header {
 
 button.btn.btn-link {
     padding: 2 auto;
+    color: white;
+    text-decoration: none;
+    width: 100%;
 }
+
+.card {
+    border-radius: 2px;
+}
+
+.card-header {
+    background-color: black;
+    border-radius: inherit;
+}
+
 

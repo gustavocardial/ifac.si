@@ -29,12 +29,18 @@
               <div class="card">
                   <div class="card-header" id="headingOne">
                       <h5 class="mb-0">
-                          <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" #status>
                               Status e Visibilidade
+                                <ng-template [ngIf]="!buttonS" [ngIfElse]="dropdownIcon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="bi bi-chevron-up"></i>
+                                </ng-template>
                           </button>
                       </h5>
                   </div>
-                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne"> <!--show para aparecer aberto-->
                       <div class="card-body">
                           Conteúdo do Status e Visibilidade.
                       </div>
@@ -43,12 +49,18 @@
               <div class="card">
                   <div class="card-header" id="headingTwo">
                       <h5 class="mb-0">
-                          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" #category> <!--data-bs-parent="#accordion" para aparecer somente um card aberto por vez-->
                               Categorias
+                                <ng-template [ngIf]="!buttonC" [ngIfElse]="dropdownIcon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="bi bi-chevron-up"></i>
+                                </ng-template>
                           </button>
                       </h5>
                   </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
                       <div class="card-body">
                           Conteúdo das Categorias.
                       </div>
@@ -57,12 +69,18 @@
               <div class="card">
                   <div class="card-header" id="headingThree">
                       <h5 class="mb-0">
-                          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" #tags>
                               Tags
+                                <ng-template [ngIf]="!buttonT" [ngIfElse]="dropdownIcon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="bi bi-chevron-up"></i>
+                                </ng-template>
                           </button>
                       </h5>
                   </div>
-                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
                       <div class="card-body">
                           Conteúdo das Tags.
                       </div>
