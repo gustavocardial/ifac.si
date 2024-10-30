@@ -56,14 +56,19 @@ div.card-header {
 }
 
 button.btn.btn-link {
-    padding: 2 auto;
+    /* padding: 4 auto; */
     color: white;
     text-decoration: none;
     width: 100%;
 }
 
+button.btn.btn-link:not(#buttonSave) {
+    padding: 10px;
+    margin: auto;
+}
+
 .card {
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 .card-header {
