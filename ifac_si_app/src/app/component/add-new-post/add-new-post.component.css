@@ -2,6 +2,7 @@ div#postInfo {
     /* background-color: aliceblue; */
     /* width: inherit; */
     /* margin-left: 10px; */
+    margin: 40px auto;
     flex: 1;
 }
 
