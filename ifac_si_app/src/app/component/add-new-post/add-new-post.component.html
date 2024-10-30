@@ -62,7 +62,18 @@
                   </div>
                   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
                       <div class="card-body">
-                          Conteúdo das Categorias.
+                        <div class="radio-group">
+                            <ng-container *ngFor="let categoria of categorias">
+                              <label class="radio-label">
+                                <input type="radio" 
+                                name="categoria" 
+                                    [value]="categoria.id"
+                                    [checked]="post.categoria?.id === categoria.id"
+                                    (change)="onCategoriaSelect(categoria)">
+                                {{categoria.nome}}
+                              </label>
+                            </ng-container>
+                          </div>
                       </div>
                   </div>
               </div>

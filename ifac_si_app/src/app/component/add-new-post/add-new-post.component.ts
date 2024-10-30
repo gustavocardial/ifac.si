@@ -3,6 +3,8 @@ import { Post } from '../../model/post';
 import { PostService } from '../../service/post.service';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Categoria } from '../../model/categoria';
+import { CategoriaService } from '../../service/categoria.service';
 
 @Component({
   selector: 'app-add-new-post',
@@ -22,7 +24,8 @@ export class AddNewPostComponent implements OnInit{
     private servicoPost: PostService,
     private router: Router,
     private route: ActivatedRoute,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private servicoCategoria: CategoriaService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +37,12 @@ export class AddNewPostComponent implements OnInit{
         }
       })
     }
+
+    this.servicoCategoria.get().subscribe({
+      next: (resposta: Categoria[]) => {
+        this.categorias = resposta;
+      }
+    });
     // if (id) alert(`Chegou post com id ${id}`);
   }
 
@@ -60,6 +69,7 @@ export class AddNewPostComponent implements OnInit{
   //   this.get();    
   // }
   post: Post = <Post>{};
+  categorias: Categoria[] = Array<Categoria>();
   accordionView: boolean = false;
   buttonS: boolean = false;
   buttonC: boolean = false;
@@ -128,6 +138,10 @@ export class AddNewPostComponent implements OnInit{
     if (this.statusListener) {
       this.statusListener();
     }
+  }
+
+  onCategoriaSelect(categoria: Categoria): void {
+    this.post.categoria = categoria;
   }
 
   // get(): void {
