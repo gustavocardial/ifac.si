@@ -97,4 +97,10 @@ button#buttonSave:hover {
     color: white;
 }
 
+div#tagContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 
