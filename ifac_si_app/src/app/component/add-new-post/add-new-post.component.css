@@ -100,7 +100,15 @@ button#buttonSave:hover {
 div#tagContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
+div#tagContainer > input {
+    margin-right: 10px;
+}
+
+div#tagContainer > i {
+    margin-left: 10px;
+}
 
 
