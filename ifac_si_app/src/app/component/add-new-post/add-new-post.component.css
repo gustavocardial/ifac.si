@@ -48,6 +48,10 @@ input, label, button {
     margin: 10px auto;
 }
 
+input#newTag {
+    padding: 2px 12px;
+}
+
 #topEditor {
     margin: 10px auto;
 }
