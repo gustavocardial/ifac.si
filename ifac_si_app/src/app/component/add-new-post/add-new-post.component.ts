@@ -105,7 +105,7 @@ export class AddNewPostComponent implements OnInit{
     // Aqui você pode fazer algo com o conteúdo do editor
     // console.log(this.escapeHtml(this.data.content));
     console.log('Conteúdo salvo:', this.post.texto);
-    this.router.navigate(['/view_posts']);
+    // this.router.navigate(['/view_posts']);
   }
 
   getById(id: number): void {
