@@ -5,6 +5,8 @@ import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from '../../model/categoria';
 import { CategoriaService } from '../../service/categoria.service';
+import { TagService } from '../../service/tag.service';
+import { Tag } from '../../model/tag';
 
 @Component({
   selector: 'app-add-new-post',
@@ -25,7 +27,8 @@ export class AddNewPostComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private renderer: Renderer2,
-    private servicoCategoria: CategoriaService
+    private servicoCategoria: CategoriaService,
+    private servicoTag: TagService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +37,12 @@ export class AddNewPostComponent implements OnInit{
       this.servicoPost.getById(+id).subscribe({
         next: (resposta: Post) => {
           this.post = resposta;
+          // this.tags = resposta.tags;
+        }
+      })
+      this.servicoTag.get(this.post.titulo).subscribe({
+        next: (resposta: Tag[]) => {
+          this.tagsList = resposta
         }
       })
     }
@@ -70,6 +79,7 @@ export class AddNewPostComponent implements OnInit{
   // }
   post: Post = <Post>{};
   categorias: Categoria[] = Array<Categoria>();
+  tagsList: Tag[] = Array<Tag>();
   accordionView: boolean = false;
   buttonS: boolean = false;
   buttonC: boolean = false;
