@@ -1,20 +1,98 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Post } from '../../model/post';
 import { PostService } from '../../service/post.service';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Categoria } from '../../model/categoria';
+import { CategoriaService } from '../../service/categoria.service';
+import { TagService } from '../../service/tag.service';
+import { Tag } from '../../model/tag';
 
 @Component({
   selector: 'app-add-new-post',
   templateUrl: './add-new-post.component.html',
   styleUrl: './add-new-post.component.css'
 })
-export class AddNewPostComponent {
-  constructor (private servicoPost: PostService) {}
-  
+export class AddNewPostComponent implements OnInit{
+  private statusListener: (() => void) | undefined;
+  private categoryListener: (() => void) | undefined;
+  private tagListener: (() => void) | undefined;
+  private tagListen: (() => void) | undefined;
+
+  @ViewChild('category') categoryButton!: ElementRef;
+  @ViewChild('tags') tagButton!: ElementRef;
+  @ViewChild('status') statusButton!: ElementRef;
+  @ViewChild('newTag') newTag!: ElementRef;
+  @ViewChild('tag') buttonTag!: ElementRef;
+
+  constructor (
+    private servicoPost: PostService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private renderer: Renderer2,
+    private servicoCategoria: CategoriaService,
+    private servicoTag: TagService
+  ) {}
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.queryParamMap.get('postId');
+    if (id){
+      this.servicoPost.getById(+id).subscribe({
+        next: (resposta: Post) => {
+          this.post = resposta;
+          // this.tags = resposta.tags;
+        }
+      })
+      this.servicoTag.get(this.post.titulo).subscribe({
+        next: (resposta: Tag[]) => {
+          this.tagsList = resposta;
+        }
+      })
+    }
+
+    this.servicoCategoria.get().subscribe({
+      next: (resposta: Categoria[]) => {
+        this.categorias = resposta;
+      }
+    });
+    // if (id) alert(`Chegou post com id ${id}`);
+  }
+
+  ngAfterViewInit(): void {
+    // Adicionando o listener para o botão de categorias
+    this.statusListener = this.renderer.listen(this.categoryButton.nativeElement, 'click', (event) => {
+      this.onCategoryClick();
+      // this.initializeCategoryDropdownListener();
+    });
+
+    // Adicionando o listener para o botão de tags
+    this.tagListener = this.renderer.listen(this.tagButton.nativeElement, 'click', (event) => {
+      this.onTagClick();
+      // this.initializeTagDropdownListener();
+    });
+
+    this.statusListener = this.renderer.listen(this.statusButton.nativeElement, 'click', (event) => {
+      this.onStatusClick();
+      // this.initializeTagDropdownListener();
+    });
+
+    this.tagListen = this.renderer.listen(this.buttonTag.nativeElement, 'click', (event) => {
+      this.onTag();
+      // this.initializeTagDropdownListener();
+    });
+  }
+
   // ngOnInit(): void {
   //   this.get();    
   // }
   post: Post = <Post>{};
+  categorias: Categoria[] = Array<Categoria>();
+  tagsList: Tag[] = Array<Tag>();
+  accordionView: boolean = false;
+  buttonS: boolean = false;
+  buttonC: boolean = false;
+  buttonT: boolean = false;
+  filtersT: boolean = false;
 
   title = 'teste';
   @ViewChild('editor') editor: any;
@@ -46,6 +124,7 @@ export class AddNewPostComponent {
     // Aqui você pode fazer algo com o conteúdo do editor
     // console.log(this.escapeHtml(this.data.content));
     console.log('Conteúdo salvo:', this.post.texto);
+    // this.router.navigate(['/view_posts']);
   }
 
   getById(id: number): void {
@@ -54,6 +133,44 @@ export class AddNewPostComponent {
         this.post = resposta;
       }
     })
+  }
+
+  onTagClick(): void {
+    this.buttonT = !this.buttonT;
+  }
+
+  onStatusClick(): void {
+    this.buttonS = !this.buttonS;
+  }
+
+  onCategoryClick(): void {
+    this.buttonC = !this.buttonC;
+  }
+
+  ngOnDestroy(): void {
+    if (this.categoryListener) {
+      this.categoryListener();
+    }
+    if (this.tagListener) {
+      this.tagListener();
+    }
+    if (this.statusListener) {
+      this.statusListener();
+    }
+  }
+
+  onCategoriaSelect(categoria: Categoria): void {
+    this.post.categoria = categoria;
+  }
+
+  addTag(): void {
+    this.tagsList.push(this.newTag.nativeElement.value);
+    console.log(this.tagsList);
+    this.newTag.nativeElement.value = '';
+  }
+
+  onTag(): void {
+    this.filtersT = !this.filtersT;
   }
 
   // get(): void {

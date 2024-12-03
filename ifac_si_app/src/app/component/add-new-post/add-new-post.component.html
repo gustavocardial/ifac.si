@@ -1,39 +1,126 @@
-  <nav class="navbar">
-    <h3 style="text-align: center;">Quill Js Editor</h3>
-  </nav>
-  
-  <div class="container">
-    <div class="row">
-      <!-- <div class="row">
-        <ul>
-          <li *ngFor="let item of lista">
-            <a href="#" (click)="getById(item.id)">{{item.id}}</a>
-          </li>
-        </ul>
-      </div> -->
+
+<nav class="navbar">
+  <h3 style="text-align: center;">Quill Js Editor</h3>
+</nav>
+<div class="container">
+  <div class="row">
       <div class="col-md-9" id="editorElement">
-        <div class="row">
-          <div class="col-nd-12">
-            <quill-editor [styles]="{height: '200px'}" [modules]="modules" 
-            (onEditorChanged)="changedEditor($event)" #content="ngModel" 
-            [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
-            </quill-editor>
+          <div class="col-nd-auto" id="topEditor">
+                  <label for="tituloPost">Título</label>
+                  <input type="text" name="tituloPost" id="tituloPost" [(ngModel)]="post.titulo" placeholder="Título da postagem">
+              <!-- <div class="row"> -->
+                  <label for="LegendaPost">Legenda</label>
+                  <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda" placeholder="Legenda ou resumo da postagem">
           </div>
-        </div>
-        <div class="row">
-          <h3 style="text-align: left;">Output</h3>
-          <div class="col-md-8 bg-light">
-            <p [innerHTML]="post.texto"></p>
+          <div class="row">
+              <div class="col-nd-12">
+                  <quill-editor [styles]="{height: '200px'}" [modules]="modules" (onEditorChanged)="changedEditor($event)" #content="ngModel" [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
+                  </quill-editor>
+              </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <button class="btn btn-primary" (click)="saveContent()">Salvar</button>
+          <div class="row">
+              <div class="col">
+                  <button class="btn" id="buttonSave" (click)="saveContent()">Salvar</button>
+              </div>
           </div>
-        </div>
       </div>
-      <div class="col-md-3" id="postInfo">
-        Teste
+      <div class="col" id="postInfo">
+          <div id="accordion">
+              <div class="card">
+                  <div class="card-header" id="headingOne">
+                      <h5 class="mb-0">
+                          <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" #status>
+                              Status e Visibilidade
+                                <ng-template [ngIf]="!buttonS" [ngIfElse]="dropdownIcon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="bi bi-chevron-up"></i>
+                                </ng-template>
+                          </button>
+                      </h5>
+                  </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne"> <!--show para aparecer aberto-->
+                      <div class="card-body">
+                          Conteúdo do Status e Visibilidade.
+                      </div>
+                  </div>
+              </div>
+              <div class="card">
+                  <div class="card-header" id="headingTwo">
+                      <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" #category> <!--data-bs-parent="#accordion" para aparecer somente um card aberto por vez-->
+                              Categorias
+                                <ng-template [ngIf]="!buttonC" [ngIfElse]="dropdownIcon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="bi bi-chevron-up"></i>
+                                </ng-template>
+                          </button>
+                      </h5>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
+                      <div class="card-body">
+                        <div class="radio-group">
+                            <ng-container *ngFor="let categoria of categorias">
+                              <label class="radio-label">
+                                <input type="radio" 
+                                name="categoria" 
+                                    [value]="categoria.id"
+                                    [checked]="post.categoria?.id === categoria.id"
+                                    (change)="onCategoriaSelect(categoria)">
+                                {{categoria.nome}}
+                              </label>
+                            </ng-container>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="card">
+                  <div class="card-header" id="headingThree">
+                      <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" #tags>
+                              Tags
+                                <ng-template [ngIf]="!buttonT" [ngIfElse]="dropdownIcon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="bi bi-chevron-up"></i>
+                                </ng-template>
+                          </button>
+                      </h5>
+                  </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
+                      <div class="card-body">
+                        <Label>Adicionar nova tag</Label>
+                        <div id="tagContainer">
+                            <input type="text" name="tag" id="newTag" #newTag>
+                            <i class="bi bi-plus-circle" (click)="addTag()"></i>
+                        </div>
+                        <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="" selected disabled hidden>Selecione uma Tag</option> 
+                            <option *ngFor="let tag of tagsList" [value]="tag.id">{{ tag.nome }}</option>                            
+                        </select> -->
+                        <div class="dropdown">
+                            <button #tag>Selecione uma Tag 
+                                <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="bi bi-chevron-up"></i>
+                                </ng-template>
+                            </button>
+                            <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
+                                <p *ngFor="let tag of tagsList">
+                                    {{ tag.nome }}
+                                </p>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
+</div>

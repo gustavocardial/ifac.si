@@ -1,7 +1,8 @@
 div#postInfo {
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     /* width: inherit; */
     /* margin-left: 10px; */
+    margin: 40px auto;
     flex: 1;
 }
 
@@ -21,3 +22,126 @@ div#postInfo {
 #editorElement {
     margin-right: 10px;
 }
+
+label::after {
+    content: ":";
+    padding-right: 10px;
+}
+
+input {
+    padding: 8px 12px;
+    border-radius: 4px;  /* bordas bem arredondadas */
+    border: 1px solid #3b3b3b;
+    background: white;
+    width: 100%;
+    box-shadow: none;
+    outline: none;
+}
+
+input:focus {
+    border-color: #ccc;
+    box-shadow: none;
+    outline: none;
+}
+
+input, label, button {
+    margin: 10px auto;
+}
+
+input#newTag {
+    padding: 2px 12px;
+}
+
+#topEditor {
+    margin: 10px auto;
+}
+
+div.card-header {
+    padding: 0;
+}
+
+button.btn.btn-link {
+    /* padding: 4 auto; */
+    color: white;
+    text-decoration: none;
+    width: 100%;
+}
+
+button.btn.btn-link:not(#buttonSave) {
+    padding: 10px;
+    margin: auto;
+}
+
+.card {
+    border-radius: 4px;
+}
+
+.card-header {
+    background-color: rgb(0, 0, 0);
+    border-radius: inherit;
+}
+
+div#accordion {
+    margin: 10px 0;
+    padding: 8px 0;
+}
+
+button#buttonSave {
+    background-color: white;
+    border-color: #623CEA;
+    color: #623CEA;
+}
+
+button#buttonSave:hover {
+    background-color: #623CEA;
+    color: white;
+}
+
+div#tagContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div#tagContainer > input {
+    margin-right: 10px;
+}
+
+div#tagContainer > i {
+    margin-left: 10px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    /* width: 190px; */
+    flex-shrink: 0;
+    /* margin: 0 10px; */
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10000;
+    top: 100%; /* Coloca o conteúdo logo abaixo do botão */
+    left: 0;
+}
+
+.dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    display: block;
+}
+
+.dropdown-content p:hover {
+    background-color: #f1f1f1;
+}
+
+.tags-scroll {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+

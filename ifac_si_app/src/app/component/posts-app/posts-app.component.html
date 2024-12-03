@@ -1,22 +1,26 @@
-<app-filters></app-filters>
-<div *ngIf="show">
-    <app-delete-form (cancelForm)="showDelete()"></app-delete-form>
-</div>
-<div class="postList">
-    <div *ngFor="let post of posts">
-        <div class="postView">
-            <div id="postComposition" #postComposition>
-                <div id="postImage" #postImage>
-                    <button class="eyeButton"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
-                    <img src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
+<div class="viewPost">
+    <app-filters></app-filters>
+    <div *ngIf="show">
+        <app-delete-form (cancelForm)="showDelete()" (confirmForm)="deletePost()"></app-delete-form>
+    </div>
+    <div class="container">
+        <div class="postList">
+            <div *ngFor="let post of posts">
+                <div class="postView">
+                    <div id="postComposition" #postComposition>
+                        <div id="postImage" #postImage>
+                            <button class="eyeButton"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
+                            <img src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
+                        </div>
+                    </div>
+                    <div id="postAction" #postAction>
+                        <button #deleteButton [attr.data-post-id]="post.id"><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
+                        <button #editButton [attr.data-post-id]="post.id"><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+                    </div>
                 </div>
-            </div>
-            <div id="postAction" #postAction>
-                <button #deleteButton><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
-                <button #editButton><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+                <p> {{post.titulo}} </p>
+                <p> {{post.data}} </p>
             </div>
         </div>
-        <p> {{post.titulo}} </p>
-        <p> {{post.data}} </p>
     </div>
 </div>
