@@ -17,11 +17,13 @@ export class AddNewPostComponent implements OnInit{
   private statusListener: (() => void) | undefined;
   private categoryListener: (() => void) | undefined;
   private tagListener: (() => void) | undefined;
+  private tagListen: (() => void) | undefined;
 
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
   @ViewChild('status') statusButton!: ElementRef;
   @ViewChild('newTag') newTag!: ElementRef;
+  @ViewChild('tag') buttonTag!: ElementRef;
 
   constructor (
     private servicoPost: PostService,
@@ -73,6 +75,11 @@ export class AddNewPostComponent implements OnInit{
       this.onStatusClick();
       // this.initializeTagDropdownListener();
     });
+
+    this.tagListen = this.renderer.listen(this.buttonTag.nativeElement, 'click', (event) => {
+      this.onTag();
+      // this.initializeTagDropdownListener();
+    });
   }
 
   // ngOnInit(): void {
@@ -85,6 +92,7 @@ export class AddNewPostComponent implements OnInit{
   buttonS: boolean = false;
   buttonC: boolean = false;
   buttonT: boolean = false;
+  filtersT: boolean = false;
 
   title = 'teste';
   @ViewChild('editor') editor: any;
@@ -156,9 +164,13 @@ export class AddNewPostComponent implements OnInit{
   }
 
   addTag(): void {
-    
     this.tagsList.push(this.newTag.nativeElement.value);
-    console.log(this.tagsList)
+    console.log(this.tagsList);
+    this.newTag.nativeElement.value = '';
+  }
+
+  onTag(): void {
+    this.filtersT = !this.filtersT;
   }
 
   // get(): void {

@@ -98,10 +98,25 @@
                             <input type="text" name="tag" id="newTag" #newTag>
                             <i class="bi bi-plus-circle" (click)="addTag()"></i>
                         </div>
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                            <option value="" selected disabled hidden>Selecione uma Tag</option>
+                        <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="" selected disabled hidden>Selecione uma Tag</option> 
                             <option *ngFor="let tag of tagsList" [value]="tag.id">{{ tag.nome }}</option>                            
-                        </select>
+                        </select> -->
+                        <div class="dropdown">
+                            <button #tag>Selecione uma Tag 
+                                <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="bi bi-chevron-up"></i>
+                                </ng-template>
+                            </button>
+                            <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
+                                <p *ngFor="let tag of tagsList">
+                                    {{ tag.nome }}
+                                </p>
+                            </div>
+                        </div>
                       </div>
                   </div>
               </div>
