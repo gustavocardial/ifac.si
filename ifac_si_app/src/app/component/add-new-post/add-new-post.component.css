@@ -23,7 +23,7 @@ div#postInfo {
     margin-right: 10px;
 }
 
-label::after {
+label::after:not(#categorys) {
     content: ":";
     padding-right: 10px;
 }
@@ -131,7 +131,7 @@ div#tagContainer > i {
 
 .dropdown-content p {
     color: black;
-    padding: 12px 16px;
+    padding: 8px 12px;
     display: block;
 }
 
@@ -144,4 +144,27 @@ div#tagContainer > i {
     overflow-y: auto;
 }
 
+button#tagButton {
+    background-color: white;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+div.radio-group{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.radio-group input{
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 10px 0 0;
+    width: 10px;
+}
+
+#categorys {
+    display: flex;
+    justify-content: space-between;
+}
 

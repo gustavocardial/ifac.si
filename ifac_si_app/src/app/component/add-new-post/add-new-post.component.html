@@ -63,17 +63,14 @@
                   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
                       <div class="card-body">
                         <div class="radio-group">
-                            <ng-container *ngFor="let categoria of categorias">
-                              <label class="radio-label">
-                                <input type="radio" 
-                                name="categoria" 
-                                    [value]="categoria.id"
-                                    [checked]="post.categoria?.id === categoria.id"
-                                    (change)="onCategoriaSelect(categoria)">
-                                {{categoria.nome}}
-                              </label>
-                            </ng-container>
-                          </div>
+                            <div *ngFor="let categoria of categorias" id="categorys">
+                                <input type="radio" name="categoria" 
+                                  [value]="categoria.id"
+                                  [checked]="post.categoria?.id === categoria.id"
+                                  (change)="onCategoriaSelect(categoria)">
+                                <label> {{categoria.nome}}</label>
+                            </div>
+                        </div>
                       </div>
                   </div>
               </div>
@@ -103,7 +100,7 @@
                             <option *ngFor="let tag of tagsList" [value]="tag.id">{{ tag.nome }}</option>                            
                         </select> -->
                         <div class="dropdown">
-                            <button #tag>Selecione uma Tag 
+                            <button #tag id="tagButton">Selecione uma Tag 
                                 <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
                                     <i class="bi bi-chevron-down"></i>
                                 </ng-template>
