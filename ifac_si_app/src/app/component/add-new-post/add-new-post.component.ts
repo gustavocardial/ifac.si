@@ -21,6 +21,7 @@ export class AddNewPostComponent implements OnInit{
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
   @ViewChild('status') statusButton!: ElementRef;
+  @ViewChild('newTag') newTag!: ElementRef;
 
   constructor (
     private servicoPost: PostService,
@@ -42,7 +43,7 @@ export class AddNewPostComponent implements OnInit{
       })
       this.servicoTag.get(this.post.titulo).subscribe({
         next: (resposta: Tag[]) => {
-          this.tagsList = resposta
+          this.tagsList = resposta;
         }
       })
     }
@@ -152,6 +153,12 @@ export class AddNewPostComponent implements OnInit{
 
   onCategoriaSelect(categoria: Categoria): void {
     this.post.categoria = categoria;
+  }
+
+  addTag(): void {
+    
+    this.tagsList.push(this.newTag.nativeElement.value);
+    console.log(this.tagsList)
   }
 
   // get(): void {
