@@ -173,3 +173,32 @@ div.radio-group input[type="radio"]:checked {
     justify-content: space-between;
 }
 
+div.statusDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+div.statusDiv button {
+    font-weight: 500;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+div.statusDiv #statusRascunho {
+    /* font-weight: 500; */
+    color: #623CEA;
+}
+
+div.statusDiv #statusPreview, div#statusPost p, div#statusPost button {
+    color: #3E3E3E;
+}
+
+div.statusDiv #statusDelete {
+    color: #EA3C3C;
+}
+
+div.statusDiv #statusSave {
+    color: #3FA14C;
+}
