@@ -177,13 +177,22 @@ div.statusDiv {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    /* margin-bottom: 15px; */
 }
 
 div.statusDiv button {
     font-weight: 500;
     border: 0;
-    padding: 0;
+    padding: auto 2px;
     background-color: transparent;
+    margin: 0;
+}
+
+/* div.statusDiv #viewPost, div.statusDiv #statusPost, div.statusDiv #statusDiv {
+    margin: 10px;
+} */
+div#statusPost button {
+    height: fit-content;
 }
 
 div.statusDiv #statusRascunho {
@@ -201,4 +210,8 @@ div.statusDiv #statusDelete {
 
 div.statusDiv #statusSave {
     color: #3FA14C;
+}
+
+div.statusDiv.viewPost {
+    margin-bottom: 15px;
 }
