@@ -15,6 +15,7 @@ import { QuillModule } from 'ngx-quill';
 import { DeleteFormComponent } from './component/delete-form/delete-form.component';
 import { LoaderComponent } from './component/loader/loader.component';
 import { loaderInterceptor } from './interceptor/loader.interceptor';
+import { NotificationComponent } from './component/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { loaderInterceptor } from './interceptor/loader.interceptor';
     AddNewPostComponent,
     DeleteFormComponent,
     LoaderComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
