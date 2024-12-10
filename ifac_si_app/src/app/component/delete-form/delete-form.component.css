@@ -22,10 +22,45 @@
     justify-content: space-between;
 }
 
+div.buttonActions button {
+    height: fit-content;
+    border-radius: 4px;
+    border-width: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 div.buttonActions button#confirmButton {
     background-color: #3fa14cb2;
 }
 
+div.buttonActions button#confirmButton div {
+    background-color: #00FF00;
+}
+
 div.buttonActions button#cancelButton {
     background-color: #bf4226ad;
+}
+
+div.buttonActions button#cancelButton div {
+    background-color: #FF0000;
+}
+
+div.buttonActions button div {
+    border-radius: 50%;
+    aspect-ratio: 1;
+    display: flex;       /* Ajuda a centralizar o conteúdo */
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+div.buttonActions button i{
+    color: white;
+    font-size: 24px; /* Tamanho do ícone */
+    font-weight: bold;
 }
