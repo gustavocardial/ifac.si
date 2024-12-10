@@ -21,3 +21,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+div.buttonActions button#confirmButton {
+    background-color: #3fa14cb2;
+}
+
+div.buttonActions button#cancelButton {
+    background-color: #bf4226ad;
+}

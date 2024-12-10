@@ -3,8 +3,12 @@
         <p>Você tem certeza que deseja deletar este item?</p>
         <p>Essa ação será enviada para aprovação de deleção, uma vez que aceita, não pode ser desfeita</p>
         <div class="buttonActions">
-            <div><button #cancelButton>Cancelar</button></div>
-            <div><button #confirmButton>Confirmar</button></div>
+            <button #cancelButton id="cancelButton">Cancelar
+                <div><i class="bi bi-check-lg"></i></div>
+            </button>
+            <button #confirmButton id="confirmButton">Confirmar
+                <div><i class="bi bi-x-lg"></i></div>
+            </button>    
         </div>
     </div>
 </div>
