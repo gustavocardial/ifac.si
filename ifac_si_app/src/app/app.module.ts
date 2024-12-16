@@ -16,7 +16,8 @@ import { DeleteFormComponent } from './component/delete-form/delete-form.compone
 import { LoaderComponent } from './component/loader/loader.component';
 import { loaderInterceptor } from './interceptor/loader.interceptor';
 import { NotificationComponent } from './component/notification/notification.component';
-
+import { AlertaComponent } from './component/alerta/alerta.component';
+import { erroInterceptor } from './interceptor/erro.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { NotificationComponent } from './component/notification/notification.com
     DeleteFormComponent,
     LoaderComponent,
     NotificationComponent,
+    AlertaComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,7 @@ import { NotificationComponent } from './component/notification/notification.com
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: loaderInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: erroInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

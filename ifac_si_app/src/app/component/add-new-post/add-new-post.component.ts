@@ -7,6 +7,8 @@ import { Categoria } from '../../model/categoria';
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
 import { Tag } from '../../model/tag';
+import { AlertaService } from '../../service/alerta.service';
+import { ETipoAlerta } from '../../model/e-tipo-alerta';
 
 @Component({
   selector: 'app-add-new-post',
@@ -31,7 +33,8 @@ export class AddNewPostComponent implements OnInit{
     private route: ActivatedRoute,
     private renderer: Renderer2,
     private servicoCategoria: CategoriaService,
-    private servicoTag: TagService
+    private servicoTag: TagService,
+    private servicoAlerta: AlertaService
   ) {}
 
   ngOnInit(): void {
@@ -120,11 +123,17 @@ export class AddNewPostComponent implements OnInit{
     }
 
     console.log(this.post.data)
-    this.servicoPost.save(this.post).subscribe({complete: () => {console.log (this.post)}});  
+    this.servicoPost.save(this.post).subscribe({
+      complete: () => 
+      this.servicoAlerta.enviarAlerta({
+        tipo: ETipoAlerta.SUCESSO,
+        mensagem: "Post salvo com sucesso"
+      })
+    });  
     // Aqui você pode fazer algo com o conteúdo do editor
     // console.log(this.escapeHtml(this.data.content));
     console.log('Conteúdo salvo:', this.post.texto);
-    // this.router.navigate(['/view_posts']);
+    this.router.navigate(['/view_posts']);
   }
 
   getById(id: number): void {
