@@ -1,4 +1,4 @@
-<div class="alerta inativo">
+<div class="alerta" *ngIf="show">
     <span id="fechar" (click)="fecharAlerta()">&times;</span>
-    <span id="mensagem"></span>
+    <span id="mensagem">{{ getMensagemAlerta() }}Teste</span>
 </div>
