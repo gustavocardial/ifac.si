@@ -10,7 +10,7 @@ import { Alerta } from '../../model/alerta';
 })
 export class AlertaComponent implements OnInit {
   alertaAtual: Alerta | null = null;
-  show: boolean = true;
+  show: boolean = false;
 
   constructor(
     private servico: AlertaService,
