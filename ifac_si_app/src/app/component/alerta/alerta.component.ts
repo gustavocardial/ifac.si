@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './alerta.component.css'
 })
 export class AlertaComponent {
-
+  fecharAlerta(): void {}
 }
