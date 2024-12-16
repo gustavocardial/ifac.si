@@ -31,10 +31,10 @@ export class PostsAppComponent implements OnInit{
     this.postServico.get().subscribe({
       next: (resposta: Post[]) => {
         this.posts = resposta;
-        this.servicoAlerta.enviarAlerta({
-          tipo: ETipoAlerta.SUCESSO,
-          mensagem: "Posts mostrados com sucesso."
-        });
+        // this.servicoAlerta.enviarAlerta({
+        //   tipo: ETipoAlerta.SUCESSO,
+        //   mensagem: "Posts mostrados com sucesso."
+        // });
         setTimeout(() => this.setupButtonListeners(), 0);
       }
     });
