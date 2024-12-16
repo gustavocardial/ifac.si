@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, Renderer2,
 import { PostService } from '../../service/post.service';
 import { Post } from '../../model/post';
 import { Router } from '@angular/router';
+import { AlertaService } from '../../service/alerta.service';
+import { ETipoAlerta } from '../../model/e-tipo-alerta';
 
 @Component({
   selector: 'app-posts-app',
@@ -21,13 +23,18 @@ export class PostsAppComponent implements OnInit{
     private postServico : PostService,
     private renderer: Renderer2,
     private cdRef: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private servicoAlerta: AlertaService
   ) {}
 
   ngOnInit(): void {
     this.postServico.get().subscribe({
       next: (resposta: Post[]) => {
         this.posts = resposta;
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.SUCESSO,
+          mensagem: "Posts mostrados com sucesso."
+        });
         setTimeout(() => this.setupButtonListeners(), 0);
       }
     });
