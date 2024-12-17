@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: ifacsi_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ifacSI
+    ports:
+      - "3306:3306" # Expõe a porta 3306 para o MySQL
+    volumes:
+      - db_data:/var/lib/mysql
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000" # Porta para acessar a API S3
+      - "9001:9001" # Porta para acessar o console de administração
+    environment:
+      MINIO_ROOT_USER: admin # Usuário root
+      MINIO_ROOT_PASSWORD: admin123 # Senha root
+    volumes:
+      - minio-data:/data # Volume persistente para os dados
+    command: server /data --console-address ":9001"
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: ifacsi_phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db # O nome do serviço do banco de dados
+      PMA_PORT: 3306
+    ports:
+      - "8081:80" # Acesso ao phpMyAdmin pela porta 8081
+
+volumes:
+  minio-data:
+    driver: local
+
+  db_data:
