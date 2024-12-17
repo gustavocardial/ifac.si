@@ -35,11 +35,11 @@ export class AlertaComponent implements OnInit {
     
   exibirAlerta(alerta: Alerta): void {
     this.alertaAtual = alerta;
-    this.show = !this.show;
+    this.show = true;
   }
 
   fecharAlerta(): void {
-    this.show = !this.show;
+    this.show = false;
     this.alertaAtual = null;
   }
 
