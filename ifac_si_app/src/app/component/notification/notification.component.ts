@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './notification.component.css'
 })
 export class NotificationComponent {
-
+  
 }
