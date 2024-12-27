@@ -47,6 +47,17 @@ div#notificationsView {
     box-sizing: border-box;
 }
 
+div#notificationsView.deleteView {
+    border-right: 10px solid #aa3cea;
+}
+
+div#notificationsView.updateView {
+    border-right: 10px solid #3FA14C;
+}
+div#notificationsView.addView {
+    border-right: 10px solid #623CEA;
+}
+
 div#notification {
     width: 100%;
 }
