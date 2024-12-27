@@ -45,6 +45,12 @@ div#notificationTitle p {
     border-radius: 4px;
 }
 
+div#avatar-notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .avatar-circle {
     width: 40px;
     height: 40px;
