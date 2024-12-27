@@ -24,7 +24,7 @@ export class NotificationComponent {
     },
     {
       userName: 'joao.silva',
-      action: 'DELETE',
+      action: 'POST',
       title: 'Conceitos Básicos de Java'
     },
     {

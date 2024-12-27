@@ -1,4 +1,18 @@
 <h2>Notificações<i class="bi bi-bell"></i></h2>
-<section>
-    
+<section *ngFor="let notification of notifications">
+    <div>
+        <p>{{notification.userName}}</p> 
+        <ng-template [ngIf]='notification.action == "DELETE"'>
+            <p> deletou um post</p>
+        </ng-template>   
+        <ng-template [ngIf]='notification.action == "POST"'>
+            <p> adicionou um novo post</p>
+        </ng-template>
+        <ng-template [ngIf]='notification.action == "UPDATE"'>
+            <p> editou um post</p>
+        </ng-template> 
+    </div>
+    <div>
+        
+    </div>
 </section>
