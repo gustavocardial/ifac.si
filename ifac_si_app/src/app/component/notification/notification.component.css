@@ -1,0 +1,32 @@
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#notificationsView {
+    background-color: #D9D9D9;
+    width: 80%;
+    border-radius: 4px;
+    margin: 5px auto;
+    padding: 10px;
+}
+
+div#notificationData {
+    display: flex;
+    justify-content: space-around;
+    width: fit-content;
+    font-weight: 500;
+    margin: auto 10px;
+}
+
+div#notificationData p:first-child {
+    margin-right: 5px;
+}
+
+div#notificationTitle p {
+    background-color: #FFFFFF;
+    margin: auto 10px;
+    padding: 5px;
+    border-radius: 4px;
+}
