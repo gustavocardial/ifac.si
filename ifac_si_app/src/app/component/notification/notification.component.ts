@@ -33,4 +33,8 @@ export class NotificationComponent {
       title: 'Maratona de São Paulo'
     }
   ];
+
+  alertTeste(): void {
+    alert('teste');
+  }
 }
