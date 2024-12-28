@@ -15,6 +15,7 @@ import { QuillModule } from 'ngx-quill';
 import { DeleteFormComponent } from './component/delete-form/delete-form.component';
 import { LoaderComponent } from './component/loader/loader.component';
 import { loaderInterceptor } from './interceptor/loader.interceptor';
+import { NotificationComponent } from './component/notification/notification.component';
 import { AlertaComponent } from './component/alerta/alerta.component';
 import { erroInterceptor } from './interceptor/erro.interceptor';
 @NgModule({
@@ -27,6 +28,7 @@ import { erroInterceptor } from './interceptor/erro.interceptor';
     AddNewPostComponent,
     DeleteFormComponent,
     LoaderComponent,
+    NotificationComponent,
     AlertaComponent,
   ],
   imports: [

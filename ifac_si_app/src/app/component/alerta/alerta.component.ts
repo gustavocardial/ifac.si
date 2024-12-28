@@ -10,7 +10,7 @@ import { Alerta } from '../../model/alerta';
 })
 export class AlertaComponent implements OnInit {
   alertaAtual: Alerta | null = null;
-  show: boolean = true;
+  show: boolean = false;
 
   constructor(
     private servico: AlertaService,
@@ -35,11 +35,11 @@ export class AlertaComponent implements OnInit {
     
   exibirAlerta(alerta: Alerta): void {
     this.alertaAtual = alerta;
-    this.show = !this.show;
+    this.show = true;
   }
 
   fecharAlerta(): void {
-    this.show = !this.show;
+    this.show = false;
     this.alertaAtual = null;
   }
 
