@@ -58,6 +58,21 @@ div#notificationsView.addView {
     border-right: 10px solid #623CEA;
 }
 
+div#notificationsView.deleteView:hover {
+    background-color: #aa3cea;
+    transition: background-color 0.3s ease;
+}
+
+div#notificationsView.updateView:hover {
+    background-color: #3FA14C;
+    transition: background-color 0.3s ease;
+}
+
+div#notificationsView.addView:hover {
+    background-color: #623CEA;
+    transition: background-color 0.3s ease;
+}
+
 div#notification {
     width: 100%;
 }
