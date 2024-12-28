@@ -35,6 +35,10 @@ section {
     align-items: center;
 }
 
+section:last-child {
+    margin-bottom: 15px;
+}
+
 div#notificationsView {
     display: flex;
     /* justify-content: space-between; */
@@ -42,9 +46,10 @@ div#notificationsView {
     background-color: #D9D9D9;
     width: 80%;
     border-radius: 4px;
-    margin: 5px auto;
-    padding: 10px;
+    margin: 4px auto;
+    padding: 15px 30px;
     box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 div#notificationsView.deleteView {
@@ -82,8 +87,11 @@ div#notificationData {
     justify-content: space-around;
     width: fit-content;
     font-weight: 500;
-    margin: auto 10px;
-    flex-shrink: 0;
+    margin: 0 2px;
+}
+
+div#notificationData p {
+    margin-bottom: 6px;
 }
 
 div#notificationData p:first-child {
@@ -94,23 +102,25 @@ div#notificationTitle {
     width: 100%;
     background-color: #ffff;
     flex-grow: 1;
+    border-radius: 4px;
 }
 
 div#notificationTitle p {
-    margin: auto 10px;
-    padding: 5px;
-    border-radius: 4px;
+    margin: auto 15px;
+    padding: 2px 2px;
 }
 
 div#avatar-notification {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* padding-left: 15px; */
+    margin-right: 5px;
 }
 
 .avatar-circle {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: #e0e0e0;
     display: flex;
