@@ -1,4 +1,4 @@
-package ifac.si.com.ifac_si_api.model;
+package ifac.si.com.ifac_si_api.model.Post;
 
 import java.io.Serializable;
 // import java.sql.Date;
@@ -10,30 +10,28 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 // import com.fasterxml.jackson.annotation.JsonManagedReference;
 // import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import ifac.si.com.ifac_si_api.model.*;
+import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
+import ifac.si.com.ifac_si_api.model.Tag.Tag;
+import jakarta.persistence.*;
 
 @Entity
 // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Post implements Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
-    
+
     private String titulo;
-    
-    // @ManyToOne(optional = false)
+
     @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = true)
     private Categoria categoria;
 
     @ManyToMany
@@ -48,8 +46,11 @@ public class Post implements Serializable{
 
     private String legenda;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens;
+
+    @Enumerated(EnumType.STRING)
+    private EStatus status;
 
     public Long getId() {
         return id;
@@ -123,6 +124,13 @@ public class Post implements Serializable{
         this.imagens = imagens;
     }
 
+    public EStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EStatus status) {
+        this.status = status;
+    }
 
     //Testar relacionamentos e engenharia reserva no workbench
 }

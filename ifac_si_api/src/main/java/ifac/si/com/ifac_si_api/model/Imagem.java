@@ -1,6 +1,7 @@
 package ifac.si.com.ifac_si_api.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,15 +16,16 @@ public class Imagem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
-    
-    @Column(nullable = false)
-    private String caminho;
 
     @Column(nullable = false)
-    private Long tamanho;
-    
+    private String url;
+
     @Column(nullable = false)
-    private String tipo;
+    private String nomeArquivo;
+
+    private Long tamanho;
+
+    private LocalDate dataUpload;
 
     public Long getId() {
         return id;
@@ -33,12 +35,20 @@ public class Imagem implements Serializable {
         this.id = id;
     }
 
-    public String getCaminho() {
-        return caminho;
+    public String getUrl() {
+        return url;
     }
 
-    public void setCaminho(String caminho) {
-        this.caminho = caminho;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getNomeArquivo() {
+        return nomeArquivo;
+    }
+
+    public void setNomeArquivo(String nomeArquivo) {
+        this.nomeArquivo = nomeArquivo;
     }
 
     public Long getTamanho() {
@@ -49,11 +59,11 @@ public class Imagem implements Serializable {
         this.tamanho = tamanho;
     }
 
-    public String getTipo() {
-        return tipo;
+    public LocalDate getDataUpload() {
+        return dataUpload;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setDataUpload(LocalDate dataUpload) {
+        this.dataUpload = dataUpload;
     }
 }

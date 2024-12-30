@@ -2,41 +2,42 @@ package ifac.si.com.ifac_si_api.service;
 
 import java.util.List;
 
+import ifac.si.com.ifac_si_api.model.Tag.Mapper.TagMapper;
+import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ifac.si.com.ifac_si_api.model.Tag;
+import ifac.si.com.ifac_si_api.model.Tag.Tag;
 import ifac.si.com.ifac_si_api.repository.TagRepository;
 
 @Service
-public class TagService implements IService<Tag>{
+public class TagService{
 
     @Autowired
     private TagRepository repo;
 
-    @Override
-    public List<Tag> get() {
-        return repo.findAll();
+    public List<TagDTO> get() {
+        return TagMapper.toTagDTOList(repo.findAll());
     }
 
-    @Override
-    public Tag get(Long id) {
-        return repo.findById(id).orElse(null);
+    public TagDTO get(Long id) {
+        return TagMapper.toTagDTO(repo.findById(id).orElse(null));
     }
 
-    @Override
-    public List<Tag> get(String termoBusca) {
-        return repo.busca(termoBusca);
+    public List<TagDTO> getAll(String termoBusca) {
+        return TagMapper.toTagDTOList(repo.busca(termoBusca));
 
         //Ver no repositório porque precisa query, vou montar a estrutura básica primeiro
     }
 
-    @Override
-    public Tag save(Tag objeto) {
-        return repo.save(objeto);
+    public TagDTO save(Tag objeto) {
+        return TagMapper.toTagDTO(repo.save(objeto));
     }
 
-    @Override
+    public Tag update(Tag objeto) {
+        return null;
+    }
+
     public void delete(Long id) {
         repo.deleteById(id);
     }

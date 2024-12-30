@@ -1,11 +1,9 @@
 package ifac.si.com.ifac_si_api.model;
 
-import java.io.Serializable;
-
 import jakarta.persistence.*;
 
 @Entity
-public class Categoria implements Serializable{
+public class Categoria{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

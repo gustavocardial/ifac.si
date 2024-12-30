@@ -35,6 +35,11 @@ public class UsuarioService implements IService<Usuario>{
     }
 
     @Override
+    public Usuario update(Usuario objeto) {
+        return null;
+    }
+
+    @Override
     public void delete(Long id) {
         repo.deleteById(id);
     }    
