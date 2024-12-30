@@ -1,7 +1,7 @@
 
-<nav class="navbar">
+<!-- <nav class="navbar">
   <h3 style="text-align: center;">Quill Js Editor</h3>
-</nav>
+</nav> -->
 <div class="container">
   <div class="row">
       <div class="col-md-9" id="editorElement">
@@ -40,9 +40,33 @@
                           </button>
                       </h5>
                   </div>
-                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne"> <!--show para aparecer aberto-->
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"> <!--show para aparecer aberto-->
                       <div class="card-body">
-                          Conteúdo do Status e Visibilidade.
+                        <div class="statusDiv viewPost">
+                            <button id="statusRascunho">Salvar Rascunho</button>
+                            <button id="statusPreview">Preview</button>
+                        </div>
+                        <div class="viewPost" id="statusPost">
+                            <div class="statusDiv">
+                                <p>Visibilidade:</p>
+                                <p></p>
+                                <button>Editar</button>
+                            </div>
+                            <div class="statusDiv">
+                                <p>Publicação:</p>
+                                <p></p>
+                                <button>Editar</button>
+                            </div>
+                            <div class="statusDiv">
+                                <p>Status:</p>
+                                <p></p>
+                                <button>Editar</button>
+                            </div>
+                        </div>
+                        <div class="statusDiv viewPost" id="saveDiv">
+                            <button id="statusDelete">Deletar</button>
+                            <button id="statusSave">Salvar</button>
+                        </div>
                       </div>
                   </div>
               </div>
@@ -63,17 +87,14 @@
                   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
                       <div class="card-body">
                         <div class="radio-group">
-                            <ng-container *ngFor="let categoria of categorias">
-                              <label class="radio-label">
-                                <input type="radio" 
-                                name="categoria" 
-                                    [value]="categoria.id"
-                                    [checked]="post.categoria?.id === categoria.id"
-                                    (change)="onCategoriaSelect(categoria)">
-                                {{categoria.nome}}
-                              </label>
-                            </ng-container>
-                          </div>
+                            <div *ngFor="let categoria of categorias" id="categorys">
+                                <input type="radio" name="categoria" 
+                                  [value]="categoria.id"
+                                  [checked]="post.categoria?.id === categoria.id"
+                                  (change)="onCategoriaSelect(categoria)">
+                                <label> {{categoria.nome}}</label>
+                            </div>
+                        </div>
                       </div>
                   </div>
               </div>
@@ -103,7 +124,7 @@
                             <option *ngFor="let tag of tagsList" [value]="tag.id">{{ tag.nome }}</option>                            
                         </select> -->
                         <div class="dropdown">
-                            <button #tag>Selecione uma Tag 
+                            <button #tag id="tagButton">Selecione uma Tag 
                                 <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
                                     <i class="bi bi-chevron-down"></i>
                                 </ng-template>

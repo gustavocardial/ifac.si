@@ -151,7 +151,7 @@ form img {
 }
 
 input[type="password"] {
-  padding-right: 2.5em; /* adiciona espaço para o ícone de olho */
+    padding-right: 2.5em; /* adiciona espaço para o ícone de olho */
 }
 
 /* Mudança de ícone ao clicar */

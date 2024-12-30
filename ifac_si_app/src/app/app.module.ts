@@ -15,7 +15,9 @@ import { QuillModule } from 'ngx-quill';
 import { DeleteFormComponent } from './component/delete-form/delete-form.component';
 import { LoaderComponent } from './component/loader/loader.component';
 import { loaderInterceptor } from './interceptor/loader.interceptor';
-
+import { NotificationComponent } from './component/notification/notification.component';
+import { AlertaComponent } from './component/alerta/alerta.component';
+import { erroInterceptor } from './interceptor/erro.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,8 @@ import { loaderInterceptor } from './interceptor/loader.interceptor';
     AddNewPostComponent,
     DeleteFormComponent,
     LoaderComponent,
+    NotificationComponent,
+    AlertaComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +41,7 @@ import { loaderInterceptor } from './interceptor/loader.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: loaderInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: erroInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

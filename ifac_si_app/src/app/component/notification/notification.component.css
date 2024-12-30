@@ -1,0 +1,145 @@
+h2 {
+    margin: 50px;
+    position: relative;
+    width: fit-content;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    right: 0;  /* Começa da direita */
+    top: -5px; /* Ajuste conforme necessário */
+    width: 60%; /* Ajuste o comprimento da linha conforme necessário */
+    height: 3px;
+    background-color: #008000; /* Verde */
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 0;   /* Começa da esquerda */
+    bottom: -5px;
+    width: 60%;
+    height: 3px;
+    background-color: #4B0082; /* Roxo */
+}
+
+
+h2 i{
+    margin-left: 10px;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section:last-child {
+    margin-bottom: 15px;
+}
+
+div#notificationsView {
+    display: flex;
+    /* justify-content: space-between; */
+    flex-direction: row;
+    background-color: #D9D9D9;
+    width: 80%;
+    border-radius: 4px;
+    margin: 4px auto;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+div#notificationsView.deleteView {
+    border-right: 10px solid #aa3cea;
+}
+
+div#notificationsView.updateView {
+    border-right: 10px solid #3FA14C;
+}
+div#notificationsView.addView {
+    border-right: 10px solid #623CEA;
+}
+
+div#notificationsView.deleteView:hover {
+    background-color: #aa3cea;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+div#notificationsView.updateView:hover {
+    background-color: #3FA14C;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+div#notificationsView.addView:hover {
+    background-color: #623CEA;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+div#notificationsView.addView:hover div#notificationData p, div#notificationsView.updateView:hover div#notificationData p, div#notificationsView.deleteView:hover div#notificationData p {
+    color: white;
+}
+
+div#notification {
+    width: 100%;
+}
+
+div#notificationData {
+    display: flex;
+    justify-content: space-around;
+    width: fit-content;
+    font-weight: 500;
+    margin: 0 2px;
+}
+
+div#notificationData p {
+    margin-bottom: 6px;
+}
+
+div#notificationData p:first-child {
+    margin-right: 5px;
+}
+
+div#notificationTitle {
+    width: 100%;
+    background-color: #ffff;
+    flex-grow: 1;
+    border-radius: 4px;
+}
+
+div#notificationTitle p {
+    margin: auto 15px;
+    padding: 2px 2px;
+}
+
+div#avatar-notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding-left: 15px; */
+    margin-right: 5px;
+}
+
+.avatar-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-right: 10px;
+    border: 1px solid black;
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

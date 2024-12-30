@@ -7,7 +7,7 @@ export type Post = {
     id: number,
     titulo: string,
     usuario: Usuario,
-    categoria: Categoria,
+    categoria?: Categoria,
     tags: Tag[],
     texto: string,
     data?: string,
