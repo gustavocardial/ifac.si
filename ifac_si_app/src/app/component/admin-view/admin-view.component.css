@@ -26,13 +26,35 @@ section > div {
 
 table {
     width: inherit;
+    overflow-x: auto;
+}
+
+/* Definindo larguras fixas ou proporcionais para as colunas */
+table thead th:nth-child(1),
+table tbody td:nth-child(1) {
+    flex: 2; /* Usuário */
+}
+
+table thead th:nth-child(2),
+table tbody td:nth-child(2) {
+    flex: 3; /* Email */
+}
+
+table thead th:nth-child(3),
+table tbody td:nth-child(3) {
+    flex: 1; /* Role */
+}
+
+table thead, table tbody {
+    display: block;
+    width: 100%;
 }
 
 table thead tr {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: inherit;
 }
 
 table tbody td {
