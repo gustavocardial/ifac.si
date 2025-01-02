@@ -1,1 +1,25 @@
-<p>admin-view works!</p>
+<h2>Gerenciamento de Perfil</h2>
+<h5>Você pode adicionar novos usuários, alterar permissões existentes ou excluir usuários existentes.</h5>
+<section>
+    <div>
+        <button>Todos os usuários <i class="bi bi-chevron-down"></i></button>
+        <button>Novo usuário <i class="bi bi-plus-lg"></i></button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>USUÁRIO <i class="bi bi-person-lines-fill"></i></th>
+                <th>EMAIL</th>
+                <th>ROLE</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of usuarios">
+                <td>{{usuario.nomeUsuario}}</td>
+                <td>{{usuario.nomeCompleto}}</td>
+                <td>{{usuario.cargo}}</td>
+                <button>EDITAR</button>
+            </tr>
+        </tbody>
+    </table>
+</section>
