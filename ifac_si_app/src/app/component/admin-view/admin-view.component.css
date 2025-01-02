@@ -5,13 +5,17 @@ html, body {
     bottom: 0;
 }
 
+h2, h5 {
+    margin-left: 20px;
+}
+
 section {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    margin: 10px;
+    width: 90%;
+    margin: 50px auto;
     background-color: #F9F9F9;
     border-color: #C3CAC3;
 }
@@ -19,13 +23,13 @@ section {
 section > div {
     display: flex;
     justify-content: space-between;
-    width: inherit;
+    width: 100%;
     padding: 10px 15px;
     border-bottom: 2px solid #C5CBC5;
 }
 
 table {
-    width: inherit;
+    width: 100%;
     overflow-x: auto;
 }
 
@@ -46,6 +50,7 @@ table tbody td:nth-child(3) {
 }
 
 table thead, table tbody {
+    text-align: center;
     display: block;
     width: 100%;
 }
