@@ -3,6 +3,7 @@ html, body {
     width: 100%;
     top: 0;
     bottom: 0;
+    /* overflow-y: scroll; */
 }
 
 h2, h5 {
@@ -16,8 +17,11 @@ section {
     flex-direction: column;
     width: 90%;
     margin: 50px auto;
-    background-color: #F9F9F9;
+    background-color: #f5f3f3;
     border-color: #C3CAC3;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 section > div {
@@ -25,28 +29,12 @@ section > div {
     justify-content: space-between;
     width: 100%;
     padding: 10px 15px;
-    border-bottom: 2px solid #C5CBC5;
+    border-bottom: 1px solid #C5CBC5;
 }
 
 table {
     width: 100%;
     overflow-x: auto;
-}
-
-/* Definindo larguras fixas ou proporcionais para as colunas */
-table thead th:nth-child(1),
-table tbody td:nth-child(1) {
-    flex: 2; /* Usuário */
-}
-
-table thead th:nth-child(2),
-table tbody td:nth-child(2) {
-    flex: 3; /* Email */
-}
-
-table thead th:nth-child(3),
-table tbody td:nth-child(3) {
-    flex: 1; /* Role */
 }
 
 table thead, table tbody {
@@ -59,10 +47,28 @@ table thead tr {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: inherit;
+    /* width: 100%; */
 }
 
-table tbody td {
+table tbody tr {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+table tbody td, thead th {
     flex: 1;
     padding: 10px;
+}
+
+table tbody tr:not(:last-child), table thead tr{
+    border-bottom: 1px solid #C5CBC5;
+}
+
+button {
+    padding: 5px 30px;
+    border-radius: 20px;
+    border-color: #623CEA;
+    color: #623CEA;
+    background-color: transparent;
+    /* margin: 30px 20px 5px 0; */
 }
