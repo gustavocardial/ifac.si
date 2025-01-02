@@ -1,0 +1,41 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px;
+    background-color: #F9F9F9;
+    border-color: #C3CAC3;
+}
+
+section > div {
+    display: flex;
+    justify-content: space-between;
+    width: inherit;
+    padding: 10px 15px;
+    border-bottom: 2px solid #C5CBC5;
+}
+
+table {
+    width: inherit;
+}
+
+table thead tr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+table tbody td {
+    flex: 1;
+    padding: 10px;
+}

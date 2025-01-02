@@ -18,7 +18,7 @@ import { loaderInterceptor } from './interceptor/loader.interceptor';
 import { NotificationComponent } from './component/notification/notification.component';
 import { AlertaComponent } from './component/alerta/alerta.component';
 import { erroInterceptor } from './interceptor/erro.interceptor';
-import { AdminViewComponent } from './admin-view/admin-view.component';
+import { AdminViewComponent } from './component/admin-view/admin-view.component';
 @NgModule({
   declarations: [
     AppComponent,
