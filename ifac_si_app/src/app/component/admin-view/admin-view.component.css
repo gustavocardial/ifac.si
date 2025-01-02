@@ -7,7 +7,7 @@ html, body {
 }
 
 h2, h5 {
-    margin-left: 20px;
+    margin: 20px 0 0 20px;
 }
 
 section {
@@ -71,4 +71,8 @@ button {
     color: #623CEA;
     background-color: transparent;
     /* margin: 30px 20px 5px 0; */
+}
+
+button:not(div button:first-child) {
+    font-weight: 500;
 }
