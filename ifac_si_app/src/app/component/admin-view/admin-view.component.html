@@ -1,9 +1,13 @@
+<div *ngIf="show">
+    <app-user-form (cancelForm)="showForm()"></app-user-form>
+</div>
+
 <h2>Gerenciamento de Perfil</h2>
 <h5>Você pode adicionar novos usuários, alterar permissões existentes ou excluir usuários existentes.</h5>
 <section>
     <div>
         <button>Todos os usuários <i class="bi bi-chevron-down"></i></button>
-        <button>Novo usuário <i class="bi bi-plus-lg"></i></button>
+        <button (click)="showForm()">Novo usuário <i class="bi bi-plus-lg"></i></button>
     </div>
     <table>
         <thead>

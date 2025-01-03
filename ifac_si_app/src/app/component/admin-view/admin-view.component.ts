@@ -8,6 +8,7 @@ import { Usuario } from '../../model/usuario';
   styleUrl: './admin-view.component.css'
 })
 export class AdminViewComponent implements OnInit{
+  show: boolean = false;
   usuarios: Usuario[] = Array<Usuario>();
   constructor(private userServico: UsuarioService) {}
 
@@ -19,5 +20,8 @@ export class AdminViewComponent implements OnInit{
     })
   }
 
+  showForm(): void {
+    this.show = !this.show;
+  }
 
 }
