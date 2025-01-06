@@ -48,7 +48,18 @@
                         {{ usuario.nomeUsuario }}
                     </ng-template>
                 </td>
-                <td>{{usuario.nomeCompleto}}</td>
+                <td>
+                    <ng-container *ngIf="editingUser?.id === usuario.id; else displayUser">
+                        <input 
+                          type="text" 
+                          [(ngModel)]="tempData.nomeCompleto" 
+                          class="edit-input"
+                        >
+                    </ng-container>
+                    <ng-template #displayUser>
+                        {{ usuario.nomeCompleto }}
+                    </ng-template>
+                </td>
                 <td>
                     <ng-container *ngIf="editingUser?.id === usuario.id; else displayCargo">
                         <select [(ngModel)]="tempData.cargo" class="edit-select">
@@ -63,13 +74,16 @@
                 </td>
                 <td>
                     <ng-container *ngIf="editingUser?.id === usuario.id; else editButton">
-                        <button (click)="saveEdit(usuario)" class="save-btn">
+                        <button (click)="saveEdit(usuario)" class="save-btn" title="Salvar alteração">
                         <i class="fas fa-save"></i>
+                        </button>
+                        <button (click)="cancelEdit()" class="cancel-btn" title="Cancelar edição">
+                            <i class="fas fa-times"></i>
                         </button>
                     </ng-container>
                     <ng-template #editButton>
-                        <button (click)="startEditing(usuario)" class="edit-btn">
-                        <i class="fas fa-pencil-alt"></i>
+                        <button (click)="startEditing(usuario)" class="edit-btn" title="Editar usuário">
+                            <i class="fas fa-pencil-alt"></i>
                         </button>
                     </ng-template>
                 </td>

@@ -65,4 +65,8 @@ export class AdminViewComponent implements OnInit{
     }
   }
 
+  cancelEdit() {
+    this.editingUser = null;
+    this.tempData = {};
+  }
 }
