@@ -3,3 +3,7 @@
 @import 'quill/dist/quill.snow.css';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+
+html, body, app-root {
+    height: 100%;
+}
