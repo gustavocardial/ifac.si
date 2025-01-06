@@ -1,13 +1,10 @@
-package ifac.si.com.ifac_si_api.model;
+package ifac.si.com.ifac_si_api.model.Tag;
 
-import java.io.Serializable;
 import java.util.List;
 
-// import com.fasterxml.jackson.annotation.JsonBackReference;
-// import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-// import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import ifac.si.com.ifac_si_api.model.Post.Post;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,8 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
 @Entity
-// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Tag implements Serializable{
+public class Tag{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

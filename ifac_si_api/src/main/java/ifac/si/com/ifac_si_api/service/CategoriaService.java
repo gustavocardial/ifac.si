@@ -34,6 +34,11 @@ public class CategoriaService implements IService<Categoria>{
     }
 
     @Override
+    public Categoria update(Categoria objeto) {
+        return null;
+    }
+
+    @Override
     public void delete(Long id) {
         repo.deleteById(id);
     }

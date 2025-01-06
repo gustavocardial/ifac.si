@@ -7,5 +7,6 @@ public interface IService<T> {
     public T get(Long id);
     public List<T> get(String termoBusca);
     public T save(T objeto);
+    public T update(T objeto);
     public void delete(Long id);
 }

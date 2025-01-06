@@ -24,7 +24,7 @@ VALUES
     (2, 2), -- Post "Dicas para Correr Melhor" com Tag "Esportes"
     (3, 3); -- Post "Destinos Incríveis para Viajar" com Tag "Viagem"
 
-INSERT INTO Categoria (id, nome) VALUES 
+INSERT INTO Categoria (id, nome) VALUES
 (1, 'Projeto'), (2, 'Vaga'), (3, 'Pesquisa');
 
 SET SESSION FOREIGN_KEY_CHECKS=1;
