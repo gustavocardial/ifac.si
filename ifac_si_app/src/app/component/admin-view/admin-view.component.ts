@@ -56,4 +56,13 @@ export class AdminViewComponent implements OnInit{
     return this.selectedUsers.includes(userId);
   }
 
+  saveEdit(user: Usuario) {
+    if (this.tempData) {
+      Object.assign(user, this.tempData);
+      this.editingUser = null;
+      this.tempData = {};
+      console.log (user);
+    }
+  }
+
 }
