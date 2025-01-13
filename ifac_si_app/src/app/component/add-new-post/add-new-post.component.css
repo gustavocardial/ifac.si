@@ -19,9 +19,9 @@ div#postInfo {
     display: flex; /* Garante que as colunas estejam lado a lado */
 }
 
-#editorElement {
+/* #editorElement {
     margin-right: 10px;
-}
+} */
 
 label::after:not(#categorys) {
     content: ":";

@@ -9,9 +9,18 @@ import { AdminViewComponent } from './component/admin-view/admin-view.component'
 const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'view_posts', component: PostsAppComponent},
-  {path:'new_post', component: AddNewPostComponent},
-  {path: 'notification', component: NotificationComponent},
-  {path: 'admin', component: AdminViewComponent}
+  {path: 'administration', children: [
+    {path: 'autor', children: [
+      {path:'new_post', component: AddNewPostComponent},
+    ]},
+    {path: 'editor', children: [
+      {path: 'notification', component: NotificationComponent},
+    ]},
+    {path: 'admin', children: [
+      {path: 'viewUsers', component: AdminViewComponent},
+    ]},
+  ]},
+
 ];
 
 @NgModule({
