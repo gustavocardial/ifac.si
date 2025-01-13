@@ -173,13 +173,39 @@ export class AddNewPostComponent implements OnInit{
   }
 
   addTag(): void {
-    this.tagsList.push(this.newTag.nativeElement.value);
+    let newTag = this.addTagPost(this.newTag.nativeElement.value)
+    this.tagsList.push(newTag);
     console.log(this.tagsList);
     this.newTag.nativeElement.value = '';
   }
 
   onTag(): void {
     this.filtersT = !this.filtersT;
+  }
+
+  addTagPost(tagName: string): Tag {
+    const newId = this.tagsList.length > 0 
+        ? this.tagsList[this.tagsList.length - 1].id + 1 
+        : 1;
+
+    // Cria uma nova tag
+    const newTag = this.createTag(newId, tagName);
+    newTag.id = newId; // Atribui o ID gerado
+    newTag.nome = tagName; // Atribui o nome da tag
+    newTag.posts = []; // Inicializa a lista de posts vazia
+
+    // Adiciona a nova tag à lista de tags
+    // this.tagsList.push(newTag);
+
+    return newTag;
+  }
+
+  createTag(id: number, nome: string): Tag {
+    return {
+        id,
+        nome,
+        posts: []
+    };
   }
 
   // get(): void {
