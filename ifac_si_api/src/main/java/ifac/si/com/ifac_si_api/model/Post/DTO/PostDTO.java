@@ -3,6 +3,7 @@ package ifac.si.com.ifac_si_api.model.Post.DTO;
 import ifac.si.com.ifac_si_api.model.Imagem;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PostDTO {
@@ -11,7 +12,7 @@ public class PostDTO {
     private Long usuarioId;
     private Long categoriaId;
     private String texto;
-    private LocalDate data;
+    private LocalDateTime data;
     private String legenda;
     private List<Imagem> imagens;
     private String status;
@@ -55,11 +56,11 @@ public class PostDTO {
         this.texto = texto;
     }
 
-    public LocalDate getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

@@ -1,8 +1,8 @@
 package ifac.si.com.ifac_si_api.model.Post;
 
 import java.io.Serializable;
-// import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 // import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -17,6 +17,7 @@ import jakarta.persistence.*;
 
 @Entity
 // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "posts")
 public class Post implements Serializable{
 
     @Id
@@ -42,7 +43,7 @@ public class Post implements Serializable{
     private String texto;
 
     @Column(nullable = false)
-    private LocalDate data;
+    private LocalDateTime data;
 
     private String legenda;
 
@@ -100,11 +101,11 @@ public class Post implements Serializable{
         this.texto = texto;
     }
 
-    public LocalDate getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

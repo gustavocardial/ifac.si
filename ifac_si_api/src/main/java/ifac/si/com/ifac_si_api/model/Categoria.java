@@ -3,6 +3,7 @@ package ifac.si.com.ifac_si_api.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "categorias")
 public class Categoria{
     
     @Id

@@ -1,16 +1,28 @@
 package ifac.si.com.ifac_si_api.config;
 
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MinioConfig {
+    @Value("${minio.endpoint}")
+    private String endpoint;
+
+    @Value("${minio.accessKey}")
+    private String accessKey;
+
+    @Value("${minio.secretKey}")
+    private String secretKey;
+
     @Bean
     public MinioClient minioClient() {
         return MinioClient.builder()
-                .endpoint("http://localhost:9000") // Endpoint do MinIO
-                .credentials("admin", "admin123") // Credenciais do MinIO
+                .endpoint(endpoint)
+                .credentials(accessKey, secretKey)
                 .build();
     }
 }

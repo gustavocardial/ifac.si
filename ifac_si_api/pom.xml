@@ -58,7 +58,18 @@
 			<version>8.5.2</version>
 		</dependency>
 
-	</dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+            <groupId>ifac.si.com</groupId>
+            <artifactId>ifac_si_api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

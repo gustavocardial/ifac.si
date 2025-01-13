@@ -1,48 +1,59 @@
 package ifac.si.com.ifac_si_api.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
 import ifac.si.com.ifac_si_api.model.Post.Mapper.PostMapper;
+import ifac.si.com.ifac_si_api.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ifac.si.com.ifac_si_api.model.Post.Post;
+import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.repository.PostRepository;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 import ifac.si.com.ifac_si_api.repository.CategoriaRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
-public abstract class PostService implements IService{
+public class PostService{
 
-    @Autowired
-    private PostRepository repo;
+    private final PostRepository postRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final CategoriaRepository categoriaRepository;
+    private final TagRepository tagRepository;
+    private final MinIOService minIOService;
+    private final PostMapper postMapper;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private CategoriaRepository categoriaRepository;
-
-    @Autowired
-    private PostMapper postMapper;
+    public PostService(PostRepository postRepository, UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository, TagRepository tagRepository, MinIOService minIOService, PostMapper postMapper) {
+        this.postRepository = postRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.categoriaRepository = categoriaRepository;
+        this.tagRepository = tagRepository;
+        this.minIOService = minIOService;
+        this.postMapper = postMapper;
+    }
 
     public List<Post> get() {
-        return repo.findAll();
+        return postRepository.findAll();
     }
 
     public List<Post> getPostByStatus(EStatus status) {
-        return repo.findByStatus(status);
+        return postRepository.findByStatus(status);
     }
 
     public Post get(Long id) {
-        return repo.findById(id).orElse(null);
+        return postRepository.findById(id).orElse(null);
     }
 
     public List<Post> get(String termoBusca) {
-        return repo.busca(termoBusca);
+        return postRepository.busca(termoBusca);
     }
 
 //    @Override
@@ -50,30 +61,31 @@ public abstract class PostService implements IService{
 //        return repo.save(objeto);
 //    }
 
-    public Object save(PostDTO objeto){
+    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+        // Mapeia DTO para Entidade
+        Post post = postMapper.toEntity(postDto);
 
-        Post post = new Post();
+        // Processa cada imagem no MinIO e cria objeto de Imagem
+        List<Imagem> imagemList = new ArrayList<>();
+        for (MultipartFile imagem : imagens) {
+            String fileName = minIOService.uploadFile(imagem);
+            String url = minIOService.getFileUrl("imagens-postagens", fileName);
 
-        post.setTitulo(objeto.getTitulo());
-        post.setUsuario(usuarioRepository.findById(objeto.getUsuarioId()).orElseThrow());
-        post.setCategoria(categoriaRepository.findById(objeto.getCategoriaId()).orElseThrow());
-        post.setTexto(objeto.getTexto());
-        post.setData(objeto.getData());
-        post.setLegenda(objeto.getLegenda());
+            Imagem img = new Imagem();
+            img.setNomeArquivo(fileName);
+            img.setUrl(url);
+            img.setDataUpload(LocalDate.now());
+            imagemList.add(img);
+        }
 
-        post.setStatus(EStatus.valueOf(objeto.getStatus().toString().toUpperCase()));
-
-        Post salvo = repo.save(post);
-
-
-        return postMapper.toDTO(salvo);
-
+        post.setImagens(imagemList); // Associa as imagens ao post
+        post.setData(LocalDateTime.now()); // Atualiza a data
+        Post savedPost = postRepository.save(post); // Salva no banco de dados
+        return savedPost;
     }
 
-
-    @Override
     public void delete(Long id) {
-        repo.deleteById(id);
+        postRepository.deleteById(id);
     }
     
 }

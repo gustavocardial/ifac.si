@@ -9,7 +9,7 @@ import ifac.si.com.ifac_si_api.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
     @Query(
-        "SELECT p FROM Usuario p WHERE p.nomeCompleto LIKE %?1%" +
+        "SELECT p FROM Usuario p WHERE p.email LIKE %?1%" +
         " OR p.nomeUsuario LIKE %?1% OR p.cargo = ?1"
     ) List<Usuario> busca(String termoBusca);
 }

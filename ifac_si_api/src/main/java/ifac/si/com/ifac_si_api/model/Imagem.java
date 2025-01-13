@@ -1,31 +1,37 @@
 package ifac.si.com.ifac_si_api.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import ifac.si.com.ifac_si_api.model.Post.Post;
+import jakarta.persistence.*;
 
 @Entity
-public class Imagem implements Serializable {
-    
+@Table(name = "imagens")
+public class Imagem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
 
+    // URL pública gerada pelo MinIO
     @Column(nullable = false)
     private String url;
 
+    // Nome do arquivo original
     @Column(nullable = false)
     private String nomeArquivo;
 
+    // Tamanho do arquivo em bytes
+    @Column(nullable = false)
     private Long tamanho;
 
+    // Data do upload
+    @Column(nullable = false)
     private LocalDate dataUpload;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
     public Long getId() {
         return id;
@@ -65,5 +71,13 @@ public class Imagem implements Serializable {
 
     public void setDataUpload(LocalDate dataUpload) {
         this.dataUpload = dataUpload;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

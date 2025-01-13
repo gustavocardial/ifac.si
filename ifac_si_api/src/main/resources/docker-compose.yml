@@ -1,5 +1,7 @@
 version: '3.1'
 
+#para usar somente o minio, é só comentar os servicos: db e phpmyadmin
+
 services:
   db:
     image: mysql:latest

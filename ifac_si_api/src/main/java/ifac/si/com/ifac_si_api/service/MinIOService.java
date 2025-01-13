@@ -1,38 +1,43 @@
 package ifac.si.com.ifac_si_api.service;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import io.minio.*;
+import io.minio.http.Method;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
-import io.minio.PresignedGetObjectArgs;
-import java.time.Duration;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
-public class MinioService {
+public class MinIOService {
 
+    @Autowired
     private MinioClient minioClient;
 
-    public void uploadFile(String bucketName, String objectName, InputStream inputStream,
-                           String contentType) throws Exception {
-        // Cria bucket se não existir
-        if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
+    public String uploadFile(MultipartFile file) throws Exception {
+        String bucketName = "imagens";
+        String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+
+        // Verifica se o bucket existe
+        boolean bucketExists = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+        if (!bucketExists) {
             minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
         }
 
-        // Upload do arquivo
+        // Faz o upload do arquivo
         minioClient.putObject(
                 PutObjectArgs.builder()
                         .bucket(bucketName)
-                        .object(objectName)
-                        .stream(inputStream, inputStream.available(), -1)
-                        .contentType(contentType)
-                        .build());
+                        .object(fileName)
+                        .stream(file.getInputStream(), file.getSize(), -1)
+                        .contentType(file.getContentType())
+                        .build()
+        );
+
+        // Retorna a URL pública permanente
+        return "http://localhost:9000/" + bucketName + "/" + fileName;
     }
 
     public String getFileUrl(String bucketName, String objectName) throws Exception {
@@ -40,8 +45,9 @@ public class MinioService {
                 GetPresignedObjectUrlArgs.builder()
                         .bucket(bucketName)
                         .object(objectName)
-                        .method(Method.GET)
                         .expiry(60, TimeUnit.MINUTES)
+                        .method(Method.GET)
                         .build());
     }
+
 }
