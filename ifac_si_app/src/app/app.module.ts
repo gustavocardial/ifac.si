@@ -18,6 +18,9 @@ import { loaderInterceptor } from './interceptor/loader.interceptor';
 import { NotificationComponent } from './component/notification/notification.component';
 import { AlertaComponent } from './component/alerta/alerta.component';
 import { erroInterceptor } from './interceptor/erro.interceptor';
+import { AdminViewComponent } from './component/admin-view/admin-view.component';
+import { UserFormComponent } from './component/user-form/user-form.component';
+import { CourseComponent } from './component/course/course.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,9 @@ import { erroInterceptor } from './interceptor/erro.interceptor';
     LoaderComponent,
     NotificationComponent,
     AlertaComponent,
+    AdminViewComponent,
+    UserFormComponent,
+    CourseComponent,
   ],
   imports: [
     BrowserModule,

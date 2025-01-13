@@ -1,0 +1,22 @@
+<div class="overlay">
+    <div class="popUp">
+        <form #form>
+            <h3>Adicionar novo usuário</h3>
+            <label>Nome de usuário</label><input type="text">
+            <label>Nova senha</label><input type="text">
+            <label>Confirmar senha</label><input type="text">
+            <label>Role</label>
+            <select id="cargo">
+                <option value=""></option>
+                <option value="ADMIN">ADMINISTRADOR</option>
+                <option value="AUTOR">AUTOR</option>
+                <option value="EDITOR">EDITOR</option>
+            </select>
+            <div>    
+                <input type="button" value="CANCELAR" #cancelButton>        
+                <!-- <button #cancelButton>CANCELAR</button> -->
+                <input type="submit" value="SALVAR">
+            </div>
+        </form>
+    </div>
+</div>
