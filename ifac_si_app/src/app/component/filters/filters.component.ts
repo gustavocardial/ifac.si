@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, Renderer2, AfterViewInit } fr
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
 import { Categoria } from '../../model/categoria';
-import { Tag } from '../../model/tag';
+import { tagDTO } from '../../model/tagDTO';
 
 @Component({
   selector: 'app-filters',
@@ -17,7 +17,7 @@ export class FiltersComponent implements OnInit, AfterViewInit{
   @ViewChild('tagsApp', { static: false }) tagDropDown!: ElementRef;
 
   categorias: Categoria[] = Array<Categoria>();
-  tags: Tag[] = Array<Tag>();
+  tags: tagDTO[] = Array<tagDTO>();
   filtersC: boolean = false;
   filtersT: boolean = false;
 
@@ -40,8 +40,13 @@ export class FiltersComponent implements OnInit, AfterViewInit{
     });
 
     this.servicoTag.get().subscribe({
-      next: (resposta: Tag[]) => {
-        this.tags = resposta;
+      next: (resposta: tagDTO[]) => {
+        // this.tags = resposta;
+        this.tags = resposta.map(tag => ({
+          id: tag.id,
+          nome: tag.nome
+        }));
+        console.log (this.tags);
       }
     });  
   }

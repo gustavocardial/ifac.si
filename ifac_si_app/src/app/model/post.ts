@@ -1,6 +1,6 @@
 import { Categoria } from "./categoria"
 import { Imagem } from "./imagem"
-import { Tag } from "./tag"
+import { tagDTO } from "./tagDTO"
 import { Usuario } from "./usuario"
 
 export type Post = {
@@ -8,7 +8,7 @@ export type Post = {
     titulo: string,
     usuario: Usuario,
     categoria?: Categoria,
-    tags: Tag[],
+    tags: tagDTO[],
     texto: string,
     data?: string,
     legenda: string,

@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from '../../model/categoria';
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
-import { Tag } from '../../model/tag';
+import { tagDTO } from '../../model/tagDTO';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
 
@@ -46,9 +46,14 @@ export class AddNewPostComponent implements OnInit{
           // this.tags = resposta.tags;
         }
       })
-      this.servicoTag.get(this.post.titulo).subscribe({
-        next: (resposta: Tag[]) => {
+      this.servicoTag.get(id).subscribe({
+        next: (resposta: tagDTO[]) => {
           this.tagsList = resposta;
+          this.tagsList = resposta.map(tag => ({
+            id: tag.id,
+            nome: tag.nome
+          }));
+          // console.log (this.tagsList)
         }
       })
     }
@@ -90,7 +95,7 @@ export class AddNewPostComponent implements OnInit{
   // }
   post: Post = <Post>{};
   categorias: Categoria[] = Array<Categoria>();
-  tagsList: Tag[] = Array<Tag>();
+  tagsList: tagDTO[] = Array<tagDTO>();
   accordionView: boolean = false;
   buttonS: boolean = false;
   buttonC: boolean = false;
@@ -183,7 +188,7 @@ export class AddNewPostComponent implements OnInit{
     this.filtersT = !this.filtersT;
   }
 
-  addTagPost(tagName: string): Tag {
+  addTagPost(tagName: string): tagDTO {
     const newId = this.tagsList.length > 0 
         ? this.tagsList[this.tagsList.length - 1].id + 1 
         : 1;
@@ -192,7 +197,7 @@ export class AddNewPostComponent implements OnInit{
     const newTag = this.createTag(newId, tagName);
     newTag.id = newId; // Atribui o ID gerado
     newTag.nome = tagName; // Atribui o nome da tag
-    newTag.posts = []; // Inicializa a lista de posts vazia
+    // newTag.posts = []; // Inicializa a lista de posts vazia
 
     // Adiciona a nova tag à lista de tags
     // this.tagsList.push(newTag);
@@ -200,11 +205,11 @@ export class AddNewPostComponent implements OnInit{
     return newTag;
   }
 
-  createTag(id: number, nome: string): Tag {
+  createTag(id: number, nome: string): tagDTO {
     return {
         id,
         nome,
-        posts: []
+        // posts: []
     };
   }
 
