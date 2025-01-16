@@ -35,8 +35,8 @@ public class PostController{
     }
 
     @GetMapping("/status/{status}")
-    public List<Post> getByStatus(@RequestBody EStatus status) {
-        List<Post> registros = servico.getPostByStatus(status);
+    public List<Post> getByStatus(@RequestParam EStatus status) {
+        List<Post> registros = servico.getByStatus(status);
         return new ResponseEntity<>(registros, HttpStatus.OK).getBody();
     }
 
@@ -47,9 +47,9 @@ public class PostController{
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
-    @GetMapping("/busca/{termoBusca}")
+    @GetMapping("/busca")
 //    @Operation(summary = "Buscar posts por um termo de busca")
-    public ResponseEntity<List<Post>> get(@PathVariable("id") String termoBusca) {
+    public ResponseEntity<List<Post>> get(@RequestParam String termoBusca) {
         List<Post> registros = servico.get(termoBusca);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }

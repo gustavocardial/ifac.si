@@ -2,6 +2,7 @@ package ifac.si.com.ifac_si_api.controller;
 
 import java.util.List;
 
+import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,13 @@ public class TagController{
     public ResponseEntity<TagDTO> get(@PathVariable("id") Long id) {
         TagDTO registro = servico.get(id);
         return new ResponseEntity<>(registro, HttpStatus.OK);
+    }
+
+    @GetMapping("/busca/{post}")
+//    @ApiOperation(value = "Buscar tags por um Post")
+    public ResponseEntity<List<TagDTO>> get(@RequestBody PostRequestDTO postRequestDTO) {
+        List<TagDTO> registros = servico.getAllByPost(postRequestDTO);
+        return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @GetMapping("/busca/{termoBusca}")

@@ -6,15 +6,20 @@ public class TagDTO {
     private Long id;
     private String nome;
 
-    public TagDTO(Tag tag) {
-        this.id = tag.getId();
-        this.nome = tag.getNome();
+    public Long getId() {
+        return id;
     }
 
-    public TagDTO(Long id, String nome) {
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getId() { return id; }
-    public String getNome() { return nome; }
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
 

@@ -2,6 +2,7 @@ package ifac.si.com.ifac_si_api.service;
 
 import java.util.List;
 
+import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Tag.Mapper.TagMapper;
 import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class TagService{
 
     public List<TagDTO> get() {
         return TagMapper.toTagDTOList(repo.findAll());
+    }
+
+    public List<TagDTO> getAllByPost(PostRequestDTO postRequestDTO) {
+        return TagMapper.toTagDTOList(repo.findAllByPosts(postRequestDTO));
     }
 
     public TagDTO get(Long id) {

@@ -1,6 +1,8 @@
 package ifac.si.com.ifac_si_api.model;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import jakarta.persistence.*;
 
@@ -30,6 +32,7 @@ public class Imagem {
     private LocalDate dataUpload;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 

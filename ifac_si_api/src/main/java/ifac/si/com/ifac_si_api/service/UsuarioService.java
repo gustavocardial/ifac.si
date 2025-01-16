@@ -9,37 +9,31 @@ import ifac.si.com.ifac_si_api.model.Usuario;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 
 @Service
-public class UsuarioService implements IService<Usuario>{
+public class UsuarioService{
 
     @Autowired
     private UsuarioRepository repo;
 
-    @Override
-    public List<Usuario> get() {
+    public List<Usuario> getAll() {
         return repo.findAll();
     }
 
-    @Override
     public Usuario get(Long id) {
         return repo.findById(id).orElse(null);
     }
 
-    @Override
-    public List<Usuario> get(String termoBusca) {
+    public List<Usuario> busca(String termoBusca){
         return repo.busca(termoBusca);
     }
 
-    @Override
     public Usuario save(Usuario objeto) {
         return repo.save(objeto);
     }
 
-    @Override
     public Usuario update(Usuario objeto) {
         return null;
     }
 
-    @Override
     public void delete(Long id) {
         repo.deleteById(id);
     }    

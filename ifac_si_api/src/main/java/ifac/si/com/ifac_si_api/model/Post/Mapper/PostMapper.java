@@ -5,6 +5,10 @@ import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 
 @Service
@@ -28,6 +32,16 @@ public class PostMapper {
         if ( post.getStatus() != null )postDTO.setImagens(post.getImagens());
 
         return postDTO;
+    }
+
+    public List<PostDTO> toListOfDTO(List<Post> posts) {
+        if (posts == null) {
+            return new ArrayList<>();
+        }
+
+        return posts.stream()
+                .map(this::toDTO)  // Para cada Post, converte para PostDTO
+                .collect(Collectors.toList());
     }
 
     public Post toEntity(PostRequestDTO postDto) {

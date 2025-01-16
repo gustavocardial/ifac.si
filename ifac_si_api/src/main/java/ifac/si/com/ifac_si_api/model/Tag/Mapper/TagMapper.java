@@ -10,7 +10,12 @@ public class TagMapper {
 
     // Converte de Tag para TagDTO
     public static TagDTO toTagDTO(Tag tag) {
-        return new TagDTO(tag.getId(), tag.getNome());
+
+        TagDTO tagDTO = new TagDTO();
+        tagDTO.setId(tag.getId());
+        tagDTO.setNome(tag.getNome());
+
+        return tagDTO;
     }
 
     // Converte de TagDTO para Tag

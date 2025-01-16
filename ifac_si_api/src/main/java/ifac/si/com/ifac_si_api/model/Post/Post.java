@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 // import com.fasterxml.jackson.annotation.JsonManagedReference;
 // import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ifac.si.com.ifac_si_api.model.*;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Tag.Tag;
@@ -28,14 +29,17 @@ public class Post implements Serializable{
     private String titulo;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "categoria_id", nullable = true)
     private Categoria categoria;
 
     @ManyToMany
+    @JsonManagedReference
     @JsonIgnoreProperties("posts")
     private List<Tag> tags;
 
@@ -47,6 +51,7 @@ public class Post implements Serializable{
 
     private String legenda;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens;
 

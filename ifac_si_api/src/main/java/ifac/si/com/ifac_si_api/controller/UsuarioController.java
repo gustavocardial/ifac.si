@@ -20,20 +20,18 @@ import ifac.si.com.ifac_si_api.service.UsuarioService;
 @RestController
 @RequestMapping("/usuario")
 //@Api(tags = "Usuário")
-public class UsuarioController implements IController<Usuario>{
+public class UsuarioController{
 
     @Autowired
     private UsuarioService servico;
 
-    @Override
     @GetMapping("/")
 //    @ApiOperation(value = "Listar todos os usuários")
     public ResponseEntity<List<Usuario>> get() {
-        List<Usuario> registros = servico.get();
+        List<Usuario> registros = servico.getAll();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
-    @Override
     @GetMapping("/{id}")
 //    @ApiOperation(value = "Buscar um usuário pelo ID")
     public ResponseEntity<Usuario> get(@PathVariable("id") Long id) {
@@ -41,15 +39,13 @@ public class UsuarioController implements IController<Usuario>{
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
-    @Override
     @GetMapping("/busca/{termoBusca}")
 //    @ApiOperation(value = "Buscar usuários por um termo de busca")
     public ResponseEntity<List<Usuario>> get(@PathVariable("termoBusca") String termoBusca) {
-        List<Usuario> registros = servico.get(termoBusca);
+        List<Usuario> registros = servico.busca(termoBusca);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
-    @Override
     @PostMapping("/")
 //    @ApiOperation(value = "Inserir um novo usuário")
     public ResponseEntity<Usuario> insert(@RequestBody Usuario objeto) {
@@ -57,7 +53,6 @@ public class UsuarioController implements IController<Usuario>{
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
-    @Override
     @PutMapping
 //    @ApiOperation(value = "Editar usuário")
     public ResponseEntity<Usuario> update(@RequestBody Usuario objeto) {
@@ -65,7 +60,6 @@ public class UsuarioController implements IController<Usuario>{
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
-    @Override
     @DeleteMapping("/{id}")
 //    @ApiOperation(value = "Deletar um usuário pelo ID")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {

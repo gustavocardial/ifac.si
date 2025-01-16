@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
@@ -41,10 +42,12 @@ public class PostService{
     }
 
     public List<Post> get() {
-        return postRepository.findAll();
+
+        List<Post> post = postRepository.findAll();
+        return post;
     }
 
-    public List<Post> getPostByStatus(EStatus status) {
+    public List<Post> getByStatus(EStatus status) {
         return postRepository.findByStatus(status);
     }
 
@@ -68,14 +71,19 @@ public class PostService{
         // Processa cada imagem no MinIO e cria objeto de Imagem
         List<Imagem> imagemList = new ArrayList<>();
         for (MultipartFile imagem : imagens) {
-            String fileName = minIOService.uploadFile(imagem);
-            String url = minIOService.getFileUrl("imagens-postagens", fileName);
+            try {
 
-            Imagem img = new Imagem();
-            img.setNomeArquivo(fileName);
-            img.setUrl(url);
-            img.setDataUpload(LocalDate.now());
-            imagemList.add(img);
+                String fileName = minIOService.uploadFile(imagem);
+                String url = minIOService.getFileUrl("imagens-postagens", fileName);
+
+                Imagem img = new Imagem();
+                img.setNomeArquivo(fileName);
+                img.setUrl(url);
+                img.setDataUpload(LocalDate.now());
+                imagemList.add(img);
+            } catch (Exception e) {
+                throw new RuntimeException("Erro ao processar imagem: " + e.getMessage());
+            }
         }
 
         post.setImagens(imagemList); // Associa as imagens ao post
