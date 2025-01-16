@@ -5,6 +5,7 @@ import java.util.List;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
+import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -40,6 +41,18 @@ public class PostController{
         return new ResponseEntity<>(registros, HttpStatus.OK).getBody();
     }
 
+//    @GetMapping("/tag/{tag}")
+//    public List<Post> getByTag(@RequestParam TagDTO tag) {
+//        List<Post> registros = servico.getByTag(tag);
+//        return new ResponseEntity<>(registros, HttpStatus.OK).getBody();
+//    }
+
+    @GetMapping("/tag/{tag}")
+    public ResponseEntity<List<Post>> getByTag(@PathVariable String tag) {
+        List<Post> registros = servico.getByTag(tag);
+        return new ResponseEntity<>(registros, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
 //    @Operation(summary = "Buscar post pelo ID")
     public ResponseEntity<Post> get(@PathVariable("id") Long id) {
@@ -65,18 +78,25 @@ public class PostController{
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
-    @PutMapping("/")
-    public ResponseEntity<Post> update(Post objeto) {
-        return null;
-    }
+//    @PutMapping("/")
+//    public ResponseEntity<Post> update(Post objeto) {
+//        return null;
+//    }
 
 //    @Override
-//    @PutMapping("/")
-//    @Operation(summary = "Editar post")
-//    public ResponseEntity<Post> update(@RequestBody Post objeto) {
-//        Post registro = servico.update(objeto);
-//        return new ResponseEntity<>(registro, HttpStatus.OK);
-//    }
+    @PutMapping("/{postId}")
+    @Operation(summary = "Atualizar um post existente")
+    public ResponseEntity<Post> updatePost(
+            @PathVariable Long postId,         // ID do post a ser atualizado
+            @RequestBody PostRequestDTO postDto, // Dados atualizados do post
+            @RequestParam(required = false) List<MultipartFile> imagens) throws Exception {  // Imagens opcionais
+
+        // Chama o serviço para atualizar o post
+        Post updatedPost = servico.update(postId, postDto, imagens);
+
+        // Retorna o post atualizado com status OK
+        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
 //    @Operation(summary = "Deletar um post pelo ID")

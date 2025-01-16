@@ -10,6 +10,7 @@ import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
 import ifac.si.com.ifac_si_api.model.Post.Mapper.PostMapper;
+import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 import ifac.si.com.ifac_si_api.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,10 @@ public class PostService{
 
         List<Post> post = postRepository.findAll();
         return post;
+    }
+
+    public List<Post> getByTag(String tag) {
+        return postRepository.findPostsByTagName(tag);
     }
 
     public List<Post> getByStatus(EStatus status) {
@@ -95,5 +100,65 @@ public class PostService{
     public void delete(Long id) {
         postRepository.deleteById(id);
     }
-    
+
+    public Post update(Long postId, PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+        // Encontra o post existente
+        Post existingPost = get(postId);
+
+        // Mapeia o DTO para a entidade e atualiza os campos
+        Post updatedPost = postMapper.toEntity(postDto);
+
+        // Atualiza os campos do post existente com os valores do DTO
+        existingPost.setTitulo(updatedPost.getTitulo());
+        existingPost.setTexto(updatedPost.getTexto());
+        existingPost.setLegenda(updatedPost.getLegenda());
+
+        // Atualiza a categoria, se houver alteração
+        if (updatedPost.getCategoria() != null) {
+            existingPost.setCategoria(updatedPost.getCategoria());
+        }
+
+        // Atualiza as tags, se houver alteração
+        if (updatedPost.getTags() != null && !updatedPost.getTags().isEmpty()) {
+            existingPost.setTags(updatedPost.getTags());
+        }
+
+        // Atualiza o status, se houver alteração
+        if (updatedPost.getStatus() != null) {
+            existingPost.setStatus(updatedPost.getStatus());
+        }
+
+        // Atualiza o usuário (caso você permita a modificação do usuário associado)
+        if (updatedPost.getUsuario() != null) {
+            existingPost.setUsuario(updatedPost.getUsuario());
+        }
+
+        // Processa as novas imagens, se houverem
+        if (imagens != null && !imagens.isEmpty()) {
+            List<Imagem> imagemList = new ArrayList<>();
+            for (MultipartFile imagem : imagens) {
+                try {
+                    String fileName = minIOService.uploadFile(imagem);
+                    String url = minIOService.getFileUrl("imagens-postagens", fileName);
+
+                    Imagem img = new Imagem();
+                    img.setNomeArquivo(fileName);
+                    img.setUrl(url);
+                    img.setDataUpload(LocalDate.now());
+                    imagemList.add(img);
+                } catch (Exception e) {
+                    throw new RuntimeException("Erro ao processar imagem: " + e.getMessage());
+                }
+            }
+            // Atualiza as imagens associadas ao post
+            existingPost.setImagens(imagemList);
+        }
+
+        // Atualiza a data de modificação
+        existingPost.setData(LocalDateTime.now());
+
+        // Salva o post atualizado no banco de dados
+        return postRepository.save(existingPost);
+    }
+
 }
