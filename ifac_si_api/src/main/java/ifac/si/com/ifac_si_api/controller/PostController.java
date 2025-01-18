@@ -67,16 +67,19 @@ public class PostController{
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
+    //    @Operation(summary = "Inserir novo post")
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    @Operation(summary = "Inserir novo post")
-    public ResponseEntity<?> insert(@RequestBody PostRequestDTO objeto, @Parameter(
-            description = "Arquivo para upload",
-            content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)
-    )
-    @RequestParam("file") List<MultipartFile> file) throws Exception {
-        Post registro = (Post) servico.save(objeto, file);
+    public ResponseEntity<?> insert(PostRequestDTO objeto, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+        Post registro = servico.save(objeto, file);
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
+
+    @GetMapping("/categoria/{categoriaId}")
+    public List<Post> getPostsPorCategoria(@PathVariable Long categoriaId) {
+        List<Post> registros = servico.getPostsPorCategoria(categoriaId);
+        return new ResponseEntity<>(registros ,HttpStatus.OK).getBody();
+    }
+
 
 //    @PutMapping("/")
 //    public ResponseEntity<Post> update(Post objeto) {
@@ -92,17 +95,20 @@ public class PostController{
             @RequestParam(required = false) List<MultipartFile> imagens) throws Exception {  // Imagens opcionais
 
         // Chama o serviço para atualizar o post
-        Post updatedPost = servico.update(postId, postDto, imagens);
+//        Post updatedPost = servico.update(postId, postDto, imagens);
 
         // Retorna o post atualizado com status OK
-        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+//        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+        return null;
     }
 
     @DeleteMapping("/{id}")
 //    @Operation(summary = "Deletar um post pelo ID")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        servico.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+//        servico.delete(id);
+//        return new ResponseEntity<>(HttpStatus.OK);
+
+    return null;
     }
     
 }

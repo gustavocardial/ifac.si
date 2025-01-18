@@ -4,14 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
+import ifac.si.com.ifac_si_api.config.ImageProcessingException;
+import ifac.si.com.ifac_si_api.model.Categoria;
 import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
 import ifac.si.com.ifac_si_api.model.Post.Mapper.PostMapper;
 import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
+import ifac.si.com.ifac_si_api.model.Tag.Tag;
+import ifac.si.com.ifac_si_api.model.Usuario;
 import ifac.si.com.ifac_si_api.repository.TagRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +31,8 @@ import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 import ifac.si.com.ifac_si_api.repository.CategoriaRepository;
 import org.springframework.web.multipart.MultipartFile;
 
-
+@Slf4j
+@Transactional
 @Service
 public class PostService{
 
@@ -69,96 +79,110 @@ public class PostService{
 //        return repo.save(objeto);
 //    }
 
+//    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+//        // Mapeia DTO para Entidade
+//        Post post = postMapper.toEntity(postDto);
+//
+//        // Processa cada imagem no MinIO e cria objeto de Imagem
+//        List<Imagem> imagemList = new ArrayList<>();
+//        for (MultipartFile imagem : imagens) {
+//            try {
+//
+//                String fileName = minIOService.uploadFile(imagem);
+//                String url = minIOService.getFileUrl("imagens-postagens", fileName);
+//
+//                Imagem img = new Imagem();
+//                img.setNomeArquivo(fileName);
+//                img.setUrl(url);
+//                img.setDataUpload(LocalDate.now());
+//                imagemList.add(img);
+//            } catch (Exception e) {
+//                throw new RuntimeException("Erro ao processar imagem: " + e.getMessage());
+//            }
+//        }
+//
+//        post.setImagens(imagemList); // Associa as imagens ao post
+//        post.setData(LocalDateTime.now()); // Atualiza a data
+//        Post savedPost = postRepository.save(post); // Salva no banco de dados
+//        return savedPost;
+//    }
+//
+//    public void delete(Long id) {
+//        postRepository.deleteById(id);
+//    }
+
     public Post save(PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
-        // Mapeia DTO para Entidade
+
         Post post = postMapper.toEntity(postDto);
 
-        // Processa cada imagem no MinIO e cria objeto de Imagem
-        List<Imagem> imagemList = new ArrayList<>();
-        for (MultipartFile imagem : imagens) {
-            try {
-
-                String fileName = minIOService.uploadFile(imagem);
-                String url = minIOService.getFileUrl("imagens-postagens", fileName);
-
-                Imagem img = new Imagem();
-                img.setNomeArquivo(fileName);
-                img.setUrl(url);
-                img.setDataUpload(LocalDate.now());
-                imagemList.add(img);
-            } catch (Exception e) {
-                throw new RuntimeException("Erro ao processar imagem: " + e.getMessage());
-            }
+        if (postDto.getCategoriaId() != null) {
+            post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
         }
 
-        post.setImagens(imagemList); // Associa as imagens ao post
-        post.setData(LocalDateTime.now()); // Atualiza a data
-        Post savedPost = postRepository.save(post); // Salva no banco de dados
-        return savedPost;
+        if (postDto.getUsuarioId() != null) {
+            Usuario usuario = usuarioRepository.findById(postDto.getUsuarioId())
+                    .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com o ID fornecido."));
+            post.setUsuario(usuario);
+        } else {
+            throw new IllegalArgumentException("Usuário deve ser informado.");
+        }
+
+        if (postDto.getTags() != null) {
+            post.setTags(processarTags(postDto.getTags()));
+        }
+
+        if (imagens != null) {
+            List<Imagem> imagensList = processarImagens(imagens);
+            imagensList.forEach(img -> img.setPost(post));
+            post.setImagens(imagensList);
+        }
+
+        post.setData(LocalDateTime.now());
+        return postRepository.save(post);
     }
 
-    public void delete(Long id) {
-        postRepository.deleteById(id);
+    private Categoria buscarCategoria(Long categoriaId) {
+        return categoriaRepository.findById(categoriaId)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada: " + categoriaId));
     }
 
-    public Post update(Long postId, PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
-        // Encontra o post existente
-        Post existingPost = get(postId);
-
-        // Mapeia o DTO para a entidade e atualiza os campos
-        Post updatedPost = postMapper.toEntity(postDto);
-
-        // Atualiza os campos do post existente com os valores do DTO
-        existingPost.setTitulo(updatedPost.getTitulo());
-        existingPost.setTexto(updatedPost.getTexto());
-        existingPost.setLegenda(updatedPost.getLegenda());
-
-        // Atualiza a categoria, se houver alteração
-        if (updatedPost.getCategoria() != null) {
-            existingPost.setCategoria(updatedPost.getCategoria());
-        }
-
-        // Atualiza as tags, se houver alteração
-        if (updatedPost.getTags() != null && !updatedPost.getTags().isEmpty()) {
-            existingPost.setTags(updatedPost.getTags());
-        }
-
-        // Atualiza o status, se houver alteração
-        if (updatedPost.getStatus() != null) {
-            existingPost.setStatus(updatedPost.getStatus());
-        }
-
-        // Atualiza o usuário (caso você permita a modificação do usuário associado)
-        if (updatedPost.getUsuario() != null) {
-            existingPost.setUsuario(updatedPost.getUsuario());
-        }
-
-        // Processa as novas imagens, se houverem
-        if (imagens != null && !imagens.isEmpty()) {
-            List<Imagem> imagemList = new ArrayList<>();
-            for (MultipartFile imagem : imagens) {
-                try {
-                    String fileName = minIOService.uploadFile(imagem);
-                    String url = minIOService.getFileUrl("imagens-postagens", fileName);
-
-                    Imagem img = new Imagem();
-                    img.setNomeArquivo(fileName);
-                    img.setUrl(url);
-                    img.setDataUpload(LocalDate.now());
-                    imagemList.add(img);
-                } catch (Exception e) {
-                    throw new RuntimeException("Erro ao processar imagem: " + e.getMessage());
-                }
-            }
-            // Atualiza as imagens associadas ao post
-            existingPost.setImagens(imagemList);
-        }
-
-        // Atualiza a data de modificação
-        existingPost.setData(LocalDateTime.now());
-
-        // Salva o post atualizado no banco de dados
-        return postRepository.save(existingPost);
+    private List<Tag> processarTags(List<String> tagNames) {
+        return tagNames.stream()
+                .map(nome -> tagRepository.findByNome(nome)
+                        .orElseGet(() -> {
+                            Tag novaTag = new Tag();
+                            novaTag.setNome(nome);
+                            return tagRepository.save(novaTag);
+                        }))
+                .collect(Collectors.toList());
     }
+
+    private List<Imagem> processarImagens(List<MultipartFile> imagens) {
+        return imagens.stream()
+                .map(imagem -> {
+                    try {
+                        String fileName = minIOService.uploadFile(imagem);
+                        String url = minIOService.getFileUrl("imagens-postagens", fileName);
+
+                        return Imagem.builder()
+                                .nomeArquivo(fileName)
+                                .url(url)
+                                .tamanho(imagem.getSize())
+                                .dataUpload(LocalDate.now())
+                                .build();
+                    } catch (Exception e) {
+                        throw new RuntimeException("Erro ao processar imagem: " + e.getMessage());
+                    }
+                })
+                .collect(Collectors.toList());
+
+    }
+
+    public List<Post> getPostsPorCategoria(Long categoriaId) {
+        return postRepository.findByCategoriaId(categoriaId);
+    }
+
+//    public void delete(Long id) {
+//    }
 
 }

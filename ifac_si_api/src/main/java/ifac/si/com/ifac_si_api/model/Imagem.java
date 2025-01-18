@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name = "imagens")
 public class Imagem {
@@ -35,6 +37,18 @@ public class Imagem {
     @JsonBackReference
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
+
+    public Imagem() {
+    }
+
+    public Imagem(Long id, String url, String nomeArquivo, Long tamanho, LocalDate dataUpload, Post post) {
+        this.id = id;
+        this.url = url;
+        this.nomeArquivo = nomeArquivo;
+        this.tamanho = tamanho;
+        this.dataUpload = dataUpload;
+        this.post = post;
+    }
 
     public Long getId() {
         return id;

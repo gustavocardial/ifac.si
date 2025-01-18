@@ -1,5 +1,6 @@
 package ifac.si.com.ifac_si_api.service;
 
+import ifac.si.com.ifac_si_api.config.MinioConfig;
 import io.minio.*;
 import io.minio.http.Method;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,20 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class MinIOService {
 
-    @Autowired
-    private MinioClient minioClient;
+    private final MinioClient minioClient;
+    private final MinioConfig minioConfig;
+
+    public MinIOService(MinioClient minioClient, MinioConfig minioConfig) {
+        this.minioClient = minioClient;
+        this.minioConfig = minioConfig;
+    }
 
     public String uploadFile(MultipartFile file) throws Exception {
-        String bucketName = "imagens";
+        String bucketName = minioConfig.getBucketName();
+        if (bucketName == null || bucketName.isEmpty()) {
+            throw new RuntimeException("Bucket name is not set in the application properties.");
+        }
+
         String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
 
         // Verifica se o bucket existe
@@ -36,7 +46,6 @@ public class MinIOService {
                         .build()
         );
 
-        // Retorna a URL pública permanente
         return "http://localhost:9000/" + bucketName + "/" + fileName;
     }
 
@@ -49,5 +58,4 @@ public class MinIOService {
                         .method(Method.GET)
                         .build());
     }
-
 }
