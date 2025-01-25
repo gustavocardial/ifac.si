@@ -21,7 +21,7 @@ import ifac.si.com.ifac_si_api.service.TagService;
 
 @RestController
 @RequestMapping("/tag")
-//@Api(tags = "Tag")
+@io.swagger.v3.oas.annotations.tags.Tag(name = "Tag", description = "Gerenciamento de Tags")
 public class TagController{
 
     @Autowired

@@ -1,6 +1,8 @@
 package ifac.si.com.ifac_si_api.model.Post.DTO;
 
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 @Data

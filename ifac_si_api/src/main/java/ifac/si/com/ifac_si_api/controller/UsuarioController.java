@@ -2,6 +2,7 @@ package ifac.si.com.ifac_si_api.controller;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import ifac.si.com.ifac_si_api.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
-//@Api(tags = "Usuário")
+@Tag(name = "Usuário", description = "Gerenciamento de Usuários")
 public class UsuarioController{
 
     @Autowired

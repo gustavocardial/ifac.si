@@ -50,7 +50,7 @@ public class PostMapper {
         post.setTitulo(postDto.getTitulo());
         post.setTexto(postDto.getTexto());
         post.setLegenda(postDto.getLegenda());
-        post.setStatus(postDto.getStatus() != null ? EStatus.valueOf(postDto.getStatus()) : EStatus.RASCUNHO);
+        post.setStatus(EStatus.fromString(postDto.getStatus()));
 
         return post;
     }

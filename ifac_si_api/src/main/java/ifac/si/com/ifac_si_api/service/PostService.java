@@ -4,24 +4,24 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-import ifac.si.com.ifac_si_api.config.ImageProcessingException;
 import ifac.si.com.ifac_si_api.model.Categoria;
 import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
 import ifac.si.com.ifac_si_api.model.Post.Mapper.PostMapper;
-import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 import ifac.si.com.ifac_si_api.model.Tag.Tag;
 import ifac.si.com.ifac_si_api.model.Usuario;
 import ifac.si.com.ifac_si_api.repository.TagRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import ifac.si.com.ifac_si_api.model.Post.Post;
@@ -52,10 +52,17 @@ public class PostService{
         this.postMapper = postMapper;
     }
 
+    public Page<Post> getAllPosts(int page, int size, String sortBy, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return postRepository.getAllPosts(pageable);
+    }
+
     public List<Post> get() {
 
-        List<Post> post = postRepository.findAll();
-        return post;
+        return postRepository.findAll();
     }
 
     public List<Post> getByTag(String tag) {
@@ -181,6 +188,95 @@ public class PostService{
     public List<Post> getPostsPorCategoria(Long categoriaId) {
         return postRepository.findByCategoriaId(categoriaId);
     }
+
+    public Post update(Long postId, PostRequestDTO postDto, List<MultipartFile> novasImagens) {
+
+        Post postExistente = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado"));
+
+        postExistente.setTitulo(postDto.getTitulo());
+        postExistente.setTexto(postDto.getTexto());
+        postExistente.setLegenda(postDto.getLegenda());
+
+        postExistente.setStatus(EStatus.fromString(postDto.getStatus()));
+
+        if (postDto.getCategoriaId() != null) {
+            Categoria categoria = categoriaRepository.findById(postDto.getCategoriaId())
+                    .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+            postExistente.setCategoria(categoria);
+        }
+
+        if (postDto.getTags() != null) {
+            List<Tag> tags = processarTags(postDto.getTags());
+            postExistente.setTags(tags);
+        }
+
+        if (novasImagens != null && !novasImagens.isEmpty()) {
+            List<Imagem> imagensNovas = processarImagens(novasImagens);
+            imagensNovas.forEach(img -> img.setPost(postExistente));
+
+            if (postExistente.getImagens() == null) {
+                postExistente.setImagens(new ArrayList<>());
+            }
+            postExistente.getImagens().addAll(imagensNovas);
+        }
+
+        return postRepository.save(postExistente);
+    }
+
+    public void removerImagem(Long postId, Long imagemId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado"));
+
+        post.getImagens().removeIf(imagem -> imagem.getId().equals(imagemId));
+
+//        try {
+//            // Aqui você pode adicionar a lógica para deletar o arquivo do MinIO
+//            minIOService.deleteFile("imagens-postagens", imagem.getNomeArquivo());
+//        } catch (Exception e) {
+//            log.error("Erro ao deletar arquivo do MinIO", e);
+//        }
+
+        postRepository.save(post);
+    }
+
+    public Post atualizarStatus(Long postId, EStatus novoStatus) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado"));
+
+        post.setStatus(novoStatus);
+        return postRepository.save(post);
+    }
+
+//    public Page<PostDTO> findAll(String titulo, Long categoriaId, Long usuarioId, EStatus status, Pageable pageable) {
+//
+//        Specification<Post> spec = Specification.where(null);
+//
+//        if (titulo != null && !titulo.isEmpty()) {
+//            spec = spec.and((root, query, cb) ->
+//                    cb.like(cb.lower(root.get("titulo")),
+//                            "%" + titulo.toLowerCase() + "%"));
+//        }
+//
+//        if (categoriaId != null) {
+//            spec = spec.and((root, query, cb) ->
+//                    cb.equal(root.get("categoria").get("id"), categoriaId));
+//        }
+//
+//        if (usuarioId != null) {
+//            spec = spec.and((root, query, cb) ->
+//                    cb.equal(root.get("usuario").get("id"), usuarioId));
+//        }
+//
+//        if (status != null) {
+//            spec = spec.and((root, query, cb) ->
+//                    cb.equal(root.get("status"), status));
+//        }
+//
+//        Page<Post> postsPage = postRepository.findAll(spec, pageable);
+//        return postsPage.map(postMapper::toDTO);
+//    }
+
 
 //    public void delete(Long id) {
 //    }
