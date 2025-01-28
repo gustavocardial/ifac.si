@@ -11,23 +11,29 @@ export class MenuAppComponent {
     // Menu público (sem login)
     {
       caminho: '/view_posts',
-      label: 'Todas as publicações'
+      label: 'TODAS AS PUBLICAÇÕES'
     },
     // Menu para usuários logados
     {
       caminho: '/administration/autor/new_post',
-      label: 'Criar nova publicação',
-      cargos: ['AUTOR', 'ADMIN']
+      label: 'CRIAR NOVA PUBLICAÇÃO',
+      cargos: ['AUTOR', 'EDITOR']
     },
     {
-      caminho: '/meus-dados',
-      label: 'Meus dados',
-      cargos: ['USUARIO', 'AUTOR', 'ADMIN']
+      caminho: '/adminstration/meus_dados',
+      label: 'MEUS DADOS',
+      cargos: ['EDITOR', 'AUTOR', 'ADMIN']
+    },
+
+    {
+      caminho: '/administration/editor/notification',
+      label: 'REVISAR POSTS',
+      cargos: ['EDITOR']
     },
     // Itens específicos para admin
     {
-      caminho: '/admin/dashboard',
-      label: 'Dashboard',
+      caminho: '/administration/admin/viewUsers',
+      label: 'GERÊNCIA DE PERFIS',
       cargos: ['ADMIN']
     }
   ];

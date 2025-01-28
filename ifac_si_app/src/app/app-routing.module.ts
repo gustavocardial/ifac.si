@@ -21,6 +21,7 @@ const routes: Routes = [
     {path: 'admin', children: [
       {path: 'viewUsers', component: AdminViewComponent},
     ]},
+    {path: 'meus_dados',},
   ]},
 
 ];
