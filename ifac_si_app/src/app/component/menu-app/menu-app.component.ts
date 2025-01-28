@@ -13,6 +13,10 @@ export class MenuAppComponent {
       caminho: '/view_posts',
       label: 'TODAS AS PUBLICAÇÕES'
     },
+    {
+      caminho: '/course',
+      label: 'CURSO'
+    }, 
     // Menu para usuários logados
     {
       caminho: '/administration/autor/new_post',
@@ -20,7 +24,7 @@ export class MenuAppComponent {
       cargos: ['AUTOR', 'EDITOR']
     },
     {
-      caminho: '/adminstration/meus_dados',
+      caminho: '/adminstration/my_publications',
       label: 'MEUS DADOS',
       cargos: ['EDITOR', 'AUTOR', 'ADMIN']
     },

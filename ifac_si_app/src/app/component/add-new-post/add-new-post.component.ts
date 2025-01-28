@@ -101,6 +101,7 @@ export class AddNewPostComponent implements OnInit{
   buttonC: boolean = false;
   buttonT: boolean = false;
   filtersT: boolean = false;
+  numberOfImages: number = 0;
 
   title = 'teste';
   @ViewChild('editor') editor: any;
@@ -119,6 +120,21 @@ export class AddNewPostComponent implements OnInit{
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     console.log('Editor mudou ', event);
     this.editorText = event['editor']['root']['innerHTML'];
+
+    this.countImageTags(this.editorText);
+  }
+
+  private countImageTags(content: string): void {
+    // Regex simples para encontrar tags <img>
+    const imgRegex = /<img[^>]*>/g;
+    
+    // Encontrar todas as tags img
+    const matches = content.match(imgRegex);
+    
+    // Atualizar o contador de imagens
+    this.numberOfImages = matches ? matches.length : 0;
+    
+    console.log('Número de imagens encontradas:', this.numberOfImages);
   }
 
   saveContent(): void {
