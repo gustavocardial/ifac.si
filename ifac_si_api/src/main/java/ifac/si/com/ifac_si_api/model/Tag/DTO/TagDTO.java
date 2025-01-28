@@ -12,6 +12,8 @@ public class TagDTO {
     }
 
     public TagDTO(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
     }
 
     public Long getId() { return id; }
