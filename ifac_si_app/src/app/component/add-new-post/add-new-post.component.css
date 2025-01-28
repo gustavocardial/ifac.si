@@ -45,7 +45,7 @@ input:focus {
 }
 
 input, label, button {
-    margin: 10px auto;
+    margin: 8px auto;
 }
 
 input#newTag {
