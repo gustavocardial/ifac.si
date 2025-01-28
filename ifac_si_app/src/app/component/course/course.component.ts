@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CorpoDocente } from '../../model/corpoDocente';
 
 @Component({
   selector: 'app-course',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrl: './course.component.css'
 })
 export class CourseComponent {
+  private docentes: CorpoDocente[] = [
+    {
+      nome: 'Gustavo Cardial',
+      nivel: ['Mestrado'],
+      cargo: 'Coordenador'
+    },
+    // {
+    //   nome: 'Marlon '
+    // }
+  ]
+
 
 }

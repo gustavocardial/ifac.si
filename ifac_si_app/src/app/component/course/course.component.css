@@ -1,0 +1,41 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin: auto 10%;
+    /* background-color: aqua; */
+}
+
+main img {
+    margin-bottom: 20px;
+}
+
+section#sobreCurso {
+    margin: 10px;
+    width: 100%;
+}
+
+section#sobreCurso h3 {
+    margin-top: 10px;
+}
+
+section#sobreCurso div#profissionais > div.equipe {
+    background-color: #E7DFC6;
+}
+
+div.equipe {
+    display: grid;
+
+}
+
+section#sobreCurso div#profissionais h3 {
+    text-align: center;
+}
