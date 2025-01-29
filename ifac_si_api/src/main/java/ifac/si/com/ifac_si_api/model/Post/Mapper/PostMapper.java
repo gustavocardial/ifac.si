@@ -54,4 +54,7 @@ public class PostMapper {
 
         return post;
     }
+
+    public void updateEntityFromDto(PostRequestDTO postDto, Post post) {
+    }
 }

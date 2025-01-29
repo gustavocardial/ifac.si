@@ -3,6 +3,7 @@ package ifac.si.com.ifac_si_api.service;
 import ifac.si.com.ifac_si_api.config.MinioConfig;
 import io.minio.*;
 import io.minio.http.Method;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 public class MinIOService {
 
@@ -57,5 +59,19 @@ public class MinIOService {
                         .expiry(60, TimeUnit.MINUTES)
                         .method(Method.GET)
                         .build());
+    }
+
+    public void deleteFile(String bucketName, String objectName) {
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object(objectName)
+                    .build());
+
+            log.info("Arquivo {} deletado com sucesso do bucket {}", objectName, bucketName);
+        } catch (Exception e) {
+            log.error("Erro ao deletar arquivo {}: {}", objectName, e.getMessage());
+            throw new RuntimeException("Erro ao deletar arquivo: " + e.getMessage());
+        }
     }
 }
