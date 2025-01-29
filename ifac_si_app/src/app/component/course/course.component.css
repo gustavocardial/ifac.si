@@ -15,7 +15,7 @@ main {
 }
 
 main img {
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 
 section#sobreCurso {
