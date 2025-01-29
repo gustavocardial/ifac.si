@@ -1,13 +1,13 @@
 package ifac.si.com.ifac_si_api.model;
 
-public class LoginRequest {
+public class AuthRequest {
     private String nomeUsuario;
     private String senha;
 
     // Construtores
-    public LoginRequest() {}
+    public AuthRequest() {}
 
-    public LoginRequest(String nomeUsuario, String senha) {
+    public AuthRequest(String nomeUsuario, String senha) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
     }

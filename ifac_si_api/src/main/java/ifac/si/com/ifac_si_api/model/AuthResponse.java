@@ -16,6 +16,10 @@ public class AuthResponse {
         this.cargo = cargo;
     }
 
+    public AuthResponse(String token) {
+        this.token = token;
+    }
+
     // Getters e Setters
     public String getToken() {
         return token;

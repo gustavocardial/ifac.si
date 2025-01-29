@@ -1,7 +1,6 @@
 package ifac.si.com.ifac_si_api.model.Post;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ifac.si.com.ifac_si_api.model.*;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Tag.Tag;
+import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import jakarta.persistence.*;
 
 @Entity

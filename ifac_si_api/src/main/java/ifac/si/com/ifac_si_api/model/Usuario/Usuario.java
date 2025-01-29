@@ -1,7 +1,9 @@
-package ifac.si.com.ifac_si_api.model;
+package ifac.si.com.ifac_si_api.model.Usuario;
 
 import java.io.Serializable;
+import java.util.Optional;
 
+import ifac.si.com.ifac_si_api.model.ECargo;
 import jakarta.persistence.*;
 
 @Entity
@@ -76,4 +78,7 @@ public class Usuario implements Serializable{
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
+
+    Optional<Usuario> findByEmail(String email);
+
 }
