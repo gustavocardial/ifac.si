@@ -45,19 +45,19 @@
                         >
                     </ng-container>
                     <ng-template #displayUser>
-                        {{ usuario.nomeUsuario }}
+                        {{ usuario.email }}
                     </ng-template>
                 </td>
                 <td>
                     <ng-container *ngIf="editingUser?.id === usuario.id; else displayUser">
                         <input 
                           type="text" 
-                          [(ngModel)]="tempData.nomeCompleto" 
+                          [(ngModel)]="tempData.email" 
                           class="edit-input"
                         >
                     </ng-container>
                     <ng-template #displayUser>
-                        {{ usuario.nomeCompleto }}
+                        {{ usuario.email }}
                     </ng-template>
                 </td>
                 <td>

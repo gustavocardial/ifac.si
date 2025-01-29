@@ -1,0 +1,107 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin: auto 10%;
+    /* background-color: aqua; */
+}
+
+main img {
+    margin-bottom: 20px;
+}
+
+section#sobreCurso {
+    margin: 20px auto;
+    width: 100%;
+}
+
+section#sobreCurso h3 {
+    margin-top: 10px;
+}
+
+section#sobreCurso div#profissionais > div.equipe {
+    background-color: #E7DFC6;
+    padding: 25px;
+}
+
+div.equipe {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+section#sobreCurso div#profissionais h3 {
+    text-align: center;
+}
+
+section#sobreCurso div#profissionais {
+    margin-top: 50px;
+}
+
+div.equipe > div.docente{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #3F9F4C;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+div.docente p{
+    color: aliceblue;
+    font-weight: bold;
+}
+
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* margin-right: 10px; */
+    margin-bottom: 20px;
+    border: 1px solid black;
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+div.equipe .docente:nth-child(odd) .avatar-circle {
+    background-color: #CBCBCB;
+}
+
+div.equipe .docente:nth-child(even) .avatar-circle {
+    background-color: #F5BA27;
+}
+
+div#dados_curso {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+div#dados_curso a {
+    text-decoration: none;
+    color: #CBCBCB;
+    font-weight: bold;
+    background-color: blueviolet;
+    padding: 10px;
+    border-radius: 5px;
+}
+

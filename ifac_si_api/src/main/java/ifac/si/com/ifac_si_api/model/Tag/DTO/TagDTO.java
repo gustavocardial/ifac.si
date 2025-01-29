@@ -5,6 +5,11 @@ import ifac.si.com.ifac_si_api.model.Tag.Tag;
 public class TagDTO {
     private Long id;
     private String nome;
+    
+    public TagDTO(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 
     public Long getId() {
         return id;
