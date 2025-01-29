@@ -86,7 +86,7 @@ export class PostsAppComponent implements OnInit{
   }
 
   editPost(postId: number) {
-    this.router.navigate(['/new_post'], { 
+    this.router.navigate(['/administration/autor/new_post'], { 
       queryParams: { postId: postId }
     });
   }
