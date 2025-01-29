@@ -8,8 +8,11 @@
         <div id="profissionais">
             <h3>CORPO DOCENTE</h3>
             <div class="equipe">
-                <div class="docente">
-                    Teste
+                <div class="docente" *ngFor="let docente of docentes">
+                    <img src="../../../assets/images/avatar.png" alt="Foto do docente" width="100px" height="100px">
+                    <p>{{docente.nome}}</p>
+                    <p>{{docente.nivel}}</p>
+                    <p>{{docente.cargo}}</p>
                 </div>
             </div>
         </div>

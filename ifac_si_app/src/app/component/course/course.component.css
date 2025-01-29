@@ -29,11 +29,13 @@ section#sobreCurso h3 {
 
 section#sobreCurso div#profissionais > div.equipe {
     background-color: #E7DFC6;
+    padding: 25px
 }
 
 div.equipe {
     display: grid;
-
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
 section#sobreCurso div#profissionais h3 {
@@ -41,9 +43,14 @@ section#sobreCurso div#profissionais h3 {
 }
 
 div.equipe > div.docente{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-color: #3F9F4C;
-    margin: 10px;
-    width: 25%;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
 
 }
 
