@@ -70,7 +70,8 @@ div.docente p{
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    margin-bottom: 20px;
     border: 1px solid black;
 }
 
