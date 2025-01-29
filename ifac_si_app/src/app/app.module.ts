@@ -21,6 +21,7 @@ import { erroInterceptor } from './interceptor/erro.interceptor';
 import { AdminViewComponent } from './component/admin-view/admin-view.component';
 import { UserFormComponent } from './component/user-form/user-form.component';
 import { CourseComponent } from './component/course/course.component';
+import { ViewPostComponent } from './component/view-post/view-post.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { CourseComponent } from './component/course/course.component';
     AdminViewComponent,
     UserFormComponent,
     CourseComponent,
+    ViewPostComponent,
   ],
   imports: [
     BrowserModule,
