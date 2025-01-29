@@ -19,7 +19,7 @@ main img {
 }
 
 section#sobreCurso {
-    margin: 20px;
+    margin: 20px auto;
     width: 100%;
 }
 
@@ -55,6 +55,7 @@ div.equipe > div.docente{
     box-sizing: border-box;
     padding: 10px;
     width: 100%;
+    border-radius: 10px;
 }
 
 div.docente p{
@@ -89,4 +90,18 @@ div.equipe .docente:nth-child(even) .avatar-circle {
     background-color: #F5BA27;
 }
 
+div#dados_curso {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+div#dados_curso a {
+    text-decoration: none;
+    color: #CBCBCB;
+    font-weight: bold;
+    background-color: blueviolet;
+    padding: 10px;
+    border-radius: 5px;
+}
 
