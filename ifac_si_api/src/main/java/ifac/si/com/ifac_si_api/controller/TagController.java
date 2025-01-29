@@ -41,14 +41,14 @@ public class TagController{
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
-    @GetMapping("/busca/{post}")
-//    @ApiOperation(value = "Buscar tags por um Post")
-    public ResponseEntity<List<TagDTO>> get(@RequestBody PostRequestDTO postRequestDTO) {
-        List<TagDTO> registros = servico.getAllByPost(postRequestDTO);
-        return new ResponseEntity<>(registros, HttpStatus.OK);
-    }
+//     @GetMapping("/busca/{postId}")
+// //    @ApiOperation(value = "Buscar tags por um Post")
+//     public ResponseEntity<List<TagDTO>> get(@PathVariable PostRequestDTO postRequestDTO) {
+//         List<TagDTO> registros = servico.getAllByPost(postRequestDTO);
+//         return new ResponseEntity<>(registros, HttpStatus.OK);
+//     }
 
-    @GetMapping("/busca/{termoBusca}")
+    @GetMapping("/busca/termo/{termoBusca}")
 //    @ApiOperation(value = "Buscar tags por um termo de busca")
     public ResponseEntity<List<TagDTO>> get(@PathVariable("termoBusca") String termoBusca) {
         List<TagDTO> registros = servico.getAll(termoBusca);

@@ -46,17 +46,22 @@ export class AddNewPostComponent implements OnInit{
           // this.tags = resposta.tags;
         }
       })
-      this.servicoTag.get(id).subscribe({
-        next: (resposta: tagDTO[]) => {
-          this.tagsList = resposta;
-          this.tagsList = resposta.map(tag => ({
-            id: tag.id,
-            nome: tag.nome
-          }));
-          // console.log (this.tagsList)
+      this.servicoTag.get().subscribe({
+        next: (tags: tagDTO[]) => {
+          // Filtra apenas as tags que pertencem ao post
+          this.tagsList = tags.filter(tag => 
+            this.post.tags?.some(postTag => postTag.id === tag.id)
+          );
+          
+          // this.tagsList = this.tagsList.map(tag => ({
+          //   id: tag.id,
+          //   nome: tag.nome
+          // }));
         }
-      })
+      });
     }
+
+    console.log (this.tagsList);
 
     this.servicoCategoria.get().subscribe({
       next: (resposta: Categoria[]) => {

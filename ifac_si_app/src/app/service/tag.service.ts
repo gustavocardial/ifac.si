@@ -16,9 +16,9 @@ export class TagService implements IService<tagDTO>{
 
   get(termoBusca?: string): Observable<tagDTO[]> {
     let url = this.apiUrl;
-    if (termoBusca) {
-      url += "busca/" + termoBusca;
-    }
+    // if (termoBusca) {
+    //   url += "busca/" + termoBusca;
+    // }
     return this.http.get<tagDTO[]>(url);
   }
 
