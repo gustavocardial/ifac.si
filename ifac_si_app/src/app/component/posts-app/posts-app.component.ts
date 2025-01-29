@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, viewChildren, ViewChildren } from '@angular/core';
 import { PostService } from '../../service/post.service';
 import { Post } from '../../model/post';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { ETipoAlerta } from '../../model/e-tipo-alerta';
 export class PostsAppComponent implements OnInit{
   @ViewChildren('deleteButton') deleteButtons!: QueryList<ElementRef>;
   @ViewChildren('editButton') editButtons!: QueryList<ElementRef>;
+  @ViewChildren('showButton') showButtons!: QueryList<ElementRef>;
   posts: Post[] = Array<Post>();
   show: boolean = false;
   postIdToDelete!: number;
@@ -66,6 +67,14 @@ export class PostsAppComponent implements OnInit{
       });
       this.listeners.push(listener);
     });
+
+    this.showButtons.forEach((button, index) => {
+      const postId = button.nativeElement.getAttribute('data-post-id');
+      const listener = this.renderer.listen(button.nativeElement, 'click', () => {
+        this.viewPost(postId);
+      });
+      this.listeners.push(listener);
+    })
   }
 
   ngOnDestroy(): void {
@@ -77,7 +86,13 @@ export class PostsAppComponent implements OnInit{
   }
 
   editPost(postId: number) {
-    this.router.navigate(['/new_post'], { 
+    this.router.navigate(['/administration/autor/new_post'], { 
+      queryParams: { postId: postId }
+    });
+  }
+
+  viewPost(postId: number) {
+    this.router.navigate(['/view_post'], { 
       queryParams: { postId: postId }
     });
   }

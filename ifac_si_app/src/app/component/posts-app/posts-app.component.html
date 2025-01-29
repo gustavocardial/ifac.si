@@ -10,7 +10,7 @@
                     <div id="postComposition" #postComposition>
                         <div class="categorys">{{post.categoria?.nome}}</div>
                         <div id="postImage" #postImage>
-                            <button class="eyeButton"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
+                            <button class="eyeButton" #showButton [attr.data-post-id]="post.id"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
                             <img src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
                         </div>
                     </div>
