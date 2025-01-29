@@ -27,6 +27,16 @@ export class CourseComponent {
       nome: 'Darueck',
       nivel: 'Mestre',
       cargo: 'Professor'
+    },
+    {
+      nome: 'Silvana',
+      nivel: 'Mestre',
+      cargo: 'Professora'
+    },
+    {
+      nome: 'Breno Silveira',
+      nivel: 'Mestre',
+      cargo: 'Professor'
     }
     // {
     //   nome: 'Marlon '
