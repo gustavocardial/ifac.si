@@ -89,6 +89,13 @@ public class PostController{
         return new ResponseEntity<>(registros ,HttpStatus.OK).getBody();
     }
 
+//    @Operation(summary = "Atualizar post existente")
+//    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<?> update(@PathVariable Long id, PostRequestDTO objeto,
+//                                    @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+//        Post registro = servico.update(id, objeto, file);
+//        return ResponseEntity.ok(registro);
+//    }
 
 //    @PutMapping("/")
 //    public ResponseEntity<Post> update(Post objeto) {
@@ -120,12 +127,12 @@ public class PostController{
     return null;
     }
 
-    @PutMapping("/{id}")
-    @Operation(summary = "Atualizar um post existente")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestPart PostRequestDTO postDto,
-                                           @RequestPart(required = false) List<MultipartFile> imagens) {
-        Post updatedPost = servico.update(id, postDto, imagens);
-        return ResponseEntity.ok(updatedPost);
+    @Operation(summary = "Atualizar post existente")
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> update(@PathVariable Long id, PostRequestDTO objeto,
+                                    @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+        Post registro = servico.update(id, objeto, file);
+        return ResponseEntity.ok(registro);
     }
 
     @DeleteMapping("/{postId}/imagens/{imagemId}")
@@ -137,6 +144,7 @@ public class PostController{
     }
 
     @PatchMapping("/{id}/status")
+    @Operation(summary = "Atualizar status do post pelo id")
     public ResponseEntity<Post> atualizarStatus(
             @PathVariable Long id,
             @RequestBody EStatus status) {

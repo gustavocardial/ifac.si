@@ -3,6 +3,7 @@ package ifac.si.com.ifac_si_api.model.Post;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 // import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -137,6 +138,29 @@ public class Post implements Serializable{
     public void setStatus(EStatus status) {
         this.status = status;
     }
+
+    public void removeImagem(Imagem img) {
+        // Verifica se a lista de imagens existe e se a imagem está na lista
+        if (this.imagens != null && this.imagens.contains(img)) {
+            // Remove a imagem da lista
+            this.imagens.remove(img);
+            // Limpa a referência do post na imagem, o que mantém a relação bidirecional
+            img.setPost(null);
+        }
+    }
+
+    public void addImagem(Imagem img) {
+        // Verifica se a lista de imagens existe
+        if (this.imagens == null) {
+            // Se não existir, cria uma nova lista
+            this.imagens = new ArrayList<>();
+        }
+        // Adiciona a imagem na lista de imagens
+        this.imagens.add(img);
+        // Estabelece a relação bidirecional com o post
+        img.setPost(this);
+    }
+
 
     //Testar relacionamentos e engenharia reserva no workbench
 }
