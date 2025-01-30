@@ -48,26 +48,18 @@ export class AddNewPostComponent implements OnInit{
           // this.tags = resposta.tags;
         }
       });
-
-      this.servicoTag.get().subscribe({
-        next: (resposta: tags[]) => {
-          // Filtra apenas as tags que pertencem ao post
-          console.log (resposta);
-          
-          this.tagsList = resposta;
-          console.log("Tags", this.tagsList);
-          
-          // this.tagsList = resposta.filter(tag => 
-          //   this.post.tags?.some(postTag => postTag.id === tag.id)
-          // );
-          
-          // this.tagsList = this.tagsList.map(tag => ({
-          //   id: tag.id,
-          //   nome: tag.nome
-          // }));
-        }
-      });
     }
+
+    this.servicoTag.get().subscribe({
+      next: (resposta: tags[]) => {
+        // this.tags = resposta;
+        this.tags = resposta.map(tag => ({
+          id: tag.id,
+          nome: tag.nome
+        }));
+        console.log('Tags:', this.tags); 
+      }
+    });  
 
     this.servicoCategoria.get().subscribe({
       next: (resposta: Categoria[]) => {
@@ -106,7 +98,7 @@ export class AddNewPostComponent implements OnInit{
   // }
   post: Post = <Post>{};
   categorias: Categoria[] = Array<Categoria>();
-  tagsList: tags[] = Array<tags>();
+  tags: tags[] = Array<tags>();
   accordionView: boolean = false;
   buttonS: boolean = false;
   buttonC: boolean = false;
@@ -208,8 +200,8 @@ export class AddNewPostComponent implements OnInit{
 
   addTag(): void {
     let newTag = this.addTagPost(this.newTag.nativeElement.value)
-    this.tagsList.push(newTag);
-    console.log(this.tagsList);
+    this.tags.push(newTag);
+    console.log(this.tags);
     this.newTag.nativeElement.value = '';
   }
 
@@ -218,8 +210,8 @@ export class AddNewPostComponent implements OnInit{
   }
 
   addTagPost(tagName: string): tags {
-    const newId = this.tagsList.length > 0 
-        ? this.tagsList[this.tagsList.length - 1].id + 1 
+    const newId = this.tags.length > 0 
+        ? this.tags[this.tags.length - 1].id + 1 
         : 1;
 
     // Cria uma nova tag
