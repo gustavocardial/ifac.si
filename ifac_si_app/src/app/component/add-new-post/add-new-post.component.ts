@@ -6,9 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from '../../model/categoria';
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
-import { tagDTO } from '../../model/tagDTO';
+import { tags } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
+import { statusPost } from '../../model/statusEnum';
 
 @Component({
   selector: 'app-add-new-post',
@@ -43,15 +44,22 @@ export class AddNewPostComponent implements OnInit{
       this.servicoPost.getById(+id).subscribe({
         next: (resposta: Post) => {
           this.post = resposta;
+          
           // this.tags = resposta.tags;
         }
-      })
+      });
+
       this.servicoTag.get().subscribe({
-        next: (tags: tagDTO[]) => {
+        next: (resposta: tags[]) => {
           // Filtra apenas as tags que pertencem ao post
-          this.tagsList = tags.filter(tag => 
-            this.post.tags?.some(postTag => postTag.id === tag.id)
-          );
+          console.log (resposta);
+          
+          this.tagsList = resposta;
+          console.log("Tags", this.tagsList);
+          
+          // this.tagsList = resposta.filter(tag => 
+          //   this.post.tags?.some(postTag => postTag.id === tag.id)
+          // );
           
           // this.tagsList = this.tagsList.map(tag => ({
           //   id: tag.id,
@@ -60,8 +68,6 @@ export class AddNewPostComponent implements OnInit{
         }
       });
     }
-
-    console.log (this.tagsList);
 
     this.servicoCategoria.get().subscribe({
       next: (resposta: Categoria[]) => {
@@ -100,7 +106,7 @@ export class AddNewPostComponent implements OnInit{
   // }
   post: Post = <Post>{};
   categorias: Categoria[] = Array<Categoria>();
-  tagsList: tagDTO[] = Array<tagDTO>();
+  tagsList: tags[] = Array<tags>();
   accordionView: boolean = false;
   buttonS: boolean = false;
   buttonC: boolean = false;
@@ -143,12 +149,14 @@ export class AddNewPostComponent implements OnInit{
   }
 
   saveContent(): void {
-    if (!this.post.data) {
-      const now = new Date();
-      this.post.data = now.toISOString().split('T')[0]; 
-    }
+    // if (!this.post.data) {
+    //   const now = new Date();
+    //   this.post.data = now.toISOString().split('T')[0]; 
+    // }
 
-    console.log(this.post.data)
+    // console.log(this.post.data)
+    if(!this.post.EStatus) this.post.EStatus = statusPost.publico;
+
     this.servicoPost.save(this.post).subscribe({
       complete: () => 
       this.servicoAlerta.enviarAlerta({
@@ -209,7 +217,7 @@ export class AddNewPostComponent implements OnInit{
     this.filtersT = !this.filtersT;
   }
 
-  addTagPost(tagName: string): tagDTO {
+  addTagPost(tagName: string): tags {
     const newId = this.tagsList.length > 0 
         ? this.tagsList[this.tagsList.length - 1].id + 1 
         : 1;
@@ -226,7 +234,7 @@ export class AddNewPostComponent implements OnInit{
     return newTag;
   }
 
-  createTag(id: number, nome: string): tagDTO {
+  createTag(id: number, nome: string): tags {
     return {
         id,
         nome,

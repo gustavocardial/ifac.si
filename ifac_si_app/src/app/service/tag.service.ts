@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IService } from './I-service';
-import { tagDTO } from '../model/tagDTO';
+import { tags } from '../model/tag';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -8,32 +8,32 @@ import { environment } from '../../environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
-export class TagService implements IService<tagDTO>{
+export class TagService implements IService<tags>{
 
   constructor(private http: HttpClient) { }
 
   apiUrl: string = environment.API_URL + '/tag/';
 
-  get(termoBusca?: string): Observable<tagDTO[]> {
+  get(termoBusca?: string): Observable<tags[]> {
     let url = this.apiUrl;
     // if (termoBusca) {
     //   url += "busca/" + termoBusca;
     // }
-    return this.http.get<tagDTO[]>(url);
+    return this.http.get<tags[]>(url);
   }
 
-  getById(id: number): Observable<tagDTO> {
+  getById(id: number): Observable<tags> {
     let url = this.apiUrl + id;
-    return this.http.get<tagDTO>(url);
+    return this.http.get<tags>(url);
   }
 
-  save(objeto: tagDTO): Observable<tagDTO> {
+  save(objeto: tags): Observable<tags> {
     let url = this.apiUrl;
     
     if (objeto.id) {
-      return this.http.put<tagDTO>(url, objeto);
+      return this.http.put<tags>(url, objeto);
     } else {
-      return this.http.post<tagDTO>(url, objeto);
+      return this.http.post<tags>(url, objeto);
     }
   }
   
