@@ -1,6 +1,6 @@
 import { Post } from "./post"
 
-export type tagDTO = {
+export type tags = {
     id: number,
     nome: string,
     // posts: Post[]
