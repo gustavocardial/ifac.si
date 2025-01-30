@@ -53,11 +53,11 @@ export class AddNewPostComponent implements OnInit{
     this.servicoTag.get().subscribe({
       next: (resposta: tags[]) => {
         // this.tags = resposta;
-        this.tags = resposta.map(tag => ({
+        this.tagsList = resposta.map(tag => ({
           id: tag.id,
           nome: tag.nome
         }));
-        console.log('Tags:', this.tags); 
+        console.log('Tags:', this.tagsList); 
       }
     });  
 
@@ -98,7 +98,7 @@ export class AddNewPostComponent implements OnInit{
   // }
   post: Post = <Post>{};
   categorias: Categoria[] = Array<Categoria>();
-  tags: tags[] = Array<tags>();
+  tagsList: tags[] = Array<tags>();
   accordionView: boolean = false;
   buttonS: boolean = false;
   buttonC: boolean = false;
@@ -200,8 +200,8 @@ export class AddNewPostComponent implements OnInit{
 
   addTag(): void {
     let newTag = this.addTagPost(this.newTag.nativeElement.value)
-    this.tags.push(newTag);
-    console.log(this.tags);
+    this.tagsList.push(newTag);
+    console.log(this.tagsList);
     this.newTag.nativeElement.value = '';
   }
 
@@ -210,8 +210,8 @@ export class AddNewPostComponent implements OnInit{
   }
 
   addTagPost(tagName: string): tags {
-    const newId = this.tags.length > 0 
-        ? this.tags[this.tags.length - 1].id + 1 
+    const newId = this.tagsList.length > 0 
+        ? this.tagsList[this.tagsList.length - 1].id + 1 
         : 1;
 
     // Cria uma nova tag
