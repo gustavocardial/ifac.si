@@ -21,8 +21,11 @@ div#flex-container-filter {
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    margin: 10px 40px;
+    margin: 10px 0;
     width: fit-content;
+    padding: 0 40px;
+    max-width: 1200px;
+    box-sizing: border-box;
 }
 
 .dropdown {
