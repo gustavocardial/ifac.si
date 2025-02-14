@@ -139,6 +139,13 @@ public class PostService{
             post.setTags(processarTags(postDto.getTags()));
         }
 
+        if (postDto.getImagemCapa() != null) {
+            // Supondo que postDto.getImagemCapa() já seja um objeto Imagem
+            Imagem imagemCapa = postDto.getImagemCapa();
+            imagemCapa.setPost(post);  // Associa a imagem ao post
+            post.setImagemCapa(imagemCapa);  // Define a imagem de capa no post
+        }
+
         if (imagens != null) {
             List<Imagem> imagensList = processarImagens(imagens);
             imagensList.forEach(img -> img.setPost(post));

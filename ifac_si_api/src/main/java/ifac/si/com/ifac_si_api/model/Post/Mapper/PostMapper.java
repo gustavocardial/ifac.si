@@ -29,7 +29,8 @@ public class PostMapper {
         postDTO.setData(post.getData());
         postDTO.setLegenda(post.getLegenda());
         if ( post.getStatus() != null ) postDTO.setStatus(post.getStatus().name());
-        if ( post.getStatus() != null )postDTO.setImagens(post.getImagens());
+        if ( post.getStatus() != null ) postDTO.setImagens(post.getImagens());
+        postDTO.setImagemCapa(post.getImagemCapa());
 
         return postDTO;
     }
@@ -51,6 +52,7 @@ public class PostMapper {
         post.setTexto(postDto.getTexto());
         post.setLegenda(postDto.getLegenda());
         post.setStatus(EStatus.fromString(postDto.getStatus()));
+        post.setImagemCapa(postDto.getImagemCapa());
 
         return post;
     }

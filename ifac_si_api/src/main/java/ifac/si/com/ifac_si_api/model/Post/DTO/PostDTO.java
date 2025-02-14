@@ -15,6 +15,7 @@ public class PostDTO {
     private LocalDateTime data;
     private String legenda;
     private List<Imagem> imagens;
+    private Imagem imagemCapa;
     private String status;
 
     public PostDTO(Long id, String titulo) {
@@ -78,6 +79,14 @@ public class PostDTO {
 
     public void setImagens(List<Imagem> imagens) {
         this.imagens = imagens;
+    }
+
+    public Imagem getImagemCapa() {
+        return imagemCapa;
+    }
+
+    public void setImagemCapa(Imagem imagemCapa) {
+        this.imagemCapa = imagemCapa;
     }
 
     public String getStatus() {
