@@ -3,6 +3,8 @@ package ifac.si.com.ifac_si_api.model.Post.DTO;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import ifac.si.com.ifac_si_api.model.Imagem;
 
 import java.util.List;
@@ -17,7 +19,6 @@ public class PostRequestDTO {
     private String legenda;
     private String status;
     private List<String> tags;
-    private Imagem imagemCapa;
 
     public String getTitulo() {
         return titulo;
@@ -73,14 +74,6 @@ public class PostRequestDTO {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
-    }
-
-    public Imagem getImagemCapa() {
-        return imagemCapa;
-    }
-
-    public void setImagemCapa(Imagem imagemCapa) {
-        this.imagemCapa = imagemCapa;
     }
 
 }

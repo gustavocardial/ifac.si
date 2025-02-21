@@ -57,6 +57,8 @@ public class Post implements Serializable{
     private List<Imagem> imagens;
 
     @Column(nullable = true)
+    @Transient
+    @ManyToOne
     private Imagem imagemCapa;
 
     @Enumerated(EnumType.STRING)

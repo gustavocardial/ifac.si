@@ -119,7 +119,7 @@ public class PostService{
 //        postRepository.deleteById(id);
 //    }
 
-    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
 
         Post post = postMapper.toEntity(postDto);
 
@@ -139,9 +139,9 @@ public class PostService{
             post.setTags(processarTags(postDto.getTags()));
         }
 
-        if (postDto.getImagemCapa() != null) {
+        if (postCapa != null) {
             // Supondo que postDto.getImagemCapa() já seja um objeto Imagem
-            Imagem imagemCapa = postDto.getImagemCapa();
+            Imagem imagemCapa = processarPostCapa(postCapa);
             imagemCapa.setPost(post);  // Associa a imagem ao post
             post.setImagemCapa(imagemCapa);  // Define a imagem de capa no post
         }
@@ -191,6 +191,24 @@ public class PostService{
                 })
                 .collect(Collectors.toList());
 
+    }
+
+    private Imagem processarPostCapa(MultipartFile capa) {
+        try {
+            // Realiza o upload da imagem da capa para o MinIO
+            String fileName = minIOService.uploadFile(capa);
+            String url = minIOService.getFileUrl("imagens-postagens", fileName);
+    
+            // Retorna o objeto Imagem com as informações da imagem da capa
+            return Imagem.builder()
+                    .nomeArquivo(fileName)
+                    .url(url)
+                    .tamanho(capa.getSize())
+                    .dataUpload(LocalDate.now())
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao processar capa do post: " + e.getMessage());
+        }
     }
 
     public List<Post> getPostsPorCategoria(Long categoriaId) {
