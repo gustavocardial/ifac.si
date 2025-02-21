@@ -23,7 +23,7 @@ div#flex-container-filter {
     justify-content: flex-start;
     margin: 10px 0;
     width: fit-content;
-    padding: 0 40px;
+    padding: 0 40px 15px 40px;
     max-width: 1200px;
     box-sizing: border-box;
 }

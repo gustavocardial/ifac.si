@@ -34,6 +34,11 @@ div.postList {
     padding: 0;
 }
 
+div.postList div.postData {
+    margin-top: 10px;
+    font-weight: 600;
+}
+
 div.postList > div {
     width: 100%; /* Ajusta para ocupar o espaço da coluna */
     max-width: none; /* Remove o max-width anterior */

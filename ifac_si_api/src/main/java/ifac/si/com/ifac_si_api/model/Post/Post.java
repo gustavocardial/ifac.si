@@ -56,6 +56,11 @@ public class Post implements Serializable{
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens;
 
+    @Column(nullable = true)
+    @Transient
+    @ManyToOne
+    private Imagem imagemCapa;
+
     @Enumerated(EnumType.STRING)
     private EStatus status;
 
@@ -159,6 +164,14 @@ public class Post implements Serializable{
         this.imagens.add(img);
         // Estabelece a relação bidirecional com o post
         img.setPost(this);
+    }
+
+    public Imagem getImagemCapa() {
+        return imagemCapa;
+    }
+
+    public void setImagemCapa(Imagem imagemCapa) {
+        this.imagemCapa = imagemCapa;
     }
 
 

@@ -1,6 +1,7 @@
 package ifac.si.com.ifac_si_api.controller;
 
 import java.awt.print.Pageable;
+import java.time.LocalDate;
 import java.util.List;
 
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
@@ -17,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.service.PostService;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,8 +80,15 @@ public class PostController{
 
     @Operation(summary = "Inserir novo post")
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> insert(PostRequestDTO objeto, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
-        Post registro = servico.save(objeto, file);
+    public ResponseEntity<?> insert(PostRequestDTO objeto, @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+            // Verifica se foi enviada uma imagem de capa
+        // if (imagemCapaFile != null) {
+        //     // Processa a imagem de capa
+        //     Imagem imagemCapa = processarImagem(imagemCapaFile);
+        //     objeto.setImagemCapa(imagemCapa);  // Define a imagem de capa no DTO
+        // }
+        
+        Post registro = servico.save(objeto, file, imagemCapaFile);
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
@@ -151,5 +160,16 @@ public class PostController{
         Post updatedPost = servico.atualizarStatus(id, status);
         return ResponseEntity.ok(updatedPost);
     }
+
+    // // Método auxiliar para processar a imagem
+    // private Imagem processarImagem(MultipartFile file) throws Exception {
+    //     Imagem imagem = new Imagem();
+    //     imagem.setNomeArquivo(file.getOriginalFilename());
+    //     imagem.setTamanho(file.getSize());
+    //     imagem.setDataUpload(LocalDate.now());
+    //     // Defina a URL da imagem após o upload (exemplo de URL gerada via MinIO)
+    //     imagem.setUrl("url_da_imagem"); // Aqui você deve gerar a URL da imagem após o upload
+    //     return imagem;
+    // }
     
 }

@@ -119,7 +119,7 @@ public class PostService{
 //        postRepository.deleteById(id);
 //    }
 
-    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
 
         Post post = postMapper.toEntity(postDto);
 
@@ -137,6 +137,13 @@ public class PostService{
 
         if (postDto.getTags() != null) {
             post.setTags(processarTags(postDto.getTags()));
+        }
+
+        if (postCapa != null) {
+            // Supondo que postDto.getImagemCapa() já seja um objeto Imagem
+            Imagem imagemCapa = processarPostCapa(postCapa);
+            imagemCapa.setPost(post);  // Associa a imagem ao post
+            post.setImagemCapa(imagemCapa);  // Define a imagem de capa no post
         }
 
         if (imagens != null) {
@@ -170,7 +177,7 @@ public class PostService{
                 .map(imagem -> {
                     try {
                         String fileName = minIOService.uploadFile(imagem);
-                        String url = minIOService.getFileUrl("imagens-postagens", fileName);
+                        String url = minIOService.getFileUrl("imagens", fileName);
 
                         return Imagem.builder()
                                 .nomeArquivo(fileName)
@@ -184,6 +191,24 @@ public class PostService{
                 })
                 .collect(Collectors.toList());
 
+    }
+
+    private Imagem processarPostCapa(MultipartFile capa) {
+        try {
+            // Realiza o upload da imagem da capa para o MinIO
+            String fileName = minIOService.uploadFile(capa);
+            String url = minIOService.getFileUrl("imagens", fileName);
+    
+            // Retorna o objeto Imagem com as informações da imagem da capa
+            return Imagem.builder()
+                    .nomeArquivo(fileName)
+                    .url(url)
+                    .tamanho(capa.getSize())
+                    .dataUpload(LocalDate.now())
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao processar capa do post: " + e.getMessage());
+        }
     }
 
     public List<Post> getPostsPorCategoria(Long categoriaId) {
@@ -222,7 +247,7 @@ public class PostService{
             if (post.getImagens() != null) {
                 List<Imagem> imagensAtuais = new ArrayList<>(post.getImagens());
                 for (Imagem img : imagensAtuais) {
-                    minIOService.deleteFile("imagens-postagens", img.getNomeArquivo());
+                    minIOService.deleteFile("imagens", img.getNomeArquivo());
                     post.removeImagem(img);
                 }
             }
