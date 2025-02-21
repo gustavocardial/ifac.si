@@ -177,7 +177,7 @@ public class PostService{
                 .map(imagem -> {
                     try {
                         String fileName = minIOService.uploadFile(imagem);
-                        String url = minIOService.getFileUrl("imagens-postagens", fileName);
+                        String url = minIOService.getFileUrl("imagens", fileName);
 
                         return Imagem.builder()
                                 .nomeArquivo(fileName)
@@ -197,7 +197,7 @@ public class PostService{
         try {
             // Realiza o upload da imagem da capa para o MinIO
             String fileName = minIOService.uploadFile(capa);
-            String url = minIOService.getFileUrl("imagens-postagens", fileName);
+            String url = minIOService.getFileUrl("imagens", fileName);
     
             // Retorna o objeto Imagem com as informações da imagem da capa
             return Imagem.builder()
@@ -247,7 +247,7 @@ public class PostService{
             if (post.getImagens() != null) {
                 List<Imagem> imagensAtuais = new ArrayList<>(post.getImagens());
                 for (Imagem img : imagensAtuais) {
-                    minIOService.deleteFile("imagens-postagens", img.getNomeArquivo());
+                    minIOService.deleteFile("imagens", img.getNomeArquivo());
                     post.removeImagem(img);
                 }
             }
