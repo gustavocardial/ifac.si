@@ -196,7 +196,9 @@ public class PostService{
     private Imagem processarPostCapa(MultipartFile capa) {
         try {
             // Realiza o upload da imagem da capa para o MinIO
-            String fileName = minIOService.uploadFile(capa);
+            String fullPath = minIOService.uploadFile(capa);
+            // Extrair apenas o nome do arquivo da URL
+            String fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1);
             String url = minIOService.getFileUrl("imagens", fileName);
     
             // Retorna o objeto Imagem com as informações da imagem da capa
