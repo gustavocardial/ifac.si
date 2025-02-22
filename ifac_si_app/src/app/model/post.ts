@@ -14,5 +14,6 @@ export type Post = {
     data?: string,
     legenda: string,
     imagens: Imagem[],
+    imagemCapa: Imagem,
     EStatus: statusPost
 }
