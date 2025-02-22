@@ -11,7 +11,8 @@
                         <div class="categorys">{{post.categoria?.nome}}</div>
                         <div id="postImage" #postImage>
                             <button class="eyeButton" #showButton [attr.data-post-id]="post.id"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
-                            <img src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
+                            <img *ngIf="post.imagemCapa" [src]="post.imagemCapa.url" alt="Imagem do post">
+                            <img *ngIf="!post.imagemCapa" src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
                         </div>
                     </div>
                     <div id="postAction" #postAction>

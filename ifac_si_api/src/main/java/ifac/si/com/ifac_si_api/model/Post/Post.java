@@ -56,9 +56,8 @@ public class Post implements Serializable{
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens;
 
-    @Column(nullable = true)
-    @Transient
-    @ManyToOne
+    @JoinColumn(name = "imagem_capa_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Imagem imagemCapa;
 
     @Enumerated(EnumType.STRING)

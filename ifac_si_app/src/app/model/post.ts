@@ -12,7 +12,8 @@ export type Post = {
     tags?: tags[],
     texto: string,
     data?: string,
-    legenda: string,
-    imagens: Imagem[],
+    legenda?: string,
+    imagens?: Imagem[],
+    imagemCapa?: Imagem,
     EStatus: statusPost
 }
