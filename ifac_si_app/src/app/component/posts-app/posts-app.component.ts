@@ -31,6 +31,14 @@ export class PostsAppComponent implements OnInit{
   ngOnInit(): void {
     this.postServico.get().subscribe({
       next: (resposta: Post[]) => {
+        resposta.forEach(post => {
+          if (post.imagemCapa) {
+            console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
+          } else {
+            console.log(`❌ Post ID: ${post.id} NÃO tem imagem de capa.`);
+          }
+        });
+
         this.posts = resposta;
         // this.servicoAlerta.enviarAlerta({
         //   tipo: ETipoAlerta.SUCESSO,
