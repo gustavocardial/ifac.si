@@ -1,5 +1,7 @@
 SET SESSION FOREIGN_KEY_CHECKS=0;
 
+-- DELETE FROM posts WHERE id=11;
+
 INSERT INTO usuarios (id, ativo, cargo, email, nome_usuario, senha)
 VALUES
     (1, true, 'AUTOR', 'JS@gmail.com', 'joao.silva', 'senha123'),
