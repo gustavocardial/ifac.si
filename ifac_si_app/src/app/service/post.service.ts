@@ -47,6 +47,8 @@ export class PostService implements IService<Post>{
     if (objeto.id) {
       return this.http.put<Post>(url, formData, { headers: headers });
     } else {
+      console.log (formData);
+
       return this.http.post<Post>(url, formData, { headers: headers });
     }
   }
@@ -59,11 +61,11 @@ export class PostService implements IService<Post>{
   private mapToPostRequestDTO(post: Post): any {
     return {
       titulo: post.titulo,
-      usuarioId: post.usuario?.id || 1,
-      categoriaId: post.categoria?.id || 2,
+      usuarioId: post.usuario?.id,
+      categoriaId: post.categoria?.id,
       texto: post.texto,
       legenda: post.legenda,
-      status: post.EStatus || 'PUBLICADO',
+      status: post.EStatus,
       tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
     };
   }
