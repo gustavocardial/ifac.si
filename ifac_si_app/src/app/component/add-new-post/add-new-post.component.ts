@@ -10,6 +10,7 @@ import { tags } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
 import { statusPost } from '../../model/statusEnum';
+import { ImagemHandler } from '../../model/imagemHandler';
 
 @Component({
   selector: 'app-add-new-post',
@@ -27,6 +28,7 @@ export class AddNewPostComponent implements OnInit{
   @ViewChild('status') statusButton!: ElementRef;
   @ViewChild('newTag') newTag!: ElementRef;
   @ViewChild('tag') buttonTag!: ElementRef;
+  @ViewChild('imagemCapa') capaInput!: ElementRef;
 
   constructor (
     private servicoPost: PostService,
@@ -145,6 +147,25 @@ export class AddNewPostComponent implements OnInit{
     //   const now = new Date();
     //   this.post.data = now.toISOString().split('T')[0]; 
     // }
+
+  //    // Se tiver arquivo de capa, prepara para envio
+  // if (this.capaInput) {
+  //   ImagemHandler.prepararImagem(this.capaInput, this.post).then(imagemData => {
+  //     // Cria um FormData só para a imagem
+  //     const formData = new FormData();
+  //     formData.append('imagem', imagemData.arquivo);
+
+  //     // Faz o upload da imagem primeiro
+  //     this.servicoPost.uploadImagem(formData).subscribe({
+  //       next: (imagemResponse: Imagem) => {
+  //         // Atualiza o post com a imagem de capa retornada
+  //         this.post.imagemCapa = imagemResponse;
+  //       }
+  //     })
+
+  //   })
+  // }
+    
 
     // console.log(this.post.data)
     if(!this.post.EStatus) this.post.EStatus = statusPost.publico;
