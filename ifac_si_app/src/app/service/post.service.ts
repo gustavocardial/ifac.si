@@ -29,11 +29,13 @@ export class PostService implements IService<Post>{
 
   save(objeto: Post): Observable<Post> {
     let url = this.apiUrl;
+
+    let postRequestDTO = this.mapToPostRequestDTO(objeto);
     
     if (objeto.id) {
-      return this.http.put<Post>(url, objeto);
+      return this.http.put<Post>(url, postRequestDTO);
     } else {
-      return this.http.post<Post>(url, objeto);
+      return this.http.post<Post>(url, postRequestDTO);
     }
   }
 
@@ -41,5 +43,18 @@ export class PostService implements IService<Post>{
     let url = this.apiUrl + id;
     return this.http.delete<void>(url);
   }
+
+  private mapToPostRequestDTO(post: Post): any {
+    return {
+      titulo: post.titulo,
+      texto: post.texto,
+      legenda: post.legenda,
+      status: post.EStatus,
+      usuarioId: post.usuario?.id ?? null,  // Enviar apenas o ID do usuário
+      categoriaId: post.categoria?.id ?? null,  // Enviar apenas o ID da categoria (se existir)
+      tags: post.tags?.map(tag => tag.nome) || [],  // Enviar apenas os nomes das tags
+    };
+  }
+  
 
 }

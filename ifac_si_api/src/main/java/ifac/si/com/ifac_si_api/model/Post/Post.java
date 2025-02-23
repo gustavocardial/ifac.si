@@ -31,7 +31,7 @@ public class Post implements Serializable{
 
     @ManyToOne
     @JsonManagedReference
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 
     @ManyToOne
