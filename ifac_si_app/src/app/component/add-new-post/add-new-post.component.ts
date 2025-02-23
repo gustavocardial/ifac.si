@@ -11,6 +11,8 @@ import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
 import { statusPost } from '../../model/statusEnum';
 import { ImagemHandler } from '../../model/imagemHandler';
+import { UsuarioService } from '../../service/usuario.service';
+import { Usuario } from '../../model/usuario';
 
 @Component({
   selector: 'app-add-new-post',
@@ -37,7 +39,8 @@ export class AddNewPostComponent implements OnInit{
     private renderer: Renderer2,
     private servicoCategoria: CategoriaService,
     private servicoTag: TagService,
-    private servicoAlerta: AlertaService
+    private servicoAlerta: AlertaService,
+    private servicoUsuario: UsuarioService
   ) {}
 
   ngOnInit(): void {
@@ -143,10 +146,6 @@ export class AddNewPostComponent implements OnInit{
   }
 
   saveContent(): void {
-    // if (!this.post.data) {
-    //   const now = new Date();
-    //   this.post.data = now.toISOString().split('T')[0]; 
-    // }
 
   //    // Se tiver arquivo de capa, prepara para envio
   // if (this.capaInput) {
@@ -167,8 +166,19 @@ export class AddNewPostComponent implements OnInit{
   // }
     
 
-    // console.log(this.post.data)
-    if(!this.post.EStatus) this.post.EStatus = statusPost.publico;
+    if(!this.post.EStatus) {
+      this.post.EStatus = statusPost.publicado;
+    }
+
+    if(!this.post.usuario) {
+      this.servicoUsuario.getById(1).subscribe({
+        next: (resposta: Usuario) => {
+          this.post.usuario = resposta;
+        }
+      })
+    }
+
+    console.log(this.post);
 
     this.servicoPost.save(this.post).subscribe({
       complete: () => 

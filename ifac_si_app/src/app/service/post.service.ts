@@ -3,7 +3,7 @@ import { IService } from './I-service';
 import { Post } from '../model/post';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +29,25 @@ export class PostService implements IService<Post>{
 
   save(objeto: Post): Observable<Post> {
     let url = this.apiUrl;
+    let formData = new FormData();
 
-    let postRequestDTO = this.mapToPostRequestDTO(objeto);
-    
+    // Converter os dados do post para JSON e adicioná-los ao FormData  
+    let postJson = JSON.stringify(this.mapToPostRequestDTO(objeto));
+    formData.append('post', new Blob([postJson], { type: 'application/json' }));
+
+    // Adicionar um "arquivo vazio" para manter a estrutura multipart/form-data
+    formData.append('imagemCapa', new Blob([], { type: 'image/png' }), 'empty.png');
+    formData.append('file', new Blob([], { type: 'image/png' }), 'empty.png'); // Caso necessite enviar um arquivo vazio também
+
+    // Adicionar cabeçalhos HTTP se necessário
+    let headers = new HttpHeaders({
+      'enctype': 'multipart/form-data'
+    });
+
     if (objeto.id) {
-      return this.http.put<Post>(url, postRequestDTO);
+      return this.http.put<Post>(url, formData, { headers: headers });
     } else {
-      return this.http.post<Post>(url, postRequestDTO);
+      return this.http.post<Post>(url, formData, { headers: headers });
     }
   }
 
@@ -47,12 +59,12 @@ export class PostService implements IService<Post>{
   private mapToPostRequestDTO(post: Post): any {
     return {
       titulo: post.titulo,
+      usuarioId: post.usuario?.id || 1,
+      categoriaId: post.categoria?.id || 2,
       texto: post.texto,
       legenda: post.legenda,
-      status: post.EStatus,
-      usuarioId: post.usuario?.id ?? null,  // Enviar apenas o ID do usuário
-      categoriaId: post.categoria?.id ?? null,  // Enviar apenas o ID da categoria (se existir)
-      tags: post.tags?.map(tag => tag.nome) || [],  // Enviar apenas os nomes das tags
+      status: post.EStatus || 'PUBLICADO',
+      tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
     };
   }
   
