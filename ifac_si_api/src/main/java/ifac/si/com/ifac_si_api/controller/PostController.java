@@ -130,10 +130,10 @@ public class PostController{
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletar um post pelo ID")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-//        servico.delete(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
+       servico.delete(id);
+       return new ResponseEntity<>(HttpStatus.OK);
 
-    return null;
+    // return null;
     }
 
     @Operation(summary = "Atualizar post existente")

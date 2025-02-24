@@ -53,18 +53,18 @@ export class AddNewPostComponent implements OnInit{
           // this.tags = resposta.tags;
         }
       });
-    }
 
-    this.servicoTag.get().subscribe({
-      next: (resposta: tags[]) => {
-        // this.tags = resposta;
-        this.tagsList = resposta.map(tag => ({
-          id: tag.id,
-          nome: tag.nome
-        }));
-        console.log('Tags:', this.tagsList); 
-      }
-    });  
+      this.servicoTag.get(id).subscribe({
+        next: (resposta: tags[]) => {
+          // this.tags = resposta;
+          this.tagsList = resposta.map(tag => ({
+            id: tag.id,
+            nome: tag.nome
+          }));
+          console.log('Tags:', this.tagsList); 
+        }
+      });  
+    }
 
     this.servicoCategoria.get().subscribe({
       next: (resposta: Categoria[]) => {

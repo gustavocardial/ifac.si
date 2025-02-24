@@ -422,7 +422,8 @@ public class PostService{
 //    }
 
 
-//    public void delete(Long id) {
-//    }
+    public void delete(Long id) {
+        this.postRepository.deleteById(id);
+    }
 
 }
