@@ -46,6 +46,18 @@ div.postList > div {
     margin-bottom: 0;
 }
 
+@media (max-width: 1024px) {
+    div.postList {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas para telas menores que 1024px */
+    }
+}
+
+@media (max-width: 600px) {
+    div.postList {
+        grid-template-columns: 1fr; /* Uma coluna para telas menores que 600px */
+    }
+}
+
 div.postView {
     width: 100%; /* Fazer o postView ocupar 100% do espaço do seu container */
     height: 300px; /* Ajustar altura proporcionalmente */
