@@ -27,7 +27,7 @@
               </div>
           </div>
       </div>
-      <div class="col" id="postInfo">
+      <div class="col-12 col-md-3" id="postInfo">
           <div id="accordion">
               <div class="card">
                   <div class="card-header" id="headingOne">
@@ -35,10 +35,10 @@
                           <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" #status>
                               Status e Visibilidade
                                 <ng-template [ngIf]="!buttonS" [ngIfElse]="dropdownIcon">
-                                    <i class="bi bi-chevron-down"></i>
+                                    <i class="fa fa-caret-down"></i>
                                 </ng-template>
                                 <ng-template #dropdownIcon>
-                                    <i class="bi bi-chevron-up"></i>
+                                    <i class="fa fa-caret-up"></i>
                                 </ng-template>
                           </button>
                       </h5>
@@ -79,10 +79,10 @@
                           <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" #category> <!--data-bs-parent="#accordion" para aparecer somente um card aberto por vez-->
                               Categorias
                                 <ng-template [ngIf]="!buttonC" [ngIfElse]="dropdownIcon">
-                                    <i class="bi bi-chevron-down"></i>
+                                    <i class="fa fa-caret-down"></i>
                                 </ng-template>
                                 <ng-template #dropdownIcon>
-                                    <i class="bi bi-chevron-up"></i>
+                                    <i class="fa fa-caret-up"></i>
                                 </ng-template>
                           </button>
                       </h5>
@@ -107,10 +107,10 @@
                           <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" #tags>
                               Tags
                                 <ng-template [ngIf]="!buttonT" [ngIfElse]="dropdownIcon">
-                                    <i class="bi bi-chevron-down"></i>
+                                    <i class="fa fa-caret-down"></i>
                                 </ng-template>
                                 <ng-template #dropdownIcon>
-                                    <i class="bi bi-chevron-up"></i>
+                                    <i class="fa fa-caret-up"></i>
                                 </ng-template>
                           </button>
                       </h5>
@@ -129,11 +129,11 @@
                         <div class="dropdown">
                             <button #tag id="tagButton">Selecione uma Tag 
                                 <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </ng-template>
-                                <ng-template #dropdownIcon>
-                                    <i class="bi bi-chevron-up"></i>
-                                </ng-template>
+                                <i class="fa fa-caret-down"></i>
+                            </ng-template>
+                            <ng-template #dropdownIcon>
+                                <i class="fa fa-caret-up"></i>
+                            </ng-template>
                             </button>
                             <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
                                 <p *ngFor="let tag of tagsList">

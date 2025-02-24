@@ -1,13 +1,15 @@
 <!-- <p>Filtrar por: </p> -->
 <div id="flex-container-filter">
     <button><i class="bi bi-sliders2"></i>Filtros</button>
+    <!-- <i class="fa-solid fa-sliders"></i>
+    <i class="fa-duotone fa-solid fa-sliders"></i> -->
     <div class="dropdown">
         <button #category>Categoria 
             <ng-template [ngIf]="!filtersC" [ngIfElse]="dropdownIcon">
-                <i class="bi bi-chevron-down"></i>
+                <i class="fa fa-caret-down"></i>
             </ng-template>
             <ng-template #dropdownIcon>
-                <i class="bi bi-chevron-up"></i>
+                <i class="fa fa-caret-up"></i>
             </ng-template>
         </button>
         <div #categorysApp class="dropdown-content tags-scroll" id="category" *ngIf="filtersC">
@@ -19,10 +21,10 @@
     <div class="dropdown">
         <button #tag>Tags 
             <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
-                <i class="bi bi-chevron-down"></i>
+                <i class="fa fa-caret-down"></i>
             </ng-template>
             <ng-template #dropdownIcon>
-                <i class="bi bi-chevron-up"></i>
+                <i class="fa fa-caret-up"></i>
             </ng-template>
         </button>
         <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
