@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService implements IService<Post>{
+export class PostService{
 
   constructor(private http: HttpClient) { }
 
@@ -27,28 +27,21 @@ export class PostService implements IService<Post>{
     return this.http.get<Post>(url);
   }
 
-  save(objeto: Post): Observable<Post> {
+  save(formData: FormData, id?: number): Observable<Post> {
     let url = this.apiUrl;
-    let formData = new FormData();
-
-    // Converter os dados do post para JSON e adicioná-los ao FormData  
-    let postJson = JSON.stringify(this.mapToPostRequestDTO(objeto));
-    formData.append('post', new Blob([postJson], { type: 'application/json' }));
-
-    // Adicionar um "arquivo vazio" para manter a estrutura multipart/form-data
-    formData.append('imagemCapa', new Blob([], { type: 'image/png' }), 'empty.png');
-    formData.append('file', new Blob([], { type: 'image/png' }), 'empty.png'); // Caso necessite enviar um arquivo vazio também
 
     // Adicionar cabeçalhos HTTP se necessário
     let headers = new HttpHeaders({
       'enctype': 'multipart/form-data'
     });
 
-    if (objeto.id) {
+    if (id) {
       return this.http.put<Post>(url, formData, { headers: headers });
     } else {
-      console.log (formData);
-
+      for (const pair of (formData as any).entries()) {
+        console.log(pair[0], pair[1]);
+      }
+      
       return this.http.post<Post>(url, formData, { headers: headers });
     }
   }
@@ -61,11 +54,11 @@ export class PostService implements IService<Post>{
   private mapToPostRequestDTO(post: Post): any {
     return {
       titulo: post.titulo,
-      usuarioId: post.usuario?.id,
-      categoriaId: post.categoria?.id,
+      usuarioId: post.usuario?.id ?? null,
+      categoriaId: post.categoria?.id ?? null,
       texto: post.texto,
       legenda: post.legenda,
-      status: post.EStatus,
+      status: post.EStatus ?? 'PUBLICADO',
       tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
     };
   }

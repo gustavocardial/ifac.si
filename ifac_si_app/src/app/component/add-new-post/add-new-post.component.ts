@@ -71,6 +71,8 @@ export class AddNewPostComponent implements OnInit{
         this.categorias = resposta;
       }
     });
+
+    this.carregarUsuario();
     // if (id) alert(`Chegou post com id ${id}`);
   }
 
@@ -145,48 +147,68 @@ export class AddNewPostComponent implements OnInit{
     console.log('Número de imagens encontradas:', this.numberOfImages);
   }
 
-  saveContent(): void {
-
-  //    // Se tiver arquivo de capa, prepara para envio
-  // if (this.capaInput) {
-  //   ImagemHandler.prepararImagem(this.capaInput, this.post).then(imagemData => {
-  //     // Cria um FormData só para a imagem
-  //     const formData = new FormData();
-  //     formData.append('imagem', imagemData.arquivo);
-
-  //     // Faz o upload da imagem primeiro
-  //     this.servicoPost.uploadImagem(formData).subscribe({
-  //       next: (imagemResponse: Imagem) => {
-  //         // Atualiza o post com a imagem de capa retornada
-  //         this.post.imagemCapa = imagemResponse;
-  //       }
-  //     })
-
-  //   })
-  // }
-    
-
-    if(!this.post.EStatus) {
-      this.post.EStatus = statusPost.publicado;
-    }
-
-    if(!this.post.usuario) {
+  private carregarUsuario(): void {
+    if (!this.post.usuario) {
       this.servicoUsuario.getById(1).subscribe({
         next: (resposta: Usuario) => {
           this.post.usuario = resposta;
         }
-      })
+      });
+    }
+  }
+
+  saveContent(): void {
+
+    const formData = new FormData();
+
+    // Adiciona os campos do post
+    formData.append('titulo', this.post.titulo);
+    formData.append('texto', this.post.texto);
+
+    if(this.post.usuario?.id) {
+      formData.append('usuarioId', this.post.usuario.id.toString());
     }
 
-    console.log(this.post);
-
-    this.servicoPost.save(this.post).subscribe({
-      complete: () => 
-      this.servicoAlerta.enviarAlerta({
-        tipo: ETipoAlerta.SUCESSO,
-        mensagem: "Post salvo com sucesso"
-      })
-    });  
+    if (this.post.categoria?.id) {
+      formData.append('categoriaId', this.post.categoria.id.toString());
+    }
+    
+    if (this.post.legenda) {
+      formData.append('legenda', this.post.legenda);
+    }
+  
+    // Adiciona o status (com valor default se necessário)
+    formData.append('status', this.post.EStatus || statusPost.publicado);
+  
+    // Se tiver tags, adiciona cada uma
+    if (this.post.tags && this.post.tags.length > 0) {
+      this.post.tags.forEach(tag => {
+        formData.append('tags', tag.nome);
+      });
+    }
+  
+    // Se tiver imagem de capa
+    if (this.capaInput?.nativeElement?.files[0]) {
+      formData.append('imagemCapa', this.capaInput.nativeElement.files[0]);
+    }
+  
+    // Você também precisará modificar seu PostService para usar o FormData
+    this.servicoPost.save(formData).subscribe({
+      complete: () => {
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.SUCESSO,
+          mensagem: "Post salvo com sucesso"
+        });
+        this.router.navigate(['/view_posts']);
+      },
+      error: (erro) => {
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.ERRO,
+          mensagem: "Erro ao salvar o post"
+        });
+        console.error('Erro ao salvar:', erro);
+      }
+    });
     // Aqui você pode fazer algo com o conteúdo do editor
     // console.log(this.escapeHtml(this.data.content));
     console.log('Conteúdo salvo:', this.post.texto);
