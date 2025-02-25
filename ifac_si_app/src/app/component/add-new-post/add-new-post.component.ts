@@ -24,6 +24,7 @@ export class AddNewPostComponent implements OnInit{
   private categoryListener: (() => void) | undefined;
   private tagListener: (() => void) | undefined;
   private tagListen: (() => void) | undefined;
+  private capaListener: (() => void) | undefined;
 
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
@@ -98,6 +99,10 @@ export class AddNewPostComponent implements OnInit{
       this.onTag();
       // this.initializeTagDropdownListener();
     });
+
+    this.capaListener = this.renderer.listen(this.capaInput.nativeElement, 'change', (event) => {
+      console.log ("tem imagem de capa");
+    })
   }
 
   // ngOnInit(): void {
