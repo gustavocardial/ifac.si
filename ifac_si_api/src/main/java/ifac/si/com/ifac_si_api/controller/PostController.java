@@ -92,35 +92,6 @@ public class PostController{
         return new ResponseEntity<>(registros ,HttpStatus.OK).getBody();
     }
 
-//    @Operation(summary = "Atualizar post existente")
-//    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public ResponseEntity<?> update(@PathVariable Long id, PostRequestDTO objeto,
-//                                    @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
-//        Post registro = servico.update(id, objeto, file);
-//        return ResponseEntity.ok(registro);
-//    }
-
-//    @PutMapping("/")
-//    public ResponseEntity<Post> update(Post objeto) {
-//        return null;
-//    }
-
-//    @Override
-//    @PutMapping("/{postId}")
-//    @Operation(summary = "Atualizar um post existente")
-//    public ResponseEntity<Post> updatePost(
-//            @PathVariable Long postId,         // ID do post a ser atualizado
-//            @RequestBody PostRequestDTO postDto, // Dados atualizados do post
-//            @RequestParam(required = false) List<MultipartFile> imagens) throws Exception {  // Imagens opcionais
-//
-//        // Chama o serviço para atualizar o post
-////        Post updatedPost = servico.update(postId, postDto, imagens);
-//
-//        // Retorna o post atualizado com status OK
-////        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
-//        return null;
-//    }
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletar um post pelo ID")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
@@ -133,8 +104,8 @@ public class PostController{
     @Operation(summary = "Atualizar post existente")
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(@PathVariable Long id, PostRequestDTO objeto,
-                                    @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
-        Post registro = servico.update(id, objeto, file);
+        @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+        Post registro = servico.update(id, objeto, file, imagemCapaFile);
         return ResponseEntity.ok(registro);
     }
 
@@ -154,16 +125,5 @@ public class PostController{
         Post updatedPost = servico.atualizarStatus(id, status);
         return ResponseEntity.ok(updatedPost);
     }
-
-    // // Método auxiliar para processar a imagem
-    // private Imagem processarImagem(MultipartFile file) throws Exception {
-    //     Imagem imagem = new Imagem();
-    //     imagem.setNomeArquivo(file.getOriginalFilename());
-    //     imagem.setTamanho(file.getSize());
-    //     imagem.setDataUpload(LocalDate.now());
-    //     // Defina a URL da imagem após o upload (exemplo de URL gerada via MinIO)
-    //     imagem.setUrl("url_da_imagem"); // Aqui você deve gerar a URL da imagem após o upload
-    //     return imagem;
-    // }
     
 }
