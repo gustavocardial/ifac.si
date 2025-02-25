@@ -27,6 +27,9 @@ export class AddNewPostComponent implements OnInit{
   private tagListener: (() => void) | undefined;
   private tagListen: (() => void) | undefined;
   private capaListener: (() => void) | undefined;
+  private statusButtonListener: (() => void) | undefined;
+  private visibilidadeButtonListener: (() => void) | undefined;
+  private publicacaoButtonListener: (() => void) | undefined;
 
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
@@ -34,6 +37,9 @@ export class AddNewPostComponent implements OnInit{
   @ViewChild('newTag') newTag!: ElementRef;
   @ViewChild('tag') buttonTag!: ElementRef;
   @ViewChild('imagemCapa') capaInput!: ElementRef;
+  @ViewChild('editarVisibilidade') visibiEdit!: ElementRef;
+  @ViewChild('editarPublicacao') publiEdit!: ElementRef;
+  @ViewChild('editarStatus') statusEdit!: ElementRef;
 
   constructor (
     private servicoPost: PostService,
@@ -105,6 +111,19 @@ export class AddNewPostComponent implements OnInit{
     this.capaListener = this.renderer.listen(this.capaInput.nativeElement, 'change', (event) => {
       console.log ("tem imagem de capa");
     })
+
+    this.visibilidadeButtonListener = this.renderer.listen(this.visibiEdit.nativeElement, 'click', (event) => {
+      this.visibilidadeContent = !this.visibilidadeContent;
+    })
+
+    this.publicacaoButtonListener = this.renderer.listen(this.publiEdit.nativeElement, 'click', (event) => {
+      this.publicacaoContent = !this.publicacaoContent;
+    })
+
+    this.statusButtonListener = this.renderer.listen(this.statusEdit.nativeElement, 'click', (event) => {
+      this.statusContent = !this.statusContent;
+    })
+
   }
 
   // ngOnInit(): void {
@@ -119,6 +138,9 @@ export class AddNewPostComponent implements OnInit{
   buttonT: boolean = false;
   filtersT: boolean = false;
   numberOfImages: number = 0;
+  visibilidadeContent: boolean = true;
+  publicacaoContent: boolean = true;
+  statusContent: boolean = true;
 
   title = 'teste';
   @ViewChild('editor') editor: any;

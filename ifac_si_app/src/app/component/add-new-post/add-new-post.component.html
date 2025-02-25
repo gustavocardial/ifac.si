@@ -54,29 +54,44 @@
                         <div class="viewPost" id="statusPost">
                             <div class="statusDiv">
                                 <p>Visibilidade:</p>
-                                <select id="visibilidade">
-                                    <option value="publica">Pública</option>
-                                    <option value="privada">Privada</option>
-                                </select>
-                                <button>Editar</button>
+                                <ng-template [ngIf]="visibilidadeContent" [ngIfElse]="visibilidadeSelect">
+                                    <p id="visibilidade">Pública</p>  
+                                </ng-template>
+                                <ng-template #visibilidadeSelect>
+                                    <select id="visibilidade">
+                                        <option value="publica">Pública</option>
+                                        <option value="privada">Privada</option>
+                                    </select>
+                                </ng-template>
+                                <button #editarVisibilidade class="editButton">Editar</button>
                             </div>
                             <div class="statusDiv">
                                 <p>Publicação:</p>
-                                <select id="publicacao">
-                                    <option *ngFor="let option of publicacaoOptions" [value]="option.value">
-                                        {{ option.label }}
-                                    </option>
-                                </select>
-                                <button>Editar</button>
+                                <ng-template [ngIf]="publicacaoContent" [ngIfElse]="publicacaoSelect">
+                                    <p id="publicacao">Imediata</p>
+                                </ng-template>
+                                <ng-template #publicacaoSelect>
+                                    <select id="publicacao">
+                                        <option *ngFor="let option of publicacaoOptions" [value]="option.value">
+                                            {{ option.label }}
+                                        </option>
+                                    </select>
+                                </ng-template>
+                                <button #editarPublicacao class="editButton">Editar</button>
                             </div>
                             <div class="statusDiv">
                                 <p>Status:</p>
-                                <select id="publicacao">
-                                    <option *ngFor="let option of statusOptions" [value]="option.value">
-                                        {{ option.label }}
-                                    </option>
-                                </select>
-                                <button>Editar</button>
+                                <ng-template [ngIf]="statusContent" [ngIfElse]="statusSelect">
+                                    <p id="idStatus">Rascunho</p>
+                                </ng-template>
+                                <ng-template #statusSelect>
+                                    <select id="publicacao">
+                                        <option *ngFor="let option of statusOptions" [value]="option.value">
+                                            {{ option.label }}
+                                        </option>
+                                    </select>
+                                </ng-template>
+                                <button #editarStatus class="editButton">Editar</button>
                             </div>
                         </div>
                         <div class="statusDiv viewPost" id="saveDiv">
