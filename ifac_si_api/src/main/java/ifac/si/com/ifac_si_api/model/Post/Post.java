@@ -44,7 +44,8 @@ public class Post implements Serializable{
     @JsonIgnoreProperties("posts")
     private List<Tag> tags;
 
-    @Column(nullable = false)
+    @Lob
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String texto;
 
     @Column(nullable = false)

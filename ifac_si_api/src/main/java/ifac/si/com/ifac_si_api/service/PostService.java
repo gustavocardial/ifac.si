@@ -141,8 +141,8 @@ public class PostService{
         }
 
         processarPostCapa(postCapa).ifPresent(imagemCapa -> {
-            imagemCapa.setPost(post);
-            post.setImagemCapa(imagemCapa);
+            post.setImagemCapa(imagemCapa); // Primeiro, adiciona a imagem ao post
+            imagemCapa.setPost(post); // Depois, seta o post na imagem
         });
 
         if (imagens != null) {
