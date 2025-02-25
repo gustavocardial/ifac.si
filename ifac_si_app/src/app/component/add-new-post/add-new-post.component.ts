@@ -10,9 +10,11 @@ import { tags } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
 import { statusPost } from '../../model/statusEnum';
-import { ImagemHandler } from '../../model/imagemHandler';
+// import { ImagemHandler } from '../../model/imagemHandler';
 import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/usuario';
+import { PublicacaoEnum } from '../../model/publicacaoEnum';
+import { visibilidadePost } from '../../model/visibilidadeEnum';
 
 @Component({
   selector: 'app-add-new-post',
@@ -214,7 +216,7 @@ export class AddNewPostComponent implements OnInit{
     }
   
     // Adiciona o status (com valor default se necessário)
-    formData.append('status', this.post.EStatus || statusPost.publicado);
+    formData.append('status', this.post.EStatus || statusPost.Publicado);
   
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
@@ -322,6 +324,18 @@ export class AddNewPostComponent implements OnInit{
         // posts: []
     };
   }
+
+  public publicacaoOptions = Object.keys(PublicacaoEnum)
+    .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
+    .map(key => ({ label: key, value: PublicacaoEnum[key as keyof typeof PublicacaoEnum] }));
+
+  public statusOptions = Object.keys(statusPost)
+    .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
+    .map(key => ({ label: key, value: statusPost[key as keyof typeof statusPost] }));
+
+  public visibilidadeOptions = Object.keys(visibilidadePost)
+  .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
+  .map(key => ({ label: key, value: visibilidadePost[key as keyof typeof visibilidadePost] }));
 
   // get(): void {
   //   this.servico.get().subscribe({

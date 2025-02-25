@@ -54,17 +54,28 @@
                         <div class="viewPost" id="statusPost">
                             <div class="statusDiv">
                                 <p>Visibilidade:</p>
-                                <p></p>
+                                <select id="isibilidade">
+                                    <option value="publica">Pública</option>
+                                    <option value="privada">Privada</option>
+                                </select>
                                 <button>Editar</button>
                             </div>
                             <div class="statusDiv">
                                 <p>Publicação:</p>
-                                <p></p>
+                                <select id="publicacao">
+                                    <option *ngFor="let option of publicacaoOptions" [value]="option.value">
+                                        {{ option.label }}
+                                    </option>
+                                </select>
                                 <button>Editar</button>
                             </div>
                             <div class="statusDiv">
                                 <p>Status:</p>
-                                <p></p>
+                                <select id="publicacao">
+                                    <option *ngFor="let option of statusOptions" [value]="option.value">
+                                        {{ option.label }}
+                                    </option>
+                                </select>
                                 <button>Editar</button>
                             </div>
                         </div>
