@@ -137,7 +137,38 @@ export class AddNewPostComponent implements OnInit{
     this.editorText = event['editor']['root']['innerHTML'];
 
     this.countImageTags(this.editorText);
+    this.extractBase64Images(this.editorText);
   }
+
+  private extractBase64Images(content: string): File[] {
+    const imgRegex = /<img[^>]+src=["'](data:image\/(png|jpeg|jpg);base64,([^"']+))["']/g;
+    const files: File[] = [];
+    let match;
+    let index = 0;
+  
+    while ((match = imgRegex.exec(content)) !== null) {
+      const mimeType = match[2]; // Tipo da imagem (png, jpeg, jpg)
+      const base64Data = match[3]; // Dados base64 da imagem
+  
+      // Converter base64 para Blob
+      const byteCharacters = atob(base64Data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: `image/${mimeType}` });
+  
+      // Criar um arquivo
+      const file = new File([blob], `imagem_${index}.${mimeType}`, { type: `image/${mimeType}` });
+      files.push(file);
+      index++;
+    }
+  
+    console.log('Imagens extraídas:', files);
+    return files;
+  }
+  
 
   private countImageTags(content: string): void {
     // Regex simples para encontrar tags <img>
