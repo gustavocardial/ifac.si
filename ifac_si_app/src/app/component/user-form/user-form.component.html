@@ -5,15 +5,15 @@
             <label>Nome</label><input type="text" id="nomeUsuario" [(ngModel)]="usuario.nomeUsuario" name="nomeUsuario" placeholder="Nome de Usuário">
             <label>Email</label><input type="text" id="email" [(ngModel)]="usuario.email" name="email" placeholder="Email do usuário">
             <label>Senha</label>
-            <input #senha [type]="showPassword ? 'text' : 'password'" name="senha" id="senha" required [(ngModel)]="usuario.senha" placeholder="Senha" style="padding-right: 2.5em;">
-            <span (click)="togglePasswordVisibility()" class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+            <input #senha [type]="showPassword ? 'text' : 'password'" name="senha" id="senha"[(ngModel)]="usuario.senha" placeholder="Senha" style="padding-right: 2.5em;">
+            <!-- <span (click)="togglePasswordVisibility()" class="password-toggle" style="display: inline-block; margin-left: -25px; cursor: pointer; color: #000; vertical-align: middle;">
                 <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
-            </span>
+            </span> -->
             <label>Confirmar Senha</label>
-            <input #confirmarSenha [type]="showPassword ? 'text' : 'password'" name="confirmarSenha" id="confirmarSenha" required [(ngModel)]="usuario.senha" placeholder="Confirmar Senha" style="padding-right: 2.5em;">
-            <span (click)="togglePasswordVisibility()" class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+            <input #confirmarSenha [type]="showPassword ? 'text' : 'password'" name="confirmarSenha" id="confirmarSenha" placeholder="Confirmar Senha" style="padding-right: 2.5em;">
+            <!-- <span (click)="togglePasswordVisibility()" class="password-toggle" style="display: inline-block; margin-left: -25px; cursor: pointer; color: #000; vertical-align: middle;">
                 <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
-            </span>
+            </span> -->
             <label>Role</label>
             <select id="cargo" [(ngModel)]="usuario.cargo" name="cargo" placeholder="Cargo do usuário no sistema">
               <option value=""></option>
