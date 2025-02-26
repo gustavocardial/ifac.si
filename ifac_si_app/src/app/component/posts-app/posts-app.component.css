@@ -152,9 +152,15 @@ div#postAction button, button.eyeButton {
 div.categorys {
     position: absolute;
     color: aliceblue;
+    font-size: 20px;
     font-weight: 500;
     z-index: 20000;
     background-color: #3FA14C;
     padding: 10px;
     width: fit-content;
+}
+
+div.postData p {
+    font-size: 18px;
+    font-weight: 500;
 }

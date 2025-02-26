@@ -66,6 +66,16 @@ export class FiltersComponent implements OnInit, AfterViewInit{
     });
   }
 
+  //Começar a fazer filtro funcionar, mandar propriedades para busca desse component para outro
+
+  handleFilterCat(id: number): void {
+
+  }
+
+  handleFilterTag(id: number): void {
+
+  }
+
   // Função chamada ao clicar no botão de categoria
   onCategoryClick(): void {
     this.filtersC = !this.filtersC;
