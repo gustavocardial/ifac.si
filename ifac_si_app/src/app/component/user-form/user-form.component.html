@@ -1,22 +1,23 @@
 <div class="overlay">
     <div class="popUp">
-        <form #form>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
             <h3>Adicionar novo usuário</h3>
-            <label>Nome de usuário</label><input type="text">
-            <label>Nova senha</label><input type="text">
-            <label>Confirmar senha</label><input type="text">
+            <label>Nome de usuário</label><input type="text" id="nomeUsuario" [(ngModel)]="usuario.nomeUsuario" name="nomeUsuario">
+            <label>Email</label><input type="text" id="email" [(ngModel)]="usuario.email" name="email">
+            <label>Nova senha</label><input type="text" id="senha" [(ngModel)]="usuario.senha" name="senha" #senha>
+            <label>Confirmar senha</label><input type="text" id="confirmarSenha" name="confirmarSenha" #confirmarSenha>
             <label>Role</label>
-            <select id="cargo">
-                <option value=""></option>
-                <option value="ADMIN">ADMINISTRADOR</option>
-                <option value="AUTOR">AUTOR</option>
-                <option value="EDITOR">EDITOR</option>
+            <select id="cargo" [(ngModel)]="usuario.cargo" name="cargo">
+              <option value=""></option>
+              <option value="ADMIN">ADMINISTRADOR</option>
+              <option value="AUTOR">AUTOR</option>
+              <option value="EDITOR">EDITOR</option>
             </select>
             <div>    
-                <input type="button" value="CANCELAR" #cancelButton>        
-                <!-- <button #cancelButton>CANCELAR</button> -->
-                <input type="submit" value="SALVAR">
+              <input type="button" value="CANCELAR" #cancelButton (click)="onCancel()">        
+              <input type="submit" value="SALVAR">
             </div>
-        </form>
+          </form>
+          
     </div>
 </div>

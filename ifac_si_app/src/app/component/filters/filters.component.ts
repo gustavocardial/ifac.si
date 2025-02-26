@@ -27,7 +27,6 @@ export class FiltersComponent implements OnInit, AfterViewInit{
   selectedCategoryId: number | null = null; // Para controlar a categoria selecionada
   selectedTagName: string | null = null; // Para controlar a tag selecionada  
 
-
   private categoryListener: (() => void) | undefined;
   private tagListener: (() => void) | undefined;
   private catListen: (() => void) | undefined;
