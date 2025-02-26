@@ -51,6 +51,18 @@ export class PostService{
     return this.http.delete<void>(url);
   }
 
+  getByCategoria(id: number): Observable<Post[]> {
+    let url = this.apiUrl + `categoria/${id}`;
+
+    return this.http.get<Post[]>(url);
+  }
+
+  getByTag(nome: string): Observable<Post[]> {
+    let url = this.apiUrl + `tag/${nome}`;
+
+    return this.http.get<Post[]>(url);
+  }
+
   private mapToPostRequestDTO(post: Post): any {
     return {
       titulo: post.titulo,

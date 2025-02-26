@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Renderer2, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
 import { Categoria } from '../../model/categoria';
@@ -15,6 +15,9 @@ export class FiltersComponent implements OnInit, AfterViewInit{
 
   @ViewChild('categorysApp', { static: false }) categoryDropDown!: ElementRef;
   @ViewChild('tagsApp', { static: false }) tagDropDown!: ElementRef;
+
+  @Output() catFilter = new EventEmitter;
+  @Output() tagFilter = new EventEmitter;
 
   categorias: Categoria[] = Array<Categoria>();
   tags: tags[] = Array<tags>();
@@ -68,12 +71,12 @@ export class FiltersComponent implements OnInit, AfterViewInit{
 
   //Começar a fazer filtro funcionar, mandar propriedades para busca desse component para outro
 
-  handleFilterCat(id: number): void {
-
+  handleFilterCat(idCat: number): void {
+    this.catFilter.emit(idCat);
   }
 
-  handleFilterTag(id: number): void {
-
+  handleFilterTag(idTag: number): void {
+    this.tagFilter.emit(idTag);
   }
 
   // Função chamada ao clicar no botão de categoria

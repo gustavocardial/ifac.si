@@ -113,4 +113,8 @@ export class PostsAppComponent implements OnInit{
       }
     });
   }
+
+  getCategoria(): void {
+    this.postServico.get
+  }
 }
