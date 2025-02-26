@@ -55,5 +55,17 @@ public class PostMapper {
     }
 
     public void updateEntityFromDto(PostRequestDTO postDto, Post post) {
+        if (postDto.getTitulo() != null) {
+            post.setTitulo(postDto.getTitulo());
+        }
+        if (postDto.getTexto() != null) {
+            post.setTexto(postDto.getTexto());
+        }
+        if (postDto.getLegenda() != null) {
+            post.setLegenda(postDto.getLegenda());
+        }
+        if (postDto.getStatus() != null) {
+            post.setStatus(EStatus.valueOf(postDto.getStatus()));
+        }
     }
 }

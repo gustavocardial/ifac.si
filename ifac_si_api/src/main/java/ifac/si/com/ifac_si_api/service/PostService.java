@@ -252,10 +252,12 @@ public class PostService{
             post.setTags(processarTags(postDto.getTags()));
         }
 
-        processarPostCapa(postCapa).ifPresent(imagemCapa -> {
-            post.setImagemCapa(imagemCapa); // Primeiro, adiciona a imagem ao post
-            imagemCapa.setPost(post); // Depois, seta o post na imagem
-        });
+        if (postCapa != null && !postCapa.isEmpty()) {
+            processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+                post.setImagemCapa(imagemCapa);
+                imagemCapa.setPost(post);
+            });
+        }        
 
         // Processa novas imagens se fornecidas
         if (imagens != null && !imagens.isEmpty()) {
