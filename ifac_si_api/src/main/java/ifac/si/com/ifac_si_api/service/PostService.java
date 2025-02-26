@@ -227,7 +227,7 @@ public class PostService{
     }
 
     @Transactional
-    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
 
@@ -251,6 +251,11 @@ public class PostService{
             post.getTags().clear();
             post.setTags(processarTags(postDto.getTags()));
         }
+
+        processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+            post.setImagemCapa(imagemCapa); // Primeiro, adiciona a imagem ao post
+            imagemCapa.setPost(post); // Depois, seta o post na imagem
+        });
 
         // Processa novas imagens se fornecidas
         if (imagens != null && !imagens.isEmpty()) {
