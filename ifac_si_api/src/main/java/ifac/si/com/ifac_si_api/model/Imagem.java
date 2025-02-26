@@ -35,7 +35,7 @@ public class Imagem {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "post_id")
     private Post post;
 
     public Imagem() {

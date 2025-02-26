@@ -1,5 +1,7 @@
 SET SESSION FOREIGN_KEY_CHECKS=0;
 
+-- ALTER TABLE imagens MODIFY COLUMN post_id bigint NULL;
+
 -- DELETE FROM posts WHERE id=11;
 
 INSERT INTO usuarios (id, ativo, cargo, email, nome_usuario, senha)
