@@ -60,13 +60,13 @@ div#flex-container-filter {
 }
 
 .dropdown-content p {
-    color: black;
+    /* color: black; */
     padding: 12px 16px;
     display: block;
     font-size: 16px;
 }
 
-.dropdown-content p:hover {
+.dropdown-content p:hover:not(.selected) {
     background-color: #f1f1f1;
 }
 
@@ -74,6 +74,21 @@ div#flex-container-filter {
     max-height: 150px;
     overflow-y: auto;
 }
+
+.selected {
+    background-color: #57cc66; /* Cor de fundo azul (pode ser qualquer cor que preferir) */
+    color: black; /* Cor do texto branco */
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px; /* Adicionando um pouco de espaçamento ao redor do texto */
+    border-radius: 4px; /* Arredondando os cantos, se preferir */
+}
+
+.selected:hover {
+    background-color: #2c993b; /* Cor de fundo azul (pode ser qualquer cor que preferir) */
+    color: white;
+}
+
 
 /* Para telas pequenas (menor que 600px)
 @media (max-width: 600px) {

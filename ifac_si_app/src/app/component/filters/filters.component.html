@@ -13,7 +13,7 @@
             </ng-template>
         </button>
         <div #categorysApp class="dropdown-content tags-scroll" id="category" *ngIf="filtersC">
-            <p *ngFor="let categoria of categorias" (click)="handleFilterCat(categoria.id)">
+            <p *ngFor="let categoria of categorias" (click)="handleFilterCat(categoria.id)" [class.selected]="selectedCategoryId === categoria.id">
                 {{ categoria.nome }}
             </p>
         </div>
@@ -28,7 +28,7 @@
             </ng-template>
         </button>
         <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
-            <p *ngFor="let tag of tags" (click)="handleFilterTag(tag.id)">
+            <p *ngFor="let tag of tags" (click)="handleFilterTag(tag.nome)" [class.selected]="selectedTagName === tag.nome">
                 {{ tag.nome }}
             </p>
         </div>

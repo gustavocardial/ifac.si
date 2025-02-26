@@ -29,24 +29,7 @@ export class PostsAppComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.postServico.get().subscribe({
-      next: (resposta: Post[]) => {
-        resposta.forEach(post => {
-          if (post.imagemCapa) {
-            console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
-          } else {
-            console.log(`❌ Post ID: ${post.id} NÃO tem imagem de capa.`);
-          }
-        });
-
-        this.posts = resposta;
-        // this.servicoAlerta.enviarAlerta({
-        //   tipo: ETipoAlerta.SUCESSO,
-        //   mensagem: "Posts mostrados com sucesso."
-        // });
-        setTimeout(() => this.setupButtonListeners(), 0);
-      }
-    });
+    this.getAll();
   }
 
   ngAfterViewInit(): void {
@@ -114,7 +97,40 @@ export class PostsAppComponent implements OnInit{
     });
   }
 
-  getCategoria(): void {
-    this.postServico.get
+  getCategoria(id: number): void {
+    this.postServico.getByCategoria(id).subscribe({
+      next: (resposta: Post[]) => {
+        this.posts = resposta;
+      }
+    })
+  }
+
+  getByTag(nome: string): void {
+    this.postServico.getByTag(nome).subscribe({
+      next: (resposta: Post[]) => {
+        this.posts = resposta;
+      }
+    })
+  }
+
+  getAll(): void {
+    this.postServico.get().subscribe({
+      next: (resposta: Post[]) => {
+        resposta.forEach(post => {
+          if (post.imagemCapa) {
+            console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
+          } else {
+            console.log(`❌ Post ID: ${post.id} NÃO tem imagem de capa.`);
+          }
+        });
+
+        this.posts = resposta;
+        // this.servicoAlerta.enviarAlerta({
+        //   tipo: ETipoAlerta.SUCESSO,
+        //   mensagem: "Posts mostrados com sucesso."
+        // });
+        setTimeout(() => this.setupButtonListeners(), 0);
+      }
+    });
   }
 }

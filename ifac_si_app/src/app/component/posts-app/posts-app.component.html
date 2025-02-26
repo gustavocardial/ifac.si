@@ -1,5 +1,8 @@
 <div class="viewPost">
-    <app-filters></app-filters>
+    <app-filters
+    (catFilter)="getCategoria($event)"
+    (tagFilter)="getByTag($event)"
+    (nonSelectFilter)="getAll()"></app-filters>
     <div *ngIf="show">
         <app-delete-form (cancelForm)="showDelete()" (confirmForm)="deletePost()"></app-delete-form>
     </div>
