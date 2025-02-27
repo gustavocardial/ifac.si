@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/usuario';
+import { AlertaService } from '../../service/alerta.service';
+import { ETipoAlerta } from '../../model/e-tipo-alerta';
 
 @Component({
   selector: 'app-admin-view',
@@ -15,7 +17,10 @@ export class AdminViewComponent implements OnInit{
   editingUser: Usuario | null = null;
   tempData: Partial<Usuario> = {};
 
-  constructor(private userServico: UsuarioService) {}
+  constructor(
+    private userServico: UsuarioService,
+    private servicoAlerta: AlertaService,
+  ) {}
 
   ngOnInit(): void {
     this.userServico.get().subscribe({
@@ -57,7 +62,26 @@ export class AdminViewComponent implements OnInit{
   }
 
   saveEdit(user: Usuario) {
+    console.log ("Usuário", user);
+    const updatedUsuario: Usuario = { ...this.tempData } as Usuario;
+    this.userServico.save(updatedUsuario).subscribe({
+      complete: () => {
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.SUCESSO,
+          mensagem: "Usuário atualizado com sucesso"
+        });
+      },
+      error: (erro) => {
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.ERRO,
+          mensagem: "Erro ao atualizar usuário"
+        });
+        console.error('Erro ao salvar:', erro);
+      }
+    })
     if (this.tempData) {
+
+      // this.userServico.save(this.tempData)
       Object.assign(user, this.tempData);
       this.editingUser = null;
       this.tempData = {};
