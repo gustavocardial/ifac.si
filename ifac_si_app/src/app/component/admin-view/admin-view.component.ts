@@ -89,6 +89,24 @@ export class AdminViewComponent implements OnInit{
     }
   }
 
+  deleteUser(id: number): void {
+    this.userServico.delete(+id).subscribe({
+      complete: () => {
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.SUCESSO,
+          mensagem: "Usuário deletado com sucesso"
+        });
+      },
+      error: (erro) => {
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.ERRO,
+          mensagem: "Erro ao deletar usuário"
+        });
+        console.error('Erro ao salvar:', erro);
+      }
+    })
+  }
+
   cancelEdit() {
     this.editingUser = null;
     this.tempData = {};
