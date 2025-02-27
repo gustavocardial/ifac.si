@@ -7,7 +7,7 @@ import { Usuario } from "./usuario";
 export type Post = {
     id: number,
     titulo: string,
-    usuario: Usuario,
+    usuario?: Usuario,
     categoria?: Categoria,
     tags?: tags[],
     texto: string,

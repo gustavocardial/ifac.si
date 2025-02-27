@@ -56,7 +56,7 @@ public class MinIOService {
                 GetPresignedObjectUrlArgs.builder()
                         .bucket(bucketName)
                         .object(objectName)
-                        .expiry(60, TimeUnit.MINUTES)
+                        .expiry(7, TimeUnit.DAYS)
                         .method(Method.GET)
                         .build());
     }

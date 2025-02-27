@@ -44,12 +44,29 @@ input:focus {
     outline: none;
 }
 
-input, label, button {
+input, label, button:not(button.editButton) {
     margin: 8px auto;
 }
 
 input#newTag {
     padding: 2px 12px;
+}
+
+button.editButton {
+    background-color: #2a2a2b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.editButton:hover {
+    background-color: #623CEA;
+    color: #f5f5f5;
 }
 
 #topEditor {
@@ -176,15 +193,18 @@ div.radio-group input[type="radio"]:checked {
 div.statusDiv {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     /* margin-bottom: 15px; */
 }
 
 div.statusDiv button {
     font-weight: 500;
+}
+
+div.statusDiv button:not(.editButton) {
+    background-color: transparent;
     border: 0;
     padding: auto 2px;
-    background-color: transparent;
     margin: 0;
 }
 
@@ -200,9 +220,9 @@ div.statusDiv #statusRascunho {
     color: #623CEA;
 }
 
-div.statusDiv #statusPreview, div#statusPost p, div#statusPost button {
+/* div.statusDiv #statusPreview, div#statusPost p, div#statusPost button {
     color: #3E3E3E;
-}
+} */
 
 div.statusDiv #statusDelete {
     color: #EA3C3C;

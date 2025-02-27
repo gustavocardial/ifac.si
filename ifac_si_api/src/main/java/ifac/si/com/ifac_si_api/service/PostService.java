@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ifac.si.com.ifac_si_api.exception.ResourceNotFoundException;
@@ -139,12 +140,10 @@ public class PostService{
             post.setTags(processarTags(postDto.getTags()));
         }
 
-        if (postCapa != null) {
-            // Supondo que postDto.getImagemCapa() já seja um objeto Imagem
-            Imagem imagemCapa = processarPostCapa(postCapa);
-            imagemCapa.setPost(post);  // Associa a imagem ao post
-            post.setImagemCapa(imagemCapa);  // Define a imagem de capa no post
-        }
+        processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+            post.setImagemCapa(imagemCapa); // Primeiro, adiciona a imagem ao post
+            imagemCapa.setPost(post); // Depois, seta o post na imagem
+        });
 
         if (imagens != null) {
             List<Imagem> imagensList = processarImagens(imagens);
@@ -173,6 +172,10 @@ public class PostService{
     }
 
     private List<Imagem> processarImagens(List<MultipartFile> imagens) {
+        if (imagens == null || imagens.isEmpty()) {
+            return new ArrayList<>();
+        }
+
         return imagens.stream()
                 .map(imagem -> {
                     try {
@@ -193,7 +196,11 @@ public class PostService{
 
     }
 
-    private Imagem processarPostCapa(MultipartFile capa) {
+    private Optional<Imagem> processarPostCapa(MultipartFile capa) {
+        if (capa == null) {
+            return Optional.empty();
+        }
+
         try {
             // Realiza o upload da imagem da capa para o MinIO
             String fullPath = minIOService.uploadFile(capa);
@@ -202,12 +209,14 @@ public class PostService{
             String url = minIOService.getFileUrl("imagens", fileName);
     
             // Retorna o objeto Imagem com as informações da imagem da capa
-            return Imagem.builder()
+            Imagem imagemCapa = Imagem.builder()
                     .nomeArquivo(fileName)
                     .url(url)
                     .tamanho(capa.getSize())
                     .dataUpload(LocalDate.now())
                     .build();
+
+            return Optional.of(imagemCapa);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao processar capa do post: " + e.getMessage());
         }
@@ -218,7 +227,7 @@ public class PostService{
     }
 
     @Transactional
-    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
 
@@ -242,6 +251,13 @@ public class PostService{
             post.getTags().clear();
             post.setTags(processarTags(postDto.getTags()));
         }
+
+        if (postCapa != null && !postCapa.isEmpty()) {
+            processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+                post.setImagemCapa(imagemCapa);
+                imagemCapa.setPost(post);
+            });
+        }        
 
         // Processa novas imagens se fornecidas
         if (imagens != null && !imagens.isEmpty()) {
@@ -413,7 +429,8 @@ public class PostService{
 //    }
 
 
-//    public void delete(Long id) {
-//    }
+    public void delete(Long id) {
+        this.postRepository.deleteById(id);
+    }
 
 }

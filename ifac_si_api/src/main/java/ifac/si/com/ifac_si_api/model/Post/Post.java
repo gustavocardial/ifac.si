@@ -31,7 +31,7 @@ public class Post implements Serializable{
 
     @ManyToOne
     @JsonManagedReference
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 
     @ManyToOne
@@ -44,7 +44,8 @@ public class Post implements Serializable{
     @JsonIgnoreProperties("posts")
     private List<Tag> tags;
 
-    @Column(nullable = false)
+    @Lob
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String texto;
 
     @Column(nullable = false)

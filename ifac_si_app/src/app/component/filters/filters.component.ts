@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Renderer2, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
 import { Categoria } from '../../model/categoria';
@@ -16,10 +16,16 @@ export class FiltersComponent implements OnInit, AfterViewInit{
   @ViewChild('categorysApp', { static: false }) categoryDropDown!: ElementRef;
   @ViewChild('tagsApp', { static: false }) tagDropDown!: ElementRef;
 
+  @Output() catFilter = new EventEmitter<number>();
+  @Output() tagFilter = new EventEmitter<string>();
+  @Output() nonSelectFilter = new EventEmitter();
+
   categorias: Categoria[] = Array<Categoria>();
   tags: tags[] = Array<tags>();
   filtersC: boolean = false;
   filtersT: boolean = false;
+  selectedCategoryId: number | null = null; // Para controlar a categoria selecionada
+  selectedTagName: string | null = null; // Para controlar a tag selecionada  
 
   private categoryListener: (() => void) | undefined;
   private tagListener: (() => void) | undefined;
@@ -66,6 +72,41 @@ export class FiltersComponent implements OnInit, AfterViewInit{
     });
   }
 
+  //Começar a fazer filtro funcionar, mandar propriedades para busca desse component para outro
+
+  handleFilterCat(idCat: number): void {
+    console.log(idCat);
+    if (this.selectedCategoryId === idCat) {
+      // Se já estiver selecionado, desmarque
+      this.selectedCategoryId = null;
+    } else {
+      // Caso contrário, marque
+      this.selectedCategoryId = idCat;
+    }
+
+    this.catFilter.emit(idCat);
+    this.selectNon();
+  }
+
+  handleFilterTag(idNome: string): void {
+    if (this.selectedTagName === idNome) {
+      // Se já estiver selecionado, desmarque
+      this.selectedTagName = null;
+    } else {
+      // Caso contrário, marque
+      this.selectedTagName = idNome;
+    }
+
+    console.log (idNome);
+    this.tagFilter.emit(idNome);
+    this.selectNon();
+  }
+
+  selectNon(): void {
+    if (this.selectedCategoryId == null && this.selectedTagName == null) this.nonSelectFilter.emit();
+  }
+
+
   // Função chamada ao clicar no botão de categoria
   onCategoryClick(): void {
     this.filtersC = !this.filtersC;
@@ -107,9 +148,5 @@ export class FiltersComponent implements OnInit, AfterViewInit{
         this.onTagClick();
       });
     }
-  }
-
-  handleFilterClick(arg0: number) {
-    throw new Error('Method not implemented.');
   }
 }

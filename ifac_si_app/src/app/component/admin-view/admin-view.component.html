@@ -45,18 +45,18 @@
                         >
                     </ng-container>
                     <ng-template #displayUser>
-                        {{ usuario.email }}
+                        {{ usuario.nomeUsuario }}
                     </ng-template>
                 </td>
                 <td>
-                    <ng-container *ngIf="editingUser?.id === usuario.id; else displayUser">
+                    <ng-container *ngIf="editingUser?.id === usuario.id; else displayEmail">
                         <input 
                           type="text" 
                           [(ngModel)]="tempData.email" 
                           class="edit-input"
                         >
                     </ng-container>
-                    <ng-template #displayUser>
+                    <ng-template #displayEmail>
                         {{ usuario.email }}
                     </ng-template>
                 </td>
@@ -84,6 +84,9 @@
                     <ng-template #editButton>
                         <button (click)="startEditing(usuario)" class="edit-btn" title="Editar usuário">
                             <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button (click)="deleteUser(usuario.id)" class="edit-btn" title="Editar usuário">
+                            <i class="fas fa-trash-alt"></i>
                         </button>
                     </ng-template>
                 </td>

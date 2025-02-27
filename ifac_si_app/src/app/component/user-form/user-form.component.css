@@ -67,3 +67,37 @@ form select option:hover {
     background-color: #623CEA;
     color: aliceblue;
 }
+
+.toggle-password {
+    /* position: absolute; */
+    right: 10px;
+    top: 50%;
+    transform: translateY(-30px);;
+    cursor: pointer;
+    color: #000; /* cor preta para garantir contraste com o fundo branco */
+}
+
+input[type="password"] {
+    padding-right: 2.5em; /* adiciona espaço para o ícone de olho */
+}
+
+/* Mudança de ícone ao clicar */
+.fa-eye {
+  display: none;
+  color: #000;
+}
+
+.fa-eye-slash {
+  display: block;
+  color: #000;
+}
+
+input[type="text"] ~ .fa-eye-slash {
+  display: none;
+  color: #000;
+}
+
+input[type="text"] ~ .fa-eye {
+  display: block;
+  color: #000;
+}
