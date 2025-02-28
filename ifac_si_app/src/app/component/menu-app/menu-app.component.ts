@@ -19,15 +19,18 @@ export class MenuAppComponent{
       ['<i class="bi bi-discord"></i>', 'https://discord.gg/VVMNNhFM']
     ])],
     [ECargo.autor, new Map([
+      ['Todas as Publicações', '/view_posts'],
       ['Criar Nova Publicação', '/administration/autor/new_post'],
       ['Meus Dados', '/adminstration/my_publications']
     ])],
     [ECargo.editor, new Map([
+      ['Todas as Publicações', '/view_posts'],
       ['Criar Nova Publicação', '/administration/autor/new_post'],
       ['Meus Dados', '/adminstration/my_publications'],
       ['Revisar Posts', '/administration/editor/notification']
     ])],
     [ECargo.admin, new Map([
+      ['Todas as Publicações', '/view_posts'],
       ['Meus Dados', '/adminstration/my_publications'],
       ['Gerência de Perfis', '/administration/admin/viewUsers']
     ])]
