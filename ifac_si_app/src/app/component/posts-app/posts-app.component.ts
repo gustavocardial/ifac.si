@@ -4,6 +4,8 @@ import { Post } from '../../model/post';
 import { Router } from '@angular/router';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
+import { PageRequest } from '../../model/page-request';
+import { PageResponse } from '../../model/page-response';
 
 @Component({
   selector: 'app-posts-app',
@@ -17,6 +19,8 @@ export class PostsAppComponent implements OnInit{
   posts: Post[] = Array<Post>();
   show: boolean = false;
   postIdToDelete!: number;
+  paginaRequisicao: PageRequest = new PageRequest();
+  paginaResposta: PageResponse<Post> = <PageResponse<Post>>{};
 
   private listeners: (() => void)[] = [];
 
@@ -132,5 +136,10 @@ export class PostsAppComponent implements OnInit{
         setTimeout(() => this.setupButtonListeners(), 0);
       }
     });
+  }
+
+  mudarPagina(pagina: number): void {
+    this.paginaRequisicao.page = pagina;
+    this.getAll();
   }
 }

@@ -1,1 +1,16 @@
-<p>pagination-handle works!</p>
+<nav>
+    <ul>
+        <li>
+            <a href="javascript:void(0)"
+               (click)="mudarPagina(0)">Primeira</a>
+        </li>
+        <li *ngFor="let pagina of listarPaginas()">
+            <a href="javascript:void(0)"
+               (click)="mudarPagina(pagina)">{{pagina + 1}}</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)"
+               (click)="mudarPagina(totalPaginas - 1)">Última</a>
+        </li>
+    </ul>
+</nav>

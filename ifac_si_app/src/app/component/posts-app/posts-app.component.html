@@ -30,4 +30,11 @@
             </div>
         </div>
     </div>
+
+    <app-pagination-handle
+    [totalItens]="paginaResposta.totalElements"
+    [totalPaginas]="paginaResposta.totalPages"
+    [paginaAtual]="paginaResposta.number"
+    [tamanhoPagina]="paginaResposta.size"
+    (paginaSelecionada)="mudarPagina($event)"></app-pagination-handle>
 </div>
