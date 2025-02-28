@@ -47,4 +47,6 @@ export class MenuAppComponent{
   
     return Array.from(menu, ([label, caminho]) => ({ label, caminho })); // Converte Map em array
   }
+
+  //Implementar menu responsivo para celular
 }
