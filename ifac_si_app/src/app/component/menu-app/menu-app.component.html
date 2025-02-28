@@ -2,7 +2,13 @@
     <img src="../../../assets/images/logo-login.svg" alt="ifac.si logo" width="50" height="50">
     <div class="nav-content">
         <ul id="menuPrincipal">
-            <li>
+            <li *ngFor="let item of usuarioTemAcesso()">
+                <a [routerLink]="item.caminho" *ngIf="item.caminho.startsWith('/')">{{ item.label }}</a>
+                <a [href]="item.caminho" target="_blank" rel="noopener noreferrer" *ngIf="item.caminho.startsWith('http')">
+                  <span [innerHTML]="item.label"></span>
+                </a>
+            </li>
+            <!-- <li>
                 <a routerLink="/view_posts">Todas as publicações</a>
             </li>
             <li>
@@ -10,14 +16,14 @@
             </li>
             <li>
                 <a routerLink="../">Meus dados</a>
-            </li>
+            </li> -->
         </ul>
         <div id="subMenu" class="flex">
             <ul>
-                <li><a href="https://discord.gg/VVMNNhFM" target="_blank"><i class="bi bi-discord"></i></a></li>
                 <li><i class="bi bi-search"></i>Busca</li>
                 <li><i class="bi bi-box-arrow-right"></i>Sair</li>
             </ul>
         </div>
     </div>
+    <button (click)="mudarUsuario()">Usuário</button>
 </nav>
