@@ -22,7 +22,7 @@ export class PostService{
       url += "busca/" + termoBusca;
     }
     if (pageRequest) {
-      url += "?page=" + pageRequest.page + "&size=" + pageRequest.size;
+      url += "getAllPostsPageable/?page=" + pageRequest.page + "&size=" + pageRequest.size;
       pageRequest.sort.forEach(campo => {
         url += "&sort=" + campo;
       });
