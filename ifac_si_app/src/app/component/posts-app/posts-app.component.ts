@@ -21,6 +21,7 @@ export class PostsAppComponent implements OnInit{
   postIdToDelete!: number;
   paginaRequisicao: PageRequest = new PageRequest();
   paginaResposta: PageResponse<Post> = <PageResponse<Post>>{};
+  termoBusca: string = '';
 
   private listeners: (() => void)[] = [];
 
@@ -117,18 +118,18 @@ export class PostsAppComponent implements OnInit{
     })
   }
 
-  getAll(): void {
-    this.postServico.get().subscribe({
-      next: (resposta: Post[]) => {
-        resposta.forEach(post => {
-          if (post.imagemCapa) {
-            console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
-          } else {
-            console.log(`❌ Post ID: ${post.id} NÃO tem imagem de capa.`);
-          }
-        });
-
-        this.posts = resposta;
+  getAll(termoBusca?: string | undefined): void {
+    this.postServico.get(termoBusca, this.paginaRequisicao).subscribe({
+      next: (resposta: PageResponse<Post>) => {
+        this.posts = resposta.content;
+        this.paginaResposta = resposta;
+        // resposta.forEach(post => {
+        //   if (post.imagemCapa) {
+        //     console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
+        //   } else {
+        //     console.log(`❌ Post ID: ${post.id} NÃO tem imagem de capa.`);
+        //   }
+        // });
         // this.servicoAlerta.enviarAlerta({
         //   tipo: ETipoAlerta.SUCESSO,
         //   mensagem: "Posts mostrados com sucesso."
