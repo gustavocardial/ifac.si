@@ -22,6 +22,8 @@ export class PostsAppComponent implements OnInit{
   paginaRequisicao: PageRequest = new PageRequest();
   paginaResposta: PageResponse<Post> = <PageResponse<Post>>{};
   termoBusca: string = '';
+  selectedCategories: Post[] = Array<Post>(); // Lista de categorias selecionadas
+  selectedTags: Post[] = Array<Post>(); // Lista de tags selecionadas
 
   private listeners: (() => void)[] = [];
 
@@ -102,20 +104,40 @@ export class PostsAppComponent implements OnInit{
     });
   }
 
-  getCategoria(id: number): void {
-    this.postServico.getByCategoria(id).subscribe({
-      next: (resposta: Post[]) => {
-        this.posts = resposta;
-      }
-    })
+  getCategoria(id: number | null): void {
+    if (id === null) {
+      // Lógica para quando não há categoria selecionada
+      this.selectedCategories = [];
+      this.applyFilters();  // Exemplo: limpa os posts se não houver categoria
+    } else {
+      this.postServico.getByCategoria(id).subscribe({
+        next: (resposta: Post[]) => {
+          this.selectedCategories = resposta;
+          this.applyFilters();
+        }
+      })
+    }
+
+    // this.applyFilters();
   }
 
-  getByTag(nome: string): void {
-    this.postServico.getByTag(nome).subscribe({
-      next: (resposta: Post[]) => {
-        this.posts = resposta;
-      }
-    })
+  getByTag(nome: string | null): void {
+    if (nome === null || nome === '') {
+      // Lógica para quando não há tag selecionada
+      this.selectedTags = [];
+      this.applyFilters();
+    } else {
+      this.postServico.getByTag(nome).subscribe({
+        next: (resposta: Post[]) => {
+          this.selectedTags = resposta;
+          this.applyFilters();
+        }
+      })
+    }
+  }
+
+  applyFilters(): void {
+    this.posts = [...this.selectedCategories, ...this.selectedTags];
   }
 
   getAll(termoBusca?: string | undefined): void {

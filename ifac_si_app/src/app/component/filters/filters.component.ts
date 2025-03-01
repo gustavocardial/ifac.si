@@ -16,8 +16,8 @@ export class FiltersComponent implements OnInit, AfterViewInit{
   @ViewChild('categorysApp', { static: false }) categoryDropDown!: ElementRef;
   @ViewChild('tagsApp', { static: false }) tagDropDown!: ElementRef;
 
-  @Output() catFilter = new EventEmitter<number>();
-  @Output() tagFilter = new EventEmitter<string>();
+  @Output() catFilter = new EventEmitter<number | null>();
+  @Output() tagFilter = new EventEmitter<string | null>();
   @Output() nonSelectFilter = new EventEmitter();
 
   categorias: Categoria[] = Array<Categoria>();
@@ -74,31 +74,33 @@ export class FiltersComponent implements OnInit, AfterViewInit{
 
   //Começar a fazer filtro funcionar, mandar propriedades para busca desse component para outro
 
-  handleFilterCat(idCat: number): void {
+  handleFilterCat(idCat: number | null): void {
     console.log(idCat);
     if (this.selectedCategoryId === idCat) {
       // Se já estiver selecionado, desmarque
       this.selectedCategoryId = null;
+      this.catFilter.emit(null);
     } else {
       // Caso contrário, marque
       this.selectedCategoryId = idCat;
+      this.catFilter.emit(idCat);
     }
 
-    this.catFilter.emit(idCat);
     this.selectNon();
   }
 
-  handleFilterTag(idNome: string): void {
+  handleFilterTag(idNome: string | null): void {
     if (this.selectedTagName === idNome) {
       // Se já estiver selecionado, desmarque
       this.selectedTagName = null;
+      this.tagFilter.emit(null);
     } else {
       // Caso contrário, marque
       this.selectedTagName = idNome;
+      this.tagFilter.emit(idNome);
     }
 
     console.log (idNome);
-    this.tagFilter.emit(idNome);
     this.selectNon();
   }
 
