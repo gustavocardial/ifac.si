@@ -13,7 +13,12 @@ export class PaginationHandleComponent {
   @Output() paginaSelecionada = new EventEmitter<number>();
 
   listarPaginas(): number[] {
-    return Array.from(Array(this.totalPaginas).keys());
+    if (this.paginaAtual != undefined && this.totalPaginas != undefined) {
+      let inicio = Math.max(0, Math.min(this.paginaAtual - 2, this.totalPaginas - 5));
+      let fim = Math.min(this.totalPaginas, inicio + 5);
+      return Array.from(Array(fim - inicio).keys()).map(i => inicio + i);
+    }
+    return [];
   }
 
   mudarPagina(pagina: number) {
