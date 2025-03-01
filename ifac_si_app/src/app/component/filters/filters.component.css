@@ -61,6 +61,7 @@ div#flex-container-filter {
 
 .dropdown-content p {
     /* color: black; */
+    cursor: pointer;
     padding: 12px 16px;
     display: block;
     font-size: 16px;
