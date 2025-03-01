@@ -76,3 +76,7 @@ nav li#paginas button.ativo {
     /* font-size: 16px;
     line-height: 40px; */
 }
+
+li i {
+    font-weight: bold;
+}
