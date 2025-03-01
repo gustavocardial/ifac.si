@@ -46,3 +46,30 @@ nav {
     }
     
 }
+
+ul li button {
+    width: 40px; /* Defina a largura */
+    height: 40px; /* Defina a altura igual à largura para ficar redondo */
+    border-radius: 50%; /* Torna o botão circular */
+    border: 1px solid #1f1e1e; /* Adiciona uma borda visível */
+    margin: 10px 8px;
+    background-color: rgb(230, 222, 230); /* Cor de fundo */
+    display: flex; /* Alinha o ícone no centro */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Adiciona um efeito de clique */
+    transition: background 0.3s ease; /* Suaviza a troca de cores */
+}
+
+/* Efeito hover para melhorar a aparência */
+button:hover {
+    background-color: plum;
+}
+
+nav li#paginas button.ativo {
+    background-color: #623CEA; /* Cor desejada */
+    color: white; /* Texto branco para contraste */
+    font-weight: bold;
+    /* font-size: 16px;
+    line-height: 40px; */
+}
