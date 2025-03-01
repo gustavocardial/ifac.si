@@ -1,0 +1,75 @@
+nav, nav *, nav:hover {
+    all: revert;
+}
+
+:host {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 740px) {
+    :host {
+        flex-wrap: wrap;
+        justify-content: center;
+    }    
+}
+
+select {
+    height: 1.5em;
+    margin-bottom: .5em;
+}
+
+nav {
+
+    ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    li a, li {
+        display: inline-block;
+    }
+
+    li a {
+        color: inherit;
+        text-decoration: none;
+        padding: .25em .5em;
+        margin: 0 .1em;
+        &:hover, &.ativo {
+            background-color: #383838;
+            color: white;
+            border-radius: .5em;
+        }
+    }
+    
+}
+
+ul li button {
+    width: 40px; /* Defina a largura */
+    height: 40px; /* Defina a altura igual à largura para ficar redondo */
+    border-radius: 50%; /* Torna o botão circular */
+    border: 1px solid #1f1e1e; /* Adiciona uma borda visível */
+    margin: 10px 8px;
+    background-color: rgb(230, 222, 230); /* Cor de fundo */
+    display: flex; /* Alinha o ícone no centro */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Adiciona um efeito de clique */
+    transition: background 0.3s ease; /* Suaviza a troca de cores */
+}
+
+/* Efeito hover para melhorar a aparência */
+button:hover {
+    background-color: plum;
+}
+
+nav li#paginas button.ativo {
+    background-color: #623CEA; /* Cor desejada */
+    color: white; /* Texto branco para contraste */
+    font-weight: bold;
+    /* font-size: 16px;
+    line-height: 40px; */
+}

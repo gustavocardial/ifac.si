@@ -22,6 +22,8 @@ import { AdminViewComponent } from './component/admin-view/admin-view.component'
 import { UserFormComponent } from './component/user-form/user-form.component';
 import { CourseComponent } from './component/course/course.component';
 import { ViewPostComponent } from './component/view-post/view-post.component';
+import { PaginationHandleComponent } from './component/pagination-handle/pagination-handle.component';
+import { OrdinationComponent } from './component/ordination/ordination.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,8 @@ import { ViewPostComponent } from './component/view-post/view-post.component';
     UserFormComponent,
     CourseComponent,
     ViewPostComponent,
+    PaginationHandleComponent,
+    OrdinationComponent,
   ],
   imports: [
     BrowserModule,
