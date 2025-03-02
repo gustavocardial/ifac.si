@@ -63,6 +63,12 @@ export class AddNewPostComponent implements OnInit{
         }
       });
 
+      // this.servicoTag.getTagByPost(this.post).subscribe({
+      //   next: (resposta: tags[]) => {
+      //     this.tagsList = resposta; 
+      //   }
+      // })
+
       this.servicoTag.get(id).subscribe({
         next: (resposta: tags[]) => {
           // this.tags = resposta;

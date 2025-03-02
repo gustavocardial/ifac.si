@@ -4,6 +4,7 @@ import { tags } from '../model/tag';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
+import { Post } from '../model/post';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,12 @@ export class TagService implements IService<tags>{
     // if (termoBusca) {
     //   url += "busca/" + termoBusca;
     // }
+    return this.http.get<tags[]>(url);
+  }
+
+  getTagByPost(PostRequestDTO: Post): Observable<tags[]> {
+    let url = this.apiUrl + "getTagsByPost";
+
     return this.http.get<tags[]>(url);
   }
 
