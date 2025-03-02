@@ -1,6 +1,6 @@
-nav, nav *, nav:hover {
+/* nav, nav *, nav:hover {
     all: revert;
-}
+} */
 
 :host {
     display: flex;
@@ -20,7 +20,10 @@ select {
 }
 
 nav {
-
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     ul {
         display: flex;
         justify-content: center;
@@ -73,3 +76,10 @@ nav li#paginas button.ativo {
     /* font-size: 16px;
     line-height: 40px; */
 }
+
+.bi-chevron-double-left, .bi-chevron-double-right {
+    font-size: 20px; /* Aumenta o tamanho */
+    font-weight: bolder; /* Torna o ícone mais grosso, se disponível */
+    -webkit-text-stroke: 1px; /* Adiciona stroke nos navegadores webkit */
+    text-shadow: 0 0 1px black; /* Adiciona um efeito de sombra para parecer mais grosso */
+  }
