@@ -1,6 +1,6 @@
 package ifac.si.com.ifac_si_api.controller;
 
-import java.awt.print.Pageable;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,8 +48,8 @@ public class PostController{
 
     @GetMapping("/")
     @Operation(summary = "Listar todos os posts")
-    public ResponseEntity<List<Post>> get() {
-        List<Post> registros = servico.get();
+    public ResponseEntity<Page<Post>> get(Pageable page) {
+        Page<Post> registros = servico.get(page);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
@@ -73,8 +74,8 @@ public class PostController{
 
     @GetMapping("/busca")
     @Operation(summary = "Buscar posts por um termo de busca")
-    public ResponseEntity<List<Post>> get(@RequestParam String termoBusca) {
-        List<Post> registros = servico.get(termoBusca);
+    public ResponseEntity<Page<Post>> get(@RequestParam String termoBusca, Pageable page) {
+        Page<Post> registros = servico.get(termoBusca, page);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 

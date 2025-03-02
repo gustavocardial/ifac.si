@@ -9,12 +9,12 @@ import { TagService } from '../../service/tag.service';
 import { tags } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
-import { statusPost } from '../../model/statusEnum';
+import { statusPost } from '../../model/enum/statusEnum';
 // import { ImagemHandler } from '../../model/imagemHandler';
 import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/usuario';
-import { PublicacaoEnum } from '../../model/publicacaoEnum';
-import { visibilidadePost } from '../../model/visibilidadeEnum';
+import { PublicacaoEnum } from '../../model/enum/publicacaoEnum';
+import { visibilidadePost } from '../../model/enum/visibilidadeEnum';
 
 @Component({
   selector: 'app-add-new-post',

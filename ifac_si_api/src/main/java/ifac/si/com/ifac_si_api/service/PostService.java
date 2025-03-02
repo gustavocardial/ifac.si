@@ -62,9 +62,9 @@ public class PostService{
         return postRepository.getAllPosts(pageable);
     }
 
-    public List<Post> get() {
+    public Page<Post> get(Pageable page) {
 
-        return postRepository.findAll();
+        return postRepository.findAll(page);
     }
 
     public List<Post> getByTag(String tag) {
@@ -79,8 +79,8 @@ public class PostService{
         return postRepository.findById(id).orElse(null);
     }
 
-    public List<Post> get(String termoBusca) {
-        return postRepository.busca(termoBusca);
+    public Page<Post> get(String termoBusca, Pageable page) {
+        return postRepository.busca(termoBusca, page);
     }
 
 //    @Override

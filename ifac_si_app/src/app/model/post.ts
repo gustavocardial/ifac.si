@@ -1,6 +1,6 @@
 import { Categoria } from "./categoria";
 import { Imagem } from "./imagem";
-import { statusPost } from "./statusEnum";
+import { statusPost } from "./enum/statusEnum";
 import { tags } from "./tag";
 import { Usuario } from "./usuario";
 

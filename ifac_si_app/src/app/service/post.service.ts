@@ -4,6 +4,8 @@ import { Post } from '../model/post';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { PageRequest } from '../model/page-request';
+import { PageResponse } from '../model/page-response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +16,18 @@ export class PostService{
 
   apiUrl: string = environment.API_URL + '/post/';
 
-  get(termoBusca?: string): Observable<Post[]> {
+  get(termoBusca?: string | undefined, pageRequest?: PageRequest, apiUrl?: string): Observable<PageResponse<Post>> {
     let url = this.apiUrl;
     if (termoBusca) {
       url += "busca/" + termoBusca;
     }
-    return this.http.get<Post[]>(url);
+    if (pageRequest) {
+      url += "?page=" + pageRequest.page + "&size=" + pageRequest.size;
+      pageRequest.sort.forEach(campo => {
+        url += "&sort=" + campo;
+      });
+    }
+    return this.http.get<PageResponse<Post>>(url);
   }
 
   getById(id: number): Observable<Post> {

@@ -2,7 +2,8 @@
     <app-filters
     (catFilter)="getCategoria($event)"
     (tagFilter)="getByTag($event)"
-    (nonSelectFilter)="getAll()"></app-filters>
+    (nonSelectFilter)="getAll()"
+    (ordemMudou)="atualizarOrdem($event)"></app-filters>
     <div *ngIf="show">
         <app-delete-form (cancelForm)="showDelete()" (confirmForm)="deletePost()"></app-delete-form>
     </div>
@@ -30,4 +31,11 @@
             </div>
         </div>
     </div>
+
+    <app-pagination-handle
+    [totalItens]="paginaResposta.totalElements"
+    [totalPaginas]="paginaResposta.totalPages"
+    [paginaAtual]="paginaResposta.number"
+    [tamanhoPagina]="paginaResposta.size"
+    (paginaSelecionada)="mudarPagina($event)"></app-pagination-handle>
 </div>
