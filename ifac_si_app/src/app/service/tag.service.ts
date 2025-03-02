@@ -26,7 +26,7 @@ export class TagService implements IService<tags>{
   getTagByPost(PostRequestDTO: Post): Observable<tags[]> {
     let url = this.apiUrl + "getTagsByPost";
 
-    return this.http.get<tags[]>(url);
+    return this.http.post<tags[]>(url, PostRequestDTO);
   }
 
   getById(id: number): Observable<tags> {
@@ -47,5 +47,17 @@ export class TagService implements IService<tags>{
   delete(id: number): Observable<void> {
     let url = this.apiUrl + id;
     return this.http.delete<void>(url);
+  }
+
+  private mapToPostRequestDTO(post: Post): any {
+    return {
+      titulo: post.titulo,
+      usuarioId: post.usuario?.id ?? null,
+      categoriaId: post.categoria?.id ?? null,
+      texto: post.texto,
+      legenda: post.legenda,
+      status: post.EStatus,
+      tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
+    };
   }
 }
