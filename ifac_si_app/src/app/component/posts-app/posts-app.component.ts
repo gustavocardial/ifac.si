@@ -24,6 +24,7 @@ export class PostsAppComponent implements OnInit{
   termoBusca: string = '';
   selectedCategories: Post[] = Array<Post>(); // Lista de categorias selecionadas
   selectedTags: Post[] = Array<Post>(); // Lista de tags selecionadas
+  ordenacao: string = 'asc';
 
   private listeners: (() => void)[] = [];
 
@@ -145,6 +146,8 @@ export class PostsAppComponent implements OnInit{
       next: (resposta: PageResponse<Post>) => {
         this.posts = resposta.content;
         this.paginaResposta = resposta;
+
+        this.ordenarPosts();
         // resposta.forEach(post => {
         //   if (post.imagemCapa) {
         //     console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
@@ -164,5 +167,20 @@ export class PostsAppComponent implements OnInit{
   mudarPagina(pagina: number): void {
     this.paginaRequisicao.page = pagina;
     this.getAll();
+  }
+
+  atualizarOrdem(ordem: string) {
+    this.ordenacao = ordem;
+    this.ordenarPosts();
+  }
+
+  ordenarPosts() {
+    this.posts.sort((a, b) => {
+      if (this.ordenacao === 'asc') {
+        return a.titulo.localeCompare(b.titulo);
+      } else {
+        return b.titulo.localeCompare(a.titulo);
+      }
+    });
   }
 }

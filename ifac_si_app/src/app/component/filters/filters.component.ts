@@ -18,6 +18,7 @@ export class FiltersComponent implements OnInit, AfterViewInit{
 
   @Output() catFilter = new EventEmitter<number | null>();
   @Output() tagFilter = new EventEmitter<string | null>();
+  @Output() ordemMudou = new EventEmitter<string>();
   @Output() nonSelectFilter = new EventEmitter();
 
   categorias: Categoria[] = Array<Categoria>();
@@ -150,5 +151,9 @@ export class FiltersComponent implements OnInit, AfterViewInit{
         this.onTagClick();
       });
     }
+  }
+
+  atualizarOrdenacao(valor: string) {
+    this.ordemMudou.emit(valor); // Repassa o evento para o componente pai
   }
 }
