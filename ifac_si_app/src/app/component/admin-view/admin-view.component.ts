@@ -61,6 +61,26 @@ export class AdminViewComponent implements OnInit{
     return this.selectedUsers.includes(userId);
   }
 
+  deleteUsers(listaId: number[]) {
+    console.log ("Usuários para deletar", listaId);
+    listaId.forEach(id => {
+      this.userServico.delete(id).subscribe({
+        complete: () => {
+          this.servicoAlerta.enviarAlerta({
+            tipo: ETipoAlerta.SUCESSO,
+            mensagem: "Usuário(s) deletado(s) com sucesso"
+          })
+        },
+        error: (erro) => {
+          this.servicoAlerta.enviarAlerta({
+            tipo: ETipoAlerta.ERRO,
+            mensagem: "Erro ao deletar usuário(s)"
+          })
+        }
+      })
+    });
+  }
+
   saveEdit(user: Usuario) {
     console.log ("Usuário", user);
     const updatedUsuario: Usuario = { ...this.tempData } as Usuario;

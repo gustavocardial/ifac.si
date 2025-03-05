@@ -7,6 +7,9 @@
 <section>
     <div *ngIf="selectedUsers.length > 0" class="selection-indicator">
         {{ selectedUsers.length }} item(s) selecionado(s)
+        <button (click)="deleteUsers(selectedUsers)" class="edit-btn" title="Deletar usuário">
+            <i class="fas fa-trash-alt"></i>
+        </button>
     </div>
     <div>
         <button>Todos os usuários <i class="bi bi-chevron-down"></i></button>
@@ -85,7 +88,7 @@
                         <button (click)="startEditing(usuario)" class="edit-btn" title="Editar usuário">
                             <i class="fas fa-pencil-alt"></i>
                         </button>
-                        <button (click)="deleteUser(usuario.id)" class="edit-btn" title="Editar usuário">
+                        <button (click)="deleteUser(usuario.id)" class="edit-btn" title="Deletar usuário">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </ng-template>
