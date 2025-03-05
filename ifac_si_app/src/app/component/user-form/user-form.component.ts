@@ -38,13 +38,13 @@ export class UserFormComponent implements AfterViewInit{
        complete: () => {
          this.servicoAlerta.enviarAlerta({
            tipo: ETipoAlerta.SUCESSO,
-           mensagem: "Post salvo com sucesso"
+           mensagem: "Usuário salvo com sucesso"
          });
        },
        error: (erro) => {
          this.servicoAlerta.enviarAlerta({
            tipo: ETipoAlerta.ERRO,
-           mensagem: "Erro ao salvar o post"
+           mensagem: "Erro ao salvar o usuário"
          });
          console.error('Erro ao salvar:', erro);
        }
