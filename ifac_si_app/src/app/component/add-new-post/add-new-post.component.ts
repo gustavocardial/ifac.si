@@ -58,18 +58,25 @@ export class AddNewPostComponent implements OnInit{
       this.servicoPost.getById(+id).subscribe({
         next: (resposta: Post) => {
           this.post = resposta;
+
+          console.log ("Post", resposta);
           
           // this.tags = resposta.tags;
         }
       });
 
-      this.servicoTag.get(id).subscribe({
+      // this.servicoTag.getTagByPost(this.post).subscribe({
+      //   next: (resposta: tags[]) => {
+      //     this.tagsList = resposta; 
+      //     console.log (this.tagsList);
+      //   }
+      // })
+
+      this.servicoTag.get().subscribe({
         next: (resposta: tags[]) => {
           // this.tags = resposta;
-          this.tagsList = resposta.map(tag => ({
-            id: tag.id,
-            nome: tag.nome
-          }));
+          this.tagsList = resposta.filter((tag: tags) => this.post?.tags?.some(postTag => Number(postTag.id) === Number(tag.id)));
+        
           console.log('Tags:', this.tagsList); 
         }
       });  

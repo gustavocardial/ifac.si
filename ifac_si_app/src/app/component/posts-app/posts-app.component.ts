@@ -44,6 +44,10 @@ export class PostsAppComponent implements OnInit{
     this.setupButtonListeners();
   }
 
+  ngAfterViewChecked(): void {
+    this.setupButtonListeners();  // Reconfigura os ouvintes após cada mudança na view
+  }
+
   private setupButtonListeners(): void {
     // Remove os listeners existentes
     this.listeners.forEach(listener => listener());
@@ -62,6 +66,7 @@ export class PostsAppComponent implements OnInit{
     this.editButtons.forEach((button, index) => {
       const postId = button.nativeElement.getAttribute('data-post-id');
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
+        console.log ("Editando");
         this.editPost(postId);
       });
       this.listeners.push(listener);
@@ -70,6 +75,7 @@ export class PostsAppComponent implements OnInit{
     this.showButtons.forEach((button, index) => {
       const postId = button.nativeElement.getAttribute('data-post-id');
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
+        console.log ("Visualizando");
         this.viewPost(postId);
       });
       this.listeners.push(listener);

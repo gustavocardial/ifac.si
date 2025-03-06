@@ -167,22 +167,51 @@ button#tagButton {
     border-radius: 4px;
 }
 
-div.radio-group{
+.radio-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
 }
 
-div.radio-group input[type="radio"]{
-    display: flex;
-    margin: 0 10px 0 0;
-    padding: 8px 12px;
-    /* width: 10px; */
-    border-radius: 4px;
+.radio-group input[type="radio"] {
+    margin-right: 10px;
+    appearance: none; /* Remove o estilo padrão */
+    width: 22px;
+    height: 22px;
+    border-radius: 6px; /* Deixa mais quadrado */
+    border: 1px solid black;
+    background-color: #f1f1f1; /* Cor de fundo sempre visível */
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-div.radio-group input[type="radio"]:checked {
-    background: #623CEA; /* Define a cor da borda para roxo quando selecionado */
+.radio-group input[type="radio"]:checked {
+    background-color: #623CEA; /* Cor ao selecionar */
+    border: 2px solid #623CEA;
+}
+
+.radio-group input[type="radio"]::after {
+    content: "";
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Esconde o ícone inicialmente */
+}
+
+.radio-group input[type="radio"]:checked::after {
+    content: "✔"; /* Ícone de confirmação */
+    display: block;
+}
+
+select option:hover {
+    background: #623CEA;
+    color: #f1f1f1;
 }
 
 #categorys {
