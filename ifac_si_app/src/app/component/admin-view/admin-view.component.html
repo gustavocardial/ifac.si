@@ -7,23 +7,27 @@
 <section>
     <div *ngIf="selectedUsers.length > 0" class="selection-indicator">
         {{ selectedUsers.length }} item(s) selecionado(s)
-        <button (click)="deleteUsers(selectedUsers)" class="edit-btn" title="Deletar usuário">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-        <ng-container *ngIf="!batchEditing; else editarUsuarioBatchTpl">
-            <button (click)="startBatchEditing()" class="edit-btn" title="Editar usuários selecionados">
-                <i class="fas fa-pencil-alt"></i>
+
+        <div id="batchButtons">
+            <button (click)="deleteUsers(selectedUsers)" class="edit-btn" title="Deletar usuário">
+                <i class="fas fa-trash-alt"></i>
             </button>
-        </ng-container>
+            <ng-container *ngIf="!batchEditing; else editarUsuarioBatchTpl">
+                <button (click)="startBatchEditing()" class="edit-btn" title="Editar usuários selecionados">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </ng-container>
+            
+            <ng-template #editarUsuarioBatchTpl>
+                <button (click)="saveBatchEdit()" class="save-btn" title="Salvar alteração">
+                    <i class="fas fa-save"></i>
+                </button>
+                <button (click)="cancelBatchEdit()" class="cancel-btn" title="Cancelar edição">
+                    <i class="fas fa-times"></i>
+                </button>
+            </ng-template>    
+        </div>
         
-        <ng-template #editarUsuarioBatchTpl>
-            <button (click)="saveBatchEdit()" class="save-btn" title="Salvar alteração">
-                <i class="fas fa-save"></i>
-            </button>
-            <button (click)="cancelBatchEdit()" class="cancel-btn" title="Cancelar edição">
-                <i class="fas fa-times"></i>
-            </button>
-        </ng-template>
     </div>
     <div>
         <button>Todos os usuários <i class="bi bi-chevron-down"></i></button>
