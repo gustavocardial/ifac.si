@@ -9,12 +9,19 @@
                         [(ngModel)]="registro.nomeUsuario"
                         placeholder="Usuário">
         
-                <div style="position: relative; display: flex; align-items: center;">
+                <div class="password-container">
+                    <input #senhaField [type]="showPassword ? 'text' : 'password'" name="senha" id="senha"[(ngModel)]="registro.senha" placeholder="Senha" style="padding-right: 2.5em;" required>
+                    <span (click)="togglePasswordVisibility()" class="password-toggle">
+                        <i *ngIf="!showPassword" class="bi bi-eye"></i>
+                        <i *ngIf="showPassword" class="bi bi-eye-slash"></i>
+                    </span>
+                </div>
+                <!-- <div style="position: relative; display: flex; align-items: center;">
                     <input #senhaField [type]="showPassword ? 'text' : 'password'" name="senha" id="senha" required [(ngModel)]="registro.senha" placeholder="Senha" style="padding-right: 2.5em;">
                     <span (click)="togglePasswordVisibility()" class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
                         <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                     </span>
-                </div>            
+                </div>             -->
             </div>
         </div>
         <div id="formButton">

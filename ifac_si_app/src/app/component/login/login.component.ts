@@ -52,11 +52,11 @@ export class LoginComponent implements AfterViewInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
-    this.renderer.setAttribute(
-      this.senhaField.nativeElement,
-      'type',
-      this.showPassword ? 'text' : 'password'
-    );
+    // this.renderer.setAttribute(
+    //   this.senhaField.nativeElement,
+    //   'type',
+    //   this.showPassword ? 'text' : 'password'
+    // );
   }
   
   save() {
