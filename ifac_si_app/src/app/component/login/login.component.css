@@ -57,6 +57,11 @@ input::placeholder {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+input:not(:focus):not(:placeholder-shown) {
+    padding-left: 10px; /* Ajuste este valor conforme necessário */
+    transition: padding 0.3s; /* Para uma transição suave */
+}
+
 input:focus {
     padding-left: 10px;
 }
