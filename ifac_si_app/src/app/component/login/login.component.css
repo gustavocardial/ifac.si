@@ -141,32 +141,38 @@ form img {
     margin: 0 auto;
 }
 
-.toggle-password {
+/* CSS para posicionar o ícone de senha */
+.password-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+  
+.password-container input {
+    width: 100%;
+    /* border-radius: 4px; */
+    border: 0;
+    padding-right: 35px; /* espaço para o ícone */
+    box-sizing: border-box;
+}
+  
+.password-toggle {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #000; /* cor preta para garantir contraste com o fundo branco */
+    color: #333; /* cor mais escura para melhor visibilidade em fundo claro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
 }
-
-input[type="password"] {
-    padding-right: 2.5em; /* adiciona espaço para o ícone de olho */
-}
-
-/* Mudança de ícone ao clicar */
-.fa-eye {
-  display: none;
-}
-
-.fa-eye-slash {
-  display: block;
-}
-
-input[type="text"] ~ .fa-eye-slash {
-  display: none;
-}
-
-input[type="text"] ~ .fa-eye {
-  display: block;
+  
+  /* Ajustes para os ícones do Bootstrap */
+.bi-eye, .bi-eye-slash {
+    font-weight: 900;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    -webkit-text-stroke: 1px;
 }
