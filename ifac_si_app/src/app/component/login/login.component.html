@@ -10,7 +10,7 @@
                         placeholder="Usuário">
         
                 <div class="password-container">
-                    <input #senha [type]="showPassword ? 'text' : 'password'" name="senha" id="senha"[(ngModel)]="registro.senha" placeholder="Senha" style="padding-right: 2.5em;">
+                    <input #senhaField [type]="showPassword ? 'text' : 'password'" name="senha" id="senha"[(ngModel)]="registro.senha" placeholder="Senha" style="padding-right: 2.5em;" required>
                     <span (click)="togglePasswordVisibility()" class="password-toggle">
                         <i *ngIf="!showPassword" class="bi bi-eye"></i>
                         <i *ngIf="showPassword" class="bi bi-eye-slash"></i>
