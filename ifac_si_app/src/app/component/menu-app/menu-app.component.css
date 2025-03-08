@@ -60,6 +60,7 @@ nav ul#menuPrincipal {
     display: flex;
     justify-content: space-between;
     width: 100%; 
+    font-size: 16.5px;
 }
 
 .bi {

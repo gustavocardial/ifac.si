@@ -29,7 +29,7 @@ public class PostMapper {
         postDTO.setData(post.getData());
         postDTO.setLegenda(post.getLegenda());
         if ( post.getStatus() != null ) postDTO.setStatus(post.getStatus().name());
-        if ( post.getStatus() != null )postDTO.setImagens(post.getImagens());
+        if ( post.getStatus() != null ) postDTO.setImagens(post.getImagens());
 
         return postDTO;
     }
@@ -51,7 +51,21 @@ public class PostMapper {
         post.setTexto(postDto.getTexto());
         post.setLegenda(postDto.getLegenda());
         post.setStatus(EStatus.fromString(postDto.getStatus()));
-
         return post;
+    }
+
+    public void updateEntityFromDto(PostRequestDTO postDto, Post post) {
+        if (postDto.getTitulo() != null) {
+            post.setTitulo(postDto.getTitulo());
+        }
+        if (postDto.getTexto() != null) {
+            post.setTexto(postDto.getTexto());
+        }
+        if (postDto.getLegenda() != null) {
+            post.setLegenda(postDto.getLegenda());
+        }
+        if (postDto.getStatus() != null) {
+            post.setStatus(EStatus.valueOf(postDto.getStatus()));
+        }
     }
 }

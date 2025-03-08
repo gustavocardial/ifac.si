@@ -79,6 +79,8 @@ public class Usuario implements Serializable{
         this.ativo = ativo;
     }
 
-    Optional<Usuario> findByEmail(String email);
+    // Optional<Usuario> findByEmail(String email) {
+
+    // }   
 
 }

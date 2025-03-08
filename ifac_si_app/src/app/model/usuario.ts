@@ -1,6 +1,6 @@
 export type Usuario = {
     id: number,
-    nomeCompleto: string,
+    email: string,
     nomeUsuario: string,
     senha: string,
     cargo: string,

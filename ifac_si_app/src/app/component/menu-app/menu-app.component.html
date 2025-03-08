@@ -2,15 +2,21 @@
     <img src="../../../assets/images/logo-login.svg" alt="ifac.si logo" width="50" height="50">
     <div class="nav-content">
         <ul id="menuPrincipal">
-            <li>
+            <li *ngFor="let item of usuarioTemAcesso()">
+                <a [routerLink]="item.caminho" *ngIf="item.caminho.startsWith('/')">{{ item.label }}</a>
+                <a [href]="item.caminho" target="_blank" rel="noopener noreferrer" *ngIf="item.caminho.startsWith('http')">
+                  <span [innerHTML]="item.label"></span>
+                </a>
+            </li>
+            <!-- <li>
                 <a routerLink="/view_posts">Todas as publicações</a>
             </li>
             <li>
-                <a routerLink="/new_post">Criar nova publicação</a>
+                <a routerLink="/administration/autor/new_post">Criar nova publicação</a>
             </li>
             <li>
                 <a routerLink="../">Meus dados</a>
-            </li>
+            </li> -->
         </ul>
         <div id="subMenu" class="flex">
             <ul>
@@ -19,4 +25,5 @@
             </ul>
         </div>
     </div>
+    <button (click)="mudarUsuario()">Usuário</button>
 </nav>

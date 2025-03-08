@@ -4,6 +4,8 @@ import java.util.List;
 
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
+import ifac.si.com.ifac_si_api.model.Tag.Mapper.TagMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,14 +43,19 @@ public class TagController{
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
-    @GetMapping("/busca/{post}")
-//    @ApiOperation(value = "Buscar tags por um Post")
-    public ResponseEntity<List<TagDTO>> get(@RequestBody PostRequestDTO postRequestDTO) {
+//     @GetMapping("/busca/{postId}")
+// //    @ApiOperation(value = "Buscar tags por um Post")
+//     public ResponseEntity<List<TagDTO>> get(@PathVariable PostRequestDTO postRequestDTO) {
+//         List<TagDTO> registros = servico.getAllByPost(postRequestDTO);
+//         return new ResponseEntity<>(registros, HttpStatus.OK);
+//     }
+    @PostMapping("/getTagsByPost")
+    public ResponseEntity<List<TagDTO>> getTagsByPost(@RequestBody PostRequestDTO postRequestDTO) {
         List<TagDTO> registros = servico.getAllByPost(postRequestDTO);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
-    @GetMapping("/busca/{termoBusca}")
+    @GetMapping("/busca/termo/{termoBusca}")
 //    @ApiOperation(value = "Buscar tags por um termo de busca")
     public ResponseEntity<List<TagDTO>> get(@PathVariable("termoBusca") String termoBusca) {
         List<TagDTO> registros = servico.getAll(termoBusca);

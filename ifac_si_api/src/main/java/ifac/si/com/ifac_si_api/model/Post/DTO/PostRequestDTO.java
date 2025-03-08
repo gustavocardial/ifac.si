@@ -3,6 +3,10 @@ package ifac.si.com.ifac_si_api.model.Post.DTO;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import ifac.si.com.ifac_si_api.model.Imagem;
+
 import java.util.List;
 
 @Data
@@ -71,4 +75,5 @@ public class PostRequestDTO {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
 }

@@ -18,7 +18,7 @@ public class Imagem {
     private Long id;
 
     // URL pública gerada pelo MinIO
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String url;
 
     // Nome do arquivo original
@@ -35,7 +35,7 @@ public class Imagem {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "post_id")
     private Post post;
 
     public Imagem() {

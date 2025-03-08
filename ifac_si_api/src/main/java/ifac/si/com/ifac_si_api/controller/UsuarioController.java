@@ -54,7 +54,7 @@ public class UsuarioController{
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("/")
 //    @ApiOperation(value = "Editar usuário")
     public ResponseEntity<Usuario> update(@RequestBody Usuario objeto) {
         Usuario registro = servico.save(objeto);

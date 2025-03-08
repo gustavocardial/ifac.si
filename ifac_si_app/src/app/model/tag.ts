@@ -1,7 +1,7 @@
 import { Post } from "./post"
 
-export type Tag = {
+export type tags = {
     id: number,
     nome: string,
-    posts: Post[]
+    // posts: Post[]
 }

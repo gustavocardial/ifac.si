@@ -4,13 +4,17 @@
 </nav> -->
 <div class="container">
   <div class="row">
-      <div class="col-12 col-md-9" id="editorElement">
+    <!-- class="col-12 col-lg-9" -->
+      <div class="col-12 col-lg-9 col-md-7" id="editorElement">
           <div class="col-nd-auto" id="topEditor">
                   <label for="tituloPost">Título</label>
                   <input type="text" name="tituloPost" id="tituloPost" [(ngModel)]="post.titulo" placeholder="Título da postagem">
               <!-- <div class="row"> -->
                   <label for="LegendaPost">Legenda</label>
                   <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda" placeholder="Legenda ou resumo da postagem">
+                  
+                  <label for="capaPost">Imagem de Capa</label>
+                  <input type="file" name="capaPost" id="capaPost" #imagemCapa>
           </div>
           <div class="row">
               <div class="col-nd-12">
@@ -24,7 +28,8 @@
               </div>
           </div>
       </div>
-      <div class="col" id="postInfo">
+      <!-- class="col-12 col-lg-3"  -->
+      <div class="col-12 col-lg-3 col-md-5" id="postInfo">
           <div id="accordion">
               <div class="card">
                   <div class="card-header" id="headingOne">
@@ -32,10 +37,10 @@
                           <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" #status>
                               Status e Visibilidade
                                 <ng-template [ngIf]="!buttonS" [ngIfElse]="dropdownIcon">
-                                    <i class="bi bi-chevron-down"></i>
+                                    <i class="fa fa-caret-down"></i>
                                 </ng-template>
                                 <ng-template #dropdownIcon>
-                                    <i class="bi bi-chevron-up"></i>
+                                    <i class="fa fa-caret-up"></i>
                                 </ng-template>
                           </button>
                       </h5>
@@ -49,18 +54,44 @@
                         <div class="viewPost" id="statusPost">
                             <div class="statusDiv">
                                 <p>Visibilidade:</p>
-                                <p></p>
-                                <button>Editar</button>
+                                <ng-template [ngIf]="visibilidadeContent" [ngIfElse]="visibilidadeSelect">
+                                    <p id="visibilidade">Pública</p>  
+                                </ng-template>
+                                <ng-template #visibilidadeSelect>
+                                    <select id="visibilidade">
+                                        <option value="publica">Pública</option>
+                                        <option value="privada">Privada</option>
+                                    </select>
+                                </ng-template>
+                                <button #editarVisibilidade class="editButton">Editar</button>
                             </div>
                             <div class="statusDiv">
                                 <p>Publicação:</p>
-                                <p></p>
-                                <button>Editar</button>
+                                <ng-template [ngIf]="publicacaoContent" [ngIfElse]="publicacaoSelect">
+                                    <p id="publicacao">Imediata</p>
+                                </ng-template>
+                                <ng-template #publicacaoSelect>
+                                    <select id="publicacao">
+                                        <option *ngFor="let option of publicacaoOptions" [value]="option.value">
+                                            {{ option.label }}
+                                        </option>
+                                    </select>
+                                </ng-template>
+                                <button #editarPublicacao class="editButton">Editar</button>
                             </div>
                             <div class="statusDiv">
                                 <p>Status:</p>
-                                <p></p>
-                                <button>Editar</button>
+                                <ng-template [ngIf]="statusContent" [ngIfElse]="statusSelect">
+                                    <p id="idStatus">Rascunho</p>
+                                </ng-template>
+                                <ng-template #statusSelect>
+                                    <select id="publicacao">
+                                        <option *ngFor="let option of statusOptions" [value]="option.value">
+                                            {{ option.label }}
+                                        </option>
+                                    </select>
+                                </ng-template>
+                                <button #editarStatus class="editButton">Editar</button>
                             </div>
                         </div>
                         <div class="statusDiv viewPost" id="saveDiv">
@@ -76,10 +107,10 @@
                           <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" #category> <!--data-bs-parent="#accordion" para aparecer somente um card aberto por vez-->
                               Categorias
                                 <ng-template [ngIf]="!buttonC" [ngIfElse]="dropdownIcon">
-                                    <i class="bi bi-chevron-down"></i>
+                                    <i class="fa fa-caret-down"></i>
                                 </ng-template>
                                 <ng-template #dropdownIcon>
-                                    <i class="bi bi-chevron-up"></i>
+                                    <i class="fa fa-caret-up"></i>
                                 </ng-template>
                           </button>
                       </h5>
@@ -104,10 +135,10 @@
                           <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" #tags>
                               Tags
                                 <ng-template [ngIf]="!buttonT" [ngIfElse]="dropdownIcon">
-                                    <i class="bi bi-chevron-down"></i>
+                                    <i class="fa fa-caret-down"></i>
                                 </ng-template>
                                 <ng-template #dropdownIcon>
-                                    <i class="bi bi-chevron-up"></i>
+                                    <i class="fa fa-caret-up"></i>
                                 </ng-template>
                           </button>
                       </h5>
@@ -126,11 +157,11 @@
                         <div class="dropdown">
                             <button #tag id="tagButton">Selecione uma Tag 
                                 <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </ng-template>
-                                <ng-template #dropdownIcon>
-                                    <i class="bi bi-chevron-up"></i>
-                                </ng-template>
+                                <i class="fa fa-caret-down"></i>
+                            </ng-template>
+                            <ng-template #dropdownIcon>
+                                <i class="fa fa-caret-up"></i>
+                            </ng-template>
                             </button>
                             <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
                                 <p *ngFor="let tag of tagsList">

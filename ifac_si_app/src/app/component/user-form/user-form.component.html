@@ -1,22 +1,37 @@
 <div class="overlay">
     <div class="popUp">
-        <form #form>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
             <h3>Adicionar novo usuário</h3>
-            <label>Nome de usuário</label><input type="text">
-            <label>Nova senha</label><input type="text">
-            <label>Confirmar senha</label><input type="text">
+            <label>Nome</label><input type="text" id="nomeUsuario" [(ngModel)]="usuario.nomeUsuario" name="nomeUsuario" placeholder="Nome de Usuário">
+            <label>Email</label><input type="text" id="email" [(ngModel)]="usuario.email" name="email" placeholder="Email do usuário">
+            <label>Senha</label>
+            <div class="password-container">
+              <input #senha [type]="showPasswordPrimary ? 'text' : 'password'" name="senha" id="senha"[(ngModel)]="usuario.senha" placeholder="Senha" style="padding-right: 2.5em;">
+              <span (click)="togglePasswordVisibilityPrimary()" class="password-toggle">
+                <i *ngIf="!showPasswordPrimary" class="bi bi-eye"></i>
+                <i *ngIf="showPasswordPrimary" class="bi bi-eye-slash"></i>
+              </span>
+            </div>
+            <label>Confirmar Senha</label>
+            <div class="password-container">
+              <input #confirmarSenha [type]="showPasswordConfirm ? 'text' : 'password'" name="confirmarSenha" id="confirmarSenha" placeholder="Confirmar Senha" style="padding-right: 2.5em;">
+              <span (click)="togglePasswordVisibilityConfirm()" class="password-toggle">
+                <i *ngIf="!showPasswordConfirm" class="bi bi-eye"></i>
+                <i *ngIf="showPasswordConfirm" class="bi bi-eye-slash"></i>
+              </span>
+            </div>
             <label>Role</label>
-            <select id="cargo">
-                <option value=""></option>
-                <option value="ADMIN">ADMINISTRADOR</option>
-                <option value="AUTOR">AUTOR</option>
-                <option value="EDITOR">EDITOR</option>
+            <select id="cargo" [(ngModel)]="usuario.cargo" name="cargo" placeholder="Cargo do usuário no sistema">
+              <option value=""></option>
+              <option value="ADMIN">ADMINISTRADOR</option>
+              <option value="AUTOR">AUTOR</option>
+              <option value="EDITOR">EDITOR</option>
             </select>
             <div>    
-                <input type="button" value="CANCELAR" #cancelButton>        
-                <!-- <button #cancelButton>CANCELAR</button> -->
-                <input type="submit" value="SALVAR">
+              <input type="button" value="CANCELAR" #cancelButton (click)="onCancel()">        
+              <input type="submit" value="SALVAR">
             </div>
-        </form>
+          </form>
+          
     </div>
 </div>

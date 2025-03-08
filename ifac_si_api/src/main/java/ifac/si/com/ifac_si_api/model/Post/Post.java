@@ -2,6 +2,7 @@ package ifac.si.com.ifac_si_api.model.Post;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 // import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -30,7 +31,7 @@ public class Post implements Serializable{
 
     @ManyToOne
     @JsonManagedReference
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 
     @ManyToOne
@@ -43,7 +44,8 @@ public class Post implements Serializable{
     @JsonIgnoreProperties("posts")
     private List<Tag> tags;
 
-    @Column(nullable = false)
+    @Lob
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String texto;
 
     @Column(nullable = false)
@@ -54,6 +56,10 @@ public class Post implements Serializable{
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens;
+
+    @JoinColumn(name = "imagem_capa_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Imagem imagemCapa;
 
     @Enumerated(EnumType.STRING)
     private EStatus status;
@@ -137,6 +143,37 @@ public class Post implements Serializable{
     public void setStatus(EStatus status) {
         this.status = status;
     }
+
+    public void removeImagem(Imagem img) {
+        // Verifica se a lista de imagens existe e se a imagem está na lista
+        if (this.imagens != null && this.imagens.contains(img)) {
+            // Remove a imagem da lista
+            this.imagens.remove(img);
+            // Limpa a referência do post na imagem, o que mantém a relação bidirecional
+            img.setPost(null);
+        }
+    }
+
+    public void addImagem(Imagem img) {
+        // Verifica se a lista de imagens existe
+        if (this.imagens == null) {
+            // Se não existir, cria uma nova lista
+            this.imagens = new ArrayList<>();
+        }
+        // Adiciona a imagem na lista de imagens
+        this.imagens.add(img);
+        // Estabelece a relação bidirecional com o post
+        img.setPost(this);
+    }
+
+    public Imagem getImagemCapa() {
+        return imagemCapa;
+    }
+
+    public void setImagemCapa(Imagem imagemCapa) {
+        this.imagemCapa = imagemCapa;
+    }
+
 
     //Testar relacionamentos e engenharia reserva no workbench
 }

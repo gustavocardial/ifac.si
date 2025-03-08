@@ -1,44 +1,63 @@
 import { Injectable } from '@angular/core';
 import { IService } from './I-service';
-import { Tag } from '../model/tag';
+import { tags } from '../model/tag';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
+import { Post } from '../model/post';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TagService implements IService<Tag>{
+export class TagService implements IService<tags>{
 
   constructor(private http: HttpClient) { }
 
   apiUrl: string = environment.API_URL + '/tag/';
 
-  get(termoBusca?: string): Observable<Tag[]> {
+  get(termoBusca?: string): Observable<tags[]> {
     let url = this.apiUrl;
-    if (termoBusca) {
-      url += "busca/" + termoBusca;
-    }
-    return this.http.get<Tag[]>(url);
+    // if (termoBusca) {
+    //   url += "busca/" + termoBusca;
+    // }
+    return this.http.get<tags[]>(url);
   }
 
-  getById(id: number): Observable<Tag> {
+  getTagByPost(PostRequestDTO: Post): Observable<tags[]> {
+    let url = this.apiUrl + "getTagsByPost";
+
+    return this.http.post<tags[]>(url, PostRequestDTO);
+  }
+
+  getById(id: number): Observable<tags> {
     let url = this.apiUrl + id;
-    return this.http.get<Tag>(url);
+    return this.http.get<tags>(url);
   }
 
-  save(objeto: Tag): Observable<Tag> {
+  save(objeto: tags): Observable<tags> {
     let url = this.apiUrl;
     
     if (objeto.id) {
-      return this.http.put<Tag>(url, objeto);
+      return this.http.put<tags>(url, objeto);
     } else {
-      return this.http.post<Tag>(url, objeto);
+      return this.http.post<tags>(url, objeto);
     }
   }
   
   delete(id: number): Observable<void> {
     let url = this.apiUrl + id;
     return this.http.delete<void>(url);
+  }
+
+  private mapToPostRequestDTO(post: Post): any {
+    return {
+      titulo: post.titulo,
+      usuarioId: post.usuario?.id ?? null,
+      categoriaId: post.categoria?.id ?? null,
+      texto: post.texto,
+      legenda: post.legenda,
+      status: post.EStatus,
+      tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
+    };
   }
 }

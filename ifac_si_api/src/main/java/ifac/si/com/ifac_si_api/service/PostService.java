@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ifac.si.com.ifac_si_api.exception.ResourceNotFoundException;
 import ifac.si.com.ifac_si_api.model.Categoria;
 import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
@@ -57,9 +59,9 @@ public class PostService{
         return postRepository.getAllPosts(pageable);
     }
 
-    public List<Post> get() {
+    public Page<Post> get(Pageable page) {
 
-        return postRepository.findAll();
+        return postRepository.findAll(page);
     }
 
     public List<Post> getByTag(String tag) {
@@ -74,8 +76,8 @@ public class PostService{
         return postRepository.findById(id).orElse(null);
     }
 
-    public List<Post> get(String termoBusca) {
-        return postRepository.busca(termoBusca);
+    public Page<Post> get(String termoBusca, Pageable page) {
+        return postRepository.busca(termoBusca, page);
     }
 
 //    @Override
@@ -115,7 +117,7 @@ public class PostService{
 //        postRepository.deleteById(id);
 //    }
 
-    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
 
         Post post = postMapper.toEntity(postDto);
 
@@ -134,6 +136,11 @@ public class PostService{
         if (postDto.getTags() != null) {
             post.setTags(processarTags(postDto.getTags()));
         }
+
+        processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+            post.setImagemCapa(imagemCapa); // Primeiro, adiciona a imagem ao post
+            imagemCapa.setPost(post); // Depois, seta o post na imagem
+        });
 
         if (imagens != null) {
             List<Imagem> imagensList = processarImagens(imagens);
@@ -162,11 +169,15 @@ public class PostService{
     }
 
     private List<Imagem> processarImagens(List<MultipartFile> imagens) {
+        if (imagens == null || imagens.isEmpty()) {
+            return new ArrayList<>();
+        }
+
         return imagens.stream()
                 .map(imagem -> {
                     try {
                         String fileName = minIOService.uploadFile(imagem);
-                        String url = minIOService.getFileUrl("imagens-postagens", fileName);
+                        String url = minIOService.getFileUrl("imagens", fileName);
 
                         return Imagem.builder()
                                 .nomeArquivo(fileName)
@@ -182,44 +193,184 @@ public class PostService{
 
     }
 
+    private Optional<Imagem> processarPostCapa(MultipartFile capa) {
+        if (capa == null) {
+            return Optional.empty();
+        }
+
+        try {
+            // Realiza o upload da imagem da capa para o MinIO
+            String fullPath = minIOService.uploadFile(capa);
+            // Extrair apenas o nome do arquivo da URL
+            String fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1);
+            String url = minIOService.getFileUrl("imagens", fileName);
+    
+            // Retorna o objeto Imagem com as informações da imagem da capa
+            Imagem imagemCapa = Imagem.builder()
+                    .nomeArquivo(fileName)
+                    .url(url)
+                    .tamanho(capa.getSize())
+                    .dataUpload(LocalDate.now())
+                    .build();
+
+            return Optional.of(imagemCapa);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao processar capa do post: " + e.getMessage());
+        }
+    }
+
     public List<Post> getPostsPorCategoria(Long categoriaId) {
         return postRepository.findByCategoriaId(categoriaId);
     }
 
-    public Post update(Long postId, PostRequestDTO postDto, List<MultipartFile> novasImagens) {
+    @Transactional
+    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
 
-        Post postExistente = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post não encontrado"));
+        // Atualiza campos básicos usando o mapper
+        postMapper.updateEntityFromDto(postDto, post);
 
-        postExistente.setTitulo(postDto.getTitulo());
-        postExistente.setTexto(postDto.getTexto());
-        postExistente.setLegenda(postDto.getLegenda());
-
-        postExistente.setStatus(EStatus.fromString(postDto.getStatus()));
-
+        // Atualiza categoria se fornecida
         if (postDto.getCategoriaId() != null) {
-            Categoria categoria = categoriaRepository.findById(postDto.getCategoriaId())
-                    .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
-            postExistente.setCategoria(categoria);
+            post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
         }
 
+        // Atualiza usuário se fornecido
+        if (postDto.getUsuarioId() != null) {
+            Usuario usuario = usuarioRepository.findById(postDto.getUsuarioId())
+                    .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com o ID fornecido."));
+            post.setUsuario(usuario);
+        }
+
+        // Atualiza tags
         if (postDto.getTags() != null) {
-            List<Tag> tags = processarTags(postDto.getTags());
-            postExistente.setTags(tags);
+            post.getTags().clear();
+            post.setTags(processarTags(postDto.getTags()));
         }
 
-        if (novasImagens != null && !novasImagens.isEmpty()) {
-            List<Imagem> imagensNovas = processarImagens(novasImagens);
-            imagensNovas.forEach(img -> img.setPost(postExistente));
+        if (postCapa != null && !postCapa.isEmpty()) {
+            processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+                post.setImagemCapa(imagemCapa);
+                imagemCapa.setPost(post);
+            });
+        }        
 
-            if (postExistente.getImagens() == null) {
-                postExistente.setImagens(new ArrayList<>());
+        // Processa novas imagens se fornecidas
+        if (imagens != null && !imagens.isEmpty()) {
+            // Remove imagens antigas do MinIO e da entidade
+            if (post.getImagens() != null) {
+                List<Imagem> imagensAtuais = new ArrayList<>(post.getImagens());
+                for (Imagem img : imagensAtuais) {
+                    minIOService.deleteFile("imagens", img.getNomeArquivo());
+                    post.removeImagem(img);
+                }
             }
-            postExistente.getImagens().addAll(imagensNovas);
+
+            // Processa e adiciona novas imagens
+            List<Imagem> novasImagens = processarImagens(imagens);
+            for (Imagem img : novasImagens) {
+                post.addImagem(img);
+            }
         }
 
-        return postRepository.save(postExistente);
+        // Atualiza status se fornecido
+        if (postDto.getStatus() != null) {
+            post.setStatus(EStatus.valueOf(postDto.getStatus()));
+        }
+
+        return postRepository.save(post);
     }
+
+//    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
+//        // Buscar o post existente
+//        Post post = postRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Post não encontrado com o ID fornecido."));
+//
+//        // Atualizar título, texto, legenda e status se fornecidos
+//        if (postDto.getTitulo() != null) {
+//            post.setTitulo(postDto.getTitulo());
+//        }
+//        if (postDto.getTexto() != null) {
+//            post.setTexto(postDto.getTexto());
+//        }
+//        if (postDto.getLegenda() != null) {
+//            post.setLegenda(postDto.getLegenda());
+//        }
+//        if (postDto.getStatus() != null) {
+//            post.setStatus(EStatus.valueOf(postDto.getStatus()));
+//        }
+//
+//        // Atualizar categoria se fornecida
+//        if (postDto.getCategoriaId() != null) {
+//            post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
+//        }
+//
+//        // Atualizar usuário se fornecido
+//        if (postDto.getUsuarioId() != null) {
+//            Usuario usuario = usuarioRepository.findById(postDto.getUsuarioId())
+//                    .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com o ID fornecido."));
+//            post.setUsuario(usuario);
+//        }
+//
+//        // Atualizar tags se fornecidas
+//        if (postDto.getTags() != null) {
+//            post.setTags(processarTags(postDto.getTags()));
+//        }
+//
+//        // Atualizar imagens se fornecidas
+//        if (imagens != null) {
+//            List<Imagem> imagensList = processarImagens(imagens);
+//
+//            // Removendo as imagens antigas se necessário
+//            post.getImagens().clear();
+//
+//            imagensList.forEach(img -> img.setPost(post));
+//            post.setImagens(imagensList);
+//        }
+//
+//        // Atualizar a data de modificação
+//        post.setData(LocalDateTime.now());
+//
+//        // Salvar e retornar o post atualizado
+//        return postRepository.save(post);
+//    }
+
+
+//    public Post update(Long postId, PostRequestDTO postDto, List<MultipartFile> novasImagens) {
+//
+//        Post postExistente = postRepository.findById(postId)
+//                .orElseThrow(() -> new RuntimeException("Post não encontrado"));
+//
+//        postExistente.setTitulo(postDto.getTitulo());
+//        postExistente.setTexto(postDto.getTexto());
+//        postExistente.setLegenda(postDto.getLegenda());
+//
+//        postExistente.setStatus(EStatus.fromString(postDto.getStatus()));
+//
+//        if (postDto.getCategoriaId() != null) {
+//            Categoria categoria = categoriaRepository.findById(postDto.getCategoriaId())
+//                    .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+//            postExistente.setCategoria(categoria);
+//        }
+//
+//        if (postDto.getTags() != null) {
+//            List<Tag> tags = processarTags(postDto.getTags());
+//            postExistente.setTags(tags);
+//        }
+//
+//        if (novasImagens != null && !novasImagens.isEmpty()) {
+//            List<Imagem> imagensNovas = processarImagens(novasImagens);
+//            imagensNovas.forEach(img -> img.setPost(postExistente));
+//
+//            if (postExistente.getImagens() == null) {
+//                postExistente.setImagens(new ArrayList<>());
+//            }
+//            postExistente.getImagens().addAll(imagensNovas);
+//        }
+//
+//        return postRepository.save(postExistente);
+//    }
 
     public void removerImagem(Long postId, Long imagemId) {
         Post post = postRepository.findById(postId)
@@ -275,7 +426,8 @@ public class PostService{
 //    }
 
 
-//    public void delete(Long id) {
-//    }
+    public void delete(Long id) {
+        this.postRepository.deleteById(id);
+    }
 
 }

@@ -1,0 +1,9 @@
+<div>
+    <label for="ordination">Ordernar por:</label>
+    <select #selectOrdenation id="ordination" (change)="ordenarLista(selectOrdenation.value)">
+        <option value="asc">A-Z</option>
+        <option value="desc">Z-A</option>
+    </select>
+</div>
+
+<!-- (change)="ordenarLista($event.target.value)" -->

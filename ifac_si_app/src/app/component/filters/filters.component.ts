@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Renderer2, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
 import { Categoria } from '../../model/categoria';
-import { Tag } from '../../model/tag';
+import { tags } from '../../model/tag';
 
 @Component({
   selector: 'app-filters',
@@ -16,10 +16,17 @@ export class FiltersComponent implements OnInit, AfterViewInit{
   @ViewChild('categorysApp', { static: false }) categoryDropDown!: ElementRef;
   @ViewChild('tagsApp', { static: false }) tagDropDown!: ElementRef;
 
+  @Output() catFilter = new EventEmitter<number | null>();
+  @Output() tagFilter = new EventEmitter<string | null>();
+  @Output() ordemMudou = new EventEmitter<string>();
+  @Output() nonSelectFilter = new EventEmitter();
+
   categorias: Categoria[] = Array<Categoria>();
-  tags: Tag[] = Array<Tag>();
+  tags: tags[] = Array<tags>();
   filtersC: boolean = false;
   filtersT: boolean = false;
+  selectedCategoryId: number | null = null; // Para controlar a categoria selecionada
+  selectedTagName: string | null = null; // Para controlar a tag selecionada  
 
   private categoryListener: (() => void) | undefined;
   private tagListener: (() => void) | undefined;
@@ -36,12 +43,18 @@ export class FiltersComponent implements OnInit, AfterViewInit{
     this.servicoCategoria.get().subscribe({
       next: (resposta: Categoria[]) => {
         this.categorias = resposta;
+        console.log('Categorias:', this.categorias);
       }
     });
 
     this.servicoTag.get().subscribe({
-      next: (resposta: Tag[]) => {
-        this.tags = resposta;
+      next: (resposta: tags[]) => {
+        // this.tags = resposta;
+        this.tags = resposta.map(tag => ({
+          id: tag.id,
+          nome: tag.nome
+        }));
+        console.log('Tags:', this.tags); 
       }
     });  
   }
@@ -59,6 +72,43 @@ export class FiltersComponent implements OnInit, AfterViewInit{
       this.initializeTagDropdownListener();
     });
   }
+
+  //Começar a fazer filtro funcionar, mandar propriedades para busca desse component para outro
+
+  handleFilterCat(idCat: number | null): void {
+    console.log(idCat);
+    if (this.selectedCategoryId === idCat) {
+      // Se já estiver selecionado, desmarque
+      this.selectedCategoryId = null;
+      this.catFilter.emit(null);
+    } else {
+      // Caso contrário, marque
+      this.selectedCategoryId = idCat;
+      this.catFilter.emit(idCat);
+    }
+
+    this.selectNon();
+  }
+
+  handleFilterTag(idNome: string | null): void {
+    if (this.selectedTagName === idNome) {
+      // Se já estiver selecionado, desmarque
+      this.selectedTagName = null;
+      this.tagFilter.emit(null);
+    } else {
+      // Caso contrário, marque
+      this.selectedTagName = idNome;
+      this.tagFilter.emit(idNome);
+    }
+
+    console.log (idNome);
+    this.selectNon();
+  }
+
+  selectNon(): void {
+    if (this.selectedCategoryId == null && this.selectedTagName == null) this.nonSelectFilter.emit();
+  }
+
 
   // Função chamada ao clicar no botão de categoria
   onCategoryClick(): void {
@@ -103,7 +153,7 @@ export class FiltersComponent implements OnInit, AfterViewInit{
     }
   }
 
-  handleFilterClick(arg0: number) {
-    throw new Error('Method not implemented.');
+  atualizarOrdenacao(valor: string) {
+    this.ordemMudou.emit(valor); // Repassa o evento para o componente pai
   }
 }

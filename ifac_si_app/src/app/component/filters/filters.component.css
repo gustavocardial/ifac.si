@@ -5,6 +5,19 @@ button {
     color: #623CEA;
     background-color: transparent;
     margin: 30px 20px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: #623CEA;
+    color: white;
+}
+
+button i {
+    font-weight: bold;
 }
 
 button:first-child i:first-child {
@@ -19,10 +32,13 @@ button i:last-child {
 
 div#flex-container-filter {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: flex-start;
-    margin: 10px 40px;
+    margin: 10px 0;
     width: fit-content;
+    padding: 0 40px 15px 40px;
+    max-width: 1200px;
+    box-sizing: border-box;
 }
 
 .dropdown {
@@ -30,7 +46,7 @@ div#flex-container-filter {
     display: inline-block;
     /* width: 190px; */
     flex-shrink: 0;
-    /* margin: 0 10px; */
+    margin: 0 10px;
 }
 
 .dropdown-content {
@@ -38,18 +54,20 @@ div#flex-container-filter {
     background-color: #f9f9f9;
     min-width: 120px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 2;
+    z-index: 20000000;
     top: 100%; /* Coloca o conteúdo logo abaixo do botão */
     left: 0;
 }
 
 .dropdown-content p {
-    color: black;
+    /* color: black; */
+    cursor: pointer;
     padding: 12px 16px;
     display: block;
+    font-size: 16px;
 }
 
-.dropdown-content p:hover {
+.dropdown-content p:hover:not(.selected) {
     background-color: #f1f1f1;
 }
 
@@ -58,3 +76,55 @@ div#flex-container-filter {
     overflow-y: auto;
 }
 
+.selected {
+    background-color: #57cc66; /* Cor de fundo azul (pode ser qualquer cor que preferir) */
+    color: black; /* Cor do texto branco */
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px; /* Adicionando um pouco de espaçamento ao redor do texto */
+    border-radius: 4px; /* Arredondando os cantos, se preferir */
+}
+
+.selected:hover {
+    background-color: #2c993b; /* Cor de fundo azul (pode ser qualquer cor que preferir) */
+    color: white;
+}
+
+app-ordination {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 30px; /* Para alinhar com os outros botões */
+  }
+/* Para telas pequenas (menor que 600px)
+@media (max-width: 600px) {
+    button {
+        width: 100%; 
+        font-size: 18px; 
+        margin: 10px 0;
+    }
+
+    div#flex-container-filter {
+        flex-direction: column; 
+        align-items: stretch;
+    }
+
+    .dropdown {
+        width: 100%; 
+    }
+
+    .dropdown-content {
+        min-width: 100%; 
+    }
+}
+
+
+@media (max-width: 1024px) {
+    button {
+        font-size: 16px; 
+    }
+
+    div#flex-container-filter {
+        flex-direction: column; 
+        align-items: stretch; 
+    }
+} */

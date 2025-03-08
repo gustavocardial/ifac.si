@@ -1,6 +1,7 @@
 package ifac.si.com.ifac_si_api.controller;
 
-import java.awt.print.Pageable;
+
+import java.time.LocalDate;
 import java.util.List;
 
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
@@ -11,12 +12,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.service.PostService;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,8 +48,8 @@ public class PostController{
 
     @GetMapping("/")
     @Operation(summary = "Listar todos os posts")
-    public ResponseEntity<List<Post>> get() {
-        List<Post> registros = servico.get();
+    public ResponseEntity<Page<Post>> get(Pageable page) {
+        Page<Post> registros = servico.get(page);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
@@ -71,15 +74,16 @@ public class PostController{
 
     @GetMapping("/busca")
     @Operation(summary = "Buscar posts por um termo de busca")
-    public ResponseEntity<List<Post>> get(@RequestParam String termoBusca) {
-        List<Post> registros = servico.get(termoBusca);
+    public ResponseEntity<Page<Post>> get(@RequestParam String termoBusca, Pageable page) {
+        Page<Post> registros = servico.get(termoBusca, page);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @Operation(summary = "Inserir novo post")
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> insert(PostRequestDTO objeto, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
-        Post registro = servico.save(objeto, file);
+    public ResponseEntity<?> insert(PostRequestDTO objeto, @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+        
+        Post registro = servico.save(objeto, file, imagemCapaFile);
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
@@ -89,43 +93,21 @@ public class PostController{
         return new ResponseEntity<>(registros ,HttpStatus.OK).getBody();
     }
 
-
-//    @PutMapping("/")
-//    public ResponseEntity<Post> update(Post objeto) {
-//        return null;
-//    }
-
-//    @Override
-//    @PutMapping("/{postId}")
-//    @Operation(summary = "Atualizar um post existente")
-//    public ResponseEntity<Post> updatePost(
-//            @PathVariable Long postId,         // ID do post a ser atualizado
-//            @RequestBody PostRequestDTO postDto, // Dados atualizados do post
-//            @RequestParam(required = false) List<MultipartFile> imagens) throws Exception {  // Imagens opcionais
-//
-//        // Chama o serviço para atualizar o post
-////        Post updatedPost = servico.update(postId, postDto, imagens);
-//
-//        // Retorna o post atualizado com status OK
-////        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
-//        return null;
-//    }
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletar um post pelo ID")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-//        servico.delete(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
+       servico.delete(id);
+       return new ResponseEntity<>(HttpStatus.OK);
 
-    return null;
+    // return null;
     }
 
-    @PutMapping("/{id}")
-    @Operation(summary = "Atualizar um post existente")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestPart PostRequestDTO postDto,
-                                           @RequestPart(required = false) List<MultipartFile> imagens) {
-        Post updatedPost = servico.update(id, postDto, imagens);
-        return ResponseEntity.ok(updatedPost);
+    @Operation(summary = "Atualizar post existente")
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> update(@PathVariable Long id, PostRequestDTO objeto,
+        @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+        Post registro = servico.update(id, objeto, file, imagemCapaFile);
+        return ResponseEntity.ok(registro);
     }
 
     @DeleteMapping("/{postId}/imagens/{imagemId}")
@@ -137,6 +119,7 @@ public class PostController{
     }
 
     @PatchMapping("/{id}/status")
+    @Operation(summary = "Atualizar status do post pelo id")
     public ResponseEntity<Post> atualizarStatus(
             @PathVariable Long id,
             @RequestBody EStatus status) {

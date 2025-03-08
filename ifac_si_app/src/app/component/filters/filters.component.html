@@ -1,17 +1,19 @@
 <!-- <p>Filtrar por: </p> -->
 <div id="flex-container-filter">
-    <button><i class="bi bi-sliders2"></i>Filtros</button>
+    <button><i class="fa fa-sliders-h"></i>Filtros</button>
+    <!-- <i class="fa-solid fa-sliders"></i>
+    <i class="fa-duotone fa-solid fa-sliders"></i> -->
     <div class="dropdown">
         <button #category>Categoria 
             <ng-template [ngIf]="!filtersC" [ngIfElse]="dropdownIcon">
-                <i class="bi bi-chevron-down"></i>
+                <i class="fa fa-caret-down"></i>
             </ng-template>
             <ng-template #dropdownIcon>
-                <i class="bi bi-chevron-up"></i>
+                <i class="fa fa-caret-up"></i>
             </ng-template>
         </button>
         <div #categorysApp class="dropdown-content tags-scroll" id="category" *ngIf="filtersC">
-            <p *ngFor="let categoria of categorias" (click)="handleFilterClick(categoria.id)">
+            <p *ngFor="let categoria of categorias" (click)="handleFilterCat(categoria.id)" [class.selected]="selectedCategoryId === categoria.id">
                 {{ categoria.nome }}
             </p>
         </div>
@@ -19,16 +21,17 @@
     <div class="dropdown">
         <button #tag>Tags 
             <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
-                <i class="bi bi-chevron-down"></i>
+                <i class="fa fa-caret-down"></i>
             </ng-template>
             <ng-template #dropdownIcon>
-                <i class="bi bi-chevron-up"></i>
+                <i class="fa fa-caret-up"></i>
             </ng-template>
         </button>
         <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
-            <p *ngFor="let tag of tags" (click)="handleFilterClick(tag.id)">
+            <p *ngFor="let tag of tags" (click)="handleFilterTag(tag.nome)" [class.selected]="selectedTagName === tag.nome">
                 {{ tag.nome }}
             </p>
         </div>
     </div>
+    <app-ordination (ordemSelecionada)="atualizarOrdenacao($event)"></app-ordination>
 </div>

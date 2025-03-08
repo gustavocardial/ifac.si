@@ -1,6 +1,10 @@
+import { Post } from "./post"
+
 export type Imagem = {
     id: number,
-    caminho: string,
+    url: string,
+    nomeArquivo: string,
     tamanho: number,
-    tipo: string
+    dataUpload: Date,
+    post: Post
 }

@@ -83,3 +83,12 @@ div button:first-child {
     padding: 5px 15px;
     border-width: 1px;
 }
+
+div#batchButtons button {
+    margin: 0 10px;
+    border-radius: 45px;
+    padding: 5px 30px;
+    border-color: #623CEA;
+    color: #C3CAC3;
+    background-color: #623CEA;
+}
