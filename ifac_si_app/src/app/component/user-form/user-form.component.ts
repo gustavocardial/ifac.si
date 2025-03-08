@@ -24,7 +24,8 @@ export class UserFormComponent implements AfterViewInit{
   @ViewChild('confirmarSenha') confirmarSenhaInput!: ElementRef;
 
   usuario: Usuario = <Usuario>{};
-  showPassword = false;
+  showPasswordPrimary: boolean = false;
+  showPasswordConfirm: boolean = false;
 
   onSubmit(form: any): void {
 
@@ -51,19 +52,27 @@ export class UserFormComponent implements AfterViewInit{
     })
   }
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-    this.renderer.setAttribute(
-      this.senhaInput.nativeElement,
-      'type',
-      this.showPassword ? 'text' : 'password'
-    );
-    this.renderer.setAttribute(
-      this.confirmarSenhaInput.nativeElement,
-      'type',
-      this.showPassword ? 'text' : 'password'
-    );
+  togglePasswordVisibilityPrimary() {
+    this.showPasswordPrimary = !this.showPasswordPrimary;
   }
+  
+  togglePasswordVisibilityConfirm() {
+    this.showPasswordConfirm = !this.showPasswordConfirm;
+  }
+
+  // togglePasswordVisibility() {
+  //   this.showPassword = !this.showPassword;
+  //   this.renderer.setAttribute(
+  //     this.senhaInput.nativeElement,
+  //     'type',
+  //     this.showPassword ? 'text' : 'password'
+  //   );
+  //   this.renderer.setAttribute(
+  //     this.confirmarSenhaInput.nativeElement,
+  //     'type',
+  //     this.showPassword ? 'text' : 'password'
+  //   );
+  // }
 
   onCancel(): void {
     console.log('Cancelado!');
