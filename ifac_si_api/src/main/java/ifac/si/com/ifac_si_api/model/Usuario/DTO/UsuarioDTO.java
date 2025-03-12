@@ -16,6 +16,10 @@ public class UsuarioDTO {
     @Column(nullable = false)
     private String senha;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ECargo cargo;
+
     public String getEmail() {
         return email;
     }
@@ -38,5 +42,13 @@ public class UsuarioDTO {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public ECargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(ECargo cargo) {
+        this.cargo = cargo;
     }
 }

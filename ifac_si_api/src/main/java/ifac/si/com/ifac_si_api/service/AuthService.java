@@ -63,7 +63,7 @@ public class AuthService {
         Usuario usuario = new Usuario();
         usuario.setNomeUsuario(usuarioDTO.getNomeUsuario());
         usuario.setEmail(usuarioDTO.getEmail());
-        usuario.setCargo(ECargo.valueOf("TEMP"));
+        usuario.setCargo(ECargo.valueOf(usuarioDTO.getCargo().toString()));
         usuario.setAtivo(true);
         usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
         usuario.setAtivo(true);
