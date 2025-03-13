@@ -1,5 +1,9 @@
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Usuario } from '../../model/usuario';
+import { LoginService } from '../../service/login.service';
+import { AlertaService } from '../../service/alerta.service';
+import { ETipoAlerta } from '../../model/e-tipo-alerta';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +18,12 @@ export class LoginComponent implements AfterViewInit {
   showPassword = false;
   registro: Usuario = <Usuario>{};
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private servicoLogin: LoginService,
+    private servicoAlerta: AlertaService,
+    private router: Router,
+    private route: ActivatedRoute,) {}
   
   ngAfterViewInit() {
     if (this.nomeUsuarioField && this.senhaField) {
@@ -59,9 +68,23 @@ export class LoginComponent implements AfterViewInit {
     // );
   }
   
-  save() {
+  login() {
     if (this.registro.nomeUsuario && this.registro.senha) {
-      console.log(this.registro.nomeUsuario + ' entrou com senha ' + this.registro.senha);
+      this.servicoLogin.login(this.registro).subscribe({
+        complete: () => {
+          this.servicoAlerta.enviarAlerta({
+            tipo: ETipoAlerta.SUCESSO,
+            mensagem: "Login realizado com sucesso"
+          });
+          this.router.navigate(['/view_posts']);
+        },
+        error: (erro) => {
+          this.servicoAlerta.enviarAlerta({
+            tipo: ETipoAlerta.ERRO,
+            mensagem: "Erro ao salvar o realizar login"
+          });
+        }
+      })
     } else {
       alert('Por favor, preencha todos os campos.');
     }

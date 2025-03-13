@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../model/usuario';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -22,11 +22,11 @@ export class LoginService {
   private usuario: Usuario = <Usuario>{};
   usuarioAutenticado: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(this.usuario);
 
-  login(usuario: Usuario): void {
+  login(usuario: Usuario) {
     let url = environment.API_URL + '/auth/login';
 
-    this.http.post<TokenResponse>(url, usuario).subscribe({
-      next: (resposta: TokenResponse) => {
+    return this.http.post<TokenResponse>(url, usuario).pipe(
+      tap((resposta: TokenResponse) => {
         const token = resposta.token;
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         const tokenExpiration = decodedToken.exp * 1000;
@@ -51,11 +51,11 @@ export class LoginService {
         sessionStorage.setItem('tokenExpiration', tokenExpiration.toString());
 
         this.usuarioAutenticado.next(usuario);
-      },
-      complete: () => {
-        this.router.navigate(['/view-posts']);
-      }
-    })
+      })
+      // complete: () => {
+      //   this.router.navigate(['/view-posts']);
+      // }
+    );
   }
 
   logout(): void {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../model/menuItem';
 import { Usuario } from '../../model/usuario';
 import { ECargo } from '../../model/enum/cargoEnum';
+import { LoginService } from '../../service/login.service';
 
 @Component({
   selector: 'app-menu-app',
@@ -10,7 +11,17 @@ import { ECargo } from '../../model/enum/cargoEnum';
 })
 export class MenuAppComponent{
   
+  constructor(private servicoLogin: LoginService) {
+
+    this.servicoLogin.usuarioAutenticado.subscribe({
+      next: (usuario: Usuario) => {
+        this.usuario = usuario;
+      }
+    });
+  }
+
   cargoAtual: ECargo | null = null;  
+  usuario: Usuario = <Usuario>{};
   
   permissoes: Map<ECargo | null, Map<string, string>> = new Map([
     [null, new Map([  // Menu para visitantes (usuário não logado)
@@ -49,6 +60,10 @@ export class MenuAppComponent{
     if (!menu) return [];
   
     return Array.from(menu, ([label, caminho]) => ({ label, caminho })); // Converte Map em array
+  }
+
+  logout(): void {
+    this.servicoLogin.logout();
   }
 
   //Implementar menu responsivo para celular

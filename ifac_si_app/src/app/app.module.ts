@@ -24,6 +24,7 @@ import { CourseComponent } from './component/course/course.component';
 import { ViewPostComponent } from './component/view-post/view-post.component';
 import { PaginationHandleComponent } from './component/pagination-handle/pagination-handle.component';
 import { OrdinationComponent } from './component/ordination/ordination.component';
+import { authInterceptor } from './interceptor/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,8 @@ import { OrdinationComponent } from './component/ordination/ordination.component
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: loaderInterceptor, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: erroInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: erroInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: authInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
