@@ -19,6 +19,7 @@ const routes: Routes = [
     ]},
     {path: 'editor', children: [
       {path: 'notification', component: NotificationComponent},
+      {path:'new_post', component: AddNewPostComponent},
     ]},
     {path: 'admin', children: [
       {path: 'viewUsers', component: AdminViewComponent},
