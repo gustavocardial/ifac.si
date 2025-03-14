@@ -7,13 +7,14 @@ import { NotificationComponent } from './component/notification/notification.com
 import { AdminViewComponent } from './component/admin-view/admin-view.component';
 import { CourseComponent } from './component/course/course.component';
 import { ViewPostComponent } from './component/view-post/view-post.component';
+import { AuthGuard } from './service/auth.guard';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'view_posts', component: PostsAppComponent},
   {path:'course', component: CourseComponent},
   {path:'view_post', component: ViewPostComponent},
-  {path: 'administration', children: [
+  {path: 'administration', canActivate: [AuthGuard], children: [
     {path: 'autor', children: [
       {path:'new_post', component: AddNewPostComponent},
     ]},
@@ -26,7 +27,23 @@ const routes: Routes = [
     ]},
     // {path: 'my_publications',},
   ]},
-
+  // {path: 'administration', canActivate: [AuthGuard], children: [
+  //   {
+  //     path: 'new_post',
+  //     component: AddNewPostComponent,
+  //     canActivate: [AuthGuard],
+  //     data: { cargo: ['AUTOR', 'EDITOR'] }
+  //   },
+  //   {
+  //     path: 'notification', 
+  //     canActivate: [AuthGuard],
+  //     data: { cargo: 'EDITOR' },
+  //   },
+  //   {
+  //     path: 'admin', 
+  //     canActivate: [AuthGuard],
+  //     data: { cargo: 'ADMIN' },
+  //   },
 ];
 
 @NgModule({
