@@ -63,12 +63,20 @@ public class JwtService {
     }
 
     public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(getSignInKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
 
-        return claims.getSubject();
+            return claims.getSubject();
+        } catch (ExpiredJwtException e) {
+            // Token expirado, mas ainda podemos recuperar o username
+            return e.getClaims().getSubject();
+        } catch (Exception e) {
+            // Qualquer outro erro
+            return null;
+        }
     }
 }

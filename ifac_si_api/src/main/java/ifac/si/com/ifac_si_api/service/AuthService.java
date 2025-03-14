@@ -8,6 +8,7 @@ import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,8 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
 
     public AuthResponse login(AuthRequest request) {
-        Usuario usuario = repo.findByNomeUsuario(request.getNomeUsuario());
+        Usuario usuario = repo.findByNomeUsuario(request.getNomeUsuario())
+            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + request.getNomeUsuario()));
 
         if (!passwordEncoder.matches(request.getSenha(), usuario.getSenha())) {
             throw new BadCredentialsException("Senha inválida");
