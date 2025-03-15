@@ -22,8 +22,10 @@ export class LoginService {
   private usuario: Usuario = <Usuario>{};
   usuarioAutenticado: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(this.usuario);
 
+  apiUrl: string = environment.API_URL + '/auth'
+  
   login(credenciais: Usuario) {
-    let url = environment.API_URL + '/auth/login';
+    let url = this.apiUrl + '/login';
 
     return this.http.post<TokenResponse>(url, credenciais).pipe(
       tap((resposta: TokenResponse) => {
@@ -55,7 +57,7 @@ export class LoginService {
   }
 
   register(objeto: Usuario): Observable<Usuario> {
-    let url = environment.API_URL + '/auth/register';
+    let url = this.apiUrl + '/register';
 
     return this.http.post<Usuario>(url, objeto);
   }
