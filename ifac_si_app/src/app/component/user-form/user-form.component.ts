@@ -4,6 +4,7 @@ import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from '../../model/usuario';
+import { LoginService } from '../../service/login.service';
 
 @Component({
   selector: 'app-user-form',
@@ -15,6 +16,7 @@ export class UserFormComponent implements AfterViewInit{
     private renderer: Renderer2,
     private servicoUsuario: UsuarioService,
     private servicoAlerta: AlertaService,
+    private servicoLogin: LoginService,
     private router: Router,
     private route: ActivatedRoute,) {}
 
@@ -35,7 +37,7 @@ export class UserFormComponent implements AfterViewInit{
       return;
     }
 
-    this.servicoUsuario.save(this.usuario).subscribe({
+    this.servicoLogin.register(this.usuario).subscribe({
        complete: () => {
          this.servicoAlerta.enviarAlerta({
            tipo: ETipoAlerta.SUCESSO,

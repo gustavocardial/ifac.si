@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../model/usuario';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -52,6 +52,12 @@ export class LoginService {
       //   this.router.navigate(['/view-posts']);
       // }
     );
+  }
+
+  register(objeto: Usuario): Observable<Usuario> {
+    let url = environment.API_URL + '/auth/register';
+
+    return this.http.post<Usuario>(url, objeto);
   }
 
   logout(): void {
