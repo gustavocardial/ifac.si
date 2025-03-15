@@ -8,6 +8,7 @@ import { AdminViewComponent } from './component/admin-view/admin-view.component'
 import { CourseComponent } from './component/course/course.component';
 import { ViewPostComponent } from './component/view-post/view-post.component';
 import { AuthGuard } from './service/auth.guard';
+import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -15,35 +16,20 @@ const routes: Routes = [
   {path:'course', component: CourseComponent},
   {path:'view_post', component: ViewPostComponent},
   {path: 'administration', canActivate: [AuthGuard], children: [
-    {path: 'autor', children: [
+    {path: 'autor', canActivate: [AuthGuard], data: { cargo: ['AUTOR', 'EDITOR', 'ADMIN'] }, children: [
       {path:'new_post', component: AddNewPostComponent},
     ]},
-    {path: 'editor', children: [
+    {path: 'editor', canActivate: [AuthGuard], data: { cargo: ['EDITOR', 'ADMIN'] }, children: [
       {path: 'notification', component: NotificationComponent},
       {path:'new_post', component: AddNewPostComponent},
     ]},
-    {path: 'admin', children: [
+    {path: 'admin', canActivate: [AuthGuard], data: { cargo: 'ADMIN' }, children: [
       {path: 'viewUsers', component: AdminViewComponent},
     ]},
-    // {path: 'my_publications',},
+    {path: 'my_publications', component: MyPublicationsComponent ,canActivate: [AuthGuard], data: { cargo: ['AUTOR', 'EDITOR', 'ADMIN'] }},
   ]},
-  // {path: 'administration', canActivate: [AuthGuard], children: [
-  //   {
-  //     path: 'new_post',
-  //     component: AddNewPostComponent,
-  //     canActivate: [AuthGuard],
-  //     data: { cargo: ['AUTOR', 'EDITOR'] }
-  //   },
-  //   {
-  //     path: 'notification', 
-  //     canActivate: [AuthGuard],
-  //     data: { cargo: 'EDITOR' },
-  //   },
-  //   {
-  //     path: 'admin', 
-  //     canActivate: [AuthGuard],
-  //     data: { cargo: 'ADMIN' },
-  //   },
+  {path: '', redirectTo: 'view_posts', pathMatch: 'full'},
+  {path: '**', redirectTo: 'view_posts'}
 ];
 
 @NgModule({

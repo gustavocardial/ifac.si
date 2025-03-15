@@ -22,35 +22,31 @@ export class LoginService {
   private usuario: Usuario = <Usuario>{};
   usuarioAutenticado: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(this.usuario);
 
-  login(usuario: Usuario) {
+  login(credenciais: Usuario) {
     let url = environment.API_URL + '/auth/login';
 
-    return this.http.post<TokenResponse>(url, usuario).pipe(
+    return this.http.post<TokenResponse>(url, credenciais).pipe(
       tap((resposta: TokenResponse) => {
         const token = resposta.token;
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         const tokenExpiration = decodedToken.exp * 1000;
 
-        if (resposta.nomeUsuario && resposta.cargo) {
-          usuario.id = resposta.id ?? 0;
-          usuario.nomeUsuario = resposta.nomeUsuario;
-          usuario.email = resposta.email ?? "";
-          usuario.cargo = resposta.cargo;
-        } else {
-          // Caso contrário, extraímos o que podemos do token
-          usuario.nomeUsuario = decodedToken.sub;
-          
-          // Tenta obter o cargo do token, se existir
-          if (decodedToken.cargo) {
-            usuario.cargo = decodedToken.cargo;
-          }
-        }
+        console.log("Resposta completa:", resposta);
+        console.log("Token decodificado:", decodedToken);
+        
+        const usuarioAutenticado: Usuario = {
+          id: resposta.id ?? 0,
+          nomeUsuario: resposta.nomeUsuario || decodedToken.sub,
+          email: resposta.email ?? "",
+          cargo: resposta.cargo || decodedToken.cargo
+        };
 
         sessionStorage.setItem('token', token);
-        sessionStorage.setItem('usuario', JSON.stringify(usuario));
+        sessionStorage.setItem('usuario', JSON.stringify(usuarioAutenticado));
         sessionStorage.setItem('tokenExpiration', tokenExpiration.toString());
-
-        this.usuarioAutenticado.next(usuario);
+        
+        this.usuario = usuarioAutenticado;
+        this.usuarioAutenticado.next(usuarioAutenticado);
       })
       // complete: () => {
       //   this.router.navigate(['/view-posts']);

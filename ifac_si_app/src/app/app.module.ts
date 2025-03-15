@@ -25,6 +25,7 @@ import { ViewPostComponent } from './component/view-post/view-post.component';
 import { PaginationHandleComponent } from './component/pagination-handle/pagination-handle.component';
 import { OrdinationComponent } from './component/ordination/ordination.component';
 import { authInterceptor } from './interceptor/auth.interceptor';
+import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { authInterceptor } from './interceptor/auth.interceptor';
     ViewPostComponent,
     PaginationHandleComponent,
     OrdinationComponent,
+    MyPublicationsComponent,
   ],
   imports: [
     BrowserModule,
