@@ -67,17 +67,17 @@ export class MenuAppComponent implements OnInit, OnDestroy{
     [ECargo.autor, new Map([
       ['Todas as Publicações', '/view_posts'],
       ['Criar Nova Publicação', '/administration/autor/new_post'],
-      ['Meus Dados', '/adminstration/my_publications']
+      ['Meus Dados', '/administration/my_publications']
     ])],
     [ECargo.editor, new Map([
       ['Todas as Publicações', '/view_posts'],
       ['Criar Nova Publicação', '/administration/autor/new_post'],
-      ['Meus Dados', '/adminstration/my_publications'],
+      ['Meus Dados', '/administration/my_publications'],
       ['Revisar Posts', '/administration/editor/notification']
     ])],
     [ECargo.admin, new Map([
       ['Todas as Publicações', '/view_posts'],
-      ['Meus Dados', '/adminstration/my_publications'],
+      ['Meus Dados', '/administration/my_publications'],
       ['Gerência de Perfis', '/administration/admin/viewUsers']
     ])]
   ]);
