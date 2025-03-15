@@ -75,7 +75,7 @@ export class PostsAppComponent implements OnInit{
     this.showButtons.forEach((button, index) => {
       const postId = button.nativeElement.getAttribute('data-post-id');
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
-        console.log ("Visualizando");
+        // console.log ("Visualizando");
         this.viewPost(postId);
       });
       this.listeners.push(listener);

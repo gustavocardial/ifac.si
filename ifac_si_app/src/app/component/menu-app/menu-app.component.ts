@@ -22,12 +22,12 @@ export class MenuAppComponent implements OnInit, OnDestroy{
     // Inscreva-se no BehaviorSubject durante o ciclo de vida do componente
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
       next: (usuario: Usuario) => {
-        console.log("MenuAppComponent recebeu atualização de usuário:", JSON.stringify(usuario));
+        // console.log("MenuAppComponent recebeu atualização de usuário:", JSON.stringify(usuario));
         this.usuario = usuario;
 
         // Log para depuração
-        console.log("Usuário logado: ", this.usuario);
-        console.log("Cargo recebido: ", this.usuario.cargo);
+        // console.log("Usuário logado: ", this.usuario);
+        // console.log("Cargo recebido: ", this.usuario.cargo);
         
         // Tratamento mais robusto para converter a string do cargo para o enum ECargo
         if (usuario?.cargo) {
@@ -42,13 +42,13 @@ export class MenuAppComponent implements OnInit, OnDestroy{
               ) as ECargo || null;
             }
             
-            console.log("Cargo convertido para enum:", this.cargoAtual);
+            // console.log("Cargo convertido para enum:", this.cargoAtual);
           } catch (error) {
-            console.error("Erro ao converter cargo:", error);
+            // console.error("Erro ao converter cargo:", error);
             this.cargoAtual = null;
           }
         } else {
-          console.log("Nenhum cargo definido no usuário");
+          // console.log("Nenhum cargo definido no usuário");
           this.cargoAtual = null;
         }
       },
