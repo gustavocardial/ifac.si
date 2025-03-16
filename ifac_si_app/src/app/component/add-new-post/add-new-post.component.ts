@@ -69,21 +69,21 @@ export class AddNewPostComponent implements OnInit{
         }
       });
 
-      // this.servicoTag.getTagByPost(this.post).subscribe({
-      //   next: (resposta: tags[]) => {
-      //     this.tagsList = resposta; 
-      //     console.log (this.tagsList);
-      //   }
-      // })
-
-      this.servicoTag.get().subscribe({
+      this.servicoTag.getTagByPost(+id).subscribe({
         next: (resposta: tags[]) => {
-          // this.tags = resposta;
-          this.tagsList = resposta.filter((tag: tags) => this.post?.tags?.some(postTag => Number(postTag.id) === Number(tag.id)));
-        
-          console.log('Tags:', this.tagsList); 
+          this.tagsList = resposta; 
+          console.log (this.tagsList);
         }
-      });  
+      })
+
+      // this.servicoTag.get().subscribe({
+      //   next: (resposta: tags[]) => {
+      //     // this.tags = resposta;
+      //     this.tagsList = resposta.filter((tag: tags) => this.post?.tags?.some(postTag => Number(postTag.id) === Number(tag.id)));
+        
+      //     console.log('Tags:', this.tagsList); 
+      //   }
+      // });  
     }
 
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
@@ -390,6 +390,14 @@ export class AddNewPostComponent implements OnInit{
         nome,
         // posts: []
     };
+  }
+
+  removeTag(tagId: number): void {
+    // Remove a tag da lista de tags do post atual
+    if (this.post.tags) {
+      this.post.tags = this.post.tags.filter(tag => tag.id !== tagId);
+      console.log('Tag removida do post. Tags restantes:', this.post.tags);
+    }
   }
 
   public publicacaoOptions = Object.keys(PublicacaoEnum)

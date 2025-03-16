@@ -21,8 +21,8 @@ public class TagService{
         return TagMapper.toTagDTOList(repo.findAll());
     }
 
-    public List<TagDTO> getAllByPost(PostRequestDTO postRequestDTO) {
-        return TagMapper.toTagDTOList(repo.findAllByPosts(postRequestDTO));
+    public List<TagDTO> getAllByPost(Long id) {
+        return TagMapper.toTagDTOList(repo.tagsByPosts(id));
     }
 
     public TagDTO get(Long id) {

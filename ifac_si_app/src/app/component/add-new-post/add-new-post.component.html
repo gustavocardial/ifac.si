@@ -165,7 +165,7 @@
                             </button>
                             <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
                                 <p *ngFor="let tag of tagsList">
-                                    {{ tag.nome }}
+                                    {{ tag.nome }} <i class="bi bi-x" (click)="removeTag(tag.id)"></i>
                                 </p>
                             </div>
                         </div>

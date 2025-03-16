@@ -23,10 +23,10 @@ export class TagService implements IService<tags>{
     return this.http.get<tags[]>(url);
   }
 
-  getTagByPost(PostRequestDTO: Post): Observable<tags[]> {
-    let url = this.apiUrl + "getTagsByPost";
+  getTagByPost(id: number): Observable<tags[]> {
+    let url = this.apiUrl + `getTagsByPost/${id}`;
 
-    return this.http.post<tags[]>(url, PostRequestDTO);
+    return this.http.get<tags[]>(url);
   }
 
   getById(id: number): Observable<tags> {
