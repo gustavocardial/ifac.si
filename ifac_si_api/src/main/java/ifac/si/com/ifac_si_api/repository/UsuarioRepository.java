@@ -1,11 +1,12 @@
 package ifac.si.com.ifac_si_api.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import ifac.si.com.ifac_si_api.model.Usuario;
+import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import org.springframework.data.repository.query.Param;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
@@ -15,6 +16,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
                     "OR p.nomeUsuario LIKE %:termoBusca% OR p.cargo = :termoBusca"
     )
     List<Usuario> busca(@Param("termoBusca") String termoBusca);
+    
+    boolean existsByNomeUsuario(String nomeUsuario);
 
+    boolean existsByEmail(String email);
 
+    Optional<Usuario> findByNomeUsuario(String nomeUsuario);
+
+    Optional<Usuario> findByEmail(String email);
 }

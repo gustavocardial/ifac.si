@@ -4,11 +4,10 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 -- DELETE FROM posts WHERE id=11;
 
-INSERT INTO usuarios (id, ativo, cargo, email, nome_usuario, senha)
-VALUES
-    (1, true, 'AUTOR', 'JS@gmail.com', 'joao.silva', 'senha123'),
-    (2, true, 'EDITOR', 'MariaS@gmail.com', 'maria.santos', 'senha456'),
-    (3, true, 'ADMIN', 'Pedrao@gmail.com', 'pedro.oliveira', 'senha789');
+INSERT INTO usuarios (id, ativo, cargo, email, nome_usuario, senha) VALUES
+(1, true, 'AUTOR', 'JS@gmail.com', 'joao.silva', '$2a$10$oCpPClkYCG373LU6AMAsd.yoespHbbQiepSUpLj9bwpSAWo3Ut9ry'),
+(2, true, 'EDITOR', 'MariaS@gmail.com', 'maria.santos', '$2a$10$7t08MVZXmqOkK5x3bjRqOORG7jtrtUeAT3uu6lFtIZNbLWZqAicqO'),
+(3, true, 'ADMIN', 'Pedrao@gmail.com', 'pedro.oliveira', '$2a$10$c3uu1w2euhCAxlZIoP/C9eXwO69FHtwJBzGorJOZVIUddDovKNYai');
 
 INSERT INTO tags (id, nome)
 VALUES

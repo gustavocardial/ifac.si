@@ -1,43 +1,57 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, viewChildren, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { LoginService } from '../../service/login.service';
+import { Subscription } from 'rxjs';
+import { Usuario } from '../../model/usuario';
 import { PostService } from '../../service/post.service';
 import { Post } from '../../model/post';
-import { Router } from '@angular/router';
-import { AlertaService } from '../../service/alerta.service';
-import { ETipoAlerta } from '../../model/e-tipo-alerta';
 import { PageRequest } from '../../model/page-request';
 import { PageResponse } from '../../model/page-response';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-posts-app',
-  templateUrl: './posts-app.component.html',
-  styleUrl: './posts-app.component.css'
+  selector: 'app-my-publications',
+  templateUrl: './my-publications.component.html',
+  styleUrl: './my-publications.component.css'
 })
-export class PostsAppComponent implements OnInit{
+
+export class MyPublicationsComponent implements OnInit, OnDestroy {
   @ViewChildren('deleteButton') deleteButtons!: QueryList<ElementRef>;
   @ViewChildren('editButton') editButtons!: QueryList<ElementRef>;
   @ViewChildren('showButton') showButtons!: QueryList<ElementRef>;
-  posts: Post[] = Array<Post>();
-  show: boolean = false;
-  postIdToDelete!: number;
+  
+  private subscription: Subscription = new Subscription();
+  usuario: Usuario = <Usuario>{};
+  postsUsuario: Post[] = Array<Post>();
   paginaRequisicao: PageRequest = new PageRequest();
   paginaResposta: PageResponse<Post> = <PageResponse<Post>>{};
   termoBusca: string = '';
   selectedCategories: Post[] = Array<Post>(); // Lista de categorias selecionadas
   selectedTags: Post[] = Array<Post>(); // Lista de tags selecionadas
   ordenacao: string = 'asc';
+  show: boolean = false;
+  postIdToDelete!: number;
 
   private listeners: (() => void)[] = [];
 
-  constructor (
-    private postServico : PostService,
+  constructor(
+    private servicoLogin: LoginService, 
+    private servicoPost: PostService,
     private renderer: Renderer2,
-    private cdRef: ChangeDetectorRef,
-    private router: Router,
-    private servicoAlerta: AlertaService
-  ) {}
+    private router: Router,) {}
 
   ngOnInit(): void {
     this.getAll();
+  }
+
+  getAll(): void {
+    this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
+      next: (usuario: Usuario) => {
+        this.usuario = usuario;
+        this.carregarPostsUsuario();
+
+        console.log('usuario: ', this.usuario);
+      }
+    })
   }
 
   ngAfterViewInit(): void {
@@ -82,10 +96,42 @@ export class PostsAppComponent implements OnInit{
     })
   }
 
-  ngOnDestroy(): void {
-    this.listeners.forEach(listener => listener());
+  carregarPostsUsuario(): void {
+    
+    this.servicoPost.get(undefined, this.paginaRequisicao).subscribe({
+      next: (resposta: PageResponse<Post>) => {
+        this.paginaResposta = resposta;
+
+        this.postsUsuario = resposta.content.filter((post: Post) => post.usuario && post.usuario?.id == this.usuario.id);
+        // this.postsUsuario = resposta.filter((post: Post) => post.usuario?.id === this.usuario.id);      
+      }
+    })
   }
-  
+
+  mudarPagina(pagina: number): void {
+    this.paginaRequisicao.page = pagina;
+    this.carregarPostsUsuario();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  atualizarOrdem(ordem: string) {
+    this.ordenacao = ordem;
+    this.ordenarPosts();
+  }
+
+  ordenarPosts() {
+    this.postsUsuario.sort((a, b) => {
+      if (this.ordenacao === 'asc') {
+        return a.titulo.localeCompare(b.titulo);
+      } else {
+        return b.titulo.localeCompare(a.titulo);
+      }
+    });
+  }
+
   showDelete(): void {
     this.show = !this.show
   }
@@ -103,7 +149,7 @@ export class PostsAppComponent implements OnInit{
   }
 
   deletePost() {
-    this.postServico.delete(this.postIdToDelete).subscribe({
+    this.servicoPost.delete(this.postIdToDelete).subscribe({
       complete: () => {
         this.ngOnInit();
         this.showDelete();// Fecha a confirmação de deleção
@@ -117,7 +163,7 @@ export class PostsAppComponent implements OnInit{
       this.selectedCategories = [];
       this.applyFilters();  // Exemplo: limpa os posts se não houver categoria
     } else {
-      this.postServico.getByCategoria(id).subscribe({
+      this.servicoPost.getByCategoria(id).subscribe({
         next: (resposta: Post[]) => {
           this.selectedCategories = resposta;
           this.applyFilters();
@@ -134,7 +180,7 @@ export class PostsAppComponent implements OnInit{
       this.selectedTags = [];
       this.applyFilters();
     } else {
-      this.postServico.getByTag(nome).subscribe({
+      this.servicoPost.getByTag(nome).subscribe({
         next: (resposta: Post[]) => {
           this.selectedTags = resposta;
           this.applyFilters();
@@ -144,49 +190,6 @@ export class PostsAppComponent implements OnInit{
   }
 
   applyFilters(): void {
-    this.posts = [...this.selectedCategories, ...this.selectedTags];
-  }
-
-  getAll(termoBusca?: string | undefined): void {
-    this.postServico.get(termoBusca, this.paginaRequisicao).subscribe({
-      next: (resposta: PageResponse<Post>) => {
-        this.posts = resposta.content;
-        this.paginaResposta = resposta;
-
-        this.ordenarPosts();
-        // resposta.forEach(post => {
-        //   if (post.imagemCapa) {
-        //     console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
-        //   } else {
-        //     console.log(`❌ Post ID: ${post.id} NÃO tem imagem de capa.`);
-        //   }
-        // });
-        // this.servicoAlerta.enviarAlerta({
-        //   tipo: ETipoAlerta.SUCESSO,
-        //   mensagem: "Posts mostrados com sucesso."
-        // });
-        setTimeout(() => this.setupButtonListeners(), 0);
-      }
-    });
-  }
-
-  mudarPagina(pagina: number): void {
-    this.paginaRequisicao.page = pagina;
-    this.getAll();
-  }
-
-  atualizarOrdem(ordem: string) {
-    this.ordenacao = ordem;
-    this.ordenarPosts();
-  }
-
-  ordenarPosts() {
-    this.posts.sort((a, b) => {
-      if (this.ordenacao === 'asc') {
-        return a.titulo.localeCompare(b.titulo);
-      } else {
-        return b.titulo.localeCompare(a.titulo);
-      }
-    });
+    this.postsUsuario = [...this.selectedCategories, ...this.selectedTags];
   }
 }

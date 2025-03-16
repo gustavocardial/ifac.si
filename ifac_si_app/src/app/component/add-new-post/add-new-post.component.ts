@@ -15,6 +15,8 @@ import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/usuario';
 import { PublicacaoEnum } from '../../model/enum/publicacaoEnum';
 import { visibilidadePost } from '../../model/enum/visibilidadeEnum';
+import { Subscription } from 'rxjs';
+import { LoginService } from '../../service/login.service';
 
 @Component({
   selector: 'app-add-new-post',
@@ -40,6 +42,7 @@ export class AddNewPostComponent implements OnInit{
   @ViewChild('editarVisibilidade') visibiEdit!: ElementRef;
   @ViewChild('editarPublicacao') publiEdit!: ElementRef;
   @ViewChild('editarStatus') statusEdit!: ElementRef;
+  private subscription: Subscription = new Subscription();
 
   constructor (
     private servicoPost: PostService,
@@ -49,7 +52,8 @@ export class AddNewPostComponent implements OnInit{
     private servicoCategoria: CategoriaService,
     private servicoTag: TagService,
     private servicoAlerta: AlertaService,
-    private servicoUsuario: UsuarioService
+    private servicoUsuario: UsuarioService,
+    private servicoLogin: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +63,7 @@ export class AddNewPostComponent implements OnInit{
         next: (resposta: Post) => {
           this.post = resposta;
 
-          console.log ("Post", resposta);
+          // console.log ("Post", resposta);
           
           // this.tags = resposta.tags;
         }
@@ -81,6 +85,14 @@ export class AddNewPostComponent implements OnInit{
         }
       });  
     }
+
+    this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
+      next: (usuario: Usuario) => {
+        this.post.usuario = usuario;
+
+        // console.log('usuario: ', usuario);
+      }
+    })
 
     this.servicoCategoria.get().subscribe({
       next: (resposta: Categoria[]) => {

@@ -43,7 +43,7 @@ export class FiltersComponent implements OnInit, AfterViewInit{
     this.servicoCategoria.get().subscribe({
       next: (resposta: Categoria[]) => {
         this.categorias = resposta;
-        console.log('Categorias:', this.categorias);
+        // console.log('Categorias:', this.categorias);
       }
     });
 
@@ -54,7 +54,7 @@ export class FiltersComponent implements OnInit, AfterViewInit{
           id: tag.id,
           nome: tag.nome
         }));
-        console.log('Tags:', this.tags); 
+        // console.log('Tags:', this.tags); 
       }
     });  
   }

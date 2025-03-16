@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +24,8 @@ import { CourseComponent } from './component/course/course.component';
 import { ViewPostComponent } from './component/view-post/view-post.component';
 import { PaginationHandleComponent } from './component/pagination-handle/pagination-handle.component';
 import { OrdinationComponent } from './component/ordination/ordination.component';
+import { authInterceptor } from './interceptor/auth.interceptor';
+import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +44,7 @@ import { OrdinationComponent } from './component/ordination/ordination.component
     ViewPostComponent,
     PaginationHandleComponent,
     OrdinationComponent,
+    MyPublicationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { OrdinationComponent } from './component/ordination/ordination.component
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: loaderInterceptor, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: erroInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: erroInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: authInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,184 @@
+div.viewPost{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* padding-left: 20px; */
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+div#userData {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    margin: 50px 20px 0px 15px;
+    max-width: 1200px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+div.userCard {
+    margin-top: 10px;
+    background-color: #876beb;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    margin-left: 2%;
+    max-width: 1200px; /* Adicionar um max-width para controlar melhor o layout */
+    margin: 0 auto; /* Centralizar o container */
+    padding: 0 40px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+div.postList {
+    width: 100%;
+    display: grid; /* Mudamos para grid ao invés de flex */
+    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas de tamanho igual */
+    gap: 30px;
+    padding: 0;
+}
+
+div.postList div.postData {
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+div.postList > div {
+    width: 100%; /* Ajusta para ocupar o espaço da coluna */
+    max-width: none; /* Remove o max-width anterior */
+    min-width: 0; /* Remove o min-width anterior */
+    margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+    div.postList {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas para telas menores que 1024px */
+    }
+}
+
+@media (max-width: 600px) {
+    div.postList {
+        grid-template-columns: 1fr; /* Uma coluna para telas menores que 600px */
+    }
+}
+
+div.postView {
+    width: 100%; /* Fazer o postView ocupar 100% do espaço do seu container */
+    height: 300px; /* Ajustar altura proporcionalmente */
+    border-radius: 10px;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+div.postView div#postComposition {
+    flex: 1;
+    position: relative;
+}
+
+div.postView div#postComposition div#postImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+div.postView div#postComposition div#postImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+div.postView::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+div.postView:hover::before {
+    background-color: rgba(63, 161, 76, 0.74);
+}
+
+button.eyeButton {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 2; 
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+}
+
+button.eyeButton:hover,  div#postAction button:hover{
+    background-color: #623CEA;
+    color: white;
+}
+
+div.postView:hover button.eyeButton { 
+    opacity: 1;
+}
+
+div#postAction {
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: transparent;
+    padding: 10px 0;
+    opacity: 0; 
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+div.postView:hover div#postAction { 
+    opacity: 1;
+    background-color: rgba(14, 88, 24, 0.829);
+    z-index: 1;
+}
+
+div#postAction button, button.eyeButton {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
+}
+
+div.categorys {
+    position: absolute;
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: 500;
+    z-index: 20000;
+    background-color: #3FA14C;
+    padding: 10px;
+    width: fit-content;
+}
+
+div.postData p {
+    font-size: 18px;
+    font-weight: 500;
+}

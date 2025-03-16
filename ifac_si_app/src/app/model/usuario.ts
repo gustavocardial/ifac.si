@@ -1,8 +1,8 @@
 export type Usuario = {
     id: number,
-    email: string,
+    email?: string,
     nomeUsuario: string,
-    senha: string,
-    cargo: string,
-    ativo: boolean
+    senha?: string,
+    cargo?: string,
+    ativo?: boolean
 }
