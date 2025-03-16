@@ -261,9 +261,16 @@ export class AddNewPostComponent implements OnInit{
   
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
-      this.post.tags.forEach(tag => {
-        formData.append('tags', tag.nome);
+      console.log('Tags originais:', this.post.tags);
+  
+      // Processa as tags (lowercase e remove duplicatas)
+      const tagsUnicas = [...new Set(this.post.tags.map(tag => tag.nome.toLowerCase()))];
+      console.log('Tags após processamento:', tagsUnicas);
+    
+      tagsUnicas.forEach(tag => {
+        formData.append('tags', tag);
       });
+      console.log('Tags processadas:', tagsUnicas);
     }
   
     // Se tiver imagem de capa
@@ -331,10 +338,29 @@ export class AddNewPostComponent implements OnInit{
   }
 
   addTag(): void {
-    let newTag = this.addTagPost(this.newTag.nativeElement.value)
-    this.tagsList.push(newTag);
-    console.log(this.tagsList);
-    this.newTag.nativeElement.value = '';
+    const tagValue = this.newTag.nativeElement.value.trim();
+
+    if (tagValue && tagValue !== '[]') {
+      // Cria uma nova tag
+      let newTag = this.addTagPost(tagValue);
+      
+      // Adiciona à lista global de tags
+      this.tagsList.push(newTag);
+      
+      // Também adiciona à lista de tags do post atual
+      if (!this.post.tags) {
+        this.post.tags = [];
+      }
+      this.post.tags.push(newTag);
+      
+      console.log('Tag adicionada ao post:', newTag);
+      console.log('Lista de tags atual:', this.tagsList);
+      
+      // Limpa o input
+      this.newTag.nativeElement.value = '';
+    } else {
+      console.log('Valor de tag inválido');
+    }
   }
 
   onTag(): void {
