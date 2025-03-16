@@ -272,7 +272,7 @@ export class AddNewPostComponent implements OnInit{
     }
   
     // Você também precisará modificar seu PostService para usar o FormData
-    this.servicoPost.save(formData).subscribe({
+    this.servicoPost.save(formData, this.post.id).subscribe({
       complete: () => {
         this.servicoAlerta.enviarAlerta({
           tipo: ETipoAlerta.SUCESSO,
