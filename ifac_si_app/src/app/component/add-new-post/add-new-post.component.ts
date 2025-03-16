@@ -63,7 +63,7 @@ export class AddNewPostComponent implements OnInit{
         next: (resposta: Post) => {
           this.post = resposta;
 
-          console.log ("Post", resposta);
+          // console.log ("Post", resposta);
           
           // this.tags = resposta.tags;
         }
