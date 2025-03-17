@@ -394,8 +394,8 @@ export class AddNewPostComponent implements OnInit{
 
   removeTag(tagId: number): void {
     // Remove a tag da lista de tags do post atual
-    if (this.post.tags) {
-      this.post.tags = this.post.tags.filter(tag => tag.id !== tagId);
+    if (this.post.tags && this.tagsList) {
+      this.tagsList = this.post.tags.filter(tag => tag.id !== tagId);
       console.log('Tag removida do post. Tags restantes:', this.post.tags);
     }
   }
