@@ -145,15 +145,13 @@
                   </div>
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
                       <div class="card-body">
-                        <Label>Adicionar nova tag</Label>
+                        <Label>{{ isEditing ? 'Editar tag' : 'Adicionar nova tag' }}</Label>
                         <div id="tagContainer">
                             <input type="text" name="tag" id="newTag" #newTag>
-                            <i class="bi bi-plus-circle" (click)="addTag()"></i>
+                            <i *ngIf="!isEditing" class="bi bi-plus-circle" (click)="addTag()"></i>
+                            <i *ngIf="isEditing" class="bi bi-check-circle" (click)="addTag()"></i>
+                            <i *ngIf="isEditing" class="bi bi-x-circle ms-2" (click)="cancelEditTag()"></i>
                         </div>
-                        <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                            <option value="" selected disabled hidden>Selecione uma Tag</option> 
-                            <option *ngFor="let tag of tagsList" [value]="tag.id">{{ tag.nome }}</option>                            
-                        </select> -->
                         <div class="dropdown">
                             <button #tag id="tagButton">Selecione uma Tag 
                                 <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
@@ -165,7 +163,9 @@
                             </button>
                             <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
                                 <p *ngFor="let tag of tagsList">
-                                    {{ tag.nome }} <i class="bi bi-x" (click)="removeTag(tag.id)"></i>
+                                    {{ tag.nome }} 
+                                    <i class="bi bi-x" (click)="removeTag(tag.id)"></i>
+                                    <i class="bi bi-pencil me-2" (click)="editTag(tag)"></i>
                                 </p>
                             </div>
                         </div>

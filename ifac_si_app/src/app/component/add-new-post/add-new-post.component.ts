@@ -72,7 +72,7 @@ export class AddNewPostComponent implements OnInit{
       this.servicoTag.getTagByPost(+id).subscribe({
         next: (resposta: tags[]) => {
           this.tagsList = resposta; 
-          console.log (this.tagsList);
+          console.log (resposta);
         }
       })
 
@@ -160,6 +160,8 @@ export class AddNewPostComponent implements OnInit{
   visibilidadeContent: boolean = true;
   publicacaoContent: boolean = true;
   statusContent: boolean = true;
+  editingTagId: number | null = null;
+  isEditing: boolean = false;
 
   title = 'teste';
   @ViewChild('editor') editor: any;
@@ -238,6 +240,10 @@ export class AddNewPostComponent implements OnInit{
 
   saveContent(): void {
 
+    this.post.tags = this.tagsList;
+
+    console.log (this.post.tags);
+
     const formData = new FormData();
 
     // Adiciona os campos do post
@@ -261,7 +267,7 @@ export class AddNewPostComponent implements OnInit{
   
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
-      console.log('Tags originais:', this.post.tags);
+      // console.log('Tags originais:', this.post.tags);
   
       // Processa as tags (lowercase e remove duplicatas)
       const tagsUnicas = [...new Set(this.post.tags.map(tag => tag.nome.toLowerCase()))];
@@ -321,6 +327,21 @@ export class AddNewPostComponent implements OnInit{
     this.buttonC = !this.buttonC;
   }
 
+  editTag(tag: tags): void {
+    this.isEditing = true;
+    this.editingTagId = tag.id;
+    // Preenche o campo de input com o nome da tag atual
+    this.newTag.nativeElement.value = tag.nome;
+    // Foca no input para facilitar a edição
+    this.newTag.nativeElement.focus();
+  }
+
+  cancelEditTag(): void {
+    this.isEditing = false;
+    this.editingTagId = null;
+    this.newTag.nativeElement.value = '';
+  }
+
   ngOnDestroy(): void {
     if (this.categoryListener) {
       this.categoryListener();
@@ -341,22 +362,26 @@ export class AddNewPostComponent implements OnInit{
     const tagValue = this.newTag.nativeElement.value.trim();
 
     if (tagValue && tagValue !== '[]') {
-      // Cria uma nova tag
-      let newTag = this.addTagPost(tagValue);
-      
-      // Adiciona à lista global de tags
-      this.tagsList.push(newTag);
-      
-      // Também adiciona à lista de tags do post atual
-      if (!this.post.tags) {
-        this.post.tags = [];
+      if (this.isEditing && this.editingTagId !== null) {
+        // Modo de edição - apenas atualiza na tagsList
+        const tagIndex = this.tagsList.findIndex(tag => tag.id === this.editingTagId);
+        if (tagIndex !== -1) {
+          // Atualiza o nome da tag
+          this.tagsList[tagIndex].nome = tagValue;
+          console.log('Tag atualizada na lista de tags:', this.tagsList[tagIndex]);
+        }
+        
+        // Sai do modo de edição
+        this.isEditing = false;
+        this.editingTagId = null;
+      } else {
+        // Modo de adição (código existente)
+        let newTag = this.addTagPost(tagValue);
+        this.tagsList.push(newTag);
+        console.log('Nova tag adicionada à lista de tags:', newTag);
       }
-      this.post.tags.push(newTag);
       
-      console.log('Tag adicionada ao post:', newTag);
-      console.log('Lista de tags atual:', this.tagsList);
-      
-      // Limpa o input
+      // Limpa o input em ambos os casos
       this.newTag.nativeElement.value = '';
     } else {
       console.log('Valor de tag inválido');
