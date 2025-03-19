@@ -264,3 +264,21 @@ div.statusDiv #statusSave {
 div.statusDiv.viewPost {
     margin-bottom: 15px;
 }
+
+div#imagemCapaPost {
+    padding: 8px 12px;
+    border-radius: 4px;  /* bordas bem arredondadas */
+    border: 1px solid #3b3b3b;
+    background: white;
+    width: 100%;
+    box-shadow: none;
+    outline: none;
+}
+
+div#imagemCapaPost img{
+    margin-bottom: 10px;
+}
+
+p#perguntaImagem {
+    margin: 10px auto;
+}

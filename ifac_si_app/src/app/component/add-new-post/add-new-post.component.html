@@ -14,6 +14,13 @@
                   <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda" placeholder="Legenda ou resumo da postagem">
                   
                   <label for="capaPost">Imagem de Capa</label>
+                  <div *ngIf="post.imagemCapa?.nomeArquivo" id="imagemCapaPost">
+                    <p>Imagem cadastrada: {{post.imagemCapa?.nomeArquivo}}</p> 
+                    <img *ngIf="post.imagemCapa?.url" [src]="post.imagemCapa?.url" alt="Imagem de Capa" class="preview-img">
+                  </div>
+
+                  <p *ngIf="post.imagemCapa?.nomeArquivo" id="perguntaImagem">Deseja mudar?</p>
+
                   <input type="file" name="capaPost" id="capaPost" #imagemCapa>
           </div>
           <div class="row">
