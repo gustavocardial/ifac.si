@@ -49,9 +49,9 @@ public class TagController{
 //         List<TagDTO> registros = servico.getAllByPost(postRequestDTO);
 //         return new ResponseEntity<>(registros, HttpStatus.OK);
 //     }
-    @PostMapping("/getTagsByPost")
-    public ResponseEntity<List<TagDTO>> getTagsByPost(@RequestBody PostRequestDTO postRequestDTO) {
-        List<TagDTO> registros = servico.getAllByPost(postRequestDTO);
+    @GetMapping("/getTagsByPost/{idPost}")
+    public ResponseEntity<List<TagDTO>> getTagsByPost(@PathVariable("idPost") Long id) {
+        List<TagDTO> registros = servico.getAllByPost(id);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 

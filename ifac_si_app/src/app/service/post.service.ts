@@ -43,8 +43,16 @@ export class PostService{
       'enctype': 'multipart/form-data'
     });
 
+    console.log ('Testando', id);
+
     if (id) {
+      let url = this.apiUrl + id;
+      for (const pair of (formData as any).entries()) {
+        console.log(pair[0], pair[1]);
+      }
+      
       return this.http.put<Post>(url, formData, { headers: headers });
+      
     } else {
       for (const pair of (formData as any).entries()) {
         console.log(pair[0], pair[1]);

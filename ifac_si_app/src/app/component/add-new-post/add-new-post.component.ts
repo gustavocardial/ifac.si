@@ -69,21 +69,21 @@ export class AddNewPostComponent implements OnInit{
         }
       });
 
-      // this.servicoTag.getTagByPost(this.post).subscribe({
-      //   next: (resposta: tags[]) => {
-      //     this.tagsList = resposta; 
-      //     console.log (this.tagsList);
-      //   }
-      // })
-
-      this.servicoTag.get().subscribe({
+      this.servicoTag.getTagByPost(+id).subscribe({
         next: (resposta: tags[]) => {
-          // this.tags = resposta;
-          this.tagsList = resposta.filter((tag: tags) => this.post?.tags?.some(postTag => Number(postTag.id) === Number(tag.id)));
-        
-          console.log('Tags:', this.tagsList); 
+          this.tagsList = resposta; 
+          console.log (resposta);
         }
-      });  
+      })
+
+      // this.servicoTag.get().subscribe({
+      //   next: (resposta: tags[]) => {
+      //     // this.tags = resposta;
+      //     this.tagsList = resposta.filter((tag: tags) => this.post?.tags?.some(postTag => Number(postTag.id) === Number(tag.id)));
+        
+      //     console.log('Tags:', this.tagsList); 
+      //   }
+      // });  
     }
 
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
@@ -160,6 +160,8 @@ export class AddNewPostComponent implements OnInit{
   visibilidadeContent: boolean = true;
   publicacaoContent: boolean = true;
   statusContent: boolean = true;
+  editingTagId: number | null = null;
+  isEditing: boolean = false;
 
   title = 'teste';
   @ViewChild('editor') editor: any;
@@ -238,6 +240,10 @@ export class AddNewPostComponent implements OnInit{
 
   saveContent(): void {
 
+    this.post.tags = this.tagsList;
+
+    console.log (this.post.tags);
+
     const formData = new FormData();
 
     // Adiciona os campos do post
@@ -261,9 +267,16 @@ export class AddNewPostComponent implements OnInit{
   
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
-      this.post.tags.forEach(tag => {
-        formData.append('tags', tag.nome);
+      // console.log('Tags originais:', this.post.tags);
+  
+      // Processa as tags (lowercase e remove duplicatas)
+      const tagsUnicas = [...new Set(this.post.tags.map(tag => tag.nome.toLowerCase()))];
+      console.log('Tags após processamento:', tagsUnicas);
+    
+      tagsUnicas.forEach(tag => {
+        formData.append('tags', tag);
       });
+      console.log('Tags processadas:', tagsUnicas);
     }
   
     // Se tiver imagem de capa
@@ -272,7 +285,7 @@ export class AddNewPostComponent implements OnInit{
     }
   
     // Você também precisará modificar seu PostService para usar o FormData
-    this.servicoPost.save(formData).subscribe({
+    this.servicoPost.save(formData, this.post.id).subscribe({
       complete: () => {
         this.servicoAlerta.enviarAlerta({
           tipo: ETipoAlerta.SUCESSO,
@@ -314,6 +327,21 @@ export class AddNewPostComponent implements OnInit{
     this.buttonC = !this.buttonC;
   }
 
+  editTag(tag: tags): void {
+    this.isEditing = true;
+    this.editingTagId = tag.id;
+    // Preenche o campo de input com o nome da tag atual
+    this.newTag.nativeElement.value = tag.nome;
+    // Foca no input para facilitar a edição
+    this.newTag.nativeElement.focus();
+  }
+
+  cancelEditTag(): void {
+    this.isEditing = false;
+    this.editingTagId = null;
+    this.newTag.nativeElement.value = '';
+  }
+
   ngOnDestroy(): void {
     if (this.categoryListener) {
       this.categoryListener();
@@ -331,10 +359,33 @@ export class AddNewPostComponent implements OnInit{
   }
 
   addTag(): void {
-    let newTag = this.addTagPost(this.newTag.nativeElement.value)
-    this.tagsList.push(newTag);
-    console.log(this.tagsList);
-    this.newTag.nativeElement.value = '';
+    const tagValue = this.newTag.nativeElement.value.trim();
+
+    if (tagValue && tagValue !== '[]') {
+      if (this.isEditing && this.editingTagId !== null) {
+        // Modo de edição - apenas atualiza na tagsList
+        const tagIndex = this.tagsList.findIndex(tag => tag.id === this.editingTagId);
+        if (tagIndex !== -1) {
+          // Atualiza o nome da tag
+          this.tagsList[tagIndex].nome = tagValue;
+          console.log('Tag atualizada na lista de tags:', this.tagsList[tagIndex]);
+        }
+        
+        // Sai do modo de edição
+        this.isEditing = false;
+        this.editingTagId = null;
+      } else {
+        // Modo de adição (código existente)
+        let newTag = this.addTagPost(tagValue);
+        this.tagsList.push(newTag);
+        console.log('Nova tag adicionada à lista de tags:', newTag);
+      }
+      
+      // Limpa o input em ambos os casos
+      this.newTag.nativeElement.value = '';
+    } else {
+      console.log('Valor de tag inválido');
+    }
   }
 
   onTag(): void {
@@ -364,6 +415,14 @@ export class AddNewPostComponent implements OnInit{
         nome,
         // posts: []
     };
+  }
+
+  removeTag(tagId: number): void {
+    // Remove a tag da lista de tags do post atual
+    if (this.post.tags && this.tagsList) {
+      this.tagsList = this.post.tags.filter(tag => tag.id !== tagId);
+      console.log('Tag removida do post. Tags restantes:', this.post.tags);
+    }
   }
 
   public publicacaoOptions = Object.keys(PublicacaoEnum)
