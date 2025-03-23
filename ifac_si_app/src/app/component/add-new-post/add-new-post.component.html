@@ -176,6 +176,23 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="dropdown">
+                            <button #optionTag id="tagButton">Tags já cadastradas
+                                <ng-template [ngIf]="!optionsButton" [ngIfElse]="dropdownIcon">
+                                <i class="fa fa-caret-down"></i>
+                            </ng-template>
+                            <ng-template #dropdownIcon>
+                                <i class="fa fa-caret-up"></i>
+                            </ng-template>
+                            </button>
+                            <div #tagsPreview class="dropdown-content tags-scroll" id="tagPreview" *ngIf="optionsButton">
+                                <p *ngFor="let tagP of tagsOptions">
+                                    {{ tagP.nome }} 
+                                    <!-- <i class="bi bi-x" (click)="removeTag(tag.tempId)"></i>
+                                    <i class="bi bi-pencil me-2" (click)="editTag(tag)"></i> -->
+                                </p>
+                            </div>
+                        </div>
                       </div>
                   </div>
               </div>

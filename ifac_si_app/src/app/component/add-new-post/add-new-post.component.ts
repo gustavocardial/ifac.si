@@ -29,17 +29,36 @@ export class AddNewPostComponent implements OnInit{
   private statusListener: (() => void) | undefined;
   private categoryListener: (() => void) | undefined;
   private tagListener: (() => void) | undefined;
+  private optionListener: (() => void) | undefined;
   private tagListen: (() => void) | undefined;
   private capaListener: (() => void) | undefined;
   private statusButtonListener: (() => void) | undefined;
   private visibilidadeButtonListener: (() => void) | undefined;
   private publicacaoButtonListener: (() => void) | undefined;
 
+  post: Post = <Post>{};
+  categorias: Categoria[] = Array<Categoria>();
+  tagsList: ITags[] = Array<ITags>();
+  tagsOptions: tags[] = Array<tags>();
+  accordionView: boolean = false;
+  buttonS: boolean = false;
+  buttonC: boolean = false;
+  buttonT: boolean = false;
+  filtersT: boolean = false;
+  optionsButton: boolean = false;
+  numberOfImages: number = 0;
+  visibilidadeContent: boolean = true;
+  publicacaoContent: boolean = true;
+  statusContent: boolean = true;
+  editingTagId: number | null = null;
+  isEditing: boolean = false;
+
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
   @ViewChild('status') statusButton!: ElementRef;
   @ViewChild('newTag') newTag!: ElementRef;
   @ViewChild('tag') buttonTag!: ElementRef;
+  @ViewChild('optionTag') buttonOption!: ElementRef;
   @ViewChild('imagemCapa') capaInput!: ElementRef;
   @ViewChild('editarVisibilidade') visibiEdit!: ElementRef;
   @ViewChild('editarPublicacao') publiEdit!: ElementRef;
@@ -70,6 +89,12 @@ export class AddNewPostComponent implements OnInit{
           // this.tags = resposta.tags;
         }
       });
+
+      this.servicoTag.get().subscribe({
+        next: (resposta: tags[]) => {
+          this.tagsOptions = resposta;
+        }
+      })
 
       this.servicoTag.getTagByPost(+id).subscribe({
         next: (resposta: tags[]) => {
@@ -134,6 +159,10 @@ export class AddNewPostComponent implements OnInit{
       // this.initializeTagDropdownListener();
     });
 
+    this.optionListener = this.renderer.listen(this.buttonOption.nativeElement, 'click', (event) => {
+      this.optionTagClick();
+    })
+
     this.capaListener = this.renderer.listen(this.capaInput.nativeElement, 'change', (event) => {
       console.log ("tem imagem de capa");
     })
@@ -155,20 +184,6 @@ export class AddNewPostComponent implements OnInit{
   // ngOnInit(): void {
   //   this.get();    
   // }
-  post: Post = <Post>{};
-  categorias: Categoria[] = Array<Categoria>();
-  tagsList: ITags[] = Array<ITags>();
-  accordionView: boolean = false;
-  buttonS: boolean = false;
-  buttonC: boolean = false;
-  buttonT: boolean = false;
-  filtersT: boolean = false;
-  numberOfImages: number = 0;
-  visibilidadeContent: boolean = true;
-  publicacaoContent: boolean = true;
-  statusContent: boolean = true;
-  editingTagId: number | null = null;
-  isEditing: boolean = false;
 
   title = 'teste';
   @ViewChild('editor') editor: any;
@@ -332,6 +347,14 @@ export class AddNewPostComponent implements OnInit{
     this.buttonC = !this.buttonC;
   }
 
+  optionTagClick(): void {
+    this.optionsButton = !this.optionsButton;
+  }
+
+  onTag(): void {
+    this.filtersT = !this.filtersT;
+  }
+
   editTag(tag: tags): void {
     this.isEditing = true;
     this.editingTagId = tag.id;
@@ -383,10 +406,6 @@ export class AddNewPostComponent implements OnInit{
     } else {
       console.log('Valor de tag inválido');
     }
-  }
-
-  onTag(): void {
-    this.filtersT = !this.filtersT;
   }
 
   addTagPost(tagName: string): ITags {
