@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ifac.si.com.ifac_si_api.model.Imagem;
+import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class PostRequestDTO {
     private String texto;
     private String legenda;
     private String status;
-    private List<String> tags;
+    private List<TagDTO> tags;
 
     public String getTitulo() {
         return titulo;
@@ -68,11 +69,11 @@ public class PostRequestDTO {
         this.status = status;
     }
 
-    public List<String> getTags() {
+    public List<TagDTO> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<TagDTO> tags) {
         this.tags = tags;
     }
 

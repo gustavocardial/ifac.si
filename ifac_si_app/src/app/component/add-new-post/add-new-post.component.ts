@@ -10,6 +10,7 @@ import { tags } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
 import { statusPost } from '../../model/enum/statusEnum';
+// import { ITags } from '../../model/ITags';
 // import { ImagemHandler } from '../../model/imagemHandler';
 import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/usuario';
@@ -17,6 +18,7 @@ import { PublicacaoEnum } from '../../model/enum/publicacaoEnum';
 import { visibilidadePost } from '../../model/enum/visibilidadeEnum';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../../service/login.service';
+import { ITags } from '../../model/ITags';
 
 @Component({
   selector: 'app-add-new-post',
@@ -71,8 +73,13 @@ export class AddNewPostComponent implements OnInit{
 
       this.servicoTag.getTagByPost(+id).subscribe({
         next: (resposta: tags[]) => {
-          this.tagsList = resposta; 
-          console.log (resposta);
+          this.tagsList = resposta.map((tag, index) => {
+            return {
+              ...tag,
+              tempId: index // Use o índice como tempId para tags existentes
+            } as ITags;
+          });
+          console.log('Tags carregadas com tempId:', this.tagsList);
         }
       })
 
@@ -150,7 +157,7 @@ export class AddNewPostComponent implements OnInit{
   // }
   post: Post = <Post>{};
   categorias: Categoria[] = Array<Categoria>();
-  tagsList: tags[] = Array<tags>();
+  tagsList: ITags[] = Array<ITags>();
   accordionView: boolean = false;
   buttonS: boolean = false;
   buttonC: boolean = false;
@@ -240,7 +247,7 @@ export class AddNewPostComponent implements OnInit{
 
   saveContent(): void {
 
-    this.post.tags = this.tagsList;
+    this.convertToTags();
 
     console.log (this.post.tags);
 
@@ -269,14 +276,12 @@ export class AddNewPostComponent implements OnInit{
     if (this.post.tags && this.post.tags.length > 0) {
       // console.log('Tags originais:', this.post.tags);
   
-      // Processa as tags (lowercase e remove duplicatas)
-      const tagsUnicas = [...new Set(this.post.tags.map(tag => tag.nome.toLowerCase()))];
-      console.log('Tags após processamento:', tagsUnicas);
-    
-      tagsUnicas.forEach(tag => {
-        formData.append('tags', tag);
+      this.post.tags.forEach((tag, index) => {
+        formData.append(`tags[${index}].id`, tag.id?.toString() || '');
+        formData.append(`tags[${index}].nome`, tag.nome);
       });
-      console.log('Tags processadas:', tagsUnicas);
+
+      console.log('Tags processadas:', this.post.tags);
     }
   
     // Se tiver imagem de capa
@@ -304,7 +309,7 @@ export class AddNewPostComponent implements OnInit{
     // Aqui você pode fazer algo com o conteúdo do editor
     // console.log(this.escapeHtml(this.data.content));
     console.log('Conteúdo salvo:', this.post.texto);
-    this.router.navigate(['/view_posts']);
+    // this.router.navigate(['/view_posts']);
   }
 
   getById(id: number): void {
@@ -342,21 +347,13 @@ export class AddNewPostComponent implements OnInit{
     this.newTag.nativeElement.value = '';
   }
 
-  ngOnDestroy(): void {
-    if (this.categoryListener) {
-      this.categoryListener();
-    }
-    if (this.tagListener) {
-      this.tagListener();
-    }
-    if (this.statusListener) {
-      this.statusListener();
-    }
+  convertToTags(): void {
+    this.post.tags = this.tagsList.map(tag => ({
+      id: tag.id, // Mantém null para novas ou id para existentes
+      nome: tag.nome
+    }));
   }
 
-  onCategoriaSelect(categoria: Categoria): void {
-    this.post.categoria = categoria;
-  }
 
   addTag(): void {
     const tagValue = this.newTag.nativeElement.value.trim();
@@ -392,36 +389,30 @@ export class AddNewPostComponent implements OnInit{
     this.filtersT = !this.filtersT;
   }
 
-  addTagPost(tagName: string): tags {
-    const newId = this.tagsList.length > 0 
-        ? this.tagsList[this.tagsList.length - 1].id + 1 
-        : 1;
+  addTagPost(tagName: string): ITags {
+    const maxTempId = Math.max(0, ...this.tagsList.map(t => t.tempId || 0));
+    const newTempId = maxTempId + 1;
 
-    // Cria uma nova tag
-    const newTag = this.createTag(newId, tagName);
-    newTag.id = newId; // Atribui o ID gerado
-    newTag.nome = tagName; // Atribui o nome da tag
-    // newTag.posts = []; // Inicializa a lista de posts vazia
-
-    // Adiciona a nova tag à lista de tags
-    // this.tagsList.push(newTag);
-
-    return newTag;
-  }
-
-  createTag(id: number, nome: string): tags {
     return {
-        id,
-        nome,
-        // posts: []
+      id: null, // ID do banco será null para novas tags
+      nome: tagName,
+      tempId: newTempId // ID temporário para manipulação no frontend
     };
   }
 
-  removeTag(tagId: number): void {
+  createTag(id: number, nome: string): ITags {
+    return {
+      id: null,
+      nome,
+      tempId: -(this.tagsList.filter(t => t.tempId !== undefined).length + 1)
+    };
+  }
+
+  removeTag(tagId: number | undefined): void {
     // Remove a tag da lista de tags do post atual
-    if (this.post.tags && this.tagsList) {
-      this.tagsList = this.post.tags.filter(tag => tag.id !== tagId);
-      console.log('Tag removida do post. Tags restantes:', this.post.tags);
+    if (this.tagsList) {
+      this.tagsList = this.tagsList.filter(tag => tag.tempId !== tagId);
+      console.log('Tag removida. Tags restantes:', this.tagsList);
     }
   }
 
@@ -444,6 +435,22 @@ export class AddNewPostComponent implements OnInit{
   //     }
   //   })
   // }
+  ngOnDestroy(): void {
+    if (this.categoryListener) {
+      this.categoryListener();
+    }
+    if (this.tagListener) {
+      this.tagListener();
+    }
+    if (this.statusListener) {
+      this.statusListener();
+    }
+  }
+
+  onCategoriaSelect(categoria: Categoria): void {
+    this.post.categoria = categoria;
+  }
+
 
   modules = {
     toolbar: [

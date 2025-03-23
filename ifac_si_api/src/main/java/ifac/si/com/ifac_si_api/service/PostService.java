@@ -13,6 +13,7 @@ import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.Mapper.PostMapper;
 import ifac.si.com.ifac_si_api.model.Tag.Tag;
+import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import ifac.si.com.ifac_si_api.repository.TagRepository;
 import jakarta.transaction.Transactional;
@@ -157,15 +158,30 @@ public class PostService{
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada: " + categoriaId));
     }
 
-    private List<Tag> processarTags(List<String> tagNames) {
-        return tagNames.stream()
-                .map(nome -> tagRepository.findByNome(nome)
-                        .orElseGet(() -> {
-                            Tag novaTag = new Tag();
-                            novaTag.setNome(nome);
-                            return tagRepository.save(novaTag);
-                        }))
-                .collect(Collectors.toList());
+    private List<Tag> processarTags(List<TagDTO> tags) {
+        return tags.stream()
+            .map(tagDTO -> {
+                if (tagDTO.getId() != null) {
+                    // Se a tag já tem ID, busca por ID e atualiza o nome
+                    return tagRepository.findById(tagDTO.getId())
+                            .map(tag -> {
+                                tag.setNome(tagDTO.getNome());
+                                return tagRepository.save(tag);
+                            })
+                            .orElseGet(() -> {
+                                // Se o ID não existe, trata como nova tag
+                                Tag novaTag = new Tag();
+                                novaTag.setNome(tagDTO.getNome());
+                                return tagRepository.save(novaTag);
+                            });
+                } else {
+                    // Se a tag não tem ID, é uma nova tag, então salva e retorna
+                    Tag novaTag = new Tag();
+                    novaTag.setNome(tagDTO.getNome());
+                    return tagRepository.save(novaTag);
+                }
+            })
+        .collect(Collectors.toList());
     }
 
     private List<Imagem> processarImagens(List<MultipartFile> imagens) {

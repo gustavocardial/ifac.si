@@ -1,7 +1,7 @@
 import { Post } from "./post"
 
 export type tags = {
-    id: number,
+    id: number | null,
     nome: string,
     // posts: Post[]
 }
