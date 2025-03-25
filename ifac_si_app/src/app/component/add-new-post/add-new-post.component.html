@@ -172,7 +172,7 @@
                                 <p *ngFor="let tag of tagsList">
                                     {{ tag.nome }} 
                                     <i class="bi bi-x" (click)="removeTag(tag.tempId)"></i>
-                                    <i class="bi bi-pencil me-2" (click)="editTag(tag)"></i>
+                                    <i class="bi bi-pencil me-2" (click)="editTag(tag)" *ngIf="tag.id == null"></i>
                                 </p>
                             </div>
                         </div>
