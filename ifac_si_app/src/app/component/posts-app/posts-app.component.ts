@@ -6,6 +6,9 @@ import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
 import { PageRequest } from '../../model/page-request';
 import { PageResponse } from '../../model/page-response';
+import { Subscription } from 'rxjs';
+import { LoginService } from '../../service/login.service';
+import { Usuario } from '../../model/usuario';
 
 @Component({
   selector: 'app-posts-app',
@@ -16,6 +19,9 @@ export class PostsAppComponent implements OnInit{
   @ViewChildren('deleteButton') deleteButtons!: QueryList<ElementRef>;
   @ViewChildren('editButton') editButtons!: QueryList<ElementRef>;
   @ViewChildren('showButton') showButtons!: QueryList<ElementRef>;
+  
+  private subscription: Subscription = new Subscription();
+  usuario: Usuario = <Usuario>{};
   posts: Post[] = Array<Post>();
   show: boolean = false;
   postIdToDelete!: number;
@@ -33,11 +39,13 @@ export class PostsAppComponent implements OnInit{
     private renderer: Renderer2,
     private cdRef: ChangeDetectorRef,
     private router: Router,
-    private servicoAlerta: AlertaService
+    private servicoAlerta: AlertaService,
+    private servicoLogin: LoginService
   ) {}
 
   ngOnInit(): void {
     this.getAll();
+    this.getUser();
   }
 
   ngAfterViewInit(): void {
@@ -168,6 +176,14 @@ export class PostsAppComponent implements OnInit{
         setTimeout(() => this.setupButtonListeners(), 0);
       }
     });
+  }
+
+  getUser(): void {
+    this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
+      next: (usuario: Usuario) => {
+        this.usuario = usuario;
+      }
+    })
   }
 
   mudarPagina(pagina: number): void {
