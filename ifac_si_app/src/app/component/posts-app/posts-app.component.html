@@ -27,6 +27,7 @@
                 <div class="postData">
                     <p> {{post.titulo}} </p>
                     <p> {{post.data | date: 'dd/MM/yyyy'}} </p>
+                    <p *ngIf="usuario.cargo =='EDITOR'"> {{post.usuario?.nomeUsuario}} </p>
                 </div>
             </div>
         </div>
