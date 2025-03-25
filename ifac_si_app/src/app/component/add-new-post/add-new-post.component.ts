@@ -419,9 +419,9 @@ export class AddNewPostComponent implements OnInit{
     };
   }
 
-  createTag(id: number, nome: string): ITags {
+  createTag(id: number | null, nome: string): ITags {
     return {
-      id: null,
+      id: id,
       nome,
       tempId: -(this.tagsList.filter(t => t.tempId !== undefined).length + 1)
     };
@@ -432,6 +432,26 @@ export class AddNewPostComponent implements OnInit{
     if (this.tagsList) {
       this.tagsList = this.tagsList.filter(tag => tag.tempId !== tagId);
       console.log('Tag removida. Tags restantes:', this.tagsList);
+    }
+  }
+
+  addTagList(tag: tags): void {
+    // Verifica se a tag já existe na lista atual
+    const tagExistente = this.tagsList.find(
+      t => t.nome.toLowerCase() === tag.nome.toLowerCase()
+    );
+  
+    // Se a tag não existir, adiciona
+    if (!tagExistente) {
+      // Usa o método createTag para criar uma nova ITags a partir da tag selecionada
+      const novaTag = this.createTag(tag.id, tag.nome);
+      
+      // Adiciona à lista de tags do post
+      this.tagsList.push(novaTag);
+      
+      console.log('Tag adicionada da lista de opções:', novaTag);
+    } else {
+      console.log('Tag já existe na lista');
     }
   }
 

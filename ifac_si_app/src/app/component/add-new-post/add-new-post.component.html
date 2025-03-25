@@ -188,8 +188,8 @@
                             <div #tagsPreview class="dropdown-content tags-scroll" id="tagPreview" *ngIf="optionsButton">
                                 <p *ngFor="let tagP of tagsOptions">
                                     {{ tagP.nome }} 
-                                    <!-- <i class="bi bi-x" (click)="removeTag(tag.tempId)"></i>
-                                    <i class="bi bi-pencil me-2" (click)="editTag(tag)"></i> -->
+                                    <!-- <i class="bi bi-x" (click)="removeTag(tag.tempId)"></i> -->
+                                    <i class="bi bi-pencil me-2" (click)="addTagList(tagP)"></i>
                                 </p>
                             </div>
                         </div>
