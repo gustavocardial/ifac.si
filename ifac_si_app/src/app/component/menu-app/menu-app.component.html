@@ -1,29 +1,35 @@
-<nav>
-    <img src="../../../assets/images/logo-login.svg" alt="ifac.si logo" width="50" height="50">
-    <div class="nav-content">
-        <ul id="menuPrincipal">
-            <li *ngFor="let item of usuarioTemAcesso()">
-                <a [routerLink]="item.caminho" *ngIf="item.caminho.startsWith('/')">{{ item.label }}</a>
-                <a [href]="item.caminho" target="_blank" rel="noopener noreferrer" *ngIf="item.caminho.startsWith('http')">
-                  <span [innerHTML]="item.label"></span>
-                </a>
-            </li>
-            <!-- <li>
-                <a routerLink="/view_posts">Todas as publicações</a>
-            </li>
-            <li>
-                <a routerLink="/administration/autor/new_post">Criar nova publicação</a>
-            </li>
-            <li>
-                <a routerLink="../">Meus dados</a>
-            </li> -->
-        </ul>
-        <div id="subMenu" class="flex">
-            <ul>
-                <li><i class="bi bi-search"></i>Busca</li>
-                <li (click)="logout()"><i class="bi bi-box-arrow-right"></i>Sair</li>
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="../../../assets/images/logo-login.svg" alt="ifac.si logo" width="50" height="50">
+        </a>
+
+        <!-- Botão Hamburguer (Mobile) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuMobile">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu Principal -->
+        <div class="collapse navbar-collapse" id="menuMobile">
+            <ul class="navbar-nav mx-auto" id="menuPrincipal">
+                <li class="nav-item" *ngFor="let item of usuarioTemAcesso()">
+                    <a class="nav-link" [routerLink]="item.caminho" *ngIf="item.caminho.startsWith('/')">{{ item.label }}</a>
+                    <a class="nav-link" [href]="item.caminho" target="_blank" rel="noopener noreferrer" *ngIf="item.caminho.startsWith('http')">
+                        <span [innerHTML]="item.label"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Submenu -->
+            <ul class="navbar-nav" id="subMenu">
+                <li class="nav-item">
+                    <a class="nav-link"><i class="bi bi-search"></i>Busca</a>
+                </li>
+                <li class="nav-item" (click)="logout()">
+                    <a class="nav-link"><i class="bi bi-box-arrow-right"></i>Sair</a>
+                </li>
             </ul>
         </div>
     </div>
-    <!-- <button (click)="mudarUsuario()">Usuário</button> -->
 </nav>

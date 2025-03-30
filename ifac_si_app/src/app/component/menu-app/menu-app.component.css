@@ -1,68 +1,63 @@
+/* Layout do menu */
 nav {
-    top: 0;
-    display: flex;
-    flex-direction: row;
     width: 100%;
+    padding: 10px;
+    background: white;
+}
+
+/* Container do menu */
+.container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+.navbar-brand img {
+    margin-left: 20px;
+}
+
+/* Menu principal mais próximo da logo */
+#menuPrincipal {
+    flex-grow: 1;
+    display: flex;
+    /* justify-content: center; Centraliza os itens */
+    gap: 30px; /* Espaçamento entre os itens */
+}
+
+/* Submenu na direita */
+#subMenu{
+    display: flex;
+    gap: 20px; /* Espaçamento entre os itens do submenu */
     padding: 10px;
 }
 
-nav > img {
-    margin-left: 30px;
-    margin-right: 10px;
+#subMenu i {
+    margin: auto 10px 
 }
 
-nav ul{
-    display: flex;
-    flex-direction: row;
-    margin: 10px 0 0 0;
-    list-style: none;
-}
+/* Responsivo - Mobile */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: white;
+        padding: 10px;
+    }
 
-nav ul li {
-    padding: 0 40px;
-}
+    /* Itens organizados em coluna */
+    .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-nav ul li:first-child {
-    padding-left: 0;
-}
+    /* Espaçamento dos itens */
+    .navbar-nav .nav-item {
+        padding: 10px 0;
+    }
 
-nav ul li a{
-    text-decoration: none;
-    color: black;
-}
-
-nav ul li a:hover,
-nav ul li a:active {
-    font-weight: bold;
-    letter-spacing: -0.5px; 
-}
-
-nav ul li a:hover {
-    color: #3FA14C;
-}
-
-nav ul li a:active {
-    color: #623CEA;
-}
-
-nav ul div#subMenu {
-    display: flex;
-    padding-left: auto;
-    align-self: flex-end;
-}
-
-nav ul#menuPrincipal {
-    display: flex;
-    align-self: flex-start;
-}
-
-.nav-content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%; 
-    font-size: 16.5px;
-}
-
-.bi {
-    margin-right: 15px; 
+    /* Submenu alinhado corretamente abaixo do menu */
+    #subMenu {
+        margin-left: 0;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
