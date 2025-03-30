@@ -440,7 +440,7 @@ export class AddNewPostComponent implements OnInit{
   removeTag(tag: ITags): void {
     // Remove a tag da lista de tags do post atual
     if (this.tagsList) {
-      this.tagsList = this.tagsList.filter(tag => tag.tempId !== tag.tempId);
+      this.tagsList = this.tagsList.filter(t => t.tempId !== tag.tempId);
       
       if (tag.id !== null) {
         // Verifica se a tag já não está na lista de opções para evitar duplicatas
