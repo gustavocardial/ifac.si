@@ -90,12 +90,6 @@ export class AddNewPostComponent implements OnInit{
         }
       });
 
-      this.servicoTag.get().subscribe({
-        next: (resposta: tags[]) => {
-          this.tagsOptions = resposta;
-        }
-      })
-
       this.servicoTag.getTagByPost(+id).subscribe({
         next: (resposta: tags[]) => {
           this.tagsList = resposta.map((tag, index) => {
@@ -105,6 +99,10 @@ export class AddNewPostComponent implements OnInit{
             } as ITags;
           });
           console.log('Tags carregadas com tempId:', this.tagsList);
+        
+          if (this.tagsOptions.length > 0) {
+            this.filterAvailableTags(); // Filtra as tags disponíveis
+          }
         }
       })
 
@@ -117,6 +115,18 @@ export class AddNewPostComponent implements OnInit{
       //   }
       // });  
     }
+
+    this.servicoTag.get().subscribe({
+      next: (resposta: tags[]) => {
+        this.tagsOptions = resposta;
+
+        console.log(resposta);
+      
+        if (this.tagsList.length > 0) {
+          this.filterAvailableTags(); // Filtra as tags disponíveis
+        }
+      }
+    })
 
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
       next: (usuario: Usuario) => {
@@ -427,10 +437,23 @@ export class AddNewPostComponent implements OnInit{
     };
   }
 
-  removeTag(tagId: number | undefined): void {
+  removeTag(tag: ITags): void {
     // Remove a tag da lista de tags do post atual
     if (this.tagsList) {
-      this.tagsList = this.tagsList.filter(tag => tag.tempId !== tagId);
+      this.tagsList = this.tagsList.filter(tag => tag.tempId !== tag.tempId);
+      
+      if (tag.id !== null) {
+        // Verifica se a tag já não está na lista de opções para evitar duplicatas
+        const tagJaExiste = this.tagsOptions.some(t => t.id === tag.id);
+        
+        if (!tagJaExiste) {
+          this.tagsOptions.push({
+            id: tag.id,
+            nome: tag.nome
+          });
+        }
+      }
+
       console.log('Tag removida. Tags restantes:', this.tagsList);
     }
   }
@@ -443,6 +466,7 @@ export class AddNewPostComponent implements OnInit{
   
     // Se a tag não existir, adiciona
     if (!tagExistente) {
+      this.tagsOptions = this.tagsOptions.filter(t => t.id !== tag.id);
       // Usa o método createTag para criar uma nova ITags a partir da tag selecionada
       const novaTag = this.createTag(tag.id, tag.nome);
       
@@ -488,6 +512,21 @@ export class AddNewPostComponent implements OnInit{
 
   onCategoriaSelect(categoria: Categoria): void {
     this.post.categoria = categoria;
+  }
+
+  filterAvailableTags(): void {
+    // Filtra tagsOptions para remover as que já estão em tagsList
+    if (this.tagsList.length === 0) {
+      console.log('Novo post: todas as tags estão disponíveis');
+      return;
+    }
+    
+    if (this.tagsOptions && this.tagsList) {
+      this.tagsOptions = this.tagsOptions.filter(option => 
+        !this.tagsList.some(postTag => postTag.id === option.id)
+      );
+      console.log('Tags disponíveis filtradas:', this.tagsOptions);
+    }
   }
 
 
