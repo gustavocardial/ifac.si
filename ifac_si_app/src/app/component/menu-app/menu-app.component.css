@@ -25,6 +25,25 @@ nav {
     gap: 30px; /* Espaçamento entre os itens */
 }
 
+nav ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+nav ul li a:hover,
+nav ul li a:active {
+    font-weight: bold;
+    letter-spacing: -0.5px; 
+}
+
+nav ul li a:hover {
+    color: #3FA14C;
+}
+
+nav ul li a:active {
+    color: #623CEA;
+}
+
 /* Submenu na direita */
 #subMenu{
     display: flex;
