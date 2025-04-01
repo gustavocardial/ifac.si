@@ -73,6 +73,10 @@ nav ul li a:active {
         padding: 10px 0;
     }
 
+    #menuPrincipal {
+        gap: 15px;
+    }
+
     /* Submenu alinhado corretamente abaixo do menu */
     #subMenu {
         margin-left: 0;
