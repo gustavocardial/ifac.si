@@ -27,7 +27,12 @@
                     <a class="nav-link"><i class="bi bi-search"></i>Busca</a>
                 </li>
                 <li class="nav-item" (click)="logout()">
-                    <a class="nav-link"><i class="bi bi-box-arrow-right"></i>Sair</a>
+                    <a class="nav-link" #userDoor>
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span *ngIf="!usuario?.id; else loginUser">Entrar</span>
+                        <ng-template #loginUser><span>Sair</span></ng-template>                        
+                    </a>
+                    
                 </li>
             </ul>
         </div>

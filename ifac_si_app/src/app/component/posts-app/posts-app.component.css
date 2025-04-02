@@ -3,6 +3,7 @@ div.viewPost {
     flex-direction: column;
     justify-content: center;
     /* padding-left: 20px; */
+    min-height: 100vh;
     margin: 20px auto;
     max-width: 1200px;
     padding: 0 40px;
@@ -163,4 +164,8 @@ div.categorys {
 div.postData p {
     font-size: 18px;
     font-weight: 500;
+}
+
+app-pagination-handle {
+    margin-top: auto; /* Empurra o componente de paginação para o fundo */
 }

@@ -3,6 +3,7 @@ nav {
     width: 100%;
     padding: 10px;
     background: white;
+    box-shadow: 0 2px 4px rgb(0, 0, 0, 0.1);
 }
 
 /* Container do menu */
@@ -49,6 +50,7 @@ nav ul li a:active {
     display: flex;
     gap: 20px; /* Espaçamento entre os itens do submenu */
     padding: 10px;
+    cursor: pointer;
 }
 
 #subMenu i {
@@ -59,7 +61,7 @@ nav ul li a:active {
 @media (max-width: 991px) {
     .navbar-collapse {
         background: white;
-        padding: 10px;
+        padding: 10px 0 0 10px;
     }
 
     /* Itens organizados em coluna */
@@ -69,8 +71,14 @@ nav ul li a:active {
     }
 
     /* Espaçamento dos itens */
-    .navbar-nav .nav-item {
+    .navbar-nav .nav-item{
         padding: 10px 0;
+        width: 100%;
+         /* Separador entre itens */
+    }
+
+    .navbar-nav .nav-item:not(:last-child) {
+        border-bottom: 1px solid #eee;
     }
 
     #menuPrincipal {
@@ -82,5 +90,19 @@ nav ul li a:active {
         margin-left: 0;
         flex-direction: column;
         gap: 10px;
+        border-top: 2px solid #eaeaea;
+    }
+
+    .navbar-toggler {
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.342);
+        padding: 8px;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.15rem #623cea85; /* Cor do foco baseada na cor do hover */
+        outline: none;
     }
 }
