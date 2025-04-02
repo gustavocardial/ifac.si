@@ -1,32 +1,32 @@
+/* Layout do menu */
 nav {
-    top: 0;
-    display: flex;
-    flex-direction: row;
     width: 100%;
     padding: 10px;
+    background: white;
+    box-shadow: 0 2px 4px rgb(0, 0, 0, 0.1);
 }
 
-nav > img {
-    margin-left: 30px;
-    margin-right: 10px;
-}
-
-nav ul{
+/* Container do menu */
+.container-fluid {
     display: flex;
-    flex-direction: row;
-    margin: 10px 0 0 0;
-    list-style: none;
+    align-items: center;
+    justify-content: space-between;
 }
 
-nav ul li {
-    padding: 0 40px;
+/* Logo */
+.navbar-brand img {
+    margin-left: 20px;
 }
 
-nav ul li:first-child {
-    padding-left: 0;
+/* Menu principal mais próximo da logo */
+#menuPrincipal {
+    flex-grow: 1;
+    display: flex;
+    /* justify-content: center; Centraliza os itens */
+    gap: 30px; /* Espaçamento entre os itens */
 }
 
-nav ul li a{
+nav ul li a {
     text-decoration: none;
     color: black;
 }
@@ -45,24 +45,64 @@ nav ul li a:active {
     color: #623CEA;
 }
 
-nav ul div#subMenu {
+/* Submenu na direita */
+#subMenu{
     display: flex;
-    padding-left: auto;
-    align-self: flex-end;
+    gap: 20px; /* Espaçamento entre os itens do submenu */
+    padding: 10px;
+    cursor: pointer;
 }
 
-nav ul#menuPrincipal {
-    display: flex;
-    align-self: flex-start;
+#subMenu i {
+    margin: auto 10px 
 }
 
-.nav-content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%; 
-    font-size: 16.5px;
-}
+/* Responsivo - Mobile */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: white;
+        padding: 10px 0 0 10px;
+    }
 
-.bi {
-    margin-right: 15px; 
+    /* Itens organizados em coluna */
+    .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Espaçamento dos itens */
+    .navbar-nav .nav-item{
+        padding: 10px 0;
+        width: 100%;
+         /* Separador entre itens */
+    }
+
+    .navbar-nav .nav-item:not(:last-child) {
+        border-bottom: 1px solid #eee;
+    }
+
+    #menuPrincipal {
+        gap: 15px;
+    }
+
+    /* Submenu alinhado corretamente abaixo do menu */
+    #subMenu {
+        margin-left: 0;
+        flex-direction: column;
+        gap: 10px;
+        border-top: 2px solid #eaeaea;
+    }
+
+    .navbar-toggler {
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.342);
+        padding: 8px;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.15rem #623cea85; /* Cor do foco baseada na cor do hover */
+        outline: none;
+    }
 }

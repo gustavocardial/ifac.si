@@ -25,6 +25,8 @@ export class MenuAppComponent implements OnInit, OnDestroy{
         // console.log("MenuAppComponent recebeu atualização de usuário:", JSON.stringify(usuario));
         this.usuario = usuario;
 
+
+        console.log (usuario)
         // Log para depuração
         // console.log("Usuário logado: ", this.usuario);
         // console.log("Cargo recebido: ", this.usuario.cargo);
