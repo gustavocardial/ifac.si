@@ -18,6 +18,7 @@ import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import jakarta.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "posts")
 public class Post implements Serializable{

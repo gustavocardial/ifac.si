@@ -9,6 +9,7 @@ import { CourseComponent } from './component/course/course.component';
 import { ViewPostComponent } from './component/view-post/view-post.component';
 import { AuthGuard } from './service/auth.guard';
 import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
+import { ComparationViewComponent } from './component/comparation-view/comparation-view.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -19,9 +20,10 @@ const routes: Routes = [
     {path: 'autor', canActivate: [AuthGuard], data: { cargo: ['AUTOR', 'EDITOR', 'ADMIN'] }, children: [
       {path:'new_post', component: AddNewPostComponent},
     ]},
-    {path: 'editor', canActivate: [AuthGuard], data: { cargo: ['EDITOR', 'ADMIN'] }, children: [
+    {path: 'editor', canActivate: [AuthGuard], data: { cargo: ['EDITOR'] }, children: [
       {path: 'notification', component: NotificationComponent},
       {path:'new_post', component: AddNewPostComponent},
+      {path:'comparation_post', component: ComparationViewComponent}
     ]},
     {path: 'admin', canActivate: [AuthGuard], data: { cargo: 'ADMIN' }, children: [
       {path: 'viewUsers', component: AdminViewComponent},

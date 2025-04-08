@@ -26,6 +26,7 @@ import { PaginationHandleComponent } from './component/pagination-handle/paginat
 import { OrdinationComponent } from './component/ordination/ordination.component';
 import { authInterceptor } from './interceptor/auth.interceptor';
 import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
+import { ComparationViewComponent } from './component/comparation-view/comparation-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { MyPublicationsComponent } from './component/my-publications/my-publicat
     PaginationHandleComponent,
     OrdinationComponent,
     MyPublicationsComponent,
+    ComparationViewComponent,
   ],
   imports: [
     BrowserModule,
