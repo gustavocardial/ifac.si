@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import ifac.si.com.ifac_si_api.exception.ResourceNotFoundException;
 import ifac.si.com.ifac_si_api.model.Categoria;
 import ifac.si.com.ifac_si_api.model.Imagem;
+import ifac.si.com.ifac_si_api.model.EditPost.EditPost;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.Mapper.PostMapper;
 import ifac.si.com.ifac_si_api.model.Tag.Tag;
@@ -294,6 +295,8 @@ public class PostService{
         if (postDto.getStatus() != null) {
             post.setStatus(EStatus.valueOf(postDto.getStatus()));
         }
+
+        EditPost editPost = new EditPost(post.getId());
 
         return postRepository.save(post);
     }

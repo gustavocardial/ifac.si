@@ -33,6 +33,12 @@ public class NotificacaoController {
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
+    @PostMapping("/")
+    public ResponseEntity<Notificacao> criarNotificacao(@RequestBody Notificacao notificacao) {
+        Notificacao novaNotificacao = servico.criarNotificacao(notificacao);
+        return new ResponseEntity<>(novaNotificacao, HttpStatus.CREATED);
+    }
+
     // @PostMapping("/")
     // public ResponseEntity<>(Notificacao> postMethodN)me(@RequestBody Notificacao objeto) {
        

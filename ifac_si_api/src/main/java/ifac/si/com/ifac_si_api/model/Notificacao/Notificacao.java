@@ -3,6 +3,7 @@ package ifac.si.com.ifac_si_api.model.Notificacao;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import ifac.si.com.ifac_si_api.model.EditPost.EditPost;
 import ifac.si.com.ifac_si_api.model.Notificacao.Enum.TipoAcao;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
@@ -23,6 +24,10 @@ public class Notificacao implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
     private Post post;  // Post relacionado à notificação
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "postCopy_id")
+    private EditPost editPost;
     
     @Enumerated(EnumType.STRING)
     private TipoAcao tipoAcao;  // Enum para tipo de ação (EDITAR, DELETAR, ADICIONAR, etc.)
@@ -77,6 +82,14 @@ public class Notificacao implements Serializable {
 
     public void setLida(boolean lida) {
         this.lida = lida;
+    }
+
+    public EditPost getEditPost() {
+        return editPost;
+    }
+
+    public void setEditPost(EditPost editPost) {
+        this.editPost = editPost;
     }
     
     // Getters e setters
