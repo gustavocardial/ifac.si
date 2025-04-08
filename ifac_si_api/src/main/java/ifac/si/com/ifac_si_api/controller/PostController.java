@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ifac.si.com.ifac_si_api.model.Imagem;
+import ifac.si.com.ifac_si_api.model.EditPost.EditPost;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.service.PostService;
 import org.springframework.web.multipart.MultipartFile;
@@ -106,7 +107,7 @@ public class PostController{
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(@PathVariable Long id, PostRequestDTO objeto,
         @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
-        Post registro = servico.update(id, objeto, file, imagemCapaFile);
+        EditPost registro = servico.update(id, objeto, file, imagemCapaFile);
         return ResponseEntity.ok(registro);
     }
 

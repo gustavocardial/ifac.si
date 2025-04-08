@@ -19,6 +19,8 @@ import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import ifac.si.com.ifac_si_api.repository.TagRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +32,8 @@ import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.repository.PostRepository;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 import ifac.si.com.ifac_si_api.repository.CategoriaRepository;
+import ifac.si.com.ifac_si_api.repository.EditPostRepository;
+
 import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
@@ -37,6 +41,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class PostService{
 
+    @Autowired
+    private EditPostService editService;
+
+    @Autowired
+    private EditPostRepository editRepository;
+    
     private final PostRepository postRepository;
     private final UsuarioRepository usuarioRepository;
     private final CategoriaRepository categoriaRepository;
@@ -241,7 +251,7 @@ public class PostService{
     }
 
     @Transactional
-    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
+    public EditPost update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
 
@@ -296,9 +306,10 @@ public class PostService{
             post.setStatus(EStatus.valueOf(postDto.getStatus()));
         }
 
-        EditPost editPost = new EditPost(post.getId());
+        EditPost editPost = editService.criarCopiaPost(post);
 
-        return postRepository.save(post);
+        return editRepository.save(editPost);
+        // return postRepository.save(post);
     }
 
 //    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
@@ -413,6 +424,38 @@ public class PostService{
 
         post.setStatus(novoStatus);
         return postRepository.save(post);
+    }
+
+    private void atualizarPost(Post postOriginal, EditPost postAtualizado) {
+        // Atualizar propriedades básicas
+        if (postAtualizado.getTitulo() != null) 
+            postOriginal.setTitulo(postAtualizado.getTitulo());
+        
+        if (postAtualizado.getTexto() != null) 
+            postOriginal.setTexto(postAtualizado.getTexto());
+        
+        if (postAtualizado.getLegenda() != null) 
+            postOriginal.setLegenda(postAtualizado.getLegenda());
+        
+        if (postAtualizado.getData() != null) 
+            postOriginal.setData(postAtualizado.getData());
+        
+        if (postAtualizado.getStatus() != null) 
+            postOriginal.setStatus(postAtualizado.getStatus());
+        
+        // Atualizar relacionamentos
+        if (postAtualizado.getCategoria() != null) 
+            postOriginal.setCategoria(postAtualizado.getCategoria());
+        
+        if (postAtualizado.getTags() != null) 
+            postOriginal.setTags(postAtualizado.getTags());
+        
+        // Atualizar imagens - pode exigir lógica específica
+        if (postAtualizado.getImagens() != null) 
+            postOriginal.setImagens(postAtualizado.getImagens());
+        
+        if (postAtualizado.getImagemCapa() != null) 
+            postOriginal.setImagemCapa(postAtualizado.getImagemCapa());
     }
 
 //    public Page<PostDTO> findAll(String titulo, Long categoriaId, Long usuarioId, EStatus status, Pageable pageable) {
