@@ -67,7 +67,7 @@ public class NotificacaoAspect {
     // Método auxiliar para criar a notificação
     private void criarNotificacao(Post post, TipoAcao tipoAcao) {
         
-        System.out.println("Entrou aqui");
+        // System.out.println("Entrou aqui");
         
         try {
             // Obter o usuário atual através do contexto de segurança
