@@ -24,7 +24,7 @@ export class NotificationComponent implements OnInit{
 
     this.subscription = this.wsService.subscribeToNotificacoes()
       .subscribe((notificacao: Notificacao) => {
-        console.log('Nova notificação:', notificacao);
+        console.log('📩 Nova notificação recebida no componente:', notificacao);
         this.notificacoes.unshift(notificacao);
       });
   }

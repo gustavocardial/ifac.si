@@ -9,16 +9,16 @@ import { Notificacao } from '../model/notificacao';
 })
 export class WebsocketService {
   private stompClient: Client;
-
   private socketUrl = 'http://localhost:8080/notificacoes-websocket';
+  private notificacaoObserver?: (n: Notificacao) => void;
 
   constructor() {
-    const token = sessionStorage.getItem('token'); // ou onde você armazena o JWT
+    const token = sessionStorage.getItem('token');
 
-    console.log ('Token: ',token)
+    console.log('Token:', token);
 
     this.stompClient = new Client({
-      webSocketFactory: () => new SockJS(this.socketUrl),
+      webSocketFactory: () => new SockJS(`${this.socketUrl}?token=${token}`),
       reconnectDelay: 5000,
       debug: (str) => console.log(str),
       connectHeaders: {
@@ -29,11 +29,22 @@ export class WebsocketService {
 
   connect(): void {
     this.stompClient.onConnect = () => {
-      console.log('Conectado ao WebSocket!');
+      console.log('✅ Conectado ao WebSocket!');
+
+      // Faz a inscrição no tópico
+      this.stompClient.subscribe('/topic/notificacoes', (message: IMessage) => {
+        const notificacao: Notificacao = JSON.parse(message.body);
+        console.log('🔔 Notificação recebida do servidor:', notificacao);
+
+        // Dispara para o observable se tiver alguém ouvindo
+        if (this.notificacaoObserver) {
+          this.notificacaoObserver(notificacao);
+        }
+      });
     };
 
     this.stompClient.onStompError = (frame) => {
-      console.error('Erro STOMP:', frame);
+      console.error('❌ Erro STOMP:', frame);
     };
 
     this.stompClient.activate();
@@ -41,14 +52,11 @@ export class WebsocketService {
 
   subscribeToNotificacoes(): Observable<Notificacao> {
     return new Observable<Notificacao>(observer => {
-      this.stompClient.onConnect = () => {
-        this.stompClient.subscribe('/topic/notificacoes', (message: IMessage) => {
-          const notificacao: Notificacao = JSON.parse(message.body);
-          observer.next(notificacao);
-        });
+      this.notificacaoObserver = (notificacao: Notificacao) => {
+        observer.next(notificacao);
       };
 
-      // Garante ativação se ainda não estiver
+      // Se o client ainda não está ativado, ativa
       if (!this.stompClient.active) {
         this.stompClient.activate();
       }
@@ -58,7 +66,7 @@ export class WebsocketService {
   disconnect(): void {
     if (this.stompClient && this.stompClient.active) {
       this.stompClient.deactivate();
-      console.log('Desconectado do WebSocket!');
+      console.log('🛑 Desconectado do WebSocket!');
     }
   }
 }
