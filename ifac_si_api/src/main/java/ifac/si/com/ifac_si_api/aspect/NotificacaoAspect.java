@@ -4,6 +4,7 @@ import ifac.si.com.ifac_si_api.model.Notificacao.Notificacao;
 import ifac.si.com.ifac_si_api.model.Notificacao.Enum.TipoAcao;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
+import ifac.si.com.ifac_si_api.repository.PostRepository;
 import ifac.si.com.ifac_si_api.service.NotificacaoService;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,8 +21,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class NotificacaoAspect {
-     @Autowired
+    @Autowired
     private NotificacaoService notificacaoService;
+
+    @Autowired
+    private PostRepository postRepository;
 
     // Intercepta método que salva post
     @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.salvar(..))", returning = "result")
@@ -31,25 +36,16 @@ public class NotificacaoAspect {
         }
     }
 
-    // Intercepta método que exclui post
-    @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.excluir(..))")
-    public void afterPostDeletion(JoinPoint joinPoint) {
-        // Assumindo que o método excluir recebe o Post como parâmetro
-        // Ajuste isto se seu método receber apenas o ID
-        Object[] args = joinPoint.getArgs();
-        if (args.length > 0) {
-            // Se o método recebe ID do post
-            if (args[0] instanceof Long) {
-                Long postId = (Long) args[0];
-                // Aqui você precisaria de uma referência ao PostRepository para buscar o post 
-                // antes de excluí-lo, ou capturar em um pointcut @Before
-                // Esta implementação depende da sua estrutura exata
-            } 
-            // Se o método recebe o objeto Post
-            else if (args[0] instanceof Post) {
-                Post post = (Post) args[0];
+        // Intercepta método de exclusão ANTES de executar
+    @Before("execution(* ifac.si.com.ifac_si_api.service.PostService.excluir(Long)) && args(id)")
+    public void beforePostDeletion(JoinPoint joinPoint, Long id) {
+        try {
+            Post post = postRepository.findById(id).orElse(null);
+            if (post != null) {
                 criarNotificacao(post, TipoAcao.DELETAR);
             }
+        } catch (Exception e) {
+            System.err.println("Erro ao criar notificação para exclusão: " + e.getMessage());
         }
     }
 
