@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from '../../model/categoria';
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
-import { tags } from '../../model/tag';
+import { Tag } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/e-tipo-alerta';
 import { statusPost } from '../../model/enum/statusEnum';
@@ -39,7 +39,7 @@ export class AddNewPostComponent implements OnInit{
   post: Post = <Post>{};
   categorias: Categoria[] = Array<Categoria>();
   tagsList: ITags[] = Array<ITags>();
-  tagsOptions: tags[] = Array<tags>();
+  tagsOptions: Tag[] = Array<Tag>();
   accordionView: boolean = false;
   buttonS: boolean = false;
   buttonC: boolean = false;
@@ -91,7 +91,7 @@ export class AddNewPostComponent implements OnInit{
       });
 
       this.servicoTag.getTagByPost(+id).subscribe({
-        next: (resposta: tags[]) => {
+        next: (resposta: Tag[]) => {
           this.tagsList = resposta.map((tag, index) => {
             return {
               ...tag,
@@ -117,7 +117,7 @@ export class AddNewPostComponent implements OnInit{
     }
 
     this.servicoTag.get().subscribe({
-      next: (resposta: tags[]) => {
+      next: (resposta: Tag[]) => {
         this.tagsOptions = resposta;
 
         console.log(resposta);
@@ -365,7 +365,7 @@ export class AddNewPostComponent implements OnInit{
     this.filtersT = !this.filtersT;
   }
 
-  editTag(tag: tags): void {
+  editTag(tag: Tag): void {
     this.isEditing = true;
     this.editingTagId = tag.id;
     // Preenche o campo de input com o nome da tag atual
@@ -458,7 +458,7 @@ export class AddNewPostComponent implements OnInit{
     }
   }
 
-  addTagList(tag: tags): void {
+  addTagList(tag: Tag): void {
     // Verifica se a tag já existe na lista atual
     const tagExistente = this.tagsList.find(
       t => t.nome.toLowerCase() === tag.nome.toLowerCase()

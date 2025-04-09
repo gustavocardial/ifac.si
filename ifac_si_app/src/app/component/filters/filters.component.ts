@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, Renderer2, AfterViewInit, Out
 import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
 import { Categoria } from '../../model/categoria';
-import { tags } from '../../model/tag';
+import { Tag } from '../../model/tag';
 
 @Component({
   selector: 'app-filters',
@@ -22,7 +22,7 @@ export class FiltersComponent implements OnInit, AfterViewInit{
   @Output() nonSelectFilter = new EventEmitter();
 
   categorias: Categoria[] = Array<Categoria>();
-  tags: tags[] = Array<tags>();
+  tags: Tag[] = Array<Tag>();
   filtersC: boolean = false;
   filtersT: boolean = false;
   selectedCategoryId: number | null = null; // Para controlar a categoria selecionada
@@ -48,7 +48,7 @@ export class FiltersComponent implements OnInit, AfterViewInit{
     });
 
     this.servicoTag.get().subscribe({
-      next: (resposta: tags[]) => {
+      next: (resposta: Tag[]) => {
         // this.tags = resposta;
         this.tags = resposta.map(tag => ({
           id: tag.id,

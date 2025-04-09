@@ -1,7 +1,7 @@
 import { Categoria } from "./categoria";
 import { Imagem } from "./imagem";
 import { statusPost } from "./enum/statusEnum";
-import { tags } from "./tag";
+import { Tag } from "./tag";
 import { Usuario } from "./usuario";
 
 export type Post = {
@@ -9,7 +9,7 @@ export type Post = {
     titulo: string,
     usuario?: Usuario,
     categoria?: Categoria,
-    tags?: tags[],
+    tags?: Tag[],
     texto: string,
     data?: string,
     legenda?: string,
