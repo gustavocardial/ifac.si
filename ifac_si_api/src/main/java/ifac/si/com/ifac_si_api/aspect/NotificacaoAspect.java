@@ -26,31 +26,44 @@ public class NotificacaoAspect {
 
     @Autowired
     private PostRepository postRepository;
-
     // Intercepta método que salva post
-    @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.salvar(..))", returning = "result")
+    @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.save(..))", returning = "result")
     public void afterPostCreation(JoinPoint joinPoint, Object result) {
+        System.out.println("Método save interceptado!");
         if (result instanceof Post) {
             Post post = (Post) result;
+            System.out.println("Post salvo com ID: " + post.getId());
             criarNotificacao(post, TipoAcao.ADICIONAR);
+
+
+        } else {
+            System.out.println("Resultado não é um Post: " + result.getClass().getName());
         }
     }
 
-        // Intercepta método de exclusão ANTES de executar
-    @Before("execution(* ifac.si.com.ifac_si_api.service.PostService.excluir(Long)) && args(id)")
+    // Intercepta método de exclusão ANTES de executar
+    @Before("execution(* ifac.si.com.ifac_si_api.service.PostService.delete(Long)) && args(id)")
     public void beforePostDeletion(JoinPoint joinPoint, Long id) {
+        System.out.println("Método delete interceptado para ID: " + id);
         try {
             Post post = postRepository.findById(id).orElse(null);
             if (post != null) {
+                System.out.println("Post encontrado para exclusão: " + post.getId());
                 criarNotificacao(post, TipoAcao.DELETAR);
+            } else {
+                System.out.println("Post não encontrado para o ID: " + id);
             }
         } catch (Exception e) {
             System.err.println("Erro ao criar notificação para exclusão: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     // Método auxiliar para criar a notificação
     private void criarNotificacao(Post post, TipoAcao tipoAcao) {
+        
+        System.out.println("Entrou aqui");
+        
         try {
             // Obter o usuário atual através do contexto de segurança
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
