@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import SockJS from 'sockjs-client';
 import { Client, IMessage, Stomp } from '@stomp/stompjs';
 import { Observable } from 'rxjs';
@@ -26,13 +26,15 @@ export class WebsocketService {
       }
     });
   }
-
+  
   connect(): void {
+    console.log('🟡 Chamou connect()');
     this.stompClient.onConnect = () => {
       console.log('✅ Conectado ao WebSocket!');
 
       // Faz a inscrição no tópico
       this.stompClient.subscribe('/topic/notificacoes', (message: IMessage) => {
+        console.log('📥 Mensagem recebida:', message);
         const notificacao: Notificacao = JSON.parse(message.body);
         console.log('🔔 Notificação recebida do servidor:', notificacao);
 
@@ -53,7 +55,9 @@ export class WebsocketService {
   subscribeToNotificacoes(): Observable<Notificacao> {
     return new Observable<Notificacao>(observer => {
       this.notificacaoObserver = (notificacao: Notificacao) => {
+        console.log('📡 Notificação recebida dentro do Observable:', notificacao);
         observer.next(notificacao);
+        // console.log(this.notificacao)
       };
 
       // Se o client ainda não está ativado, ativa

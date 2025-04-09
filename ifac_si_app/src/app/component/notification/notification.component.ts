@@ -22,6 +22,7 @@ export class NotificationComponent implements OnInit{
   ngOnInit(): void {
     this.wsService.connect();
 
+
     this.subscription = this.wsService.subscribeToNotificacoes()
       .subscribe((notificacao: Notificacao) => {
         console.log('📩 Nova notificação recebida no componente:', notificacao);
