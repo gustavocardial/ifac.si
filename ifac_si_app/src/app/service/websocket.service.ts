@@ -1,42 +1,64 @@
 import { Injectable } from '@angular/core';
 import SockJS from 'sockjs-client';
 import { Client, IMessage, Stomp } from '@stomp/stompjs';
+import { Observable } from 'rxjs';
+import { Notificacao } from '../model/notificacao';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
-
   private stompClient: Client;
 
-  constructor() {
-    this.stompClient = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8080/ws'), // sua rota do websocket
-      reconnectDelay: 5000,
-      onConnect: () => {
-        console.log('Conectado ao WebSocket!');
+  private socketUrl = 'http://localhost:8080/notificacoes-websocket';
 
-        // Exemplo de inscrição
-        this.stompClient.subscribe('/user/notificacoes', this.onMessageReceived);
-      },
-      onStompError: (frame) => {
-        console.error('Erro no STOMP', frame);
-      },
+  constructor() {
+    const token = sessionStorage.getItem('token'); // ou onde você armazena o JWT
+
+    console.log ('Token: ',token)
+
+    this.stompClient = new Client({
+      webSocketFactory: () => new SockJS(this.socketUrl),
+      reconnectDelay: 5000,
+      debug: (str) => console.log(str),
+      connectHeaders: {
+        Authorization: token ? `Bearer ${token}` : ''
+      }
     });
+  }
+
+  connect(): void {
+    this.stompClient.onConnect = () => {
+      console.log('Conectado ao WebSocket!');
+    };
+
+    this.stompClient.onStompError = (frame) => {
+      console.error('Erro STOMP:', frame);
+    };
 
     this.stompClient.activate();
   }
 
-  onMessageReceived(message: IMessage) {
-    const body = JSON.parse(message.body);
-    console.log('Nova mensagem recebida:', body);
+  subscribeToNotificacoes(): Observable<Notificacao> {
+    return new Observable<Notificacao>(observer => {
+      this.stompClient.onConnect = () => {
+        this.stompClient.subscribe('/topic/notificacoes', (message: IMessage) => {
+          const notificacao: Notificacao = JSON.parse(message.body);
+          observer.next(notificacao);
+        });
+      };
+
+      // Garante ativação se ainda não estiver
+      if (!this.stompClient.active) {
+        this.stompClient.activate();
+      }
+    });
   }
 
-  // Se quiser enviar algo:
-  sendMessage(destination: string, payload: any) {
-    this.stompClient.publish({
-      destination,
-      body: JSON.stringify(payload),
-    });
+  disconnect(): void {
+    if (this.stompClient && this.stompClient.active) {
+      this.stompClient.deactivate();
+      console.log('Desconectado do WebSocket!');
+    }
   }
 }

@@ -19,7 +19,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/notificacoes-websocket")
-                .setAllowedOrigins("*")  // Configure com seus domínios permitidos em produção
+                .addInterceptors(new AuthHandshakeInterceptor())
+                .setAllowedOrigins("http://localhost:4200")
                 .withSockJS();
     }
 }

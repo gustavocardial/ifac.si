@@ -1,14 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { WebsocketService } from '../../service/websocket.service';
+import { Notificacao } from '../../model/notificacao';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css'
 })
-export class NotificationComponent {
+export class NotificationComponent implements OnInit{
 
-  constructor (private router: Router) {}
+  notificacoes: Notificacao[] = Array<Notificacao>();
+  private subscription: Subscription = new Subscription();
+
+  constructor (
+    private router: Router,
+    private wsService: WebsocketService
+  ) {}
+  
+  ngOnInit(): void {
+    this.wsService.connect();
+
+    this.subscription = this.wsService.subscribeToNotificacoes()
+      .subscribe((notificacao: Notificacao) => {
+        console.log('Nova notificação:', notificacao);
+        this.notificacoes.unshift(notificacao);
+      });
+  }
 
   notifications = [
     {

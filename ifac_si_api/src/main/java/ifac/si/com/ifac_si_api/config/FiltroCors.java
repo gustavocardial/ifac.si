@@ -22,7 +22,7 @@ public class FiltroCors {
                 "https://localhost:4200"
         ));
 
-        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept", "enctype"));
         corsConfig.setExposedHeaders(List.of("Authorization"));
         corsConfig.setAllowCredentials(true);
