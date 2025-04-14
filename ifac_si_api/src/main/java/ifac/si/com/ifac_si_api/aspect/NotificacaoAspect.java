@@ -99,7 +99,7 @@ public class NotificacaoAspect {
 
             if (usuarioAtual != null) {
                 Notificacao notificacao = new Notificacao();
-                notificacao.setUsuario(usuarioAtual);
+                // notificacao.setUsuario(usuarioAtual);
                 notificacao.setPost(post);
                 notificacao.setTipoAcao(tipoAcao);
                 notificacao.setDataHora(LocalDateTime.now());

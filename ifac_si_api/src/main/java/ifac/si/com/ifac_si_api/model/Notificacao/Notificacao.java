@@ -16,9 +16,9 @@ public class Notificacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;  // Usuário que realizou a ação
+    // @ManyToOne(fetch = FetchType.EAGER)
+    // @JoinColumn(name = "usuario_id")
+    // private Usuario usuario;  // Usuário que realizou a ação
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
@@ -37,14 +37,6 @@ public class Notificacao implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public Post getPost() {
@@ -78,6 +70,16 @@ public class Notificacao implements Serializable {
     public void setLida(boolean lida) {
         this.lida = lida;
     }
-    
     // Getters e setters
+
+    @Override
+    public String toString() {
+        return "Notificacao{" +
+                "id=" + id +
+                ", tipoAcao=" + tipoAcao +
+                ", postId=" + (post != null ? post.getId() : "null") +
+                ", dataHora=" + dataHora +
+                ", lida=" + lida +
+                '}';
+    }
 }

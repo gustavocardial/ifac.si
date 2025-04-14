@@ -23,11 +23,20 @@ export class NotificationComponent implements OnInit{
     this.wsService.connect();
 
 
+    // 🔄 Carrega as notificações antigas
+    this.wsService.getNotificacoesAntigas().subscribe((antigas: Notificacao[]) => {
+      console.log('📜 Notificações antigas carregadas:', antigas);
+      // Coloca as antigas na lista (do mais recente pro mais antigo, se quiser inverter use .reverse())
+      this.notificacoes = antigas.reverse(); 
+    });
+
+    // 🆕 Escuta novas notificações em tempo real
     this.subscription = this.wsService.subscribeToNotificacoes()
       .subscribe((notificacao: Notificacao) => {
         console.log('📩 Nova notificação recebida no componente:', notificacao);
         this.notificacoes.unshift(notificacao);
       });
+    
   }
 
   notifications = [

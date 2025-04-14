@@ -25,6 +25,8 @@ public class NotificacaoService {
         messagingTemplate.convertAndSend("/topic/notificacoes", savedNotificacao);
 
         System.out.println("🟢 Notificação enviada via WebSocket: " + savedNotificacao);
+
+        System.out.println(savedNotificacao);
         
         return savedNotificacao;
     }
