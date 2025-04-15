@@ -1,10 +1,10 @@
 <h2>Notificações<i class="bi bi-bell"></i></h2>
-<section *ngFor="let notification of notifications">
+<section *ngFor="let notificacao of notificacoes">
     <div id="notificationsView"      
-    [class.deleteView]="notification.action === 'DELETE'"
-    [class.addView]="notification.action === 'POST'"
-    [class.updateView]="notification.action === 'UPDATE'"
-    (click)="alertTeste(notification)">
+    [class.deleteView]="notificacao.tipoAcao == 'DELETAR'"
+    [class.addView]="notificacao.tipoAcao === 'ADICIONAR'"
+    [class.updateView]="notificacao.tipoAcao === 'EDITAR'"
+    (click)="alertTeste(notificacao)">
         <div id="avatar-notification">
             <div class="avatar-circle">
                 <img src="../../../assets/images/avatar.png" alt="Avatar do usuário">
@@ -12,19 +12,19 @@
         </div>
         <div id="notification">
             <div id="notificationData">
-                <p>{{notification.userName}}</p> 
-                <ng-template [ngIf]='notification.action == "DELETE"'>
+                <p>{{notificacao.post.usuario?.nomeUsuario}}</p> 
+                <ng-template [ngIf]='notificacao.tipoAcao == "DELETAR"'>
                     <p> deletou um post</p>
                 </ng-template>   
-                <ng-template [ngIf]='notification.action == "POST"'>
+                <ng-template [ngIf]='notificacao.tipoAcao == "ADICIONAR"'>
                     <p> adicionou um novo post</p>
                 </ng-template>
-                <ng-template [ngIf]='notification.action == "UPDATE"'>
+                <ng-template [ngIf]='notificacao.tipoAcao == "EDITAR"'>
                     <p> editou um post</p>
                 </ng-template> 
             </div>
             <div id="notificationTitle">
-                <p>{{notification.title}}</p>
+                <p>{{notificacao.post.titulo}}</p>
             </div>
         </div>
     </div>
