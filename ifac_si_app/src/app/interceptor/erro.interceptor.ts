@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Observable, catchError, throwError } from 'rxjs';
 import { AlertaService } from '../service/alerta.service';
 import { Injectable } from '@angular/core';
-import { ETipoAlerta } from '../model/e-tipo-alerta';
+import { ETipoAlerta } from '../model/enum/e-tipo-alerta';
 
 @Injectable()
 export class erroInterceptor implements HttpInterceptor {

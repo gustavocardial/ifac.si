@@ -41,6 +41,9 @@ div.alerta.sucesso {
     border-color: #365837;
 }
 
+.alerta.fade-out {
+    opacity: 0;
+}
 /* div.alerta.inativo {
     display: none;
 } */

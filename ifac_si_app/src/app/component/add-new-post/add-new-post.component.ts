@@ -8,7 +8,7 @@ import { CategoriaService } from '../../service/categoria.service';
 import { TagService } from '../../service/tag.service';
 import { Tag } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
-import { ETipoAlerta } from '../../model/e-tipo-alerta';
+import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
 import { statusPost } from '../../model/enum/statusEnum';
 // import { ITags } from '../../model/ITags';
 // import { ImagemHandler } from '../../model/imagemHandler';
@@ -321,7 +321,11 @@ export class AddNewPostComponent implements OnInit{
           tipo: ETipoAlerta.SUCESSO,
           mensagem: "Post salvo com sucesso"
         });
-        this.router.navigate(['/view_posts']);
+        console.log('Post salvo com sucesso')
+        
+        setTimeout(() => {
+          this.router.navigate(['/view_posts']);
+        }, 100); // tempo só pra deixar o alerta aparecer
       },
       error: (erro) => {
         this.servicoAlerta.enviarAlerta({

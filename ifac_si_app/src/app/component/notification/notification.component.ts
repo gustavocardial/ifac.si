@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { WebsocketService } from '../../service/websocket.service';
 import { Notificacao } from '../../model/notificacao';
 import { Subscription } from 'rxjs';
+import { AlertaService } from '../../service/alerta.service';
+import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
 
 @Component({
   selector: 'app-notification',
@@ -16,7 +18,8 @@ export class NotificationComponent implements OnInit{
 
   constructor (
     private router: Router,
-    private wsService: WebsocketService
+    private wsService: WebsocketService,
+    private servicoAlerta: AlertaService,
   ) {}
   
   ngOnInit(): void {
@@ -33,8 +36,11 @@ export class NotificationComponent implements OnInit{
     // 🆕 Escuta novas notificações em tempo real
     this.subscription = this.wsService.subscribeToNotificacoes()
       .subscribe((notificacao: Notificacao) => {
-        console.log('📩 Nova notificação recebida no componente:', notificacao);
-        this.notificacoes.unshift(notificacao);
+
+        if (notificacao) {
+          console.log('📩 Nova notificação recebida no componente:', notificacao);
+          this.notificacoes.unshift(notificacao);
+        }
       });
     
   }

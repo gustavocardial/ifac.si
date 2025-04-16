@@ -3,7 +3,7 @@ import { PostService } from '../../service/post.service';
 import { Post } from '../../model/post';
 import { Router } from '@angular/router';
 import { AlertaService } from '../../service/alerta.service';
-import { ETipoAlerta } from '../../model/e-tipo-alerta';
+import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
 import { PageRequest } from '../../model/page-request';
 import { PageResponse } from '../../model/page-response';
 import { Subscription } from 'rxjs';
