@@ -38,45 +38,17 @@ export class NotificationComponent implements OnInit{
       .subscribe((notificacao: Notificacao) => {
 
         if (notificacao) {
+          this.servicoAlerta.enviarAlerta({
+            tipo: ETipoAlerta.ATENCAO,
+            mensagem: "Nova notificação cadastrada no sistema"
+          });
+        
           console.log('📩 Nova notificação recebida no componente:', notificacao);
           this.notificacoes.unshift(notificacao);
         }
       });
     
   }
-
-  notifications = [
-    {
-      id: 0,
-      userName: 'joao.silva',
-      action: 'UPDATE',
-      title: 'Introdução à Programação'
-    },
-    {
-      id: 1,
-      userName: 'maria.santos',
-      action: 'DELETE',
-      title: 'Dicas para Correr Melhor'
-    },
-    {
-      id: 2,
-      userName: 'pedro.oliveira',
-      action: 'UPDATE',
-      title: 'Destinos Incríveis para Viajar'
-    },
-    {
-      id: 3,
-      userName: 'joao.silva',
-      action: 'POST',
-      title: 'Conceitos Básicos de Java'
-    },
-    {
-      id: 4,
-      userName: 'maria.santos',
-      action: 'UPDATE',
-      title: 'Maratona de São Paulo'
-    }
-  ];
 
   alertTeste(notification: any): void {
     alert(`ID: ${notification.title}, Action: ${notification.action}`);

@@ -1,4 +1,5 @@
 export enum ETipoAlerta {
     ERRO = 'erro',
-    SUCESSO = 'sucesso'
+    SUCESSO = 'sucesso',
+    ATENCAO = 'atencao'
 }
