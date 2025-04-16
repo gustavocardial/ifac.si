@@ -11,6 +11,8 @@ import { Alerta } from '../../model/alerta';
 export class AlertaComponent implements OnInit {
   alertaAtual: Alerta | null = null;
   show: boolean = false;
+  fadeOut: boolean = false;
+  private timeoutId: any;
 
   constructor(
     private servico: AlertaService,
@@ -24,18 +26,29 @@ export class AlertaComponent implements OnInit {
       }
     });
 
-    this.router.events.subscribe({
-      next: (evento) => {
-        if (evento instanceof NavigationStart) {
-          this.fecharAlerta();
-        }
-      }
-    });
+    // this.router.events.subscribe({
+    //   next: (evento) => {
+    //     if (evento instanceof NavigationStart) {
+    //       this.fecharAlerta();
+    //     }
+    //   }
+    // });
   }
     
   exibirAlerta(alerta: Alerta): void {
     this.show = true;
     this.alertaAtual = alerta;
+
+    clearTimeout(this.timeoutId);
+
+    this.timeoutId = setTimeout(() => {
+      this.fadeOut = true; // ativa o fade-out
+  
+      // espera a animação terminar (500ms) e depois fecha
+      setTimeout(() => {
+        this.fecharAlerta();
+      }, 500);
+    }, 3000); // 3 segundos visível
   }
 
   fecharAlerta(): void {

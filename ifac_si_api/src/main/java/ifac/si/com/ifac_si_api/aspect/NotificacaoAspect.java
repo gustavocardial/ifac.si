@@ -67,7 +67,7 @@ public class NotificacaoAspect {
     // Método auxiliar para criar a notificação
     private void criarNotificacao(Post post, TipoAcao tipoAcao) {
         
-        System.out.println("Entrou aqui");
+        // System.out.println("Entrou aqui");
         
         try {
             // Obter o usuário atual através do contexto de segurança
@@ -99,7 +99,7 @@ public class NotificacaoAspect {
 
             if (usuarioAtual != null) {
                 Notificacao notificacao = new Notificacao();
-                notificacao.setUsuario(usuarioAtual);
+                // notificacao.setUsuario(usuarioAtual);
                 notificacao.setPost(post);
                 notificacao.setTipoAcao(tipoAcao);
                 notificacao.setDataHora(LocalDateTime.now());

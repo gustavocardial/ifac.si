@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Output, Renderer2, ViewChild } from '@angular/core';
 import { UsuarioService } from '../../service/usuario.service';
 import { AlertaService } from '../../service/alerta.service';
-import { ETipoAlerta } from '../../model/e-tipo-alerta';
+import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from '../../model/usuario';
 import { LoginService } from '../../service/login.service';

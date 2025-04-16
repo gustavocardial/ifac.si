@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/categoria/**", "/tag/**", "/post/**").permitAll() // Adicione esta linha
                         .requestMatchers("/usuario/**").hasRole("ADMIN")
+                        .requestMatchers("/notificacoes-websocket/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

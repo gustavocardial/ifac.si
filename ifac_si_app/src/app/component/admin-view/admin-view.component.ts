@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/usuario';
 import { AlertaService } from '../../service/alerta.service';
-import { ETipoAlerta } from '../../model/e-tipo-alerta';
+import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
 
 @Component({
   selector: 'app-admin-view',

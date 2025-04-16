@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@ang
 import { Usuario } from '../../model/usuario';
 import { LoginService } from '../../service/login.service';
 import { AlertaService } from '../../service/alerta.service';
-import { ETipoAlerta } from '../../model/e-tipo-alerta';
+import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -76,7 +76,10 @@ export class LoginComponent implements AfterViewInit {
             tipo: ETipoAlerta.SUCESSO,
             mensagem: "Login realizado com sucesso"
           });
-          this.router.navigate(['/view_posts']);
+          
+          setTimeout(() => {
+            this.router.navigate(['/view_posts']);
+          }, 100); // tempo só pra deixar o alerta aparecer
         },
         error: (erro) => {
           this.servicoAlerta.enviarAlerta({
