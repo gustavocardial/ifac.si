@@ -28,6 +28,7 @@ public class PostMapper {
         postDTO.setTexto(post.getTexto());
         postDTO.setData(post.getData());
         postDTO.setLegenda(post.getLegenda());
+        postDTO.setVisibilidade(post.getVisibilidade());
         if ( post.getStatus() != null ) postDTO.setStatus(post.getStatus().name());
         if ( post.getStatus() != null ) postDTO.setImagens(post.getImagens());
 

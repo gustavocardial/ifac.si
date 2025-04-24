@@ -180,10 +180,10 @@
                             <button #optionTag id="tagButton">Tags já cadastradas
                                 <ng-template [ngIf]="!optionsButton" [ngIfElse]="dropdownIcon">
                                 <i class="fa fa-caret-down"></i>
-                            </ng-template>
-                            <ng-template #dropdownIcon>
-                                <i class="fa fa-caret-up"></i>
-                            </ng-template>
+                                </ng-template>
+                                <ng-template #dropdownIcon>
+                                    <i class="fa fa-caret-up"></i>
+                                </ng-template>
                             </button>
                             <div #tagsPreview class="dropdown-content tags-scroll" id="tagPreview" *ngIf="optionsButton">
                                 <p *ngFor="let tagP of tagsOptions">

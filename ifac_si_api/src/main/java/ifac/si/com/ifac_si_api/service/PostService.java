@@ -149,6 +149,9 @@ public class PostService{
             post.setImagens(imagensList);
         }
 
+        if (postDto.getVisibilidade() != null)
+            post.setVisibilidade(postDto.getVisibilidade());
+
         post.setData(LocalDateTime.now());
         return postRepository.save(post);
     }

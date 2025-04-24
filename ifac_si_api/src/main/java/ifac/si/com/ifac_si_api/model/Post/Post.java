@@ -65,6 +65,8 @@ public class Post implements Serializable{
     @Enumerated(EnumType.STRING)
     private EStatus status;
 
+    private String visibilidade;
+
     public Long getId() {
         return id;
     }
@@ -173,6 +175,14 @@ public class Post implements Serializable{
 
     public void setImagemCapa(Imagem imagemCapa) {
         this.imagemCapa = imagemCapa;
+    }
+
+    public String getVisibilidade() {
+        return visibilidade;
+    }
+
+    public void setVisibilidade(String visibilidade) {
+        this.visibilidade = visibilidade;
     }
 
 

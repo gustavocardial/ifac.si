@@ -17,6 +17,7 @@ public class PostDTO {
     private List<Imagem> imagens;
     private Imagem imagemCapa;
     private String status;
+    private String visibilidade;
 
     public PostDTO(Long id, String titulo) {
     }
@@ -95,5 +96,13 @@ public class PostDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getVisibilidade() {
+        return visibilidade;
+    }
+
+    public void setVisibilidade(String visibilidade) {
+        this.visibilidade = visibilidade;
     }
 }

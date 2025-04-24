@@ -19,6 +19,7 @@ public class PostRequestDTO {
     private String texto;
     private String legenda;
     private String status;
+    private String visibilidade;
     private List<TagDTO> tags;
 
     public String getTitulo() {
@@ -59,6 +60,14 @@ public class PostRequestDTO {
 
     public void setLegenda(String legenda) {
         this.legenda = legenda;
+    }
+
+    public String getVisibilidade() {
+        return visibilidade;
+    }
+
+    public void setVisibilidade(String visibilidade) {
+        this.visibilidade = visibilidade;
     }
 
     public String getStatus() {
