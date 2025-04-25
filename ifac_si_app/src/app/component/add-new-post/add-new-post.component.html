@@ -61,9 +61,11 @@
                         <div class="viewPost" id="statusPost">
                             <div class="statusDiv">
                                 <p>Visibilidade:</p>
-                                <ng-template [ngIf]="visibilidadeContent" [ngIfElse]="visibilidadeSelect">
-                                    <p id="visibilidade">Pública</p>  
-                                </ng-template>
+                                <ng-container *ngIf="visibilidadeContent; else visibilidadeSelect">
+                                    <p id="publicacao">
+                                      {{ post?.id && post.visibilidade ? post.visibilidade : 'PÚBLICA' }}
+                                    </p>
+                                </ng-container>
                                 <ng-template #visibilidadeSelect>
                                     <select id="visibilidade">
                                         <option value="publica">Pública</option>
