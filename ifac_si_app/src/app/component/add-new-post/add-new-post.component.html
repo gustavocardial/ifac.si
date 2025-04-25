@@ -88,17 +88,13 @@
                             </div>
                             <div class="statusDiv">
                                 <p>Status:</p>
-                                <ng-template [ngIf]="statusContent" [ngIfElse]="statusSelect">
-                                    <p id="idStatus">Rascunho</p>
+                                <ng-template [ngIf]="post.id" [ngIfElse]="statusSelect">
+                                    <p id="idStatus">{{post.status}}</p>
                                 </ng-template>
                                 <ng-template #statusSelect>
-                                    <select id="publicacao">
-                                        <option *ngFor="let option of statusOptions" [value]="option.value">
-                                            {{ option.label }}
-                                        </option>
-                                    </select>
+                                    <p id="idStatus">RASCUNHO</p>
                                 </ng-template>
-                                <button #editarStatus class="editButton">Editar</button>
+                                <!-- <button #editarStatus class="editButton">Editar</button> -->
                             </div>
                         </div>
                         <div class="statusDiv viewPost" id="saveDiv">

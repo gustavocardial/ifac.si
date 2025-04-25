@@ -1,4 +1,4 @@
-export enum visibilidadePost {
+export enum EVisibilidade {
     Publico = 'PUBLICA',
     Privado = 'PRIVADA',
 } 

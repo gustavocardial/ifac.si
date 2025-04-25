@@ -9,13 +9,13 @@ import { TagService } from '../../service/tag.service';
 import { Tag } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
-import { statusPost } from '../../model/enum/statusEnum';
+import { EStatus } from '../../model/enum/EStatus';
 // import { ITags } from '../../model/ITags';
 // import { ImagemHandler } from '../../model/imagemHandler';
 import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/usuario';
-import { PublicacaoEnum } from '../../model/enum/publicacaoEnum';
-import { visibilidadePost } from '../../model/enum/visibilidadeEnum';
+import { EPublicacao } from '../../model/enum/EPublicacao';
+import { EVisibilidade } from '../../model/enum/EVisibilidade';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../../service/login.service';
 import { ITags } from '../../model/ITags';
@@ -185,9 +185,9 @@ export class AddNewPostComponent implements OnInit{
       this.publicacaoContent = !this.publicacaoContent;
     })
 
-    this.statusButtonListener = this.renderer.listen(this.statusEdit.nativeElement, 'click', (event) => {
-      this.statusContent = !this.statusContent;
-    })
+    // this.statusButtonListener = this.renderer.listen(this.statusEdit.nativeElement, 'click', (event) => {
+    //   this.statusContent = !this.statusContent;
+    // })
 
   }
 
@@ -295,7 +295,7 @@ export class AddNewPostComponent implements OnInit{
     }
   
     // Adiciona o status (com valor default se necessário)
-    formData.append('status', this.post.EStatus || statusPost.Publicado);
+    formData.append('status', this.post.status || EStatus.Publicado);
   
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
@@ -483,17 +483,17 @@ export class AddNewPostComponent implements OnInit{
     }
   }
 
-  public publicacaoOptions = Object.keys(PublicacaoEnum)
+  public publicacaoOptions = Object.keys(EPublicacao)
     .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
-    .map(key => ({ label: key, value: PublicacaoEnum[key as keyof typeof PublicacaoEnum] }));
+    .map(key => ({ label: key, value: EPublicacao[key as keyof typeof EPublicacao] }));
 
-  public statusOptions = Object.keys(statusPost)
+  public statusOptions = Object.keys(EStatus)
     .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
-    .map(key => ({ label: key, value: statusPost[key as keyof typeof statusPost] }));
+    .map(key => ({ label: key, value: EStatus[key as keyof typeof EStatus] }));
 
-  public visibilidadeOptions = Object.keys(visibilidadePost)
+  public visibilidadeOptions = Object.keys(EVisibilidade)
   .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
-  .map(key => ({ label: key, value: visibilidadePost[key as keyof typeof visibilidadePost] }));
+  .map(key => ({ label: key, value: EVisibilidade[key as keyof typeof EVisibilidade] }));
 
   // get(): void {
   //   this.servico.get().subscribe({

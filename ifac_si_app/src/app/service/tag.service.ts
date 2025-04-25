@@ -56,7 +56,7 @@ export class TagService implements IService<Tag>{
       categoriaId: post.categoria?.id ?? null,
       texto: post.texto,
       legenda: post.legenda,
-      status: post.EStatus,
+      status: post.status,
       tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
     };
   }
