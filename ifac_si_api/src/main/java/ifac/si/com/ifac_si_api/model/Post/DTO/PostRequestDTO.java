@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -19,6 +20,7 @@ public class PostRequestDTO {
     private String texto;
     private String legenda;
     private String status;
+    private LocalDateTime data;
     private String visibilidade;
     private List<TagDTO> tags;
 

@@ -153,7 +153,11 @@ public class PostService{
         if (postDto.getVisibilidade() != null)
             post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
 
-        post.setData(LocalDateTime.now());
+        if (postDto.getData() != null) {
+            post.setData(postDto.getData());
+        } else {
+            post.setData(LocalDateTime.now());
+        }
         return postRepository.save(post);
     }
 
