@@ -70,21 +70,24 @@
                                         <option value="privada">Privada</option>
                                     </select>
                                 </ng-template>
-                                <button #editarVisibilidade class="editButton">Editar</button>
+                                <button #editarVisibilidade class="editButton">{{ visibilidadeContent ? "Editar" : "Cancelar"}}</button>
                             </div>
                             <div class="statusDiv">
                                 <p>Publicação:</p>
-                                <ng-template [ngIf]="publicacaoContent" [ngIfElse]="publicacaoSelect">
-                                    <p id="publicacao">Imediata</p>
-                                </ng-template>
-                                <ng-template #publicacaoSelect>
+                                <ng-container *ngIf="publicacaoContent; else publicacaoSelect">
+                                    <p id="publicacao">
+                                      {{ post?.id && post.publicacao ? post.publicacao : 'IMEDIATA' }}
+                                    </p>
+                                </ng-container>
+                                
+                                  <ng-template #publicacaoSelect>
                                     <select id="publicacao">
-                                        <option *ngFor="let option of publicacaoOptions" [value]="option.value">
-                                            {{ option.label }}
-                                        </option>
+                                      <option *ngFor="let option of publicacaoOptions" [value]="option.value">
+                                        {{ option.label }}
+                                      </option>
                                     </select>
-                                </ng-template>
-                                <button #editarPublicacao class="editButton">Editar</button>
+                                  </ng-template>
+                                <button #editarPublicacao class="editButton">{{ publicacaoContent ? "Editar" : "Cancelar"}}</button>
                             </div>
                             <div class="statusDiv">
                                 <p>Status:</p>

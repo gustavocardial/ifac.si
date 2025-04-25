@@ -1,4 +1,4 @@
 export enum EVisibilidade {
-    Publico = 'PUBLICA',
-    Privado = 'PRIVADA',
+    Publico = 'PUBLICO',
+    Privado = 'PRIVADO',
 } 
