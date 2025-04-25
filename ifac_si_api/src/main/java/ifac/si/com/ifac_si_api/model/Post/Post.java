@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ifac.si.com.ifac_si_api.model.*;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
+import ifac.si.com.ifac_si_api.model.Post.Enum.EVisibilidade;
 import ifac.si.com.ifac_si_api.model.Tag.Tag;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import jakarta.persistence.*;
@@ -65,7 +66,8 @@ public class Post implements Serializable{
     @Enumerated(EnumType.STRING)
     private EStatus status;
 
-    private String visibilidade;
+    @Enumerated(EnumType.STRING)
+    private EVisibilidade visibilidade;
 
     public Long getId() {
         return id;
@@ -177,14 +179,13 @@ public class Post implements Serializable{
         this.imagemCapa = imagemCapa;
     }
 
-    public String getVisibilidade() {
+    public EVisibilidade getVisibilidade() {
         return visibilidade;
     }
 
-    public void setVisibilidade(String visibilidade) {
+    public void setVisibilidade(EVisibilidade visibilidade) {
         this.visibilidade = visibilidade;
     }
-
 
     //Testar relacionamentos e engenharia reserva no workbench
 }
