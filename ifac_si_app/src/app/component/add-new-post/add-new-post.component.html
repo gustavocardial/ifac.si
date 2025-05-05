@@ -83,18 +83,22 @@
                                 <p>Publicação:</p>
                                 <ng-container *ngIf="publicacaoContent; else publicacaoSelect">
                                     <p id="publicacao">
-                                      {{ post?.id && post.publicacao ? post.publicacao : 'Imediata' }}
+                                      {{ post.publicacao ? post.publicacao : 'Imediata' }}
                                     </p>
+                                    <button (click)="togglePublicacao()" class="editButton">
+                                        {{ publicacaoContent ? "Editar" : "Cancelar" }}
+                                    </button>
                                 </ng-container>
                                 
                                   <ng-template #publicacaoSelect>
-                                    <select id="publicacaoSelect">
+                                    <select id="publicacaoSelect" [(ngModel)]="selectedPublicacao">
                                       <option *ngFor="let option of publicacaoOptions" [value]="option.value">
                                         {{ option.label }}
                                       </option>
                                     </select>
+                                    <button (click)="confirmarPublicacao()" class="editButton">Confirmar</button>
                                   </ng-template>
-                                <button #editarPublicacao class="editButton">{{ publicacaoContent ? "Editar" : "Cancelar"}}</button>
+                                <!-- <button #editarPublicacao class="editButton">{{ publicacaoContent ? "Editar" : "Cancelar"}}</button> -->
                             </div>
                             <div class="statusDiv">
                                 <p>Status:</p>

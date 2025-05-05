@@ -50,6 +50,7 @@ export class AddNewPostComponent implements OnInit{
   visibilidadeContent: boolean = true;
   selectedVisibilidade?: EVisibilidade ;
   publicacaoContent: boolean = true;
+  selectedPublicacao?: EPublicacao;
   statusContent: boolean = true;
   editingTagId: number | null = null;
   isEditing: boolean = false;
@@ -182,9 +183,9 @@ export class AddNewPostComponent implements OnInit{
     //   this.visibilidadeContent = !this.visibilidadeContent;
     // })
 
-    this.publicacaoButtonListener = this.renderer.listen(this.publiEdit.nativeElement, 'click', (event) => {
-      this.publicacaoContent = !this.publicacaoContent;
-    })
+    // this.publicacaoButtonListener = this.renderer.listen(this.publiEdit.nativeElement, 'click', (event) => {
+    //   this.publicacaoContent = !this.publicacaoContent;
+    // })
 
     // this.statusButtonListener = this.renderer.listen(this.statusEdit.nativeElement, 'click', (event) => {
     //   this.statusContent = !this.statusContent;
@@ -546,8 +547,20 @@ export class AddNewPostComponent implements OnInit{
     // }
   }
 
+  confirmarPublicacao(): void {
+    if (this.selectedPublicacao) {
+      this.post.publicacao = this.selectedPublicacao;
+      this.publicacaoContent = true;
+      // console.log ('entrei dnv')
+    }
+  }
+
   toggleVisibilidade() {
     this.visibilidadeContent = !this.visibilidadeContent;
+  }
+
+  togglePublicacao() {
+    this.publicacaoContent = !this.publicacaoContent;
   }
 
 
