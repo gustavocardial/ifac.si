@@ -62,28 +62,33 @@
                             <div class="statusDiv">
                                 <p>Visibilidade:</p>
                                 <ng-container *ngIf="visibilidadeContent; else visibilidadeSelect">
-                                    <p id="publicacao">
-                                      {{ post?.id && post.visibilidade ? post.visibilidade : 'PÚBLICA' }}
+                                    <p id="visibilidade">
+                                      {{ post.visibilidade ? post.visibilidade : 'Público' }}
+                                      <button (click)="toggleVisibilidade()" class="editButton">
+                                        {{ visibilidadeContent ? "Editar" : "Cancelar" }}
+                                      </button>
                                     </p>
                                 </ng-container>
                                 <ng-template #visibilidadeSelect>
-                                    <select id="visibilidade">
-                                        <option value="publica">Pública</option>
-                                        <option value="privada">Privada</option>
+                                    <select id="visibilidadeSelect" [(ngModel)]="selectedVisibilidade">
+                                        <option *ngFor="let option of visibilidadeOptions" [ngValue]="option.value">
+                                            {{ option.label }}
+                                        </option>
                                     </select>
+                                    <button (click)="confirmarVisibilidade()" class="editButton">Confirmar</button>
                                 </ng-template>
-                                <button #editarVisibilidade class="editButton">{{ visibilidadeContent ? "Editar" : "Cancelar"}}</button>
+                                
                             </div>
                             <div class="statusDiv">
                                 <p>Publicação:</p>
                                 <ng-container *ngIf="publicacaoContent; else publicacaoSelect">
                                     <p id="publicacao">
-                                      {{ post?.id && post.publicacao ? post.publicacao : 'IMEDIATA' }}
+                                      {{ post?.id && post.publicacao ? post.publicacao : 'Imediata' }}
                                     </p>
                                 </ng-container>
                                 
                                   <ng-template #publicacaoSelect>
-                                    <select id="publicacao">
+                                    <select id="publicacaoSelect">
                                       <option *ngFor="let option of publicacaoOptions" [value]="option.value">
                                         {{ option.label }}
                                       </option>

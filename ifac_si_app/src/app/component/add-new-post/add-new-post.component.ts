@@ -48,6 +48,7 @@ export class AddNewPostComponent implements OnInit{
   optionsButton: boolean = false;
   numberOfImages: number = 0;
   visibilidadeContent: boolean = true;
+  selectedVisibilidade?: EVisibilidade ;
   publicacaoContent: boolean = true;
   statusContent: boolean = true;
   editingTagId: number | null = null;
@@ -177,9 +178,9 @@ export class AddNewPostComponent implements OnInit{
       console.log ("tem imagem de capa");
     })
 
-    this.visibilidadeButtonListener = this.renderer.listen(this.visibiEdit.nativeElement, 'click', (event) => {
-      this.visibilidadeContent = !this.visibilidadeContent;
-    })
+    // this.visibilidadeButtonListener = this.renderer.listen(this.visibiEdit.nativeElement, 'click', (event) => {
+    //   this.visibilidadeContent = !this.visibilidadeContent;
+    // })
 
     this.publicacaoButtonListener = this.renderer.listen(this.publiEdit.nativeElement, 'click', (event) => {
       this.publicacaoContent = !this.publicacaoContent;
@@ -195,17 +196,17 @@ export class AddNewPostComponent implements OnInit{
   //   this.get();    
   // }
 
-  title = 'teste';
+  // title = 'teste';
   @ViewChild('editor') editor: any;
 
-  escapeHtml(text: string): string {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
+  // escapeHtml(text: string): string {
+  //   return text
+  //     .replace(/&/g, '&amp;')
+  //     .replace(/</g, '&lt;')
+  //     .replace(/>/g, '&gt;')
+  //     .replace(/"/g, '&quot;')
+  //     .replace(/'/g, '&#39;');
+  // }
   
   editorText = '';
 
@@ -531,6 +532,22 @@ export class AddNewPostComponent implements OnInit{
       );
       console.log('Tags disponíveis filtradas:', this.tagsOptions);
     }
+  }
+
+  confirmarVisibilidade(): void {
+    // console.log ('entrei')
+    if (this.selectedVisibilidade) {
+      this.post.visibilidade = this.selectedVisibilidade;
+      this.visibilidadeContent = true;
+      // console.log ('entrei dnv')
+    }
+    // } else {
+    //   alert('Selecione uma visibilidade');
+    // }
+  }
+
+  toggleVisibilidade() {
+    this.visibilidadeContent = !this.visibilidadeContent;
   }
 
 
