@@ -64,9 +64,7 @@
                                 <ng-container *ngIf="visibilidadeContent; else visibilidadeSelect">
                                     <p id="visibilidade">
                                       {{ post.visibilidade ? post.visibilidade : 'Público' }}
-                                      <button (click)="toggleVisibilidade()" class="editButton">
-                                        {{ visibilidadeContent ? "Editar" : "Cancelar" }}
-                                      </button>
+                                      <button (click)="toggleVisibilidade()" class="editButton">Editar</button>
                                     </p>
                                 </ng-container>
                                 <ng-template #visibilidadeSelect>
@@ -76,6 +74,7 @@
                                         </option>
                                     </select>
                                     <button (click)="confirmarVisibilidade()" class="editButton">Confirmar</button>
+                                    <button (click)="toggleVisibilidade()" class="editButton">Cancelar</button>
                                 </ng-template>
                                 
                             </div>
@@ -85,9 +84,7 @@
                                     <p id="publicacao">
                                       {{ post.publicacao ? post.publicacao : 'Imediata' }}
                                     </p>
-                                    <button (click)="togglePublicacao()" class="editButton">
-                                        {{ publicacaoContent ? "Editar" : "Cancelar" }}
-                                    </button>
+                                    <button (click)="togglePublicacao()" class="editButton">Editar</button>
                                 </ng-container>
                                 
                                   <ng-template #publicacaoSelect>
@@ -97,6 +94,7 @@
                                       </option>
                                     </select>
                                     <button (click)="confirmarPublicacao()" class="editButton">Confirmar</button>
+                                    <button (click)="togglePublicacao()" class="editButton">Cancelar</button>
                                   </ng-template>
                                 <!-- <button #editarPublicacao class="editButton">{{ publicacaoContent ? "Editar" : "Cancelar"}}</button> -->
                             </div>

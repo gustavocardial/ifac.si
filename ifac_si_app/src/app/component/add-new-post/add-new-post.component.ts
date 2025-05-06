@@ -556,10 +556,21 @@ export class AddNewPostComponent implements OnInit{
   }
 
   toggleVisibilidade() {
+    if (this.visibilidadeContent) {
+      this.selectedVisibilidade = this.post.visibilidade ?? 'PUBLICO';
+      console.log('teste1')
+    }
     this.visibilidadeContent = !this.visibilidadeContent;
   }
 
   togglePublicacao() {
+    // this.selectedPublicacao = this.post.publicacao;
+    if (this.publicacaoContent) {
+      this.selectedPublicacao = this.post.publicacao ?? "IMEDIATA";
+      console.log('teste2')
+
+    }
+
     this.publicacaoContent = !this.publicacaoContent;
   }
 
