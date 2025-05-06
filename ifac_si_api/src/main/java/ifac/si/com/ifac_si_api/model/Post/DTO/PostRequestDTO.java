@@ -22,6 +22,7 @@ public class PostRequestDTO {
     private String status;
     private LocalDateTime data;
     private String visibilidade;
+    private String publicacao;
     private List<TagDTO> tags;
 
     public String getTitulo() {
@@ -88,4 +89,11 @@ public class PostRequestDTO {
         this.tags = tags;
     }
 
+    public String getPublicacao() {
+        return publicacao;
+    }
+
+    public void setPublicacao(String publicacao) {
+        this.publicacao = publicacao;
+    }
 }

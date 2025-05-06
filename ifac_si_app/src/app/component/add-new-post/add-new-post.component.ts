@@ -299,6 +299,16 @@ export class AddNewPostComponent implements OnInit{
     // Adiciona o status (com valor default se necessário)
     formData.append('status', this.post.status || EStatus.Publicado);
   
+    if (this.post.visibilidade) {
+      formData.append('visibilidade', this.post.visibilidade);
+      console.log (this.post.visibilidade);
+    }
+
+    if (this.post.publicacao) {
+      formData.append('publicacao', this.post.publicacao);
+      console.log (this.post.publicacao);
+    }
+
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
       // console.log('Tags originais:', this.post.tags);
@@ -558,7 +568,6 @@ export class AddNewPostComponent implements OnInit{
   toggleVisibilidade() {
     if (this.visibilidadeContent) {
       this.selectedVisibilidade = this.post.visibilidade ?? 'PUBLICO';
-      console.log('teste1')
     }
     this.visibilidadeContent = !this.visibilidadeContent;
   }
@@ -567,8 +576,6 @@ export class AddNewPostComponent implements OnInit{
     // this.selectedPublicacao = this.post.publicacao;
     if (this.publicacaoContent) {
       this.selectedPublicacao = this.post.publicacao ?? "IMEDIATA";
-      console.log('teste2')
-
     }
 
     this.publicacaoContent = !this.publicacaoContent;

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import ifac.si.com.ifac_si_api.exception.ResourceNotFoundException;
 import ifac.si.com.ifac_si_api.model.Categoria;
 import ifac.si.com.ifac_si_api.model.Imagem;
+import ifac.si.com.ifac_si_api.model.Post.Enum.EPublicacao;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EVisibilidade;
 import ifac.si.com.ifac_si_api.model.Post.Mapper.PostMapper;
@@ -152,6 +153,9 @@ public class PostService{
 
         if (postDto.getVisibilidade() != null)
             post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+
+        if (postDto.getPublicacao() != null)
+            post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
 
         if (postDto.getData() != null) {
             post.setData(postDto.getData());
@@ -302,6 +306,12 @@ public class PostService{
         if (postDto.getStatus() != null) {
             post.setStatus(EStatus.valueOf(postDto.getStatus()));
         }
+
+        if (postDto.getVisibilidade() != null)
+            post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+
+        if (postDto.getPublicacao() != null)
+            post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
 
         return postRepository.save(post);
     }
