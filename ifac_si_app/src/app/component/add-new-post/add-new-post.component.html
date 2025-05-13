@@ -64,7 +64,7 @@
                                 <div>
                                     <ng-container *ngIf="visibilidadeContent; else visibilidadeSelect">
                                         <p id="visibilidade">
-                                        {{ post.visibilidade ? post.visibilidade : 'Público' }}
+                                        {{ post.visibilidade ? post.visibilidade : 'PÚBLICO' }}
                                         <button (click)="toggleVisibilidade()" class="editButton">Editar</button>
                                         </p>
                                     </ng-container>
@@ -94,7 +94,7 @@
                                         <div class="selectWrapper">
                                             <div *ngIf="publicacaoContent" class="selectWrapper">
                                             <p id="publicacao">
-                                                {{ post.publicacao ? post.publicacao : 'Imediata' }}
+                                                {{ post.publicacao ? post.publicacao : 'IMEDIATA' }}
                                             </p>
                                             <button (click)="togglePublicacao()" class="editButton">Editar</button>
                                             </div>

@@ -55,7 +55,7 @@ export class AddNewPostComponent implements OnInit{
   editingTagId: number | null = null;
   isEditing: boolean = false;
   minDate: string = '';
-  dataSelecionada: string = '';
+  // dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
   @ViewChild('status') statusButton!: ElementRef;
@@ -587,8 +587,8 @@ export class AddNewPostComponent implements OnInit{
 
   onDateChange(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.dataSelecionada = input.value;
-    console.log ('Data selecionada: ', this.dataSelecionada);
+    this.post.data = input.value;
+    console.log ('Data selecionada: ', this.post.data);
   }
 
 
