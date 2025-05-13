@@ -54,7 +54,8 @@ export class AddNewPostComponent implements OnInit{
   statusContent: boolean = true;
   editingTagId: number | null = null;
   isEditing: boolean = false;
-
+  minDate: string = '';
+  dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
   @ViewChild('status') statusButton!: ElementRef;
@@ -80,6 +81,9 @@ export class AddNewPostComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    const hoje = new Date();
+    this.minDate = hoje.toISOString().split('T')[0];
+
     const id = this.route.snapshot.queryParamMap.get('postId');
     if (id){
       this.servicoPost.getById(+id).subscribe({
@@ -579,6 +583,12 @@ export class AddNewPostComponent implements OnInit{
     }
 
     this.publicacaoContent = !this.publicacaoContent;
+  }
+
+  onDateChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.dataSelecionada = input.value;
+    console.log ('Data selecionada: ', this.dataSelecionada);
   }
 
 
