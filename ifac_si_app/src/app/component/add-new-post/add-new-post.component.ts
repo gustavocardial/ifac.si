@@ -310,6 +310,7 @@ export class AddNewPostComponent implements OnInit{
 
     if (this.post.publicacao) {
       formData.append('publicacao', this.post.publicacao);
+
       console.log (this.post.publicacao);
     }
 
