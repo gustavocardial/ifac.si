@@ -111,11 +111,11 @@
                                     </div>
 
                                         <input
-                                        type="date"
-                                        [min]="minDate"
-                                        [value]="minDate"
-                                        (change)="onDateChange($event)"
-                                        *ngIf="post.publicacao == 'AGENDADA'"
+                                            type="datetime-local"
+                                            [min]="post.data || minDateTime"
+                                            [value]="post.data || minDateTime"
+                                            (change)="onDateTimeChange($event)"
+                                            *ngIf="post.publicacao === 'AGENDADA'"
                                         />
                                     </div>
                                 </div>

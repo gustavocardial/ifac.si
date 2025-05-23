@@ -54,7 +54,7 @@ export class AddNewPostComponent implements OnInit{
   statusContent: boolean = true;
   editingTagId: number | null = null;
   isEditing: boolean = false;
-  minDate: string = '';
+  minDateTime: string = '';
   // dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
@@ -82,7 +82,7 @@ export class AddNewPostComponent implements OnInit{
 
   ngOnInit(): void {
     const hoje = new Date();
-    this.minDate = hoje.toISOString().split('T')[0];
+    this.minDateTime = hoje.toISOString().slice(0, 16);
 
     const id = this.route.snapshot.queryParamMap.get('postId');
     if (id){
@@ -280,39 +280,28 @@ export class AddNewPostComponent implements OnInit{
 
     this.convertToTags();
 
-    console.log (this.post.tags);
+    // console.log (this.post.tags);
 
     const formData = new FormData();
 
     // Adiciona os campos do post
     formData.append('titulo', this.post.titulo);
     formData.append('texto', this.post.texto);
-
-    if(this.post.usuario?.id) {
-      formData.append('usuarioId', this.post.usuario.id.toString());
-    }
-
-    if (this.post.categoria?.id) {
-      formData.append('categoriaId', this.post.categoria.id.toString());
-    }
-    
-    if (this.post.legenda) {
-      formData.append('legenda', this.post.legenda);
-    }
-  
-    // Adiciona o status (com valor default se necessário)
     formData.append('status', this.post.status || EStatus.Publicado);
+
+    if(this.post.usuario?.id) formData.append('usuarioId', this.post.usuario.id.toString());
+
+    if (this.post.categoria?.id) formData.append('categoriaId', this.post.categoria.id.toString());
+
+    if (this.post.legenda) formData.append('legenda', this.post.legenda);
   
-    if (this.post.visibilidade) {
-      formData.append('visibilidade', this.post.visibilidade);
-      console.log (this.post.visibilidade);
-    }
+    if (this.post.visibilidade) formData.append('visibilidade', this.post.visibilidade);
 
-    if (this.post.publicacao) {
-      formData.append('publicacao', this.post.publicacao);
+    if (this.post.publicacao) formData.append('publicacao', this.post.publicacao);
 
-      console.log (this.post.publicacao);
-    }
+    if (this.post.data) formData.append('data', this.post.data);
+    
+    if (this.capaInput?.nativeElement?.files[0]) formData.append('imagemCapa', this.capaInput.nativeElement.files[0]);
 
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
@@ -323,15 +312,9 @@ export class AddNewPostComponent implements OnInit{
         formData.append(`tags[${index}].nome`, tag.nome);
       });
 
-      console.log('Tags processadas:', this.post.tags);
+      // console.log('Tags processadas:', this.post.tags);
     }
   
-    // Se tiver imagem de capa
-    if (this.capaInput?.nativeElement?.files[0]) {
-      formData.append('imagemCapa', this.capaInput.nativeElement.files[0]);
-    }
-  
-    // Você também precisará modificar seu PostService para usar o FormData
     this.servicoPost.save(formData, this.post.id).subscribe({
       complete: () => {
         this.servicoAlerta.enviarAlerta({
@@ -354,7 +337,7 @@ export class AddNewPostComponent implements OnInit{
     });
     // Aqui você pode fazer algo com o conteúdo do editor
     // console.log(this.escapeHtml(this.data.content));
-    console.log('Conteúdo salvo:', this.post.texto);
+    // console.log('Conteúdo salvo:', this.post.texto);
     // this.router.navigate(['/view_posts']);
   }
 
@@ -509,16 +492,9 @@ export class AddNewPostComponent implements OnInit{
     .map(key => ({ label: key, value: EStatus[key as keyof typeof EStatus] }));
 
   public visibilidadeOptions = Object.keys(EVisibilidade)
-  .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
-  .map(key => ({ label: key, value: EVisibilidade[key as keyof typeof EVisibilidade] }));
+    .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
+    .map(key => ({ label: key, value: EVisibilidade[key as keyof typeof EVisibilidade] }));
 
-  // get(): void {
-  //   this.servico.get().subscribe({
-  //     next: (resposta: data[]) => {
-  //       this.lista = resposta;
-  //     }
-  //   })
-  // }
   ngOnDestroy(): void {
     if (this.categoryListener) {
       this.categoryListener();
@@ -586,10 +562,14 @@ export class AddNewPostComponent implements OnInit{
     this.publicacaoContent = !this.publicacaoContent;
   }
 
-  onDateChange(event: Event) {
+  onDateTimeChange(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.post.data = input.value;
-    console.log ('Data selecionada: ', this.post.data);
+    const selectedDateTime = input.value; 
+
+    if (selectedDateTime) {
+      this.post.data = selectedDateTime;
+      console.log ('Data selecionada: ', this.post.data);
+    }
   }
 
 
