@@ -55,6 +55,7 @@ export class AddNewPostComponent implements OnInit{
   editingTagId: number | null = null;
   isEditing: boolean = false;
   minDateTime: string = '';
+  EStatus = EStatus;
   // dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
@@ -82,7 +83,14 @@ export class AddNewPostComponent implements OnInit{
 
   ngOnInit(): void {
     const hoje = new Date();
-    this.minDateTime = hoje.toISOString().slice(0, 16);
+    hoje.setHours(0, 0, 0, 0);  // Zera horas, minutos, segundos e milissegundos
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    const horas = String(hoje.getHours()).padStart(2, '0');
+    const minutos = String(hoje.getMinutes()).padStart(2, '0');
+
+    this.minDateTime = `${ano}-${mes}-${dia}T${horas}:${minutos}`;
 
     const id = this.route.snapshot.queryParamMap.get('postId');
     if (id){

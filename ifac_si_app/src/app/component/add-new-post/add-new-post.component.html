@@ -96,7 +96,7 @@
                                             <p id="publicacao">
                                                 {{ post.publicacao ? post.publicacao : 'IMEDIATA' }}
                                             </p>
-                                            <button (click)="togglePublicacao()" class="editButton">Editar</button>
+                                            <button (click)="togglePublicacao()" class="editButton" *ngIf="post.status != EStatus.Publicado">Editar</button>
                                             </div>
 
                                             <div *ngIf="!publicacaoContent" class="selectWrapper">
@@ -112,10 +112,11 @@
 
                                         <input
                                             type="datetime-local"
-                                            [min]="post.data || minDateTime"
+                                            [min]="post.data && post.data > minDateTime ? post.data : minDateTime"
                                             [value]="post.data || minDateTime"
+                                            [disabled]="post.status === EStatus.Publicado"
                                             (change)="onDateTimeChange($event)"
-                                            *ngIf="post.publicacao === 'AGENDADA'"
+                                           *ngIf="post.publicacao === 'AGENDADA'"
                                         />
                                     </div>
                                 </div>
