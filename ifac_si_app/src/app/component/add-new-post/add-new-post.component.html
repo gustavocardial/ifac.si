@@ -74,8 +74,10 @@
                                                 {{ option.label }}
                                             </option>
                                         </select>
-                                        <button (click)="confirmarVisibilidade()" class="editButton">Confirmar</button>
-                                        <button (click)="toggleVisibilidade()" class="editButton">Cancelar</button>
+                                        <div class="buttonHandle">
+                                            <button (click)="confirmarVisibilidade()" class="editButton">Confirmar</button>
+                                            <button (click)="toggleVisibilidade()" class="editButton">Cancelar</button>
+                                        </div>
                                     </ng-template>
                                 </div>
                                 
@@ -100,15 +102,17 @@
                                             </div>
 
                                             <div *ngIf="!publicacaoContent" class="selectWrapper">
-                                            <select id="publicacaoSelect" [(ngModel)]="selectedPublicacao">
-                                                <option *ngFor="let option of publicacaoOptions" [value]="option.value">
-                                                {{ option.label }}
-                                                </option>
-                                            </select>
-                                            <button (click)="confirmarPublicacao()" class="editButton">Confirmar</button>
-                                            <button (click)="togglePublicacao()" class="editButton">Cancelar</button>
+                                                <select id="publicacaoSelect" [(ngModel)]="selectedPublicacao">
+                                                    <option *ngFor="let option of publicacaoOptions" [value]="option.value">
+                                                    {{ option.label }}
+                                                    </option>
+                                                </select>
+                                                <div class="buttonHandle">
+                                                    <button (click)="confirmarPublicacao()" class="editButton">Confirmar</button>
+                                                    <button (click)="togglePublicacao()" class="editButton">Cancelar</button>
+                                                </div>
                                             </div>
-                                    </div>
+                                        </div>
 
                                         <input
                                             type="datetime-local"

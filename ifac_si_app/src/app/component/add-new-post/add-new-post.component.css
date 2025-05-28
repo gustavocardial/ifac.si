@@ -304,3 +304,8 @@ div#imagemCapaPost img{
 p#perguntaImagem {
     margin: 10px auto;
 }
+
+div.buttonHandle {
+    display: flex;
+    flex-direction: row;
+}
