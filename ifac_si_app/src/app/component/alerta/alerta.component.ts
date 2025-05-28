@@ -52,6 +52,7 @@ export class AlertaComponent implements OnInit {
   }
 
   fecharAlerta(): void {
+    // console.log ('teste')
     this.show = false;
     this.alertaAtual = null;
   }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -19,6 +20,9 @@ public class PostRequestDTO {
     private String texto;
     private String legenda;
     private String status;
+    private LocalDateTime data;
+    private String visibilidade;
+    private String publicacao;
     private List<TagDTO> tags;
 
     public String getTitulo() {
@@ -61,6 +65,14 @@ public class PostRequestDTO {
         this.legenda = legenda;
     }
 
+    public String getVisibilidade() {
+        return visibilidade;
+    }
+
+    public void setVisibilidade(String visibilidade) {
+        this.visibilidade = visibilidade;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -77,4 +89,11 @@ public class PostRequestDTO {
         this.tags = tags;
     }
 
+    public String getPublicacao() {
+        return publicacao;
+    }
+
+    public void setPublicacao(String publicacao) {
+        this.publicacao = publicacao;
+    }
 }

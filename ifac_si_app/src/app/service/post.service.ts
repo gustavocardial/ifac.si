@@ -79,17 +79,17 @@ export class PostService{
     return this.http.get<Post[]>(url);
   }
 
-  private mapToPostRequestDTO(post: Post): any {
-    return {
-      titulo: post.titulo,
-      usuarioId: post.usuario?.id ?? null,
-      categoriaId: post.categoria?.id ?? null,
-      texto: post.texto,
-      legenda: post.legenda,
-      status: post.EStatus ?? 'PUBLICADO',
-      tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
-    };
-  }
+  // private mapToPostRequestDTO(post: Post): any {
+  //   return {
+  //     titulo: post.titulo,
+  //     usuarioId: post.usuario?.id ?? null,
+  //     categoriaId: post.categoria?.id ?? null,
+  //     texto: post.texto,
+  //     legenda: post.legenda,
+  //     status: post.status ?? 'PUBLICADO',
+  //     tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
+  //   };
+  // }
   
 
 }

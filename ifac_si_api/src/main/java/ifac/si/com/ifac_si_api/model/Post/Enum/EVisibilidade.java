@@ -4,22 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum EStatus {
-    RASCUNHO,
-    PUBLICADO,
-    ARQUIVADO;
+public enum EVisibilidade {
+    PUBLICO,
+    PRIVADO;
 
-
-    public static EStatus fromString(String status) {
-        if (status == null) {
-            return RASCUNHO;
+    public static EVisibilidade fromString(String visibilidade) {
+        if (visibilidade == null) {
+            return PRIVADO;
         }
 
         try {
-            return EStatus.valueOf(status.toUpperCase());
+            return EVisibilidade.valueOf(visibilidade.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(
-                    "Status inválido. Status permitidos: " +
+                    "Dado de visibilidade inválido. Status permitidos: " +
                             Arrays.toString(EStatus.values())
             );
         }

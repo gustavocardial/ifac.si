@@ -1,8 +1,10 @@
 import { Categoria } from "./categoria";
 import { Imagem } from "./imagem";
-import { statusPost } from "./enum/statusEnum";
+import { EStatus } from "./enum/EStatus";
 import { Tag } from "./tag";
 import { Usuario } from "./usuario";
+import { EVisibilidade } from "./enum/EVisibilidade";
+import { EPublicacao } from "./enum/EPublicacao";
 
 export type Post = {
     id: number,
@@ -15,5 +17,7 @@ export type Post = {
     legenda?: string,
     imagens?: Imagem[],
     imagemCapa?: Imagem,
-    EStatus: statusPost
+    status: EStatus,
+    visibilidade: EVisibilidade,
+    publicacao: EPublicacao
 }

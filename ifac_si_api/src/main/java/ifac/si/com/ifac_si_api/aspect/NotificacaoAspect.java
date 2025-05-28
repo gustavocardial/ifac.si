@@ -46,6 +46,20 @@ public class NotificacaoAspect {
         }
     }
 
+    @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.update(..))", returning = "result")
+    public void afterPostUpdate(JoinPoint joinPoint, Object result) {
+        System.out.println("Método save interceptado!");
+        if (result instanceof Post) {
+            Post post = (Post) result;
+            System.out.println("Post atualizado com ID: " + post.getId());
+            criarNotificacao(post, TipoAcao.ATUALIZAR);
+
+
+        } else {
+            System.out.println("Resultado não é um Post: " + result.getClass().getName());
+        }
+    }
+
     // Intercepta método de exclusão ANTES de executar
     @Before("execution(* ifac.si.com.ifac_si_api.service.PostService.delete(Long)) && args(id)")
     public void beforePostDeletion(JoinPoint joinPoint, Long id) {

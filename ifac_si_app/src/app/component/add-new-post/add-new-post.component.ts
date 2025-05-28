@@ -9,13 +9,13 @@ import { TagService } from '../../service/tag.service';
 import { Tag } from '../../model/tag';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
-import { statusPost } from '../../model/enum/statusEnum';
+import { EStatus } from '../../model/enum/EStatus';
 // import { ITags } from '../../model/ITags';
 // import { ImagemHandler } from '../../model/imagemHandler';
 import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/usuario';
-import { PublicacaoEnum } from '../../model/enum/publicacaoEnum';
-import { visibilidadePost } from '../../model/enum/visibilidadeEnum';
+import { EPublicacao } from '../../model/enum/EPublicacao';
+import { EVisibilidade } from '../../model/enum/EVisibilidade';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../../service/login.service';
 import { ITags } from '../../model/ITags';
@@ -48,11 +48,15 @@ export class AddNewPostComponent implements OnInit{
   optionsButton: boolean = false;
   numberOfImages: number = 0;
   visibilidadeContent: boolean = true;
+  selectedVisibilidade?: EVisibilidade ;
   publicacaoContent: boolean = true;
+  selectedPublicacao?: EPublicacao;
   statusContent: boolean = true;
   editingTagId: number | null = null;
   isEditing: boolean = false;
-
+  minDateTime: string = '';
+  EStatus = EStatus;
+  // dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
   @ViewChild('status') statusButton!: ElementRef;
@@ -78,6 +82,16 @@ export class AddNewPostComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);  // Zera horas, minutos, segundos e milissegundos
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    const horas = String(hoje.getHours()).padStart(2, '0');
+    const minutos = String(hoje.getMinutes()).padStart(2, '0');
+
+    this.minDateTime = `${ano}-${mes}-${dia}T${horas}:${minutos}`;
+
     const id = this.route.snapshot.queryParamMap.get('postId');
     if (id){
       this.servicoPost.getById(+id).subscribe({
@@ -177,17 +191,17 @@ export class AddNewPostComponent implements OnInit{
       console.log ("tem imagem de capa");
     })
 
-    this.visibilidadeButtonListener = this.renderer.listen(this.visibiEdit.nativeElement, 'click', (event) => {
-      this.visibilidadeContent = !this.visibilidadeContent;
-    })
+    // this.visibilidadeButtonListener = this.renderer.listen(this.visibiEdit.nativeElement, 'click', (event) => {
+    //   this.visibilidadeContent = !this.visibilidadeContent;
+    // })
 
-    this.publicacaoButtonListener = this.renderer.listen(this.publiEdit.nativeElement, 'click', (event) => {
-      this.publicacaoContent = !this.publicacaoContent;
-    })
+    // this.publicacaoButtonListener = this.renderer.listen(this.publiEdit.nativeElement, 'click', (event) => {
+    //   this.publicacaoContent = !this.publicacaoContent;
+    // })
 
-    this.statusButtonListener = this.renderer.listen(this.statusEdit.nativeElement, 'click', (event) => {
-      this.statusContent = !this.statusContent;
-    })
+    // this.statusButtonListener = this.renderer.listen(this.statusEdit.nativeElement, 'click', (event) => {
+    //   this.statusContent = !this.statusContent;
+    // })
 
   }
 
@@ -195,17 +209,17 @@ export class AddNewPostComponent implements OnInit{
   //   this.get();    
   // }
 
-  title = 'teste';
+  // title = 'teste';
   @ViewChild('editor') editor: any;
 
-  escapeHtml(text: string): string {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
+  // escapeHtml(text: string): string {
+  //   return text
+  //     .replace(/&/g, '&amp;')
+  //     .replace(/</g, '&lt;')
+  //     .replace(/>/g, '&gt;')
+  //     .replace(/"/g, '&quot;')
+  //     .replace(/'/g, '&#39;');
+  // }
   
   editorText = '';
 
@@ -274,29 +288,29 @@ export class AddNewPostComponent implements OnInit{
 
     this.convertToTags();
 
-    console.log (this.post.tags);
+    // console.log (this.post.tags);
 
     const formData = new FormData();
 
     // Adiciona os campos do post
     formData.append('titulo', this.post.titulo);
     formData.append('texto', this.post.texto);
+    formData.append('status', this.post.status || EStatus.Publicado);
 
-    if(this.post.usuario?.id) {
-      formData.append('usuarioId', this.post.usuario.id.toString());
-    }
+    if(this.post.usuario?.id) formData.append('usuarioId', this.post.usuario.id.toString());
 
-    if (this.post.categoria?.id) {
-      formData.append('categoriaId', this.post.categoria.id.toString());
-    }
+    if (this.post.categoria?.id) formData.append('categoriaId', this.post.categoria.id.toString());
+
+    if (this.post.legenda) formData.append('legenda', this.post.legenda);
+  
+    if (this.post.visibilidade) formData.append('visibilidade', this.post.visibilidade);
+
+    if (this.post.publicacao) formData.append('publicacao', this.post.publicacao);
+
+    if (this.post.data) formData.append('data', this.post.data);
     
-    if (this.post.legenda) {
-      formData.append('legenda', this.post.legenda);
-    }
-  
-    // Adiciona o status (com valor default se necessário)
-    formData.append('status', this.post.EStatus || statusPost.Publicado);
-  
+    if (this.capaInput?.nativeElement?.files[0]) formData.append('imagemCapa', this.capaInput.nativeElement.files[0]);
+
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
       // console.log('Tags originais:', this.post.tags);
@@ -306,15 +320,9 @@ export class AddNewPostComponent implements OnInit{
         formData.append(`tags[${index}].nome`, tag.nome);
       });
 
-      console.log('Tags processadas:', this.post.tags);
+      // console.log('Tags processadas:', this.post.tags);
     }
   
-    // Se tiver imagem de capa
-    if (this.capaInput?.nativeElement?.files[0]) {
-      formData.append('imagemCapa', this.capaInput.nativeElement.files[0]);
-    }
-  
-    // Você também precisará modificar seu PostService para usar o FormData
     this.servicoPost.save(formData, this.post.id).subscribe({
       complete: () => {
         this.servicoAlerta.enviarAlerta({
@@ -337,7 +345,7 @@ export class AddNewPostComponent implements OnInit{
     });
     // Aqui você pode fazer algo com o conteúdo do editor
     // console.log(this.escapeHtml(this.data.content));
-    console.log('Conteúdo salvo:', this.post.texto);
+    // console.log('Conteúdo salvo:', this.post.texto);
     // this.router.navigate(['/view_posts']);
   }
 
@@ -483,25 +491,18 @@ export class AddNewPostComponent implements OnInit{
     }
   }
 
-  public publicacaoOptions = Object.keys(PublicacaoEnum)
+  public publicacaoOptions = Object.keys(EPublicacao)
     .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
-    .map(key => ({ label: key, value: PublicacaoEnum[key as keyof typeof PublicacaoEnum] }));
+    .map(key => ({ label: key, value: EPublicacao[key as keyof typeof EPublicacao] }));
 
-  public statusOptions = Object.keys(statusPost)
+  public statusOptions = Object.keys(EStatus)
     .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
-    .map(key => ({ label: key, value: statusPost[key as keyof typeof statusPost] }));
+    .map(key => ({ label: key, value: EStatus[key as keyof typeof EStatus] }));
 
-  public visibilidadeOptions = Object.keys(visibilidadePost)
-  .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
-  .map(key => ({ label: key, value: visibilidadePost[key as keyof typeof visibilidadePost] }));
+  public visibilidadeOptions = Object.keys(EVisibilidade)
+    .filter(key => isNaN(Number(key))) // Filtra apenas as chaves, ignorando os números
+    .map(key => ({ label: key, value: EVisibilidade[key as keyof typeof EVisibilidade] }));
 
-  // get(): void {
-  //   this.servico.get().subscribe({
-  //     next: (resposta: data[]) => {
-  //       this.lista = resposta;
-  //     }
-  //   })
-  // }
   ngOnDestroy(): void {
     if (this.categoryListener) {
       this.categoryListener();
@@ -530,6 +531,52 @@ export class AddNewPostComponent implements OnInit{
         !this.tagsList.some(postTag => postTag.id === option.id)
       );
       console.log('Tags disponíveis filtradas:', this.tagsOptions);
+    }
+  }
+
+  confirmarVisibilidade(): void {
+    // console.log ('entrei')
+    if (this.selectedVisibilidade) {
+      this.post.visibilidade = this.selectedVisibilidade;
+      this.visibilidadeContent = true;
+      // console.log ('entrei dnv')
+    }
+    // } else {
+    //   alert('Selecione uma visibilidade');
+    // }
+  }
+
+  confirmarPublicacao(): void {
+    if (this.selectedPublicacao) {
+      this.post.publicacao = this.selectedPublicacao;
+      this.publicacaoContent = true;
+      // console.log ('entrei dnv')
+    }
+  }
+
+  toggleVisibilidade() {
+    if (this.visibilidadeContent) {
+      this.selectedVisibilidade = this.post.visibilidade ?? 'PUBLICO';
+    }
+    this.visibilidadeContent = !this.visibilidadeContent;
+  }
+
+  togglePublicacao() {
+    // this.selectedPublicacao = this.post.publicacao;
+    if (this.publicacaoContent) {
+      this.selectedPublicacao = this.post.publicacao ?? "IMEDIATA";
+    }
+
+    this.publicacaoContent = !this.publicacaoContent;
+  }
+
+  onDateTimeChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const selectedDateTime = input.value; 
+
+    if (selectedDateTime) {
+      this.post.data = selectedDateTime;
+      console.log ('Data selecionada: ', this.post.data);
     }
   }
 

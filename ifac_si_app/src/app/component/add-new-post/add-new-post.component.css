@@ -265,6 +265,19 @@ div.statusDiv.viewPost {
     margin-bottom: 15px;
 }
 
+.publicacaoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.selectWrapper {
+    display: flex;
+    flex-direction: row;  /* Organiza o conteúdo dessa div interna em linha */
+    gap: 1rem;  /* Espaço entre o select e os botões */
+    align-items: center;  /* Garante que os elementos fiquem alinhados verticalmente */
+}
+
 div#imagemCapaPost {
     padding: 8px 12px;
     border-radius: 4px;  /* bordas bem arredondadas */
@@ -290,4 +303,9 @@ div#imagemCapaPost img{
 
 p#perguntaImagem {
     margin: 10px auto;
+}
+
+div.buttonHandle {
+    display: flex;
+    flex-direction: row;
 }

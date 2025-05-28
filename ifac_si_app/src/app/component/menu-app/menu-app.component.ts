@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem } from '../../model/menuItem';
 import { Usuario } from '../../model/usuario';
-import { ECargo } from '../../model/enum/cargoEnum';
+import { ECargo } from '../../model/enum/ECargo';
 import { LoginService } from '../../service/login.service';
 import { Subscription } from 'rxjs';
 
