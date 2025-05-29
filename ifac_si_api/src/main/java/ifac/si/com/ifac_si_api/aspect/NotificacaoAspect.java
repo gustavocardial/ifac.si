@@ -52,7 +52,7 @@ public class NotificacaoAspect {
         if (result instanceof Post) {
             Post post = (Post) result;
             System.out.println("Post atualizado com ID: " + post.getId());
-            criarNotificacao(post, TipoAcao.ATUALIZAR);
+            criarNotificacao(post, TipoAcao.EDITAR);
 
 
         } else {
