@@ -461,7 +461,12 @@ public class PostService{
 
 
     public void delete(Long id) {
-        this.postRepository.deleteById(id);
+        Optional<Post> obj = postRepository.findById(id);
+        if (obj.isPresent()) {
+            Post post = obj.get();
+            post.setStatus(EStatus.ARQUIVADO); 
+            postRepository.save(post); 
+        }
     }
 
 }
