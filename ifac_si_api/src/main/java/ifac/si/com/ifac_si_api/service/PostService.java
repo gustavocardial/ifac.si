@@ -124,9 +124,7 @@ public class PostService{
 
         Post post = postMapper.toEntity(postDto);
 
-        if (postDto.getCategoriaId() != null) {
-            post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
-        }
+        if (postDto.getCategoriaId() != null) post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
 
         if (postDto.getUsuarioId() != null) {
             Usuario usuario = usuarioRepository.findById(postDto.getUsuarioId())
@@ -136,9 +134,7 @@ public class PostService{
             throw new IllegalArgumentException("Usuário deve ser informado.");
         }
 
-        if (postDto.getTags() != null) {
-            post.setTags(processarTags(postDto.getTags()));
-        }
+        if (postDto.getTags() != null) post.setTags(processarTags(postDto.getTags()));
 
         processarPostCapa(postCapa).ifPresent(imagemCapa -> {
             post.setImagemCapa(imagemCapa); // Primeiro, adiciona a imagem ao post
@@ -151,11 +147,9 @@ public class PostService{
             post.setImagens(imagensList);
         }
 
-        if (postDto.getVisibilidade() != null)
-            post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+        if (postDto.getVisibilidade() != null) post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
 
-        if (postDto.getPublicacao() != null)
-            post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
+        if (postDto.getPublicacao() != null) post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
 
         if (postDto.getData() != null) {
             post.setData(postDto.getData());
@@ -260,9 +254,7 @@ public class PostService{
         postMapper.updateEntityFromDto(postDto, post);
 
         // Atualiza categoria se fornecida
-        if (postDto.getCategoriaId() != null) {
-            post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
-        }
+        if (postDto.getCategoriaId() != null) post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
 
         // Atualiza usuário se fornecido
         if (postDto.getUsuarioId() != null) {
@@ -276,6 +268,12 @@ public class PostService{
             post.getTags().clear();
             post.setTags(processarTags(postDto.getTags()));
         }
+
+        processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+            post.setImagemCapa(imagemCapa); // Primeiro, adiciona a imagem ao post
+            imagemCapa.setPost(post); // Depois, seta o post na imagem
+        });
+
 
         if (postCapa != null && !postCapa.isEmpty()) {
             processarPostCapa(postCapa).ifPresent(imagemCapa -> {
@@ -303,15 +301,18 @@ public class PostService{
         }
 
         // Atualiza status se fornecido
-        if (postDto.getStatus() != null) {
-            post.setStatus(EStatus.valueOf(postDto.getStatus()));
+        if (postDto.getStatus() != null) post.setStatus(EStatus.valueOf(postDto.getStatus()));
+        
+
+        if (postDto.getVisibilidade() != null) post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+
+        if (postDto.getPublicacao() != null) post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
+
+        if (postDto.getData() != null) {
+            post.setData(postDto.getData());
+        } else {
+            post.setData(LocalDateTime.now());
         }
-
-        if (postDto.getVisibilidade() != null)
-            post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
-
-        if (postDto.getPublicacao() != null)
-            post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
 
         return postRepository.save(post);
     }
