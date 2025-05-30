@@ -204,22 +204,8 @@ export class AddNewPostComponent implements OnInit{
     // })
 
   }
-
-  // ngOnInit(): void {
-  //   this.get();    
-  // }
-
-  // title = 'teste';
+  
   @ViewChild('editor') editor: any;
-
-  // escapeHtml(text: string): string {
-  //   return text
-  //     .replace(/&/g, '&amp;')
-  //     .replace(/</g, '&lt;')
-  //     .replace(/>/g, '&gt;')
-  //     .replace(/"/g, '&quot;')
-  //     .replace(/'/g, '&#39;');
-  // }
   
   editorText = '';
 
