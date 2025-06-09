@@ -19,6 +19,7 @@ import { EVisibilidade } from '../../model/enum/EVisibilidade';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../../service/login.service';
 import { ITags } from '../../model/ITags';
+import { Imagem } from '../../model/imagem';
 
 @Component({
   selector: 'app-add-new-post',
@@ -35,7 +36,7 @@ export class AddNewPostComponent implements OnInit{
   private statusButtonListener: (() => void) | undefined;
   private visibilidadeButtonListener: (() => void) | undefined;
   private publicacaoButtonListener: (() => void) | undefined;
-
+  private images: File[] = [];
   post: Post = <Post>{};
   categorias: Categoria[] = Array<Categoria>();
   tagsList: ITags[] = Array<ITags>();
@@ -214,36 +215,93 @@ export class AddNewPostComponent implements OnInit{
     this.editorText = event['editor']['root']['innerHTML'];
 
     this.countImageTags(this.editorText);
-    this.extractBase64Images(this.editorText);
+    // this.extractBase64Images(this.editorText);
+
+    // console.log ('teste', this.editorText, "       ");
   }
 
-  private extractBase64Images(content: string): File[] {
-    const imgRegex = /<img[^>]+src=["'](data:image\/(png|jpeg|jpg);base64,([^"']+))["']/g;
-    const files: File[] = [];
+  testarEnvio() {
+    console.log('=== SIMULANDO ENVIO ===');
+    
+    // Processar as imagens (como seria no envio real)
+    const result = this.extractBase64Images(this.post.texto);
+    
+    // Simular o que seria enviado
+    // this.post.texto = result.modifiedContent;
+    
+    // console.log('Texto final:', this.post.texto);
+    console.log('Imagens para envio:', this.images);
+    console.log('Total de arquivos:', this.images.length);
+  }
+
+  // private extractBase64Images(content: string): File[] {
+  //   const imgRegex = /<img[^>]+src=["'](data:image\/(png|jpeg|jpg);base64,([^"']+))["']/g;
+  //   const files: File[] = [];
+  //   let match;
+  //   let index = 0;
+  
+  //   while ((match = imgRegex.exec(content)) !== null) {
+  //     const mimeType = match[2]; // Tipo da imagem (png, jpeg, jpg)
+  //     const base64Data = match[3]; // Dados base64 da imagem
+  
+  //     // Converter base64 para Blob
+  //     const byteCharacters = atob(base64Data);
+  //     const byteNumbers = new Array(byteCharacters.length);
+      
+  //     for (let i = 0; i < byteCharacters.length; i++) {
+  //       byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //     }
+  //     const byteArray = new Uint8Array(byteNumbers);
+  //     const blob = new Blob([byteArray], { type: `image/${mimeType}` });
+  
+  //     // Criar um arquivo
+  //     const file = new File([blob], `imagem_${index}.${mimeType}`, { type: `image/${mimeType}` });
+  //     files.push(file);
+  //     index++;
+  //   }
+  
+  //   console.log('Imagens extraídas:', files);
+  //   return files;
+  // }
+
+  private extractBase64Images(content: string): { modifiedContent: string, images: File[] } {
+    const imgRegex = /<img[^>]*src=["'](data:image\/(png|jpeg|jpg);base64,([^"']+))["'][^>]*>/g;
+    let modifiedContent = content;
     let match;
     let index = 0;
   
+    this.images = [];
+
     while ((match = imgRegex.exec(content)) !== null) {
+      const fullDataUrl = match[1];
       const mimeType = match[2]; // Tipo da imagem (png, jpeg, jpg)
       const base64Data = match[3]; // Dados base64 da imagem
   
-      // Converter base64 para Blob
+      // Converter base64 para File
       const byteCharacters = atob(base64Data);
-      const byteNumbers = new Array(byteCharacters.length);
+      const byteArray = new Uint8Array(byteCharacters.length);
+      
       for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
+        byteArray[i] = byteCharacters.charCodeAt(i);
       }
-      const byteArray = new Uint8Array(byteNumbers);
+      
       const blob = new Blob([byteArray], { type: `image/${mimeType}` });
-  
-      // Criar um arquivo
       const file = new File([blob], `imagem_${index}.${mimeType}`, { type: `image/${mimeType}` });
-      files.push(file);
+  
+      // Adiciona à lista global
+      this.images.push(file);
+
+      // Substituir no conteúdo
+      modifiedContent = modifiedContent.replace(fullDataUrl, `FILE_${index}`);
+
       index++;
     }
-  
-    console.log('Imagens extraídas:', files);
-    return files;
+
+    console.log('Imagens extraídas:', this.images);
+    console.log('Texto modificado salvo em this.post.texto: ', modifiedContent);
+
+    // Salvar texto modificado direto no post
+    return { modifiedContent, images: this.images };
   }
   
 
