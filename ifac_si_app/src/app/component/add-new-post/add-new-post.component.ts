@@ -99,6 +99,8 @@ export class AddNewPostComponent implements OnInit{
         next: (resposta: Post) => {
           this.post = resposta;
 
+          console.log (this.post.texto);
+
           // console.log ("Post", resposta);
           
           // this.tags = resposta.tags;
@@ -338,7 +340,6 @@ export class AddNewPostComponent implements OnInit{
 
     // Adiciona os campos do post
     formData.append('titulo', this.post.titulo);
-    formData.append('texto', this.post.texto);
     formData.append('status', this.post.status || EStatus.Publicado);
 
     if(this.post.usuario?.id) formData.append('usuarioId', this.post.usuario.id.toString());
@@ -350,6 +351,19 @@ export class AddNewPostComponent implements OnInit{
     if (this.post.visibilidade) formData.append('visibilidade', this.post.visibilidade);
 
     if (this.post.publicacao) formData.append('publicacao', this.post.publicacao);
+
+    if (this.post.texto) {
+      const result = this.extractBase64Images(this.post.texto);
+
+      formData.append('texto', result.modifiedContent)
+      
+      if (result.images) {
+        result.images.forEach((arquivo, index) => {
+          formData.append('file', arquivo);
+        });
+      }
+      
+    }
 
     if (this.post.data) formData.append('data', this.post.data);
     

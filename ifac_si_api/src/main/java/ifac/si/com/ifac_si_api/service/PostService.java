@@ -141,8 +141,14 @@ public class PostService{
             imagemCapa.setPost(post); // Depois, seta o post na imagem
         });
 
-        if (imagens != null) {
+        List<String> urlsImagens = new ArrayList<>();
+        if (imagens != null && !imagens.isEmpty()) {
             List<Imagem> imagensList = processarImagens(imagens);
+            
+            for (Imagem img : imagensList) {
+                urlsImagens.add(img.getUrl());
+            }
+
             imagensList.forEach(img -> img.setPost(post));
             post.setImagens(imagensList);
         }
@@ -156,6 +162,10 @@ public class PostService{
         } else {
             post.setData(LocalDateTime.now());
         }
+
+        String textoFinal = substituirReferenciasPorUrls(postDto.getTexto(), urlsImagens);
+        post.setTexto(textoFinal);
+
         return postRepository.save(post);
     }
 
@@ -198,7 +208,8 @@ public class PostService{
         return imagens.stream()
                 .map(imagem -> {
                     try {
-                        String fileName = minIOService.uploadFile(imagem);
+                        String fullPath = minIOService.uploadFile(imagem);
+                        String fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1);
                         String url = minIOService.getFileUrl("imagens", fileName);
 
                         return Imagem.builder()
@@ -245,6 +256,27 @@ public class PostService{
         return postRepository.findByCategoriaId(categoriaId);
     }
 
+    private String substituirReferenciasPorUrls(String texto, List<String> urlsImagens) {
+        if (texto == null || urlsImagens.isEmpty()) {
+            return texto;
+        }
+
+        String textoModificado = texto;
+        
+        // Para cada URL, substituir a referência correspondente
+        for (int i = 0; i < urlsImagens.size(); i++) {
+            String referencia = "FILE_" + i;
+            String url = urlsImagens.get(i);
+            
+            // Substituir todas as ocorrências de FILE_X pela URL real
+            textoModificado = textoModificado.replace(referencia, url);
+            
+            System.out.println("Substituindo " + referencia + " por: " + url);
+        }
+        
+        return textoModificado;
+    }
+    
     @Transactional
     public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
         Post post = postRepository.findById(id)
@@ -317,95 +349,6 @@ public class PostService{
         return postRepository.save(post);
     }
 
-//    public Post update(Long id, PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
-//        // Buscar o post existente
-//        Post post = postRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Post não encontrado com o ID fornecido."));
-//
-//        // Atualizar título, texto, legenda e status se fornecidos
-//        if (postDto.getTitulo() != null) {
-//            post.setTitulo(postDto.getTitulo());
-//        }
-//        if (postDto.getTexto() != null) {
-//            post.setTexto(postDto.getTexto());
-//        }
-//        if (postDto.getLegenda() != null) {
-//            post.setLegenda(postDto.getLegenda());
-//        }
-//        if (postDto.getStatus() != null) {
-//            post.setStatus(EStatus.valueOf(postDto.getStatus()));
-//        }
-//
-//        // Atualizar categoria se fornecida
-//        if (postDto.getCategoriaId() != null) {
-//            post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
-//        }
-//
-//        // Atualizar usuário se fornecido
-//        if (postDto.getUsuarioId() != null) {
-//            Usuario usuario = usuarioRepository.findById(postDto.getUsuarioId())
-//                    .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com o ID fornecido."));
-//            post.setUsuario(usuario);
-//        }
-//
-//        // Atualizar tags se fornecidas
-//        if (postDto.getTags() != null) {
-//            post.setTags(processarTags(postDto.getTags()));
-//        }
-//
-//        // Atualizar imagens se fornecidas
-//        if (imagens != null) {
-//            List<Imagem> imagensList = processarImagens(imagens);
-//
-//            // Removendo as imagens antigas se necessário
-//            post.getImagens().clear();
-//
-//            imagensList.forEach(img -> img.setPost(post));
-//            post.setImagens(imagensList);
-//        }
-//
-//        // Atualizar a data de modificação
-//        post.setData(LocalDateTime.now());
-//
-//        // Salvar e retornar o post atualizado
-//        return postRepository.save(post);
-//    }
-
-
-//    public Post update(Long postId, PostRequestDTO postDto, List<MultipartFile> novasImagens) {
-//
-//        Post postExistente = postRepository.findById(postId)
-//                .orElseThrow(() -> new RuntimeException("Post não encontrado"));
-//
-//        postExistente.setTitulo(postDto.getTitulo());
-//        postExistente.setTexto(postDto.getTexto());
-//        postExistente.setLegenda(postDto.getLegenda());
-//
-//        postExistente.setStatus(EStatus.fromString(postDto.getStatus()));
-//
-//        if (postDto.getCategoriaId() != null) {
-//            Categoria categoria = categoriaRepository.findById(postDto.getCategoriaId())
-//                    .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
-//            postExistente.setCategoria(categoria);
-//        }
-//
-//        if (postDto.getTags() != null) {
-//            List<Tag> tags = processarTags(postDto.getTags());
-//            postExistente.setTags(tags);
-//        }
-//
-//        if (novasImagens != null && !novasImagens.isEmpty()) {
-//            List<Imagem> imagensNovas = processarImagens(novasImagens);
-//            imagensNovas.forEach(img -> img.setPost(postExistente));
-//
-//            if (postExistente.getImagens() == null) {
-//                postExistente.setImagens(new ArrayList<>());
-//            }
-//            postExistente.getImagens().addAll(imagensNovas);
-//        }
-//
-//        return postRepository.save(postExistente);
-//    }
 
     public void removerImagem(Long postId, Long imagemId) {
         Post post = postRepository.findById(postId)
@@ -430,36 +373,6 @@ public class PostService{
         post.setStatus(novoStatus);
         return postRepository.save(post);
     }
-
-//    public Page<PostDTO> findAll(String titulo, Long categoriaId, Long usuarioId, EStatus status, Pageable pageable) {
-//
-//        Specification<Post> spec = Specification.where(null);
-//
-//        if (titulo != null && !titulo.isEmpty()) {
-//            spec = spec.and((root, query, cb) ->
-//                    cb.like(cb.lower(root.get("titulo")),
-//                            "%" + titulo.toLowerCase() + "%"));
-//        }
-//
-//        if (categoriaId != null) {
-//            spec = spec.and((root, query, cb) ->
-//                    cb.equal(root.get("categoria").get("id"), categoriaId));
-//        }
-//
-//        if (usuarioId != null) {
-//            spec = spec.and((root, query, cb) ->
-//                    cb.equal(root.get("usuario").get("id"), usuarioId));
-//        }
-//
-//        if (status != null) {
-//            spec = spec.and((root, query, cb) ->
-//                    cb.equal(root.get("status"), status));
-//        }
-//
-//        Page<Post> postsPage = postRepository.findAll(spec, pageable);
-//        return postsPage.map(postMapper::toDTO);
-//    }
-
 
     public void delete(Long id) {
         Optional<Post> obj = postRepository.findById(id);

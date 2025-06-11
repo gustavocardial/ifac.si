@@ -25,18 +25,13 @@
           </div>
           <div class="row">
               <div class="col-nd-12">
-                  <quill-editor [styles]="{height: '200px'}" [modules]="modules" (onEditorChanged)="changedEditor($event)" #content="ngModel" [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
+                  <quill-editor [styles]="{height: '800px'}" [modules]="modules" (onEditorChanged)="changedEditor($event)" #content="ngModel" [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
                   </quill-editor>
               </div>
           </div>
           <div class="row">
               <div class="col">
                   <button class="btn" id="buttonSave" (click)="saveContent()">Salvar</button>
-              </div>
-              <div class="col">
-                    <button type="button" class="btn btn-primary mt-2" (click)="testarEnvio()">
-                        Testar Envio
-                    </button>
               </div>
           </div>
       </div>
@@ -89,14 +84,7 @@
                             </div>
                             <div class="statusDiv">
                                 <p>Publicação:</p>
-                                <div>
-                                    <!-- <ng-container *ngIf="publicacaoContent; else publicacaoSelect">
-                                        <p id="publicacao">
-                                        {{ post.publicacao ? post.publicacao : 'Imediata' }}
-                                        </p>
-                                        <button (click)="togglePublicacao()" class="editButton">Editar</button>
-                                    </ng-container> -->
-                                    
+                                <div>                                   
                                     <div class="publicacaoWrapper">
                                         <div class="selectWrapper">
                                             <div *ngIf="publicacaoContent" class="selectWrapper">
