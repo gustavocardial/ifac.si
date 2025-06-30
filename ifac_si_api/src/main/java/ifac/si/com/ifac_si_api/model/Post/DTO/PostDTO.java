@@ -10,10 +10,12 @@ public class PostDTO {
 
     private String titulo;
     private Long usuarioId;
+    private Long usuarioAlteraId;
     private Long categoriaId;
     private String texto;
     private LocalDateTime data;
     private String legenda;
+    private String mensagemReprovacao;
     private List<Imagem> imagens;
     private Imagem imagemCapa;
     private String status;
@@ -113,5 +115,21 @@ public class PostDTO {
 
     public void setPublicacao(String publicacao) {
         this.publicacao = publicacao;
+    }
+
+    public Long getUsuarioAlteraId() {
+        return usuarioAlteraId;
+    }
+
+    public void setUsuarioAlteraId(Long usuarioAlteraId) {
+        this.usuarioAlteraId = usuarioAlteraId;
+    }
+
+    public String getMensagemReprovacao() {
+        return mensagemReprovacao;
+    }
+
+    public void setMensagemReprovacao(String mensagemReprovacao) {
+        this.mensagemReprovacao = mensagemReprovacao;
     }
 }
