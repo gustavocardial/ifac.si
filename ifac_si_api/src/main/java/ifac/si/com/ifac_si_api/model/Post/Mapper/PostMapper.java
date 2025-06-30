@@ -30,6 +30,8 @@ public class PostMapper {
         postDTO.setData(post.getData());
         postDTO.setLegenda(post.getLegenda());
         postDTO.setVisibilidade(post.getVisibilidade().name());
+        postDTO.setMensagemReprovacao(post.getMensagemReprovacao());
+        postDTO.setUsuarioAlteraId(post.getUsuarioAlteraId().getId());
         if ( post.getStatus() != null ) postDTO.setStatus(post.getStatus().name());
         if ( post.getStatus() != null ) postDTO.setImagens(post.getImagens());
 
@@ -52,6 +54,8 @@ public class PostMapper {
         post.setTitulo(postDto.getTitulo());
         post.setTexto(postDto.getTexto());
         post.setLegenda(postDto.getLegenda());
+        post.setMensagemReprovacao(post.getMensagemReprovacao());
+        post.setUsuarioAlteraId(post.getUsuarioAlteraId());
         post.setStatus(EStatus.fromString(postDto.getStatus()));
         post.setVisibilidade(EVisibilidade.fromString(postDto.getVisibilidade()));
         if (postDto.getData() != null) {
