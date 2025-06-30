@@ -16,9 +16,11 @@ public class PostRequestDTO {
 
     private String titulo;
     private Long usuarioId;
+    private Long usuarioAlteraId;
     private Long categoriaId;
     private String texto;
     private String legenda;
+    private String mensagemReprovacao;
     private String status;
     private LocalDateTime data;
     private String visibilidade;
@@ -39,6 +41,14 @@ public class PostRequestDTO {
 
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public Long getUsuarioAlteraId() {
+        return usuarioAlteraId;
+    }
+
+    public void setUsuarioAlteraId(Long usuarioAlteraId) {
+        this.usuarioAlteraId = usuarioAlteraId;
     }
 
     public Long getCategoriaId() {
@@ -95,5 +105,13 @@ public class PostRequestDTO {
 
     public void setPublicacao(String publicacao) {
         this.publicacao = publicacao;
+    }
+
+    public String getMensagemReprovacao() {
+        return mensagemReprovacao;
+    }
+
+    public void setMensagemReprovacao(String mensagemReprovacao) {
+        this.mensagemReprovacao = mensagemReprovacao;
     }
 }
