@@ -39,6 +39,11 @@ public class Post implements Serializable{
 
     @ManyToOne
     @JsonManagedReference
+    @JoinColumn(name = "usuario_altera_id", nullable = true)
+    private Usuario usuarioAlteracao;
+
+    @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "categoria_id", nullable = true)
     private Categoria categoria;
 
@@ -55,6 +60,8 @@ public class Post implements Serializable{
     private LocalDateTime data;
 
     private String legenda;
+
+    private String mensagemReprovacao;
 
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -197,6 +204,22 @@ public class Post implements Serializable{
 
     public void setPublicacao(EPublicacao publicacao) {
         this.publicacao = publicacao;
+    }
+
+    public Usuario getUsuarioAlteracao() {
+        return usuarioAlteracao;
+    }
+
+    public void setUsuarioAlteracao(Usuario usuarioAlteracao) {
+        this.usuarioAlteracao = usuarioAlteracao;
+    }
+
+    public String getMensagemReprovacao() {
+        return mensagemReprovacao;
+    }
+
+    public void setMensagemReprovacao(String mensagemReprovacao) {
+        this.mensagemReprovacao = mensagemReprovacao;
     }
 
     //Testar relacionamentos e engenharia reserva no workbench

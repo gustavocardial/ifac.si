@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 public enum EStatus {
     RASCUNHO,
     PUBLICADO,
-    ARQUIVADO;
-
+    ARQUIVADO,
+    REPROVADO;
 
     public static EStatus fromString(String status) {
         if (status == null) {
