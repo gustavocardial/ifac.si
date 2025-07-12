@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ifac.si.com.ifac_si_api.model.Post.Enum.EPublicacao;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EVisibilidade;
 
@@ -30,6 +31,7 @@ public class PostMapper {
         postDTO.setData(post.getData());
         postDTO.setLegenda(post.getLegenda());
         postDTO.setVisibilidade(post.getVisibilidade().name());
+        postDTO.setPublicacao(post.getPublicacao().name());
         postDTO.setMensagemReprovacao(post.getMensagemReprovacao());
         postDTO.setUsuarioAlteraId(post.getUsuarioAlteraId().getId());
         if ( post.getStatus() != null ) postDTO.setStatus(post.getStatus().name());
@@ -58,6 +60,7 @@ public class PostMapper {
         post.setUsuarioAlteraId(post.getUsuarioAlteraId());
         post.setStatus(EStatus.fromString(postDto.getStatus()));
         post.setVisibilidade(EVisibilidade.fromString(postDto.getVisibilidade()));
+        post.setPublicacao(EPublicacao.fromString(postDto.getPublicacao()));
         if (postDto.getData() != null) {
             post.setData(postDto.getData());
         }
@@ -82,6 +85,9 @@ public class PostMapper {
         }
         if (postDto.getData() != null) {
             post.setData(postDto.getData());
+        }
+        if (postDto.getPublicacao() != null) {
+            post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
         }
     }
 }

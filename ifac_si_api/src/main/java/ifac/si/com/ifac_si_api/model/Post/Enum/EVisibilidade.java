@@ -17,14 +17,14 @@ public enum EVisibilidade {
             return EVisibilidade.valueOf(visibilidade.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(
-                    "Dado de visibilidade inválido. Status permitidos: " +
-                            Arrays.toString(EStatus.values())
+                    "Dado de visibilidade inválido. visibilidades permitidas: " +
+                            Arrays.toString(EVisibilidade.values())
             );
         }
     }
 
-    public static List<String> getStatusPermitidos() {
-        return Arrays.stream(EStatus.values())
+    public static List<String> getVisibilidadePermitidas() {
+        return Arrays.stream(EVisibilidade.values())
                 .map(Enum::name)
                 .collect(Collectors.toList());
     }
