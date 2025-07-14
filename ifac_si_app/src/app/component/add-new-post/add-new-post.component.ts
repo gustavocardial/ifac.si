@@ -101,6 +101,7 @@ export class AddNewPostComponent implements OnInit{
           this.post = resposta;
 
           console.log (this.post.texto);
+          console.log (this.post.usuarioAltera);
 
           // console.log ("Post", resposta);
           
@@ -300,7 +301,7 @@ export class AddNewPostComponent implements OnInit{
     formData.append('status', this.post.status || EStatus.Publicado);
 
     if (this.post.id) formData.append('usuarioAlteraId', this.usuarioLogado?.id.toString());
-    else formData.append('usuario', this.usuarioLogado?.id.toString());
+    else formData.append('usuarioId', this.usuarioLogado?.id.toString());
 
     if (this.post.categoria?.id) formData.append('categoriaId', this.post.categoria.id.toString());
 

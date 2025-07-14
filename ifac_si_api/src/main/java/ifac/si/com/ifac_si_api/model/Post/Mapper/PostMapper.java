@@ -3,6 +3,8 @@ package ifac.si.com.ifac_si_api.model.Post.Mapper;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Post.Post;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,9 +14,13 @@ import java.util.stream.Collectors;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EPublicacao;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EVisibilidade;
+import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
+import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 
 @Service
 public class PostMapper {
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public PostDTO toDTO(Post post) {
 
@@ -25,6 +31,7 @@ public class PostMapper {
         PostDTO postDTO = new PostDTO();
 
         postDTO.setUsuarioId(post.getUsuario().getId());
+        postDTO.setUsuarioAlteraId(post.getUsuario().getId());
         postDTO.setCategoriaId(post.getCategoria().getId());
         postDTO.setTitulo(post.getTitulo());
         postDTO.setTexto(post.getTexto());
@@ -56,8 +63,7 @@ public class PostMapper {
         post.setTitulo(postDto.getTitulo());
         post.setTexto(postDto.getTexto());
         post.setLegenda(postDto.getLegenda());
-        post.setMensagemReprovacao(post.getMensagemReprovacao());
-        post.setUsuarioAlteraId(post.getUsuarioAlteraId());
+        post.setMensagemReprovacao(postDto.getMensagemReprovacao());
         post.setStatus(EStatus.fromString(postDto.getStatus()));
         post.setVisibilidade(EVisibilidade.fromString(postDto.getVisibilidade()));
         post.setPublicacao(EPublicacao.fromString(postDto.getPublicacao()));

@@ -295,6 +295,12 @@ public class PostService{
             post.setUsuario(usuario);
         }
 
+        if (postDto.getUsuarioAlteraId() != null) {
+            Usuario usuarioAltera = usuarioRepository.findById(postDto.getUsuarioAlteraId())
+                .orElseThrow(() -> new IllegalArgumentException("Usuário que altera não encontrado com o ID fornecido."));
+            post.setUsuarioAlteraId(usuarioAltera);
+        }
+
         // Atualiza tags
         if (postDto.getTags() != null) {
             post.getTags().clear();
