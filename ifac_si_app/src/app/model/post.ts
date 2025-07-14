@@ -10,7 +10,7 @@ export type Post = {
     id: number,
     titulo: string,
     usuario?: Usuario,
-    usuarioAltera?: Usuario,
+    usuarioAlteraId?: Usuario,
     categoria?: Categoria,
     tags?: Tag[],
     texto: string,

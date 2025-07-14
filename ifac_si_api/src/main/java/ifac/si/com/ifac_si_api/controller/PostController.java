@@ -98,8 +98,6 @@ public class PostController{
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
        servico.delete(id);
        return new ResponseEntity<>(HttpStatus.OK);
-
-    // return null;
     }
 
     @Operation(summary = "Atualizar post existente")

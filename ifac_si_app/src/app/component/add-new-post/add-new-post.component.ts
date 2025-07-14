@@ -101,7 +101,7 @@ export class AddNewPostComponent implements OnInit{
           this.post = resposta;
 
           console.log (this.post.texto);
-          console.log (this.post.usuarioAltera);
+          console.log (this.post);
 
           // console.log ("Post", resposta);
           

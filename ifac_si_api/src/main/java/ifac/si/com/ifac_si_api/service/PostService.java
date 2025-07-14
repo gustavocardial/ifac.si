@@ -384,7 +384,8 @@ public class PostService{
         Optional<Post> obj = postRepository.findById(id);
         if (obj.isPresent()) {
             Post post = obj.get();
-            post.setStatus(EStatus.ARQUIVADO); 
+            post.setStatus(EStatus.ARQUIVADO);
+            // post.setUsuarioAlteraId(usuarioLogado); 
             postRepository.save(post); 
         }
     }
