@@ -25,7 +25,7 @@ export class PostsAppComponent implements OnInit{
   usuario: Usuario = <Usuario>{};
   posts: Post[] = Array<Post>();
   show: boolean = false;
-  postIdToDelete!: number;
+  postId!: number;
   paginaRequisicao: PageRequest = new PageRequest();
   paginaResposta: PageResponse<Post> = <PageResponse<Post>>{};
   termoBusca: string = '';
@@ -67,18 +67,18 @@ export class PostsAppComponent implements OnInit{
     this.deleteButtons.forEach(button => {
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
         // alert('Delete selecionado');
-        this.postIdToDelete = +button.nativeElement.getAttribute('data-post-id');
+        this.postId = +button.nativeElement.getAttribute('data-post-id');
         this.acaoModal = 'deletar';
-        this.showDelete();
+        this.showModal();
       });
       this.listeners.push(listener);
     });
 
     this.reprovButtons.forEach(button => {
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
-        this.postIdToDelete = +button.nativeElement.getAttribute('data-post-id');
+        this.postId = +button.nativeElement.getAttribute('data-post-id');
         this.acaoModal = 'reprovar';
-        this.showDelete();
+        this.showModal();
       });
       this.listeners.push(listener);
     })
@@ -106,7 +106,7 @@ export class PostsAppComponent implements OnInit{
     this.listeners.forEach(listener => listener());
   }
   
-  showDelete(): void {
+  showModal(): void {
     this.show = !this.show
   }
 
@@ -122,13 +122,19 @@ export class PostsAppComponent implements OnInit{
     });
   }
 
-  deletePost() {
-    this.postServico.delete(this.postIdToDelete).subscribe({
+  deletePost(postId: number) {
+    this.postServico.delete(postId).subscribe({
       complete: () => {
         this.ngOnInit();
-        this.showDelete();// Fecha a confirmação de deleção
+        this.showModal();// Fecha a confirmação de deleção
       }
     });
+  }
+
+  reprovarPost(postId: number) {
+    console.log (postId);
+    console.log ('teste');
+    this.showModal();
   }
 
   getCategoria(id: number | null): void {
@@ -232,14 +238,10 @@ export class PostsAppComponent implements OnInit{
   confirmarAcao() {
     switch (this.acaoModal) {
       case 'deletar':
-        this.deletePost();
+        this.deletePost(this.postId);
         break;
       case 'reprovar':
-        // Aqui você pode criar e chamar um método `reprovarPost()`
-        // this.reprovarPost(this.postIdToDelete);
-        console.log ('teste');
-        this.show = false;
-        this.acaoModal = null;
+        this.reprovarPost(this.postId);
         break;
     }
   }
