@@ -4,8 +4,13 @@
     (tagFilter)="getByTag($event)"
     (nonSelectFilter)="getAll()"
     (ordemMudou)="atualizarOrdem($event)"></app-filters>
-    <div *ngIf="!show">
-        <app-delete-form (cancelForm)="showDelete()" (confirmForm)="deletePost()"></app-delete-form>
+    <div *ngIf="show && acaoModal">
+        <app-delete-form 
+        [messageLine1]="getMensagemLinha1()"
+        [messageLine2]="getMensagemLinha2()"
+        (cancelForm)="showDelete()" 
+        (confirmForm)="deletePost()">    
+        </app-delete-form>
     </div>
     <div class="container">
         <div class="postList">
@@ -20,9 +25,9 @@
                         </div>
                     </div>
                     <div id="postAction" #postAction *ngIf="post.usuario?.id == usuario.id  || usuario.cargo == 'EDITOR'">
-                        <button #deleteButton [attr.data-post-id]="post.id" (click)="acaoModal = 'deletar'"><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
-                        <button #editButton [attr.data-post-id]="post.id" (click)="acaoModal = 'editar'"><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
-                        <button *ngIf="usuario.cargo == 'EDITOR'" [attr.data-post-id]="post.id" (click)="acaoModal = 'reprovar'"><i class="bi bi-hand-thumbs-down" style="font-weight: bold;"></i></button>
+                        <button #deleteButton [attr.data-post-id]="post.id"><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
+                        <button #editButton [attr.data-post-id]="post.id"><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+                        <button #reprovButton [attr.data-post-id]="post.id" *ngIf="usuario.cargo == 'EDITOR'" [attr.data-post-id]="post.id"><i class="bi bi-hand-thumbs-down" style="font-weight: bold;"></i></button>
                     </div>
                 </div>
                 <div class="postData">

@@ -19,6 +19,7 @@ export class PostsAppComponent implements OnInit{
   @ViewChildren('deleteButton') deleteButtons!: QueryList<ElementRef>;
   @ViewChildren('editButton') editButtons!: QueryList<ElementRef>;
   @ViewChildren('showButton') showButtons!: QueryList<ElementRef>;
+  @ViewChildren('reprovButton') reprovButtons!: QueryList<ElementRef>;
   
   private subscription: Subscription = new Subscription();
   usuario: Usuario = <Usuario>{};
@@ -31,7 +32,7 @@ export class PostsAppComponent implements OnInit{
   selectedCategories: Post[] = Array<Post>(); // Lista de categorias selecionadas
   selectedTags: Post[] = Array<Post>(); // Lista de tags selecionadas
   ordenacao: string = 'asc';
-  acaoModal: 'deletar' | 'editar' | 'reprovar' | null = null;
+  acaoModal: 'deletar' | 'reprovar' | null = null;
 
   private listeners: (() => void)[] = [];
 
@@ -67,10 +68,20 @@ export class PostsAppComponent implements OnInit{
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
         // alert('Delete selecionado');
         this.postIdToDelete = +button.nativeElement.getAttribute('data-post-id');
+        this.acaoModal = 'deletar';
         this.showDelete();
       });
       this.listeners.push(listener);
     });
+
+    this.reprovButtons.forEach(button => {
+      const listener = this.renderer.listen(button.nativeElement, 'click', () => {
+        this.postIdToDelete = +button.nativeElement.getAttribute('data-post-id');
+        this.acaoModal = 'reprovar';
+        this.showDelete();
+      });
+      this.listeners.push(listener);
+    })
 
     this.editButtons.forEach((button, index) => {
       const postId = button.nativeElement.getAttribute('data-post-id');
@@ -163,17 +174,6 @@ export class PostsAppComponent implements OnInit{
         this.paginaResposta = resposta;
 
         this.ordenarPosts();
-        // resposta.forEach(post => {
-        //   if (post.imagemCapa) {
-        //     console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
-        //   } else {
-        //     console.log(`❌ Post ID: ${post.id} NÃO tem imagem de capa.`);
-        //   }
-        // });
-        // this.servicoAlerta.enviarAlerta({
-        //   tipo: ETipoAlerta.SUCESSO,
-        //   mensagem: "Posts mostrados com sucesso."
-        // });
         setTimeout(() => this.setupButtonListeners(), 0);
       }
     });
@@ -206,4 +206,43 @@ export class PostsAppComponent implements OnInit{
       }
     });
   }
+
+  getMensagemLinha1(): string {
+  switch (this.acaoModal) {
+    case 'deletar':
+      return 'Você tem certeza que deseja deletar este item?';
+    case 'reprovar':
+      return 'Deseja reprovar este post e torná-lo privado?';
+    default:
+      return 'Tem certeza que deseja continuar com esta ação?';
+    }
+  }
+
+  getMensagemLinha2(): string {
+    switch (this.acaoModal) {
+      case 'deletar':
+        return 'O post será mantido na lixeira por um período limitado antes da exclusão permanente.';
+      case 'reprovar':
+        return 'O autor poderá fazer os ajustes necessários e reenviar para nova avaliação.';
+      default:
+        return '';
+    }
+  }
+
+  confirmarAcao() {
+    switch (this.acaoModal) {
+      case 'deletar':
+        this.deletePost();
+        break;
+      case 'reprovar':
+        // Aqui você pode criar e chamar um método `reprovarPost()`
+        // this.reprovarPost(this.postIdToDelete);
+        console.log ('teste');
+        this.show = false;
+        this.acaoModal = null;
+        break;
+    }
+  }
+
+
 }
