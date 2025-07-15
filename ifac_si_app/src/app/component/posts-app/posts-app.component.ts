@@ -31,6 +31,7 @@ export class PostsAppComponent implements OnInit{
   selectedCategories: Post[] = Array<Post>(); // Lista de categorias selecionadas
   selectedTags: Post[] = Array<Post>(); // Lista de tags selecionadas
   ordenacao: string = 'asc';
+  acaoModal: 'deletar' | 'editar' | 'reprovar' | null = null;
 
   private listeners: (() => void)[] = [];
 

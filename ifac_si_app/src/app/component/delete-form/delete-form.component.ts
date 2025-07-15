@@ -14,9 +14,12 @@ export class DeleteFormComponent implements AfterViewInit{
 
   @ViewChild('cancelButton') cancelButton!: ElementRef;
   @ViewChild('confirmButton') confirmButton!: ElementRef;
+
   @Output() cancelForm = new EventEmitter;
   @Output() confirmForm = new EventEmitter;
-
+  @Input() messageLine1: string = 'Você tem certeza que deseja continuar com esta ação?';
+  @Input() messageLine2?: string;
+  
   ngAfterViewInit() {
     if (this.cancelButton && this.cancelButton.nativeElement) {
       this.renderer.listen(this.cancelButton.nativeElement, 'click', () => {
