@@ -38,6 +38,7 @@ export class AddNewPostComponent implements OnInit{
   private publicacaoButtonListener: (() => void) | undefined;
   private images: File[] = [];
   post: Post = <Post>{};
+  usuarioLogado: Usuario = <Usuario>{};
   categorias: Categoria[] = Array<Categoria>();
   tagsList: ITags[] = Array<ITags>();
   tagsOptions: Tag[] = Array<Tag>();
@@ -100,6 +101,7 @@ export class AddNewPostComponent implements OnInit{
           this.post = resposta;
 
           console.log (this.post.texto);
+          console.log (this.post);
 
           // console.log ("Post", resposta);
           
@@ -147,9 +149,7 @@ export class AddNewPostComponent implements OnInit{
 
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
       next: (usuario: Usuario) => {
-        this.post.usuario = usuario;
-
-        // console.log('usuario: ', usuario);
+        this.usuarioLogado = usuario
       }
     })
 
@@ -158,8 +158,6 @@ export class AddNewPostComponent implements OnInit{
         this.categorias = resposta;
       }
     });
-
-    this.carregarUsuario();
     // if (id) alert(`Chegou post com id ${id}`);
   }
 
@@ -236,36 +234,6 @@ export class AddNewPostComponent implements OnInit{
     console.log('Total de arquivos:', this.images.length);
   }
 
-  // private extractBase64Images(content: string): File[] {
-  //   const imgRegex = /<img[^>]+src=["'](data:image\/(png|jpeg|jpg);base64,([^"']+))["']/g;
-  //   const files: File[] = [];
-  //   let match;
-  //   let index = 0;
-  
-  //   while ((match = imgRegex.exec(content)) !== null) {
-  //     const mimeType = match[2]; // Tipo da imagem (png, jpeg, jpg)
-  //     const base64Data = match[3]; // Dados base64 da imagem
-  
-  //     // Converter base64 para Blob
-  //     const byteCharacters = atob(base64Data);
-  //     const byteNumbers = new Array(byteCharacters.length);
-      
-  //     for (let i = 0; i < byteCharacters.length; i++) {
-  //       byteNumbers[i] = byteCharacters.charCodeAt(i);
-  //     }
-  //     const byteArray = new Uint8Array(byteNumbers);
-  //     const blob = new Blob([byteArray], { type: `image/${mimeType}` });
-  
-  //     // Criar um arquivo
-  //     const file = new File([blob], `imagem_${index}.${mimeType}`, { type: `image/${mimeType}` });
-  //     files.push(file);
-  //     index++;
-  //   }
-  
-  //   console.log('Imagens extraídas:', files);
-  //   return files;
-  // }
-
   private extractBase64Images(content: string): { modifiedContent: string, images: File[] } {
     const imgRegex = /<img[^>]*src=["'](data:image\/(png|jpeg|jpg);base64,([^"']+))["'][^>]*>/g;
     let modifiedContent = content;
@@ -320,16 +288,6 @@ export class AddNewPostComponent implements OnInit{
     console.log('Número de imagens encontradas:', this.numberOfImages);
   }
 
-  private carregarUsuario(): void {
-    if (!this.post.usuario) {
-      this.servicoUsuario.getById(1).subscribe({
-        next: (resposta: Usuario) => {
-          this.post.usuario = resposta;
-        }
-      });
-    }
-  }
-
   saveContent(): void {
 
     this.convertToTags();
@@ -342,7 +300,8 @@ export class AddNewPostComponent implements OnInit{
     formData.append('titulo', this.post.titulo);
     formData.append('status', this.post.status || EStatus.Publicado);
 
-    if(this.post.usuario?.id) formData.append('usuarioId', this.post.usuario.id.toString());
+    if (this.post.id) formData.append('usuarioAlteraId', this.usuarioLogado?.id.toString());
+    else formData.append('usuarioId', this.usuarioLogado?.id.toString());
 
     if (this.post.categoria?.id) formData.append('categoriaId', this.post.categoria.id.toString());
 
@@ -351,6 +310,10 @@ export class AddNewPostComponent implements OnInit{
     if (this.post.visibilidade) formData.append('visibilidade', this.post.visibilidade);
 
     if (this.post.publicacao) formData.append('publicacao', this.post.publicacao);
+
+    if (this.post.data) formData.append('data', this.post.data);
+    
+    if (this.capaInput?.nativeElement?.files[0]) formData.append('imagemCapa', this.capaInput.nativeElement.files[0]);
 
     if (this.post.texto) {
       const result = this.extractBase64Images(this.post.texto);
@@ -364,10 +327,6 @@ export class AddNewPostComponent implements OnInit{
       }
       
     }
-
-    if (this.post.data) formData.append('data', this.post.data);
-    
-    if (this.capaInput?.nativeElement?.files[0]) formData.append('imagemCapa', this.capaInput.nativeElement.files[0]);
 
     // Se tiver tags, adiciona cada uma
     if (this.post.tags && this.post.tags.length > 0) {
