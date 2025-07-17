@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComparationViewComponent } from './comparation-view.component';
+import { TrashViewComponent } from './trash-view.component';
 
-describe('ComparationViewComponent', () => {
-  let component: ComparationViewComponent;
-  let fixture: ComponentFixture<ComparationViewComponent>;
+describe('TrashViewComponent', () => {
+  let component: TrashViewComponent;
+  let fixture: ComponentFixture<TrashViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ComparationViewComponent]
+      declarations: [TrashViewComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ComparationViewComponent);
+    fixture = TestBed.createComponent(TrashViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
