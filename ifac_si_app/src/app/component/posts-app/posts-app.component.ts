@@ -19,18 +19,21 @@ export class PostsAppComponent implements OnInit{
   @ViewChildren('deleteButton') deleteButtons!: QueryList<ElementRef>;
   @ViewChildren('editButton') editButtons!: QueryList<ElementRef>;
   @ViewChildren('showButton') showButtons!: QueryList<ElementRef>;
+  @ViewChildren('reprovButton') reprovButtons!: QueryList<ElementRef>;
   
   private subscription: Subscription = new Subscription();
   usuario: Usuario = <Usuario>{};
   posts: Post[] = Array<Post>();
   show: boolean = false;
-  postIdToDelete!: number;
+  postId!: number;
   paginaRequisicao: PageRequest = new PageRequest();
   paginaResposta: PageResponse<Post> = <PageResponse<Post>>{};
   termoBusca: string = '';
   selectedCategories: Post[] = Array<Post>(); // Lista de categorias selecionadas
   selectedTags: Post[] = Array<Post>(); // Lista de tags selecionadas
   ordenacao: string = 'asc';
+  acaoModal: 'deletar' | 'reprovar' | null = null;
+  mostrarCampoTexto: boolean = false;
 
   private listeners: (() => void)[] = [];
 
@@ -65,11 +68,23 @@ export class PostsAppComponent implements OnInit{
     this.deleteButtons.forEach(button => {
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
         // alert('Delete selecionado');
-        this.postIdToDelete = +button.nativeElement.getAttribute('data-post-id');
-        this.showDelete();
+        this.postId = +button.nativeElement.getAttribute('data-post-id');
+        this.acaoModal = 'deletar';
+        this.mostrarCampoTexto = false
+        this.showModal();
       });
       this.listeners.push(listener);
     });
+
+    this.reprovButtons.forEach(button => {
+      const listener = this.renderer.listen(button.nativeElement, 'click', () => {
+        this.postId = +button.nativeElement.getAttribute('data-post-id');
+        this.acaoModal = 'reprovar';
+        this.mostrarCampoTexto = true;
+        this.showModal();
+      });
+      this.listeners.push(listener);
+    })
 
     this.editButtons.forEach((button, index) => {
       const postId = button.nativeElement.getAttribute('data-post-id');
@@ -94,7 +109,7 @@ export class PostsAppComponent implements OnInit{
     this.listeners.forEach(listener => listener());
   }
   
-  showDelete(): void {
+  showModal(): void {
     this.show = !this.show
   }
 
@@ -110,13 +125,19 @@ export class PostsAppComponent implements OnInit{
     });
   }
 
-  deletePost() {
-    this.postServico.delete(this.postIdToDelete).subscribe({
+  deletePost(postId: number) {
+    this.postServico.delete(postId).subscribe({
       complete: () => {
         this.ngOnInit();
-        this.showDelete();// Fecha a confirmação de deleção
+        this.showModal();// Fecha a confirmação de deleção
       }
     });
+  }
+
+  reprovarPost(postId: number, mensagem?: string) {
+    console.log (postId);
+    console.log (mensagem);
+    this.showModal();
   }
 
   getCategoria(id: number | null): void {
@@ -162,17 +183,6 @@ export class PostsAppComponent implements OnInit{
         this.paginaResposta = resposta;
 
         this.ordenarPosts();
-        // resposta.forEach(post => {
-        //   if (post.imagemCapa) {
-        //     console.log(`✅ Post ID: ${post.id} tem imagem de capa:`, post.imagemCapa.url);
-        //   } else {
-        //     console.log(`❌ Post ID: ${post.id} NÃO tem imagem de capa.`);
-        //   }
-        // });
-        // this.servicoAlerta.enviarAlerta({
-        //   tipo: ETipoAlerta.SUCESSO,
-        //   mensagem: "Posts mostrados com sucesso."
-        // });
         setTimeout(() => this.setupButtonListeners(), 0);
       }
     });
@@ -205,4 +215,39 @@ export class PostsAppComponent implements OnInit{
       }
     });
   }
+
+  getMensagemLinha1(): string {
+  switch (this.acaoModal) {
+    case 'deletar':
+      return 'Você tem certeza que deseja deletar este item?';
+    case 'reprovar':
+      return 'Deseja reprovar este post e torná-lo privado?';
+    default:
+      return 'Tem certeza que deseja continuar com esta ação?';
+    }
+  }
+
+  getMensagemLinha2(): string {
+    switch (this.acaoModal) {
+      case 'deletar':
+        return 'O post será mantido na lixeira por um período limitado antes da exclusão permanente.';
+      case 'reprovar':
+        return 'O autor poderá fazer os ajustes necessários e reenviar para nova avaliação.';
+      default:
+        return '';
+    }
+  }
+
+  confirmarAcao(mensagem?: string) {
+    switch (this.acaoModal) {
+      case 'deletar':
+        this.deletePost(this.postId);
+        break;
+      case 'reprovar':
+        this.reprovarPost(this.postId, mensagem);
+        break;
+    }
+  }
+
+
 }

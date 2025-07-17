@@ -4,8 +4,14 @@
     (tagFilter)="getByTag($event)"
     (nonSelectFilter)="getAll()"
     (ordemMudou)="atualizarOrdem($event)"></app-filters>
-    <div *ngIf="show">
-        <app-delete-form (cancelForm)="showDelete()" (confirmForm)="deletePost()"></app-delete-form>
+    <div *ngIf="show && acaoModal">
+        <app-modal-form 
+        [messageLine1]="getMensagemLinha1()"
+        [messageLine2]="getMensagemLinha2()"
+        [mostrarCampoTexto]="mostrarCampoTexto"
+        (cancelForm)="showModal()" 
+        (confirmForm)="confirmarAcao($event)">    
+        </app-modal-form>
     </div>
     <div class="container">
         <div class="postList">
@@ -22,6 +28,7 @@
                     <div id="postAction" #postAction *ngIf="post.usuario?.id == usuario.id  || usuario.cargo == 'EDITOR'">
                         <button #deleteButton [attr.data-post-id]="post.id"><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
                         <button #editButton [attr.data-post-id]="post.id"><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+                        <button #reprovButton [attr.data-post-id]="post.id" *ngIf="usuario.cargo == 'EDITOR'"><i class="bi bi-hand-thumbs-down" style="font-weight: bold;"></i></button>
                     </div>
                 </div>
                 <div class="postData">

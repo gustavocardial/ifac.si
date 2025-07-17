@@ -16,7 +16,7 @@
     (nonSelectFilter)="getAll()"
     (ordemMudou)="atualizarOrdem($event)"></app-filters>
     <div *ngIf="show">
-        <app-delete-form (cancelForm)="showDelete()" (confirmForm)="deletePost()"></app-delete-form>
+        <app-modal-form (cancelForm)="showModal()" (confirmForm)="deletePost()"></app-modal-form>
     </div>
     <div class="container">
         <div class="postList">

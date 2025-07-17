@@ -13,15 +13,17 @@
 
 .popUp {
     font-weight: 600;
-    height: 40%;
-    width: 40%;
+    width: fit-content;
+    height: fit-content;
+    min-width: 300px;
+    max-width: 90vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /* display: flex; */
     text-align: center;
-    padding: 10px;
+    padding: 30px 40px;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
@@ -86,4 +88,13 @@ div.buttonActions button i{
     color: white;
     font-size: 20px; /* Tamanho do ícone */
     font-weight: bolder;
+}
+
+div#containerMensagem {
+    display: flex;
+    flex-direction: column;
+}
+
+div#containerMensagem label {
+    margin-bottom: 10px;
 }
