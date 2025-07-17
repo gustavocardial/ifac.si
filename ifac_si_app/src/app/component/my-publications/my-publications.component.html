@@ -18,7 +18,7 @@
     <div *ngIf="show">
         <app-modal-form (cancelForm)="showModal()" (confirmForm)="deletePost()"></app-modal-form>
     </div>
-    <app-trash-view></app-trash-view>
+    <button [routerLink]="['/administration/trash_view']">Lixeira</button>
     <div class="container">
         <div class="postList">
             <div *ngFor="let post of postsUsuario">
