@@ -72,7 +72,7 @@ export class MyPublicationsComponent implements OnInit, OnDestroy {
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
         // alert('Delete selecionado');
         this.postIdToDelete = +button.nativeElement.getAttribute('data-post-id');
-        this.showDelete();
+        this.showModal();
       });
       this.listeners.push(listener);
     });
@@ -132,7 +132,7 @@ export class MyPublicationsComponent implements OnInit, OnDestroy {
     });
   }
 
-  showDelete(): void {
+  showModal(): void {
     this.show = !this.show
   }
 
@@ -152,7 +152,8 @@ export class MyPublicationsComponent implements OnInit, OnDestroy {
     this.servicoPost.delete(this.postIdToDelete).subscribe({
       complete: () => {
         this.ngOnInit();
-        this.showDelete();// Fecha a confirmação de deleção
+        this.showModal();
+        console.log ('sghsdjgksd')// Fecha a confirmação de deleção
       }
     });
   }

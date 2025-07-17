@@ -5,13 +5,13 @@
     (nonSelectFilter)="getAll()"
     (ordemMudou)="atualizarOrdem($event)"></app-filters>
     <div *ngIf="show && acaoModal">
-        <app-delete-form 
+        <app-modal-form 
         [messageLine1]="getMensagemLinha1()"
         [messageLine2]="getMensagemLinha2()"
         [mostrarCampoTexto]="mostrarCampoTexto"
         (cancelForm)="showModal()" 
         (confirmForm)="confirmarAcao($event)">    
-        </app-delete-form>
+        </app-modal-form>
     </div>
     <div class="container">
         <div class="postList">

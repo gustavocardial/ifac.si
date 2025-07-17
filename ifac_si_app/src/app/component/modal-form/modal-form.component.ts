@@ -2,11 +2,11 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, Rend
 import { PostService } from '../../service/post.service';
 
 @Component({
-  selector: 'app-delete-form',
-  templateUrl: './delete-form.component.html',
-  styleUrl: './delete-form.component.css'
+  selector: 'app-modal-form',
+  templateUrl: './modal-form.component.html',
+  styleUrl: './modal-form.component.css'
 })
-export class DeleteFormComponent implements AfterViewInit{
+export class ModalFormComponent implements AfterViewInit{
   constructor(
     private renderer: Renderer2,
     private servico: PostService

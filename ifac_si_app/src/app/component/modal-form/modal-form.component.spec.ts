@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeleteFormComponent } from './delete-form.component';
+import { DeleteFormComponent } from './modal-form.component';
 
 describe('DeleteFormComponent', () => {
   let component: DeleteFormComponent;

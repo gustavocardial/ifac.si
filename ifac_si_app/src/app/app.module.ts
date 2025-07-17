@@ -12,7 +12,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AddNewPostComponent } from './component/add-new-post/add-new-post.component';
 import { QuillModule } from 'ngx-quill';
-import { DeleteFormComponent } from './component/delete-form/delete-form.component';
+import { ModalFormComponent } from './component/modal-form/modal-form.component';
 import { LoaderComponent } from './component/loader/loader.component';
 import { loaderInterceptor } from './interceptor/loader.interceptor';
 import { NotificationComponent } from './component/notification/notification.component';
@@ -35,7 +35,7 @@ import { ComparationViewComponent } from './component/comparation-view/comparati
     FiltersComponent,
     PostsAppComponent,
     AddNewPostComponent,
-    DeleteFormComponent,
+    ModalFormComponent,
     LoaderComponent,
     NotificationComponent,
     AlertaComponent,
