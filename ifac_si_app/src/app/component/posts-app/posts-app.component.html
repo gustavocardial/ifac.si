@@ -8,8 +8,9 @@
         <app-delete-form 
         [messageLine1]="getMensagemLinha1()"
         [messageLine2]="getMensagemLinha2()"
+        [mostrarCampoTexto]="mostrarCampoTexto"
         (cancelForm)="showModal()" 
-        (confirmForm)="confirmarAcao()">    
+        (confirmForm)="confirmarAcao($event)">    
         </app-delete-form>
     </div>
     <div class="container">

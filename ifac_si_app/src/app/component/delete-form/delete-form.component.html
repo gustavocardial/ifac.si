@@ -2,6 +2,12 @@
     <div class="popUp">
         <p>{{ messageLine1 }}</p>
         <p>{{ messageLine2 }}</p>
+
+        <div *ngIf="mostrarCampoTexto" id="containerMensagem">
+            <label for="mensagemReprova">Mensagem de reprovação:</label>
+            <textarea id="mensagemReprova" [(ngModel)]="mensagemReprova"></textarea>
+        </div>
+
         <div id="alignButton">
             <div class="buttonActions">
                 <button #cancelButton id="cancelButton">Cancelar

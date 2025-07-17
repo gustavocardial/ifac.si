@@ -33,6 +33,7 @@ export class PostsAppComponent implements OnInit{
   selectedTags: Post[] = Array<Post>(); // Lista de tags selecionadas
   ordenacao: string = 'asc';
   acaoModal: 'deletar' | 'reprovar' | null = null;
+  mostrarCampoTexto: boolean = false;
 
   private listeners: (() => void)[] = [];
 
@@ -69,6 +70,7 @@ export class PostsAppComponent implements OnInit{
         // alert('Delete selecionado');
         this.postId = +button.nativeElement.getAttribute('data-post-id');
         this.acaoModal = 'deletar';
+        this.mostrarCampoTexto = false
         this.showModal();
       });
       this.listeners.push(listener);
@@ -78,6 +80,7 @@ export class PostsAppComponent implements OnInit{
       const listener = this.renderer.listen(button.nativeElement, 'click', () => {
         this.postId = +button.nativeElement.getAttribute('data-post-id');
         this.acaoModal = 'reprovar';
+        this.mostrarCampoTexto = true;
         this.showModal();
       });
       this.listeners.push(listener);
@@ -131,9 +134,9 @@ export class PostsAppComponent implements OnInit{
     });
   }
 
-  reprovarPost(postId: number) {
+  reprovarPost(postId: number, mensagem?: string) {
     console.log (postId);
-    console.log ('teste');
+    console.log (mensagem);
     this.showModal();
   }
 
@@ -235,13 +238,13 @@ export class PostsAppComponent implements OnInit{
     }
   }
 
-  confirmarAcao() {
+  confirmarAcao(mensagem?: string) {
     switch (this.acaoModal) {
       case 'deletar':
         this.deletePost(this.postId);
         break;
       case 'reprovar':
-        this.reprovarPost(this.postId);
+        this.reprovarPost(this.postId, mensagem);
         break;
     }
   }

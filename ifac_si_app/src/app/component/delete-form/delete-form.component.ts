@@ -19,6 +19,9 @@ export class DeleteFormComponent implements AfterViewInit{
   @Output() confirmForm = new EventEmitter;
   @Input() messageLine1: string = 'Você tem certeza que deseja continuar com esta ação?';
   @Input() messageLine2?: string;
+  @Input() mostrarCampoTexto: boolean = false;
+
+  mensagemReprova: string = '';
   
   ngAfterViewInit() {
     if (this.cancelButton && this.cancelButton.nativeElement) {
@@ -29,7 +32,7 @@ export class DeleteFormComponent implements AfterViewInit{
 
     if (this.confirmButton && this.confirmButton.nativeElement) {
       this.renderer.listen(this.confirmButton.nativeElement, 'click', () => {
-        this.confirmForm.emit();
+        this.confirmForm.emit(this.mostrarCampoTexto ? this.mensagemReprova : '');
       } )
     }
   }

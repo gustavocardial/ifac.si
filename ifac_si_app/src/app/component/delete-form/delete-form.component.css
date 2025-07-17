@@ -89,3 +89,12 @@ div.buttonActions button i{
     font-size: 20px; /* Tamanho do ícone */
     font-weight: bolder;
 }
+
+div#containerMensagem {
+    display: flex;
+    flex-direction: column;
+}
+
+div#containerMensagem label {
+    margin-bottom: 10px;
+}
