@@ -182,3 +182,15 @@ div.postData p {
     font-size: 18px;
     font-weight: 500;
 }
+
+button#buttonTrash {
+    width: fit-content;
+    background-color: white;
+    border-color: #623CEA;
+    color: #623CEA;
+}
+
+button#buttonTrash:hover {
+    background-color: #623CEA;
+    color: white;
+}
