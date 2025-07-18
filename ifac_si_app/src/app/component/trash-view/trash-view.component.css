@@ -45,11 +45,15 @@ body {
 }
 
 div.postList {
-    width: 100%;
-    display: grid; /* Mudamos para grid ao invés de flex */
-    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas de tamanho igual */
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    /* display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
     gap: 30px;
-    padding: 0;
+    padding: 0; */
 }
 
 div.postList div.postData {
@@ -64,26 +68,13 @@ div.postList > div {
     margin-bottom: 0;
 }
 
-@media (max-width: 1024px) {
-    div.postList {
-        grid-template-columns: repeat(2, 1fr); /* Duas colunas para telas menores que 1024px */
-    }
-}
-
-@media (max-width: 600px) {
-    div.postList {
-        grid-template-columns: 1fr; /* Uma coluna para telas menores que 600px */
-    }
-}
-
 div.postView {
     width: 100%; /* Fazer o postView ocupar 100% do espaço do seu container */
-    height: 300px; /* Ajustar altura proporcionalmente */
+    height: 150px; /* Ajustar altura proporcionalmente */
     border-radius: 10px;
     overflow: hidden; 
     display: flex;
     flex-direction: column;
-    position: relative;
 }
 
 div.postView div#postComposition {
@@ -196,4 +187,17 @@ section {
 section h5 {
     color: aliceblue;
     text-align: center;
+}
+
+
+button#buttonTrash {
+    width: fit-content;
+    background-color: white;
+    border-color: #623CEA;
+    color: #623CEA;
+}
+
+button#buttonTrash:hover {
+    background-color: #623CEA;
+    color: white;
 }
