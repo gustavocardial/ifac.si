@@ -74,6 +74,18 @@ export class TrashViewComponent {
     }
   ];
 
+  getDiasRestantes(dataAcao: string): number {
+    const dataRemocao = new Date(dataAcao);
+    const dataLimite = new Date(dataRemocao);
+    dataLimite.setDate(dataRemocao.getDate() + 30); // adiciona 30 dias
+
+    const hoje = new Date();
+    const diff = dataLimite.getTime() - hoje.getTime(); // diferença em ms
+
+    const diasRestantes = Math.ceil(diff / (1000 * 60 * 60 * 24)); // converte ms em dias
+    return diasRestantes > 0 ? diasRestantes : 0; // evita número negativo
+  }
+
     // getCategoria(id: number | null): void {
     //   if (id === null) {
     //     // Lógica para quando não há categoria selecionada

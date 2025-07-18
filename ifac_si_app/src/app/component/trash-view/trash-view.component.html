@@ -1,5 +1,5 @@
 <section>
-    <h5>Todos os itens na lixeira serão automaticamente deletados dentro de tantos dias</h5>
+    <h5>Itens excluídos são mantidos por tantos dias antes da remoção permanentes</h5>
 </section>
 
 <div class="viewPost">
@@ -9,6 +9,11 @@
     (nonSelectFilter)="getAll()"
     (ordemMudou)="atualizarOrdem($event)" -->
     </app-filters>
+    <div>
+        <input type="checkbox" name="selecionarTodos" id="selectAll"> Esvaziar todos
+        <input type="checkbox" name="restaurarTodos" id="restoreAll"> Selecionar todos
+        <button>Esvaziar Lixeira</button>
+    </div>
     <div class="container">
         <div class="postList">
             <div *ngFor="let listPost of lista_teste">
@@ -30,6 +35,9 @@
                     <p> {{listPost.post.titulo}} </p>
                     <p> {{listPost.post.data | date: 'dd/MM/yyyy'}} </p>
                     <p *ngIf="listPost.acao == 'REMOCAO'" style="color: red;">ARQUIVADO</p>
+                    <p *ngIf="listPost.acao == 'REMOCAO'">
+                        Data arquivamento: {{listPost.dataAcao | date: 'dd/MM/yyyy'}}
+                        <br>{{getDiasRestantes(listPost.dataAcao)}} dias restantes</p>
                 </div>
             </div>
         </div>
