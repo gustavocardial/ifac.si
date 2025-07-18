@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
+import { PageRequest } from '../../model/page-request';
+import { PageResponse } from '../../model/page-response';
+import { Post } from '../../model/post';
+import { LoginService } from '../../service/login.service';
+import { PostService } from '../../service/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trash-view',
@@ -6,6 +12,19 @@ import { Component } from '@angular/core';
   styleUrl: './trash-view.component.css'
 })
 export class TrashViewComponent {
+  paginaRequisicao: PageRequest = new PageRequest();
+  paginaResposta: PageResponse<Post> = <PageResponse<Post>>{};
+  termoBusca: string = '';
+  selectedCategories: Post[] = Array<Post>(); // Lista de categorias selecionadas
+  selectedTags: Post[] = Array<Post>(); // Lista de tags selecionadas
+  ordenacao: string = 'asc';
+
+  constructor(
+    private servicoLogin: LoginService, 
+    private servicoPost: PostService,
+    private renderer: Renderer2,
+    private router: Router,) {}
+
   lista_teste = [
     {
       id: 1,
@@ -54,5 +73,41 @@ export class TrashViewComponent {
       }
     }
   ];
+
+    // getCategoria(id: number | null): void {
+    //   if (id === null) {
+    //     // Lógica para quando não há categoria selecionada
+    //     this.selectedCategories = [];
+    //     this.applyFilters();  // Exemplo: limpa os posts se não houver categoria
+    //   } else {
+    //     this.servicoPost.getByCategoria(id).subscribe({
+    //       next: (resposta: Post[]) => {
+    //         this.selectedCategories = resposta;
+    //         this.applyFilters();
+    //       }
+    //     })
+    //   }
+  
+    //   // this.applyFilters();
+    // }
+  
+    // getByTag(nome: string | null): void {
+    //   if (nome === null || nome === '') {
+    //     // Lógica para quando não há tag selecionada
+    //     this.selectedTags = [];
+    //     this.applyFilters();
+    //   } else {
+    //     this.servicoPost.getByTag(nome).subscribe({
+    //       next: (resposta: Post[]) => {
+    //         this.selectedTags = resposta;
+    //         this.applyFilters();
+    //       }
+    //     })
+    //   }
+    // }
+  
+    // applyFilters(): void {
+    //   this.postsUsuario = [...this.selectedCategories, ...this.selectedTags];
+    // }
 
 }

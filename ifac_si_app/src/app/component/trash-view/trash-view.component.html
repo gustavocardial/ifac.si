@@ -1,4 +1,15 @@
-<div class="container">
+<section>
+    <h5>Todos os itens na lixeira serão automaticamente deletados dentro de tantos dias</h5>
+</section>
+
+<div class="viewPost">
+    <app-filters>
+        <!-- (catFilter)="getCategoria($event)"
+    (tagFilter)="getByTag($event)"
+    (nonSelectFilter)="getAll()"
+    (ordemMudou)="atualizarOrdem($event)" -->
+    </app-filters>
+    <div class="container">
         <div class="postList">
             <div *ngFor="let listPost of lista_teste">
                 <div class="postView">
@@ -23,3 +34,4 @@
             </div>
         </div>
     </div>
+</div>
