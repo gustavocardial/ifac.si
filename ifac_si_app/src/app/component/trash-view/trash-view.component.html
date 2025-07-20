@@ -21,13 +21,18 @@
                     <div>
 
                     </div>
-                    <div>
-                        <p>{{listPost.post.categoria.nome}}</p>
-                        <p>{{listPost.post.titulo}}</p>
+                    <div class="postInformation">
+                        <p id="postCategoria">{{listPost.post.categoria.nome}}</p>
+                        <p id="postTitulo">{{listPost.post.titulo}}</p>
                         <div class="removeDetails">
-                            <p>{{listPost.acao}}</p>
+                            <p id="postAcao">{{listPost.acao}}</p>
+                            <p [ngClass]="{
+                                'prazo-azul': getDiasRestantes(listPost.dataAcao) <= 30 && getDiasRestantes(listPost.dataAcao) > 19,
+                                'prazo-amarelo': getDiasRestantes(listPost.dataAcao) <= 19 && getDiasRestantes(listPost.dataAcao) > 10,
+                                'prazo-vermelho': getDiasRestantes(listPost.dataAcao) <= 10
+                                }">
+                                {{getDiasRestantes(listPost.dataAcao)}} dias restantes</p>
                             <p>Data arquivamento: {{listPost.dataAcao | date: 'dd/MM/yyyy'}}</p>
-                            <p [ngClass]="{}">{{getDiasRestantes(listPost.dataAcao)}} dias restantes</p>
                         </div>
                     </div>
                 </div>

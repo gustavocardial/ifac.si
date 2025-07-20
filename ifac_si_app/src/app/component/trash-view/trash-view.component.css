@@ -32,7 +32,7 @@ div.postList {
     justify-content: center;
     display: flex;
     flex-direction: column;
-    background-color: #623CEA;
+    /* background-color: #623CEA; */
     /* display: grid; 
     grid-template-columns: repeat(3, 1fr); 
     gap: 30px;
@@ -40,13 +40,17 @@ div.postList {
 }
 
 div.postView {
-    width: fit-content; /* Fazer o postView ocupar 100% do espaço do seu container */
+    width: inherit; /* Fazer o postView ocupar 100% do espaço do seu container */
     height: fit-content; /* Ajustar altura proporcionalmente */
-    margin: 10px auto 10px 10px;
+    padding: 16px;
     overflow: hidden; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    box-sizing: border-box;
+    background-color: #f3edff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 section {
@@ -79,8 +83,53 @@ button#buttonTrash:hover {
 div.removeDetails {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
     width: 100%;
     gap: 16px;
     flex-wrap: wrap;
+}
+
+div.postInformation p#postCategoria {
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 25px;
+    color:floralwhite;
+    background-color: #3FA14C;
+}
+
+div.postInformation p#postTitulo {
+    font-weight: 500;
+    font-size:large;
+}
+
+div.removeDetails p#postAcao {
+    background-color: #f0b1b1;
+    color: #d43737;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-weight: 450;
+}
+
+.prazo-azul {
+  background-color: #e6f0ff;
+  color: #2c6cd1;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 16px;
+}
+
+.prazo-amarelo {
+  background-color: #fff4cc;
+  color: #d48b00;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 16px;
+}
+
+.prazo-vermelho {
+  background-color: #ffe5e5;
+  color: #d43737;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 16px;
 }

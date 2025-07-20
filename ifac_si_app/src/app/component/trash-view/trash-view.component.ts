@@ -28,7 +28,7 @@ export class TrashViewComponent {
   lista_teste = [
     {
       id: 1,
-      acao: "REMOCAO",
+      acao: "ARQUIVADO",
       dataAcao: "2025-07-17T14:32:00",
       usuarioResponsavelId: 12,
       motivo: "Postagem duplicada",
