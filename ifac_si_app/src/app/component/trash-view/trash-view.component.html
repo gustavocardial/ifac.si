@@ -17,7 +17,20 @@
     <div class="container">
         <div class="postList">
             <div *ngFor="let listPost of lista_teste">
-                
+                <div class="postView">
+                    <div>
+
+                    </div>
+                    <div>
+                        <p>{{listPost.post.categoria.nome}}</p>
+                        <p>{{listPost.post.titulo}}</p>
+                        <div class="removeDetails">
+                            <p>{{listPost.acao}}</p>
+                            <p>Data arquivamento: {{listPost.dataAcao | date: 'dd/MM/yyyy'}}</p>
+                            <p [ngClass]="{}">{{getDiasRestantes(listPost.dataAcao)}} dias restantes</p>
+                        </div>
+                    </div>
+                </div>
                 <!-- <div class="postView">
                     <div id="postComposition" #postComposition>
                         <div class="categorys">{{listPost.post.categoria?.nome}}</div>
