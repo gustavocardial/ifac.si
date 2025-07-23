@@ -16,6 +16,13 @@ body {
     overflow-x: hidden;
 }
 
+.page-background {
+  background-color: #f1f1f1;
+  min-height: 100vh; /* Garante que cubra toda a tela */
+  padding: 0;
+  margin: 0;
+}
+
 .container {
     width: 100%;
     margin-left: 2%;
@@ -48,23 +55,32 @@ div.postView {
     flex-direction: column;
     justify-content: flex-start;
     box-sizing: border-box;
-    background-color: #f3edff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
 }
 
 section {
     width: 100%;
-    height: 8%;
-    background-color:#876beb;
+    height: 5%;
+    background: #876BEB;
+    background: linear-gradient(90deg,rgba(135, 107, 235, 1) 20%, rgba(63, 161, 76, 1) 84%);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-section h5 {
-    color: aliceblue;
+section h6 {
+    padding: 6px;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(236, 235, 235);
     text-align: center;
+}
+
+section i {
+    margin-right: 5px;
 }
 
 
@@ -90,6 +106,7 @@ div.removeDetails {
 }
 
 div.postInformation p#postCategoria {
+    font-weight: bold;
     width: fit-content;
     padding: 6px 12px;
     border-radius: 25px;
@@ -105,13 +122,13 @@ div.postInformation p#postTitulo {
 div.removeDetails p#postAcao {
     background-color: #f0b1b1;
     color: #d43737;
+    font-weight: bold;
     padding: 4px 8px;
     border-radius: 16px;
-    font-weight: 450;
 }
 
 .prazo-azul {
-  background-color: #e6f0ff;
+  background-color: #bfd4f3;
   color: #2c6cd1;
   font-weight: bold;
   padding: 4px 8px;
@@ -119,17 +136,78 @@ div.removeDetails p#postAcao {
 }
 
 .prazo-amarelo {
-  background-color: #fff4cc;
-  color: #d48b00;
+  background-color: #f7e6ab;
+  color: #be7c00;
   font-weight: bold;
   padding: 4px 8px;
   border-radius: 16px;
 }
 
 .prazo-vermelho {
-  background-color: #ffe5e5;
+  background-color: #f0b1b1;
   color: #d43737;
   font-weight: bold;
   padding: 4px 8px;
   border-radius: 16px;
+}
+
+div#options {
+    display: flex;
+    gap: 15px;
+}
+
+div#options > div {
+    border: 1px solid #ccc; /* Borda simples */
+    border-radius: 6px;
+    padding: 8px 15px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: 0.2s ease-in-out;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.radio-group > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.radio-group input[type="radio"] {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid black;
+    background-color: #f1f1f1;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.radio-group input[type="radio"]:checked {
+    background-color: #623CEA;
+    border: 2px solid #623CEA;
+}
+
+.radio-group input[type="radio"]::after {
+    content: "";
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.radio-group input[type="radio"]:checked::after {
+    content: "✔";
+    display: block;
 }

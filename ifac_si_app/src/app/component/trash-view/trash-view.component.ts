@@ -46,7 +46,7 @@ export class TrashViewComponent {
         },
         categoria: {
           id: 3,
-          nome: "Eventos"
+          nome: "Vaga"
         },
         tags: [
           { id: 1, nome: "Tecnologia" },
@@ -71,7 +71,79 @@ export class TrashViewComponent {
         visibilidade: "PRIVADO",
         publicacao: "NAO_PUBLICADO"
       }
+    },
+    {
+      "id": 2,
+      "acao": "ARQUIVADO",
+      "dataAcao": "2025-07-08T10:00:00",
+      "usuarioResponsavelId": 15,
+      "motivo": "Erro na digitação do título",
+      "post": {
+        "id": 56,
+        "titulo": "Curso Rápido de HTML",
+        "texto": "Aprenda os conceitos básicos de HTML em poucas horas...",
+        "usuario": {
+          "id": 9,
+          "email": "dev@ifac.edu.br",
+          "nomeUsuario": "dev.front",
+          "senha": "**********",
+          "cargo": "AUTOR",
+          "ativo": true
+        },
+        "categoria": {
+          "id": 2,
+          "nome": "Pesquisa"
+        },
+        "tags": [
+          { "id": 5, "nome": "HTML" }
+        ],
+        "data": "2025-07-20T08:00:00",
+        "legenda": "Aprenda HTML em um dia",
+        "mensagemReprovacao": null,
+        "imagens": [],
+        "imagemCapa": null,
+        "status": "REMOVIDO",
+        "visibilidade": "PRIVADO",
+        "publicacao": "NAO_PUBLICADO"
+      }
+    },
+    {
+      "id": 3,
+      "acao": "ARQUIVADO",
+      "dataAcao": "2025-07-01T15:30:00",
+      "usuarioResponsavelId": 11,
+      "motivo": "Conteúdo desatualizado",
+      "post": {
+        "id": 57,
+        "titulo": "Ferramentas para Desenvolvimento Web em 2022",
+        "texto": "Veja as principais ferramentas usadas em 2022...",
+        "usuario": {
+          "id": 10,
+          "email": "editor@ifac.edu.br",
+          "nomeUsuario": "editor.web",
+          "senha": "**********",
+          "cargo": "EDITOR",
+          "ativo": true
+        },
+        "categoria": {
+          "id": 4,
+          "nome": "Projeto"
+        },
+        "tags": [
+          { "id": 3, "nome": "Desenvolvimento" },
+          { "id": 7, "nome": "Ferramentas" }
+        ],
+        "data": "2022-09-15T11:00:00",
+        "legenda": "Ferramentas populares em 2022",
+        "mensagemReprovacao": null,
+        "imagens": [],
+        "imagemCapa": null,
+        "status": "REMOVIDO",
+        "visibilidade": "PUBLICO",
+        "publicacao": "PUBLICADO"
+      }
     }
+
   ];
 
   getDiasRestantes(dataAcao: string): number {
