@@ -152,8 +152,7 @@ export class MyPublicationsComponent implements OnInit, OnDestroy {
     this.servicoPost.delete(this.postIdToDelete).subscribe({
       complete: () => {
         this.ngOnInit();
-        this.showModal();
-        console.log ('sghsdjgksd')// Fecha a confirmação de deleção
+        this.showModal(); // Fecha a confirmação de deleção
       }
     });
   }

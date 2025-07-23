@@ -1,0 +1,213 @@
+div.viewPost{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* padding-left: 20px; */
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.page-background {
+  background-color: #f1f1f1;
+  min-height: 100vh; /* Garante que cubra toda a tela */
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+    width: 100%;
+    margin-left: 2%;
+    margin: 0 auto; /* Centralizar o container */
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+div.postList {
+    margin: 20px 0;
+    border-radius: 5px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    /* background-color: #623CEA; */
+    /* display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    padding: 0; */
+}
+
+div.postView {
+    width: inherit; /* Fazer o postView ocupar 100% do espaço do seu container */
+    height: fit-content; /* Ajustar altura proporcionalmente */
+    padding: 16px;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+}
+
+section {
+    width: 100%;
+    height: 5%;
+    background: #876BEB;
+    background: linear-gradient(90deg,rgba(135, 107, 235, 1) 20%, rgba(63, 161, 76, 1) 84%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section h6 {
+    padding: 6px;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(236, 235, 235);
+    text-align: center;
+}
+
+section i {
+    margin-right: 5px;
+}
+
+
+button#buttonTrash {
+    width: fit-content;
+    background-color: white;
+    border-color: #623CEA;
+    color: #623CEA;
+}
+
+button#buttonTrash:hover {
+    background-color: #623CEA;
+    color: white;
+}
+
+div.removeDetails {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+div.postInformation p#postCategoria {
+    font-weight: bold;
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 25px;
+    color:floralwhite;
+    background-color: #3FA14C;
+}
+
+div.postInformation p#postTitulo {
+    font-weight: 500;
+    font-size:large;
+}
+
+div.removeDetails p#postAcao {
+    background-color: #f0b1b1;
+    color: #d43737;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 16px;
+}
+
+.prazo-azul {
+  background-color: #bfd4f3;
+  color: #2c6cd1;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 16px;
+}
+
+.prazo-amarelo {
+  background-color: #f7e6ab;
+  color: #be7c00;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 16px;
+}
+
+.prazo-vermelho {
+  background-color: #f0b1b1;
+  color: #d43737;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 16px;
+}
+
+div#options {
+    display: flex;
+    gap: 15px;
+}
+
+div#options > div {
+    border: 1px solid #ccc; /* Borda simples */
+    border-radius: 6px;
+    padding: 8px 15px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: 0.2s ease-in-out;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.radio-group > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.radio-group input[type="radio"] {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid black;
+    background-color: #f1f1f1;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.radio-group input[type="radio"]:checked {
+    background-color: #623CEA;
+    border: 2px solid #623CEA;
+}
+
+.radio-group input[type="radio"]::after {
+    content: "";
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.radio-group input[type="radio"]:checked::after {
+    content: "✔";
+    display: block;
+}

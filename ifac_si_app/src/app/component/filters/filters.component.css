@@ -3,7 +3,7 @@ button {
     border-radius: 20px;
     border-color: #623CEA;
     color: #623CEA;
-    background-color: transparent;
+    background-color: white;
     margin: 30px 20px 5px 0;
     cursor: pointer;
     transition: background-color 0.3s ease;

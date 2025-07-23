@@ -9,7 +9,7 @@ import { CourseComponent } from './component/course/course.component';
 import { ViewPostComponent } from './component/view-post/view-post.component';
 import { AuthGuard } from './service/auth.guard';
 import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
-import { ComparationViewComponent } from './component/comparation-view/comparation-view.component';
+import { TrashViewComponent } from './component/trash-view/trash-view.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -23,12 +23,12 @@ const routes: Routes = [
     {path: 'editor', canActivate: [AuthGuard], data: { cargo: ['EDITOR'] }, children: [
       {path: 'notification', component: NotificationComponent},
       {path:'new_post', component: AddNewPostComponent},
-      {path:'comparation_post', component: ComparationViewComponent}
     ]},
     {path: 'admin', canActivate: [AuthGuard], data: { cargo: 'ADMIN' }, children: [
       {path: 'viewUsers', component: AdminViewComponent},
     ]},
     {path: 'my_publications', component: MyPublicationsComponent ,canActivate: [AuthGuard], data: { cargo: ['AUTOR', 'EDITOR', 'ADMIN'] }},
+    {path: 'trash_view', component: TrashViewComponent ,canActivate: [AuthGuard], data: { cargo: ['AUTOR', 'EDITOR', 'ADMIN'] }}
   ]},
   {path: '', redirectTo: 'view_posts', pathMatch: 'full'},
   {path: '**', redirectTo: 'view_posts'}

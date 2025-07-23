@@ -9,6 +9,8 @@
     </div>
 </div>
 
+<button class="btn" id="buttonTrash" [routerLink]="['/administration/trash_view']">Lixeira <i class="bi bi-trash"></i></button>
+
 <div class="viewPost">
     <app-filters
     (catFilter)="getCategoria($event)"

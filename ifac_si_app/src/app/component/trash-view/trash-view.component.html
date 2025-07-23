@@ -1,0 +1,66 @@
+<div class="page-background">
+    <section>
+        <h6><i class="bi bi-info-circle"></i> Itens excluídos são mantidos por 30 dias antes da remoção permanentes</h6>
+    </section>
+
+    <div class="viewPost">
+        <app-filters>
+            <!-- (catFilter)="getCategoria($event)"
+        (tagFilter)="getByTag($event)"
+        (nonSelectFilter)="getAll()"
+        (ordemMudou)="atualizarOrdem($event)" -->
+        </app-filters>
+        <div id="options" class="radio-group">
+            <div><input type="radio" name="acao" id="selectAll"> Selecionar todos</div>
+            <div><input type="radio" name="acao" id="restoreAll"> Restaurar todos</div>
+            <button class="btn" id="buttonTrash">Esvaziar Lixeira <i class="bi bi-trash"></i></button>
+        </div>
+        <div class="container">
+            <div class="postList">
+                <div *ngFor="let listPost of lista_teste">
+                    <div class="postView">
+                        <div>
+
+                        </div>
+                        <div class="postInformation">
+                            <p id="postCategoria">{{listPost.post.categoria.nome}}</p>
+                            <p id="postTitulo">{{listPost.post.titulo}}</p>
+                            <div class="removeDetails">
+                                <p id="postAcao">{{listPost.acao}}</p>
+                                <p [ngClass]="{
+                                    'prazo-azul': getDiasRestantes(listPost.dataAcao) <= 30 && getDiasRestantes(listPost.dataAcao) > 19,
+                                    'prazo-amarelo': getDiasRestantes(listPost.dataAcao) <= 19 && getDiasRestantes(listPost.dataAcao) > 10,
+                                    'prazo-vermelho': getDiasRestantes(listPost.dataAcao) <= 10
+                                    }">
+                                    {{getDiasRestantes(listPost.dataAcao)}} dias restantes</p>
+                                <p>Data arquivamento: {{listPost.dataAcao | date: 'dd/MM/yyyy'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="postView">
+                        <div id="postComposition" #postComposition>
+                            <div class="categorys">{{listPost.post.categoria?.nome}}</div>
+                            <div id="postImage" #postImage>
+                                <button class="eyeButton" #showButton [attr.data-post-id]="listPost.post.id"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
+                                <img *ngIf="listPost.post.imagemCapa" [src]="listPost.post.imagemCapa.url" alt="Imagem do post">
+                                <img *ngIf="!listPost.post.imagemCapa" src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
+                            </div>
+                        </div>
+                        <div id="postAction" #postAction>
+                            <button #deleteButton [attr.data-post-id]="listPost.post.id"><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
+                            <button #editButton [attr.data-post-id]="listPost.post.id"><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+                        </div>
+                    </div>
+                    <div class="postData">
+                        <p> {{listPost.post.titulo}} </p>
+                        <p> {{listPost.post.data | date: 'dd/MM/yyyy'}} </p>
+                        <p *ngIf="listPost.acao == 'REMOCAO'" style="color: red;">ARQUIVADO</p>
+                        <div *ngIf="listPost.acao == 'REMOCAO'">
+                            Data arquivamento: {{listPost.dataAcao | date: 'dd/MM/yyyy'}}
+                            <p [ngClass]="{}">{{getDiasRestantes(listPost.dataAcao)}} dias restantes</p></div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
