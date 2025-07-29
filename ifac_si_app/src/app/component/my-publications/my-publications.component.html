@@ -1,7 +1,7 @@
 <div class="page-background">
     <div id="alignContainer">
         <div id="userData">
-            <h2>🌟 BEM VINDO {{usuario.nomeUsuario}} 🌟</h2>
+            <h2>🌟 BEM VINDO 🌟</h2>
 
             <div class="userCard">
                 <div class="cardInfo"><p><span>NOME DE USUÁRIO: </span>{{usuario.nomeUsuario}}</p></div>
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <button class="btn" id="buttonTrash" [routerLink]="['/administration/trash_view']">Lixeira <i class="bi bi-trash"></i></button>
+    <button class="btn" id="buttonTrash" [routerLink]="['/administration/trash_view']"><i class="bi bi-trash"></i></button>
 
     <div class="viewPost">
         <app-filters
