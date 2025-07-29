@@ -1,54 +1,57 @@
-<div id="userData">
-    <h2>🌟 BEM VINDO {{usuario.nomeUsuario}} 🌟</h2>
+<div class="page-background">
+    <div id="alignContainer">
+        <div id="userData">
+            <h2>🌟 BEM VINDO {{usuario.nomeUsuario}} 🌟</h2>
 
-    <div class="userCard">
-        <h4>Informações Gerais</h4>
-        <p>Nome de usuário: {{usuario.nomeUsuario}}</p>
-        <p>Email: {{usuario.email}}</p>
-        <p>Cargo: {{usuario.cargo}}</p>
-    </div>
-</div>
-
-<button class="btn" id="buttonTrash" [routerLink]="['/administration/trash_view']">Lixeira <i class="bi bi-trash"></i></button>
-
-<div class="viewPost">
-    <app-filters
-    (catFilter)="getCategoria($event)"
-    (tagFilter)="getByTag($event)"
-    (nonSelectFilter)="getAll()"
-    (ordemMudou)="atualizarOrdem($event)"></app-filters>
-    <div *ngIf="show">
-        <app-modal-form (cancelForm)="showModal()" (confirmForm)="deletePost()"></app-modal-form>
-    </div>
-    <div class="container">
-        <div class="postList">
-            <div *ngFor="let post of postsUsuario">
-                <div class="postView">
-                    <div id="postComposition" #postComposition>
-                        <div class="categorys">{{post.categoria?.nome}}</div>
-                        <div id="postImage" #postImage>
-                            <button class="eyeButton" #showButton [attr.data-post-id]="post.id"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
-                            <img *ngIf="post.imagemCapa" [src]="post.imagemCapa.url" alt="Imagem do post">
-                            <img *ngIf="!post.imagemCapa" src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
-                        </div>
-                    </div>
-                    <div id="postAction" #postAction>
-                        <button #deleteButton [attr.data-post-id]="post.id"><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
-                        <button #editButton [attr.data-post-id]="post.id"><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
-                    </div>
-                </div>
-                <div class="postData">
-                    <p> {{post.titulo}} </p>
-                    <p> {{post.data | date: 'dd/MM/yyyy'}} </p>
-                </div>
+            <div class="userCard">
+                <div class="cardInfo"><p><span>NOME DE USUÁRIO: </span>{{usuario.nomeUsuario}}</p></div>
+                <div class="cardInfo"><p><span>EMAIL: </span>{{usuario.email}}</p></div>
+                <div class="cardInfo"><p><span>CARGO: </span>{{usuario.cargo}}</p></div>     
             </div>
         </div>
     </div>
 
-    <app-pagination-handle
-    [totalItens]="paginaResposta.totalElements"
-    [totalPaginas]="paginaResposta.totalPages"
-    [paginaAtual]="paginaResposta.number"
-    [tamanhoPagina]="paginaResposta.size"
-    (paginaSelecionada)="mudarPagina($event)"></app-pagination-handle>
+    <button class="btn" id="buttonTrash" [routerLink]="['/administration/trash_view']">Lixeira <i class="bi bi-trash"></i></button>
+
+    <div class="viewPost">
+        <app-filters
+        (catFilter)="getCategoria($event)"
+        (tagFilter)="getByTag($event)"
+        (nonSelectFilter)="getAll()"
+        (ordemMudou)="atualizarOrdem($event)"></app-filters>
+        <div *ngIf="show">
+            <app-modal-form (cancelForm)="showModal()" (confirmForm)="deletePost()"></app-modal-form>
+        </div>
+        <div class="container">
+            <div class="postList">
+                <div *ngFor="let post of postsUsuario">
+                    <div class="postView">
+                        <div id="postComposition" #postComposition>
+                            <div class="categorys">{{post.categoria?.nome}}</div>
+                            <div id="postImage" #postImage>
+                                <button class="eyeButton" #showButton [attr.data-post-id]="post.id"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
+                                <img *ngIf="post.imagemCapa" [src]="post.imagemCapa.url" alt="Imagem do post">
+                                <img *ngIf="!post.imagemCapa" src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
+                            </div>
+                        </div>
+                        <div id="postAction" #postAction>
+                            <button #deleteButton [attr.data-post-id]="post.id"><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
+                            <button #editButton [attr.data-post-id]="post.id"><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+                        </div>
+                    </div>
+                    <div class="postData">
+                        <p> {{post.titulo}} </p>
+                        <p> {{post.data | date: 'dd/MM/yyyy'}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-pagination-handle
+        [totalItens]="paginaResposta.totalElements"
+        [totalPaginas]="paginaResposta.totalPages"
+        [paginaAtual]="paginaResposta.number"
+        [tamanhoPagina]="paginaResposta.size"
+        (paginaSelecionada)="mudarPagina($event)"></app-pagination-handle>
+    </div>
 </div>
