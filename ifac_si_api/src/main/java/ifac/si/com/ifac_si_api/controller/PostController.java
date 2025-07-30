@@ -108,6 +108,21 @@ public class PostController{
         return ResponseEntity.ok(registro);
     }
 
+    @PostMapping("/reprovacao")
+    @Operation(summary = "Reprovar determinado post")
+    public ResponseEntity<?> reprovacao(@RequestParam Long id, @RequestParam String mensagem) {
+        Post registro = servico.reprovarPost(id, mensagem);
+        return new ResponseEntity<>(registro, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Correcao de post reprovado")
+    @PutMapping(value = "/correcao/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> correcao(@PathVariable Long id, PostRequestDTO objeto,
+        @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+        Post registro = servico.update(id, objeto, file, imagemCapaFile);
+        return ResponseEntity.ok(registro);
+    }
+
     @DeleteMapping("/{postId}/imagens/{imagemId}")
     public ResponseEntity<Void> removerImagem(
             @PathVariable Long postId,
