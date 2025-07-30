@@ -8,7 +8,8 @@ public enum EStatus {
     RASCUNHO,
     PUBLICADO,
     ARQUIVADO,
-    REPROVADO;
+    REPROVADO,
+    CORRECAO;
 
     public static EStatus fromString(String status) {
         if (status == null) {

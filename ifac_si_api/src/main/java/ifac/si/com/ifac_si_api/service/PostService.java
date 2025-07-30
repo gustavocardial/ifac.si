@@ -83,43 +83,6 @@ public class PostService{
         return postRepository.busca(termoBusca, page);
     }
 
-//    @Override
-//    public Post save(Post objeto) {
-//        return repo.save(objeto);
-//    }
-
-//    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens) throws Exception {
-//        // Mapeia DTO para Entidade
-//        Post post = postMapper.toEntity(postDto);
-//
-//        // Processa cada imagem no MinIO e cria objeto de Imagem
-//        List<Imagem> imagemList = new ArrayList<>();
-//        for (MultipartFile imagem : imagens) {
-//            try {
-//
-//                String fileName = minIOService.uploadFile(imagem);
-//                String url = minIOService.getFileUrl("imagens-postagens", fileName);
-//
-//                Imagem img = new Imagem();
-//                img.setNomeArquivo(fileName);
-//                img.setUrl(url);
-//                img.setDataUpload(LocalDate.now());
-//                imagemList.add(img);
-//            } catch (Exception e) {
-//                throw new RuntimeException("Erro ao processar imagem: " + e.getMessage());
-//            }
-//        }
-//
-//        post.setImagens(imagemList); // Associa as imagens ao post
-//        post.setData(LocalDateTime.now()); // Atualiza a data
-//        Post savedPost = postRepository.save(post); // Salva no banco de dados
-//        return savedPost;
-//    }
-//
-//    public void delete(Long id) {
-//        postRepository.deleteById(id);
-//    }
-
     public Post save(PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
 
         Post post = postMapper.toEntity(postDto);
@@ -295,12 +258,6 @@ public class PostService{
             post.setUsuario(usuario);
         }
 
-        if (postDto.getUsuarioAlteraId() != null) {
-            Usuario usuarioAltera = usuarioRepository.findById(postDto.getUsuarioAlteraId())
-                .orElseThrow(() -> new IllegalArgumentException("Usuário que altera não encontrado com o ID fornecido."));
-            post.setUsuarioAlteraId(usuarioAltera);
-        }
-
         // Atualiza tags
         if (postDto.getTags() != null) {
             post.getTags().clear();
@@ -377,6 +334,87 @@ public class PostService{
                 .orElseThrow(() -> new RuntimeException("Post não encontrado"));
 
         post.setStatus(novoStatus);
+        return postRepository.save(post);
+    }
+
+    public Post reprovarPost(Long postId, String mensagemReprovacao) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado"));
+
+        atualizarStatus(postId, EStatus.REPROVADO);
+        post.setMensagemReprovacao(mensagemReprovacao);
+
+        return postRepository.save(post); //Ver sobre o atualizarStatus precisar realmente de salvar o status no repository
+    }
+
+    public Post correcaoPost(Long id, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
+
+        // Atualiza campos básicos usando o mapper
+        postMapper.updateEntityFromDto(postDto, post);
+
+        // Atualiza categoria se fornecida
+        if (postDto.getCategoriaId() != null) post.setCategoria(buscarCategoria(postDto.getCategoriaId()));
+
+        // Atualiza usuário se fornecido
+        if (postDto.getUsuarioId() != null) {
+            Usuario usuario = usuarioRepository.findById(postDto.getUsuarioId())
+                    .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com o ID fornecido."));
+            post.setUsuario(usuario);
+        }
+
+        // Atualiza tags
+        if (postDto.getTags() != null) {
+            post.getTags().clear();
+            post.setTags(processarTags(postDto.getTags()));
+        }
+
+        processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+            post.setImagemCapa(imagemCapa); // Primeiro, adiciona a imagem ao post
+            imagemCapa.setPost(post); // Depois, seta o post na imagem
+        });
+
+
+        if (postCapa != null && !postCapa.isEmpty()) {
+            processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+                post.setImagemCapa(imagemCapa);
+                imagemCapa.setPost(post);
+            });
+        }        
+
+        // Processa novas imagens se fornecidas
+        if (imagens != null && !imagens.isEmpty()) {
+            // Remove imagens antigas do MinIO e da entidade
+            if (post.getImagens() != null) {
+                List<Imagem> imagensAtuais = new ArrayList<>(post.getImagens());
+                for (Imagem img : imagensAtuais) {
+                    minIOService.deleteFile("imagens", img.getNomeArquivo());
+                    post.removeImagem(img);
+                }
+            }
+
+            // Processa e adiciona novas imagens
+            List<Imagem> novasImagens = processarImagens(imagens);
+            for (Imagem img : novasImagens) {
+                post.addImagem(img);
+            }
+        }
+
+        // Atualiza status se fornecido
+        if (postDto.getStatus() != null) post.setStatus(EStatus.valueOf(postDto.getStatus()));
+        
+
+        if (postDto.getVisibilidade() != null) post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+
+        if (postDto.getPublicacao() != null) post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
+
+        if (postDto.getData() != null) {
+            post.setData(postDto.getData());
+        } else {
+            post.setData(LocalDateTime.now());
+        }
+
         return postRepository.save(post);
     }
 
