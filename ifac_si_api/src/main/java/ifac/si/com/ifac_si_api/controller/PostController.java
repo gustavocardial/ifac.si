@@ -108,7 +108,7 @@ public class PostController{
         return ResponseEntity.ok(registro);
     }
 
-    @PostMapping("/reprovacao")
+    @PutMapping("/reprovacao")
     @Operation(summary = "Reprovar determinado post")
     public ResponseEntity<?> reprovacao(@RequestParam Long id, @RequestParam String mensagem) {
         Post registro = servico.reprovarPost(id, mensagem);
