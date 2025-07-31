@@ -79,14 +79,12 @@ export class PostService{
     return this.http.get<Post[]>(url);
   }
 
-  reprovarPost(id: number, mensagem: string): Observable<Post> {
-    const url = this.apiUrl + 'reprovacao';
+  reprovarPost(id: number, mensagem?: string): Observable<Post> {
+    const url = this.apiUrl + `reprovacao/${id}`;
 
-    const params = new HttpParams()
-      .set('id', id)
-      .set('mensagem', mensagem);
-
-    return this.http.put<Post>(url, null, { params });
+    const body = { mensagem: mensagem || '' };
+  
+    return this.http.put<Post>(url, body);
   }
 
   corrigirPost(id: number, formData: FormData): Observable<Post> {

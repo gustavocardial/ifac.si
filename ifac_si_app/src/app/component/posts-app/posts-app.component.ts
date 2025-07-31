@@ -135,8 +135,7 @@ export class PostsAppComponent implements OnInit{
   }
 
   reprovarPost(postId: number, mensagem?: string) {
-    console.log (postId);
-    console.log (mensagem);
+    this.postServico.reprovarPost(postId, mensagem);
     this.showModal();
   }
 
