@@ -3,7 +3,7 @@ import { IService } from './I-service';
 import { Post } from '../model/post';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { PageRequest } from '../model/page-request';
 import { PageResponse } from '../model/page-response';
 
@@ -77,6 +77,23 @@ export class PostService{
     let url = this.apiUrl + `tag/${nome}`;
 
     return this.http.get<Post[]>(url);
+  }
+
+  reprovarPost(id: number, mensagem: string): Observable<Post> {
+    const url = this.apiUrl + 'reprovacao';
+
+    const params = new HttpParams()
+      .set('id', id)
+      .set('mensagem', mensagem);
+
+    return this.http.put<Post>(url, null, { params });
+  }
+
+  corrigirPost(id: number, formData: FormData): Observable<Post> {
+    const url = this.apiUrl + `correcao/${id}`;
+    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+
+    return this.http.put<Post>(url, formData, { headers });
   }
 
   // private mapToPostRequestDTO(post: Post): any {
