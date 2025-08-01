@@ -80,6 +80,9 @@ public class Post implements Serializable{
     @Enumerated(EnumType.STRING)
     private EPublicacao publicacao;
 
+    @Column(name = "post_original_id")
+    private Long postOriginalId;
+
     public Long getId() {
         return id;
     }
@@ -220,6 +223,14 @@ public class Post implements Serializable{
 
     public void setMensagemReprovacao(String mensagemReprovacao) {
         this.mensagemReprovacao = mensagemReprovacao;
+    }
+
+    public Long getPostOriginalId() {
+        return postOriginalId;
+    }
+
+    public void setPostOriginalId(Long postOriginalId) {
+        this.postOriginalId = postOriginalId;
     }
 
     //Testar relacionamentos e engenharia reserva no workbench

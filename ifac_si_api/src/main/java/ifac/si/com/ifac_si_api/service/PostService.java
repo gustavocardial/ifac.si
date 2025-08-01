@@ -390,4 +390,179 @@ public class PostService{
         }
     }
 
+    public Post salvarRascunho(Long postId, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
+        Post postOriginal = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
+
+        if (postOriginal.getStatus() == EStatus.RASCUNHO) {
+            return update(postId, postDto, imagens, postCapa);
+        }
+
+        // Verifica se já existe um rascunho associado
+        Optional<Post> rascunhoExistente = postRepository.findRascunhoByPostOriginal(postId);
+        if (rascunhoExistente.isPresent()) {
+            return update(rascunhoExistente.get().getId(), postDto, imagens, postCapa);
+        }
+
+        // Criando um novo rascunho vinculado a um post publicado
+        return criarRascunhoDePost(postOriginal, postDto, imagens, postCapa);
+    }
+
+
+    //Cria um rascunho vinculado a um post publicado
+    private Post criarRascunhoDePost(Post postOriginal, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
+        Post rascunho = new Post();
+
+        rascunho.setTitulo(postDto.getTitulo() != null ? postDto.getTitulo() : postOriginal.getTitulo());
+        rascunho.setTexto(postDto.getTexto() != null ? postDto.getTexto() : postOriginal.getTexto());
+        rascunho.setLegenda(postDto.getLegenda() != null ? postDto.getLegenda() : postOriginal.getLegenda());
+        rascunho.setCategoria(postOriginal.getCategoria());
+        rascunho.setUsuario(postOriginal.getUsuario());
+        rascunho.setStatus(EStatus.RASCUNHO);
+        rascunho.setData(LocalDateTime.now());
+
+        rascunho.setPostOriginalId(postOriginal.getId());
+
+        if (postDto.getCategoriaId() != null) {
+            rascunho.setCategoria(buscarCategoria(postDto.getCategoriaId()));
+        }
+
+        if (postDto.getUsuarioAlteraId() != null) {
+            Usuario usuarioAltera = usuarioRepository.findById(postDto.getUsuarioAlteraId())
+                    .orElseThrow(() -> new IllegalArgumentException("Usuário que altera não encontrado"));
+            rascunho.setUsuarioAlteraId(usuarioAltera);
+        }
+
+        if (postDto.getTags() != null) {
+            rascunho.setTags(processarTags(postDto.getTags()));
+        } else {
+            rascunho.setTags(new ArrayList<>(postOriginal.getTags()));
+        }
+
+        if (postCapa != null && !postCapa.isEmpty()) {
+            processarPostCapa(postCapa).ifPresent(imagemCapa -> {
+                rascunho.setImagemCapa(imagemCapa);
+                imagemCapa.setPost(rascunho);
+            });
+        } else {
+            rascunho.setImagemCapa(postOriginal.getImagemCapa());
+        }
+
+        List<String> urlsImagens = new ArrayList<>();
+        if (imagens != null && !imagens.isEmpty()) {
+            List<Imagem> imagensList = processarImagens(imagens);
+
+            for (Imagem img : imagensList) {
+                urlsImagens.add(img.getUrl());
+            }
+
+            imagensList.forEach(img -> img.setPost(rascunho));
+            rascunho.setImagens(imagensList);
+        } else {
+            // Copia imagens do post original se não tiver novas
+            List<Imagem> imagensCopia = new ArrayList<>();
+            if (postOriginal.getImagens() != null) {
+                for (Imagem imgOriginal : postOriginal.getImagens()) {
+                    Imagem imgCopia = Imagem.builder()
+                            .nomeArquivo(imgOriginal.getNomeArquivo())
+                            .url(imgOriginal.getUrl())
+                            .tamanho(imgOriginal.getTamanho())
+                            .dataUpload(LocalDate.now())
+                            .post(rascunho)
+                            .build();
+                    imagensCopia.add(imgCopia);
+                    urlsImagens.add(imgCopia.getUrl());
+                }
+            }
+            rascunho.setImagens(imagensCopia);
+        }
+
+        if (postDto.getVisibilidade() != null) {
+            rascunho.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+        } else {
+            rascunho.setVisibilidade(postOriginal.getVisibilidade());
+        }
+
+        if (postDto.getPublicacao() != null) {
+            rascunho.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
+        } else {
+            rascunho.setPublicacao(postOriginal.getPublicacao());
+        }
+
+        String textoFinal = substituirReferenciasPorUrls(rascunho.getTexto(), urlsImagens);
+        rascunho.setTexto(textoFinal);
+
+        return postRepository.save(rascunho);
+    }
+
+    //Publica um rascunho
+    public Post publicarRascunho(Long rascunhoId, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
+        Post rascunho = postRepository.findById(rascunhoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Rascunho não encontrado"));
+
+        if (rascunho.getStatus() != EStatus.RASCUNHO) {
+            throw new IllegalArgumentException("Apenas rascunhos podem ser publicados através deste método");
+        }
+
+        // Atualiza o rascunho
+        if (postDto != null) {
+            rascunho = update(rascunhoId, postDto, imagens, postCapa);
+        }
+
+        // Muda o status para publicado
+        rascunho.setStatus(EStatus.PUBLICADO);
+        rascunho.setData(LocalDateTime.now());
+
+        return postRepository.save(rascunho);
+    }
+
+    //Busca todos os rascunhos de um usuário
+    public List<Post> getRascunhosPorUsuario(Long usuarioId) {
+        return postRepository.findByUsuarioIdAndStatus(usuarioId, EStatus.RASCUNHO);
+    }
+
+    //Busca rascunho vinculado a um post publicado
+    public Optional<Post> getRascunhoDePost(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
+
+        if (post.getStatus() == EStatus.RASCUNHO) {
+            return Optional.of(post);
+        }
+
+        return postRepository.findRascunhoByPostOriginal(postId);
+    }
+
+    //Exclui um rascunho permanentemente
+    public void descartarRascunho(Long rascunhoId) {
+        Post rascunho = postRepository.findById(rascunhoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Rascunho não encontrado"));
+
+        if (rascunho.getStatus() != EStatus.RASCUNHO) {
+            throw new IllegalArgumentException("Apenas rascunhos podem ser descartados");
+        }
+
+        // Remove arquivos do MinIO
+        if (rascunho.getImagens() != null) {
+            for (Imagem img : rascunho.getImagens()) {
+                try {
+                    minIOService.deleteFile("imagens", img.getNomeArquivo());
+                } catch (Exception e) {
+                    log.warn("Erro ao deletar arquivo do MinIO: " + img.getNomeArquivo(), e);
+                }
+            }
+        }
+
+        if (rascunho.getImagemCapa() != null) {
+            try {
+                minIOService.deleteFile("imagens", rascunho.getImagemCapa().getNomeArquivo());
+            } catch (Exception e) {
+                log.warn("Erro ao deletar capa do MinIO: " + rascunho.getImagemCapa().getNomeArquivo(), e);
+            }
+        }
+
+        postRepository.deleteById(rascunhoId);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package ifac.si.com.ifac_si_api.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import ifac.si.com.ifac_si_api.model.Tag.DTO.TagDTO;
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +32,21 @@ public interface PostRepository extends JpaRepository<Post, Long>{
 
     @Query("SELECT p FROM Post p")
     Page<Post> getAllPosts(Pageable pageable);
+
+    // Método para buscar rascunho associado a um post original
+    @Query("SELECT p FROM Post p WHERE p.postOriginalId = :postOriginalId AND p.status = 'RASCUNHO'")
+    Optional<Post> findRascunhoByPostOriginal(@Param("postOriginalId") Long postOriginalId);
+
+    // Método para buscar todos os rascunhos de um usuário
+    @Query("SELECT p FROM Post p WHERE p.usuario.id = :usuarioId AND p.status = :status")
+    List<Post> findByUsuarioIdAndStatus(@Param("usuarioId") Long usuarioId, @Param("status") EStatus status);
+
+    // Método para buscar posts por status (já existe, mas incluindo aqui para referência)
+    Page<Post> findByStatus(EStatus status, Pageable pageable);
+
+    // Método para verificar se existe rascunho para um post
+    @Query("SELECT COUNT(p) > 0 FROM Post p WHERE p.postOriginalId = :postOriginalId AND p.status = 'RASCUNHO'")
+    boolean existsRascunhoByPostOriginal(@Param("postOriginalId") Long postOriginalId);
 
 
 }
