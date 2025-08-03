@@ -135,8 +135,17 @@ export class PostsAppComponent implements OnInit{
   }
 
   reprovarPost(postId: number, mensagem?: string) {
-    this.postServico.reprovarPost(postId, mensagem);
-    this.showModal();
+    this.postServico.reprovarPost(postId, mensagem).subscribe({
+      next: (result) => {
+        console.log('Post reprovado com sucesso:', result);
+        this.showModal(); // Fecha o modal após sucesso
+        // Aqui você pode recarregar a lista ou atualizar o status do post
+      },
+      error: (error) => {
+        console.error('Erro ao reprovar post:', error);
+        // Tratamento de erro
+      }
+    })
   }
 
   getCategoria(id: number | null): void {

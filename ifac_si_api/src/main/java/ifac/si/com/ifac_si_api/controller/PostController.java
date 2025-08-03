@@ -3,6 +3,7 @@ package ifac.si.com.ifac_si_api.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
@@ -110,8 +111,8 @@ public class PostController{
 
     @PutMapping("/reprovacao/{id}")
     @Operation(summary = "Reprovar determinado post")
-    public ResponseEntity<?> reprovacao(@RequestParam Long id, @RequestParam String mensagem) {
-        System.out.println("Testesngsjkgksg");
+    public ResponseEntity<?> reprovacao(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        String mensagem = request.get("mensagem");
         Post registro = servico.reprovarPost(id, mensagem);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
