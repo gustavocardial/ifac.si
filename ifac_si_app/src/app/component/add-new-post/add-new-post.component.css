@@ -313,3 +313,15 @@ div.buttonHandle {
     display: flex;
     flex-direction: row;
 }
+
+div#labelTag {
+    width: 100%;
+    text-align: center;
+    background-color:#623CEA;
+    color: white;
+    border-radius: 10px;
+}
+
+div#labelTag i {
+    color: rgb(248, 200, 138);
+}

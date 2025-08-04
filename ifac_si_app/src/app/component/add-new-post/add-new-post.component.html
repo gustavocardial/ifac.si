@@ -1,4 +1,3 @@
-
 <!-- <nav class="navbar">
   <h3 style="text-align: center;">Quill Js Editor</h3>
 </nav> -->
@@ -183,15 +182,13 @@
                   </div>
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
                       <div class="card-body">
-                        <Label>{{ isEditing ? 'Editar tag' : 'Adicionar nova tag' }}</Label>
-                        <div id="tagContainer">
-                            <input type="text" name="tag" id="newTag" #newTag>
-                            <i *ngIf="!isEditing" class="bi bi-plus-circle" (click)="addTag()"></i>
-                            <i *ngIf="isEditing" class="bi bi-check-circle" (click)="addTag()"></i>
-                            <i *ngIf="isEditing" class="bi bi-x-circle ms-2" (click)="cancelEditTag()"></i>
-                        </div>
+                        <div id="labelTag"><Label> <i class="bi bi-tags-fill"></i> Gerenciar tags </Label></div>
+                        
                         <div class="dropdown">
-                            <button #tag id="tagButton">Selecione uma Tag 
+                            <div>
+                                <label><i class="bi bi-check-square"></i> Tags selecionadas</label>
+                            </div>
+                            <button #tag id="tagButton">
                                 <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
                                 <i class="fa fa-caret-down"></i>
                             </ng-template>
@@ -206,9 +203,20 @@
                                     <i class="bi bi-pencil me-2" (click)="editTag(tag)" *ngIf="tag.id == null"></i>
                                 </p>
                             </div>
+                        </div>                        
+                        <div id="tagContainer">
+                            <div>
+                                <label><i class="bi bi-plus"></i> Adicionar nova Tag</label>
+                            </div>
+                            <div>
+                                <input type="text" name="tag" id="newTag" #newTag placeholder="Digite o nome da tag">
+                                <i *ngIf="!isEditing" class="bi bi-plus-circle" (click)="addTag()"></i>
+                                <i *ngIf="isEditing" class="bi bi-check-circle" (click)="addTag()"></i>
+                                <i *ngIf="isEditing" class="bi bi-x-circle ms-2" (click)="cancelEditTag()"></i>
+                            </div>
                         </div>
                         <div class="dropdown">
-                            <button #optionTag id="tagButton">Tags já cadastradas
+                            <button #optionTag id="tagButton">Tags disponíveis no sistema
                                 <ng-template [ngIf]="!optionsButton" [ngIfElse]="dropdownIcon">
                                 <i class="fa fa-caret-down"></i>
                                 </ng-template>
