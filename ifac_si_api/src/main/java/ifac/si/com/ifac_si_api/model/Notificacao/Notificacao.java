@@ -74,6 +74,14 @@ public class Notificacao implements Serializable {
     public void setLida(boolean lida) {
         this.lida = lida;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     // Getters e setters
 
     @Override
