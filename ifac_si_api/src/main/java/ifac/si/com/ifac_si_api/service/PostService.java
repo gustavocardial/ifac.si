@@ -343,6 +343,7 @@ public class PostService{
 
         atualizarStatus(postId, EStatus.REPROVADO);
         post.setMensagemReprovacao(mensagemReprovacao);
+        post.setVisibilidade(EVisibilidade.PRIVADO);
 
         return postRepository.save(post); //Ver sobre o atualizarStatus precisar realmente de salvar o status no repository
     }
@@ -405,7 +406,8 @@ public class PostService{
         if (postDto.getStatus() != null) post.setStatus(EStatus.valueOf(postDto.getStatus()));
         
 
-        if (postDto.getVisibilidade() != null) post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+        if (postDto.getVisibilidade() != null && postDto.getVisibilidade().equals("PRIVADO")) post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+        else post.setVisibilidade(EVisibilidade.PRIVADO);
 
         if (postDto.getPublicacao() != null) post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
 
