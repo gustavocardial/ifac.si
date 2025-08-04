@@ -38,7 +38,7 @@ public class NotificacaoAspect {
         if (result instanceof Post) {
             Post post = (Post) result;
             System.out.println("Post salvo com ID: " + post.getId());
-            criarNotificacao(post, TipoAcao.ADICIONAR);
+            criarNotificacao(post, TipoAcao.ADICIONAR, null);
 
 
         } else {
@@ -52,7 +52,7 @@ public class NotificacaoAspect {
         if (result instanceof Post) {
             Post post = (Post) result;
             System.out.println("Post atualizado com ID: " + post.getId());
-            criarNotificacao(post, TipoAcao.EDITAR);
+            criarNotificacao(post, TipoAcao.EDITAR, null);
 
 
         } else {
@@ -68,7 +68,7 @@ public class NotificacaoAspect {
             Post post = postRepository.findById(id).orElse(null);
             if (post != null) {
                 System.out.println("Post encontrado para exclusão: " + post.getId());
-                criarNotificacao(post, TipoAcao.DELETAR);
+                criarNotificacao(post, TipoAcao.DELETAR, null);
             } else {
                 System.out.println("Post não encontrado para o ID: " + id);
             }
@@ -78,52 +78,45 @@ public class NotificacaoAspect {
         }
     }
 
+    @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.reprovarPost(Long, String)) && args(postId, mensagemReprovacao)", returning = "result")
+    public void afterPostReprovacao(JoinPoint joinPoint, Long postId, String mensagemReprovacao, Object result) {
+        if (result instanceof Post) {
+            Post post = (Post) result;
+            // Notificação para o autor do post (destinatário)
+            Usuario autor = post.getUsuario();
+            criarNotificacao(post, TipoAcao.REPROVAR, autor);
+        }
+    }
+
+    @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.correcaoPost(Long, ..)) && args(id, ..)", returning = "result")
+    public void afterPostCorrecao(JoinPoint joinPoint, Long id, Object result) {
+        if (result instanceof Post) {
+            Post post = (Post) result;
+            // Aqui a notificação é geral, editor vê tudo, usuário destinatário = null
+            criarNotificacao(post, TipoAcao.CORRIGIR, null);
+        }
+    }
+
+
     // Método auxiliar para criar a notificação
-    private void criarNotificacao(Post post, TipoAcao tipoAcao) {
+    private void criarNotificacao(Post post, TipoAcao tipoAcao, Usuario usuarioPost) {
         
         // System.out.println("Entrou aqui");
         
         try {
-            // Obter o usuário atual através do contexto de segurança
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null) {
-                System.out.println(">> Nenhuma autenticação encontrada.");
-                return;
+            Notificacao notificacao = new Notificacao();
+            // notificacao.setUsuario(usuarioAtual);
+            notificacao.setPost(post);
+            notificacao.setTipoAcao(tipoAcao);
+            notificacao.setDataHora(LocalDateTime.now());
+            notificacao.setLida(false);
+
+            if (usuarioPost != null) {
+                notificacao.setUsuario(usuarioPost);
             }
 
-            Usuario usuarioAtual = null;
-
-            Object principal = authentication.getPrincipal();
-            
-            // Ajuste esta parte de acordo com sua implementação de segurança
-            if (principal instanceof Usuario) {
-                usuarioAtual = (Usuario) principal;
-                System.out.println(">> Usuário autenticado (Usuario): " + usuarioAtual.getEmail());
-            } else if (principal instanceof org.springframework.security.core.userdetails.UserDetails) {
-                String username = ((org.springframework.security.core.userdetails.UserDetails) principal).getUsername();
-                usuarioAtual = usuarioRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + username));
-                if (usuarioAtual != null) {
-                    System.out.println(">> Usuário autenticado (UserDetails): " + usuarioAtual.getEmail());
-                } else {
-                    System.out.println(">> Usuário não encontrado com username: " + username);
-                }
-            } else {
-                System.out.println(">> Tipo de principal não reconhecido.");
-            }
-
-            if (usuarioAtual != null) {
-                Notificacao notificacao = new Notificacao();
-                // notificacao.setUsuario(usuarioAtual);
-                notificacao.setPost(post);
-                notificacao.setTipoAcao(tipoAcao);
-                notificacao.setDataHora(LocalDateTime.now());
-                notificacao.setLida(false);
-
-                notificacaoService.criarNotificacao(notificacao);
-                System.out.println(">> Notificação criada com sucesso!");
-            } else {
-                System.out.println(">> Não foi possível identificar o usuário atual. Notificação não criada.");
-            }
+            notificacaoService.criarNotificacao(notificacao);
+            System.out.println(">> Notificação criada com sucesso!" + (usuarioPost != null ? " Para: " + usuarioPost.getEmail() : " (sem destinatário específico)"));
         } catch (Exception e) {
             // Log do erro
             System.err.println("Erro ao criar notificação: " + e.getMessage());

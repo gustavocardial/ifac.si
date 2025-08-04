@@ -3,6 +3,7 @@ package ifac.si.com.ifac_si_api.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
@@ -103,6 +104,22 @@ public class PostController{
     @Operation(summary = "Atualizar post existente")
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(@PathVariable Long id, PostRequestDTO objeto,
+        @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+        Post registro = servico.update(id, objeto, file, imagemCapaFile);
+        return ResponseEntity.ok(registro);
+    }
+
+    @PutMapping("/reprovacao/{id}")
+    @Operation(summary = "Reprovar determinado post")
+    public ResponseEntity<?> reprovacao(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        String mensagem = request.get("mensagem");
+        Post registro = servico.reprovarPost(id, mensagem);
+        return new ResponseEntity<>(registro, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Correcao de post reprovado")
+    @PutMapping(value = "/correcao/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> correcao(@PathVariable Long id, PostRequestDTO objeto,
         @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
         Post registro = servico.update(id, objeto, file, imagemCapaFile);
         return ResponseEntity.ok(registro);

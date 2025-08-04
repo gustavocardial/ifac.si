@@ -24,6 +24,10 @@ public class Notificacao implements Serializable {
     @JoinColumn(name = "post_id")
     private Post post;  // Post relacionado à notificação
     
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     @Enumerated(EnumType.STRING)
     private TipoAcao tipoAcao;  // Enum para tipo de ação (EDITAR, DELETAR, ADICIONAR, etc.)
 
@@ -69,6 +73,14 @@ public class Notificacao implements Serializable {
 
     public void setLida(boolean lida) {
         this.lida = lida;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     // Getters e setters
 

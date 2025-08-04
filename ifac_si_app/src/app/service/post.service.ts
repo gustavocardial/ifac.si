@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { IService } from './I-service';
 import { Post } from '../model/post';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { PageRequest } from '../model/page-request';
 import { PageResponse } from '../model/page-response';
 
@@ -77,6 +77,42 @@ export class PostService{
     let url = this.apiUrl + `tag/${nome}`;
 
     return this.http.get<Post[]>(url);
+  }
+
+  reprovarPost(id: number, mensagem?: string): Observable<Post> {
+    const url = this.apiUrl + `reprovacao/${id}`;
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    const body = { mensagem: mensagem || '' };
+  
+    console.log('=== DEBUG REPROVAR POST ===');
+    console.log('URL completa:', url);
+    console.log('ID:', id);
+    console.log('Mensagem:', mensagem);
+    console.log('Body:', body);
+    console.log('API URL base:', this.apiUrl);
+    
+    return this.http.put<Post>(url, body, {headers}).pipe(
+      tap(response => console.log('Sucesso:', response)),
+      catchError(error => {
+        console.error('Erro na requisição:', error);
+        console.error('Status:', error.status);
+        console.error('Message:', error.message);
+        console.error('URL que falhou:', error.url);
+        return throwError(error);
+      })
+    );
+  }
+
+  corrigirPost(id: number, formData: FormData): Observable<Post> {
+    const url = this.apiUrl + `correcao/${id}`;
+    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+
+    return this.http.put<Post>(url, formData, { headers });
   }
 
   // private mapToPostRequestDTO(post: Post): any {
