@@ -184,19 +184,11 @@
                       <div class="card-body">
                         <div id="labelTag"><Label> <i class="bi bi-tags-fill"></i> Gerenciar tags </Label></div>
                         
-                        <div class="dropdown">
-                            <div>
+                        <div>
+                            <div id="labelSelecionadas">
                                 <label><i class="bi bi-check-square"></i> Tags selecionadas</label>
                             </div>
-                            <button #tag id="tagButton">
-                                <ng-template [ngIf]="!filtersT" [ngIfElse]="dropdownIcon">
-                                <i class="fa fa-caret-down"></i>
-                            </ng-template>
-                            <ng-template #dropdownIcon>
-                                <i class="fa fa-caret-up"></i>
-                            </ng-template>
-                            </button>
-                            <div #tagsApp class="dropdown-content tags-scroll" id="tag" *ngIf="filtersT">
+                            <div class="selected-tags-list">
                                 <p *ngFor="let tag of tagsList">
                                     {{ tag.nome }} 
                                     <i class="bi bi-x" (click)="removeTag(tag)"></i>
@@ -208,7 +200,7 @@
                             <div>
                                 <label><i class="bi bi-plus"></i> Adicionar nova Tag</label>
                             </div>
-                            <div>
+                            <div class="input-with-button">
                                 <input type="text" name="tag" id="newTag" #newTag placeholder="Digite o nome da tag">
                                 <i *ngIf="!isEditing" class="bi bi-plus-circle" (click)="addTag()"></i>
                                 <i *ngIf="isEditing" class="bi bi-check-circle" (click)="addTag()"></i>
@@ -216,7 +208,7 @@
                             </div>
                         </div>
                         <div class="dropdown">
-                            <button #optionTag id="tagButton">Tags disponíveis no sistema
+                            <button #optionTag id="tagButton"><i class="bi bi-bookmarks"></i> Tags disponíveis no sistema
                                 <ng-template [ngIf]="!optionsButton" [ngIfElse]="dropdownIcon">
                                 <i class="fa fa-caret-down"></i>
                                 </ng-template>
