@@ -1,6 +1,85 @@
-div {
+div#fundo {
+    min-height: 100vh; /* Garante que cubra toda a tela */
+    padding: 40px;
+    margin: 0;
+    background-color: #876beb;
+}
+
+div#container{
+    border-radius: 10px;
+    background-color: white;
+    /* padding: 0 40px 40px 40px; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: auto 50px;
+}
+
+div.title-area {
+    margin: 40px auto;
+}
+
+div h2 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+div h5 {
+    color: #6c757d;
+    font-size: 1.2rem;
+    text-align: center;
+    font-style: italic;
+    font-weight: 400;
+}
+
+div p {
+    color: #495057;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    width: 100%;
+    height: 300px; /* Altura fixa - ajuste conforme necessário */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantém proporção e preenche todo o espaço */
+    object-position: center; /* Centraliza a imagem */
+}
+
+.content-area {
+    padding: 0 40px 40px 40px;
+    width: 100%;
+}
+
+.tags-section {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #876beb;
+}
+
+.category-section {
+    background: linear-gradient(135deg, #3FA14C, #2E7036);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.category-section p {
+    color: white;
 }

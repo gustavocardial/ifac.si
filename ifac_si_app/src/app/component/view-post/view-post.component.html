@@ -1,7 +1,26 @@
-<div>
-    <h2>{{post.titulo}}</h2>
-    <h5>{{post.legenda}}</h5>
-    <p>{{post.texto}}</p>
-    <p>{{post.tags}}</p>
-    <p>{{post.categoria}}</p>
+<div id="fundo">
+    <div id="container">
+        <div class="image-container">
+            <img src="{{post.imagemCapa?.url}}" alt="">
+        </div>
+        <div class="content-area">
+            <div class="title-area">
+                <h2>{{post.titulo}}</h2>
+                <h5>{{post.legenda}}</h5>
+            </div>
+            <p [innerHTML]="post.texto"></p>
+            
+            <!-- Tags com estilo melhorado -->
+            <div class="tags-section">
+                <p><strong>Tags:</strong></p>
+                <p *ngIf="post.tags">{{post.tags}}</p>
+                <p><strong>A postagem não possui tags atribuídas a ela</strong></p>
+            </div>
+            
+            <!-- Categoria com destaque -->
+            <div class="category-section">
+                <p>Categoria: {{post.categoria?.nome}}</p>
+            </div>
+        </div>
+    </div>
 </div>
