@@ -2,8 +2,10 @@ div#postInfo {
     /* background-color: aliceblue; */
     /* width: inherit; */
     /* margin-left: 10px; */
-    margin: 40px auto;
+    margin: 0 0 40px auto;
     flex: 1;
+    overflow: visible;
+    position: relative;
 }
 
 .container {
@@ -12,11 +14,17 @@ div#postInfo {
     padding: 0;
     /* margin: auto 20px; */
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* MUDE de center para flex-start */
+    overflow: visible;
 }
 
 .row {
     display: flex; /* Garante que as colunas estejam lado a lado */
+    overflow: visible;
+}
+
+.col-12, .col-lg-3, .col-md-5 {
+    overflow: visible;
 }
 
 /* #editorElement {
@@ -73,8 +81,31 @@ button.editButton {
     margin: 10px auto;
 }
 
-div.card-header {
+/* div.card-header {
     padding: 0;
+} */
+
+#collapseThree.collapse.show {
+    overflow: visible;
+    height: auto;
+}
+
+#collapseThree.collapsing {
+    overflow: visible;
+}
+
+.card-body {
+    overflow: visible;
+}
+
+.card {
+    border-radius: 4px;
+    overflow: visible;
+}
+
+.card-header {
+    background-color: rgb(0, 0, 0);
+    border-radius: inherit;
 }
 
 button.btn.btn-link {
@@ -89,20 +120,13 @@ button.btn.btn-link:not(#buttonSave) {
     margin: auto;
 }
 
-.card {
-    border-radius: 4px;
-}
-
-.card-header {
-    background-color: rgb(0, 0, 0);
-    border-radius: inherit;
-}
-
 div#accordion {
     margin: 10px 0;
     padding: 8px 0;
-    position: sticky;
+    position: relative;
     top: 10px;
+    overflow: visible;
+    z-index: 1;
 }
 
 button#buttonSave {
@@ -119,7 +143,7 @@ button#buttonSave:hover {
 div#tagContainer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
 }
 
 div#tagContainer > input {
@@ -130,22 +154,50 @@ div#tagContainer > i {
     margin-left: 10px;
 }
 
+.input-with-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-with-button input {
+    flex: 1;
+    margin: 0;
+}
+
+.input-with-button i {
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
     /* width: 190px; */
     flex-shrink: 0;
+    z-index: 1000;
     /* margin: 0 10px; */
+}
+
+.dropdown:last-of-type {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
 }
 
 .dropdown-content {
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 120px;
+    min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 10000;
-    top: 100%; /* Coloca o conteúdo logo abaixo do botão */
+    z-index: 99999;
+    top: calc(100% + 2px); /* Coloca o conteúdo logo abaixo do botão */
     left: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .dropdown-content p {
@@ -162,6 +214,7 @@ div#tagContainer > i {
     max-height: 150px;
     overflow-y: auto;
 }
+
 
 button#tagButton {
     background-color: white;
@@ -225,6 +278,7 @@ div.statusDiv {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    position: relative;
     /* margin-bottom: 15px; */
 }
 
@@ -312,4 +366,64 @@ p#perguntaImagem {
 div.buttonHandle {
     display: flex;
     flex-direction: row;
+}
+
+div#labelTag {
+    width: 100%;
+    text-align: center;
+    background-color:#623CEA;
+    color: white;
+    border-radius: 10px;
+}
+
+div#labelTag i {
+    color: rgb(248, 200, 138);
+}
+
+#labelSelecionadas i.bi-check-square {
+    background-color: #28a745;
+    color: white;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.selected-tags-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 2px solid #28a745;
+    border-radius: 4px;
+    background-color: #f8fff9;
+    min-height: 60px;
+    max-height: 90000px;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.selected-tags-list p {
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #28a745;
+    color: white;
+    padding: 6px 12px;
+    margin: 4px 2px;
+    border-radius: 20px;
+    font-size: 350;
+}
+
+.selected-tags-list p i {
+    cursor: pointer;
+    margin-left: 8px;
+    font-weight: 200;
+    font-size: large;
+}
+
+.selected-tags-list p i.bi.bi-trash:hover {
+    color: red; 
+}
+
+.selected-tags-list p i.bi.bi-pencil:hover {
+  color: #007bff; /* Azul claro */
 }

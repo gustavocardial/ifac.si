@@ -96,18 +96,24 @@ export class AddNewPostComponent implements OnInit{
 
     const id = this.route.snapshot.queryParamMap.get('postId');
     if (id){
+      // Para posts existentes, apenas busque as duas listas em paralelo
+      this.loadPostData(+id);
+      
       this.servicoPost.getById(+id).subscribe({
         next: (resposta: Post) => {
           this.post = resposta;
 
           console.log (this.post.texto);
           console.log (this.post);
-
-          // console.log ("Post", resposta);
-          
-          // this.tags = resposta.tags;
         }
       });
+
+      if (id) {
+    
+    } else {
+      // Para posts novos, apenas busque as tags disponíveis
+      this.loadAvailableTags();
+    }
 
       this.servicoTag.getTagByPost(+id).subscribe({
         next: (resposta: Tag[]) => {
@@ -123,29 +129,8 @@ export class AddNewPostComponent implements OnInit{
             this.filterAvailableTags(); // Filtra as tags disponíveis
           }
         }
-      })
-
-      // this.servicoTag.get().subscribe({
-      //   next: (resposta: tags[]) => {
-      //     // this.tags = resposta;
-      //     this.tagsList = resposta.filter((tag: tags) => this.post?.tags?.some(postTag => Number(postTag.id) === Number(tag.id)));
-        
-      //     console.log('Tags:', this.tagsList); 
-      //   }
-      // });  
+      }) 
     }
-
-    this.servicoTag.get().subscribe({
-      next: (resposta: Tag[]) => {
-        this.tagsOptions = resposta;
-
-        console.log(resposta);
-      
-        if (this.tagsList.length > 0) {
-          this.filterAvailableTags(); // Filtra as tags disponíveis
-        }
-      }
-    })
 
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
       next: (usuario: Usuario) => {
@@ -158,52 +143,51 @@ export class AddNewPostComponent implements OnInit{
         this.categorias = resposta;
       }
     });
-    // if (id) alert(`Chegou post com id ${id}`);
   }
 
   ngAfterViewInit(): void {
     // Adicionando o listener para o botão de categorias
-    this.statusListener = this.renderer.listen(this.categoryButton.nativeElement, 'click', (event) => {
-      this.onCategoryClick();
-      // this.initializeCategoryDropdownListener();
-    });
+    if (this.categoryButton) {
+      this.statusListener = this.renderer.listen(this.categoryButton.nativeElement, 'click', (event) => {
+        this.onCategoryClick();
+        // this.initializeCategoryDropdownListener();
+      });
+    }
 
     // Adicionando o listener para o botão de tags
-    this.tagListener = this.renderer.listen(this.tagButton.nativeElement, 'click', (event) => {
-      this.onTagClick();
-      // this.initializeTagDropdownListener();
-    });
+    if (this.tagButton) {
+      this.tagListener = this.renderer.listen(this.tagButton.nativeElement, 'click', (event) => {
+        this.onTagClick();
+        // this.initializeTagDropdownListener();
+      });
+    }
 
-    this.statusListener = this.renderer.listen(this.statusButton.nativeElement, 'click', (event) => {
-      this.onStatusClick();
-      // this.initializeTagDropdownListener();
-    });
+    if (this.statusButton) {
+      this.statusListener = this.renderer.listen(this.statusButton.nativeElement, 'click', (event) => {
+        this.onStatusClick();
+        // this.initializeTagDropdownListener();
+      });
+    }
 
-    this.tagListen = this.renderer.listen(this.buttonTag.nativeElement, 'click', (event) => {
-      this.onTag();
-      // this.initializeTagDropdownListener();
-    });
+    if (this.tagListen) {
+      this.tagListen = this.renderer.listen(this.buttonTag.nativeElement, 'click', (event) => {
+        this.onTag();
+        // this.initializeTagDropdownListener();
+      });
+    }
 
-    this.optionListener = this.renderer.listen(this.buttonOption.nativeElement, 'click', (event) => {
-      this.optionTagClick();
-    })
+    if (this.buttonOption) {
+      this.optionListener = this.renderer.listen(this.buttonOption.nativeElement, 'click', (event) => {
+        this.optionTagClick();
+        console.log ("nfagksdgbsjkgb")
+      })
+    }
 
-    this.capaListener = this.renderer.listen(this.capaInput.nativeElement, 'change', (event) => {
-      console.log ("tem imagem de capa");
-    })
-
-    // this.visibilidadeButtonListener = this.renderer.listen(this.visibiEdit.nativeElement, 'click', (event) => {
-    //   this.visibilidadeContent = !this.visibilidadeContent;
-    // })
-
-    // this.publicacaoButtonListener = this.renderer.listen(this.publiEdit.nativeElement, 'click', (event) => {
-    //   this.publicacaoContent = !this.publicacaoContent;
-    // })
-
-    // this.statusButtonListener = this.renderer.listen(this.statusEdit.nativeElement, 'click', (event) => {
-    //   this.statusContent = !this.statusContent;
-    // })
-
+    if (this.capaInput) {
+      this.capaListener = this.renderer.listen(this.capaInput.nativeElement, 'change', (event) => {
+        console.log ("tem imagem de capa");
+      })
+    }
   }
   
   @ViewChild('editor') editor: any;
@@ -536,21 +520,6 @@ export class AddNewPostComponent implements OnInit{
     this.post.categoria = categoria;
   }
 
-  filterAvailableTags(): void {
-    // Filtra tagsOptions para remover as que já estão em tagsList
-    if (this.tagsList.length === 0) {
-      console.log('Novo post: todas as tags estão disponíveis');
-      return;
-    }
-    
-    if (this.tagsOptions && this.tagsList) {
-      this.tagsOptions = this.tagsOptions.filter(option => 
-        !this.tagsList.some(postTag => postTag.id === option.id)
-      );
-      console.log('Tags disponíveis filtradas:', this.tagsOptions);
-    }
-  }
-
   confirmarVisibilidade(): void {
     // console.log ('entrei')
     if (this.selectedVisibilidade) {
@@ -597,6 +566,66 @@ export class AddNewPostComponent implements OnInit{
     }
   }
 
+  private loadPostData(postId: number): void {
+    let tagsLoaded = false;
+    let optionsLoaded = false;
+
+    // Buscar tags do post
+    this.servicoTag.getTagByPost(postId).subscribe({
+      next: (resposta: Tag[]) => {
+        this.tagsList = resposta.map((tag, index) => ({
+          ...tag,
+          tempId: index
+        } as ITags));
+        
+        tagsLoaded = true;
+        if (optionsLoaded) {
+          this.filterAvailableTags();
+        }
+      }
+    });
+
+    // Buscar todas as tags
+    this.servicoTag.get().subscribe({
+      next: (resposta: Tag[]) => {
+        this.tagsOptions = resposta;
+        
+        optionsLoaded = true;
+        if (tagsLoaded) {
+          this.filterAvailableTags();
+        }
+      }
+    });
+  }
+
+  private loadAvailableTags(): void {
+    this.servicoTag.get().subscribe({
+      next: (resposta: Tag[]) => {
+        this.tagsOptions = resposta;
+        // Para posts novos, não precisa filtrar
+      }
+    });
+  }
+
+  filterAvailableTags(): void {
+    if (!this.tagsOptions || this.tagsOptions.length === 0) {
+      console.log('Nenhuma tag disponível no sistema');
+      return;
+    }
+
+    if (!this.tagsList || this.tagsList.length === 0) {
+      console.log('Novo post: todas as tags estão disponíveis');
+      // ✅ Não filtra nada, mantém todas disponíveis
+      return;
+    }
+    
+    // Filtra apenas as tags que NÃO estão no post atual
+    this.tagsOptions = this.tagsOptions.filter(option => 
+      !this.tagsList.some(postTag => postTag.id === option.id)
+    );
+    
+    console.log('Tags disponíveis após filtro:', this.tagsOptions);
+  }
 
   modules = {
     toolbar: [

@@ -121,7 +121,7 @@ public class PostController{
     @PutMapping(value = "/correcao/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> correcao(@PathVariable Long id, PostRequestDTO objeto,
         @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
-        Post registro = servico.update(id, objeto, file, imagemCapaFile);
+        Post registro = servico.correcaoPost(id, objeto, file, imagemCapaFile);
         return ResponseEntity.ok(registro);
     }
 
