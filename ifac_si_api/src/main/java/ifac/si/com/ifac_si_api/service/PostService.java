@@ -403,9 +403,8 @@ public class PostService{
         }
 
         // Atualiza status se fornecido
-        if (postDto.getStatus() != null) post.setStatus(EStatus.valueOf(postDto.getStatus()));
+        post.setStatus(EStatus.CORRECAO);
         
-
         if (postDto.getVisibilidade() != null && postDto.getVisibilidade().equals("PRIVADO")) post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
         else post.setVisibilidade(EVisibilidade.PRIVADO);
 
