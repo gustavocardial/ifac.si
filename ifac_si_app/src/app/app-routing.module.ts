@@ -10,12 +10,14 @@ import { ViewPostComponent } from './component/view-post/view-post.component';
 import { AuthGuard } from './service/auth.guard';
 import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
 import { TrashViewComponent } from './component/trash-view/trash-view.component';
+import { SearchProjectsComponent } from './component/search-projects/search-projects.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'view_posts', component: PostsAppComponent},
   {path:'course', component: CourseComponent},
   {path:'view_post', component: ViewPostComponent},
+  {path:'search-projects', component: SearchProjectsComponent},
   {path: 'administration', canActivate: [AuthGuard], children: [
     {path: 'autor', canActivate: [AuthGuard], data: { cargo: ['AUTOR', 'EDITOR', 'ADMIN'] }, children: [
       {path:'new_post', component: AddNewPostComponent},
