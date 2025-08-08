@@ -1,26 +1,29 @@
-<div id="fundo">
-    <div id="container">
-        <div class="image-container">
-            <img src="{{post.imagemCapa?.url}}" alt="">
-        </div>
-        <div class="content-area">
-            <div class="title-area">
-                <h2>{{post.titulo}}</h2>
-                <h5>{{post.legenda}}</h5>
+    <div id="fundo">
+        <div id="container">
+            <div class="category-badge">
+                <span>{{post.categoria?.nome}}</span>
             </div>
-            <p [innerHTML]="post.texto"></p>
-            
-            <!-- Tags com estilo melhorado -->
-            <div class="tags-section">
-                <p><strong>Tags:</strong></p>
-                <p *ngIf="post.tags">{{post.tags}}</p>
-                <p><strong>A postagem não possui tags atribuídas a ela</strong></p>
-            </div>
-            
-            <!-- Categoria com destaque -->
-            <div class="category-section">
-                <p>Categoria: {{post.categoria?.nome}}</p>
+            <ng-container *ngIf="post.imagemCapa">
+                <div class="image-container">
+                    <img src="{{post.imagemCapa?.url}}" alt="">
+                </div>
+            </ng-container>
+            <div class="content-area">
+                <div class="title-area">
+                    <h2>{{post.titulo}}</h2>
+                    <h5>{{post.legenda}}</h5>
+                </div>
+                <p [innerHTML]="post.texto"></p>
+                
+                <!-- Tags com estilo melhorado -->
+                <ng-container *ngIf="post.tags">
+                    <div class="tags-section">
+                        <p><strong>Tags:</strong></p>
+                        <p>{{post.tags}}</p>
+                    </div>
+                </ng-container>
+                
+                <!-- Categoria com destaque -->
             </div>
         </div>
     </div>
-</div>
