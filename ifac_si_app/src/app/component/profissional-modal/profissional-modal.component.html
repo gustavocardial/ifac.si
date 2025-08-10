@@ -1,10 +1,19 @@
 <div class="overlay">
     <div class="popUp">
-        <label for="nome">Nome</label>
-        <input id="nome" type="text" [(ngModel)]="profissional.nome">
-
         <label for="funcao">Função</label>
-        <input id="funcao" type="text" [(ngModel)]="profissional.descricao" placeholder="Descrição sobre suas funções, seus títulos acadêmicos e informações importantes">
+        <select id="funcao" [(ngModel)]="profissional.funcao">
+        <option value="Professor">Professor</option>
+        <option value="Coordenador">Coordenador</option>
+        <option value="Diretor">Diretor</option>
+        <option value="Outro">Outro</option>
+        </select>
+
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" [(ngModel)]="profissional.nome" placeholder="Nome do profissional">
+
+        <label for="titulo">Título</label>
+        <input id="titulo" type="text" [(ngModel)]="profissional.titulo" placeholder="Ex: Mestre, Doutor">
+
 
         <div id="alignButton">
             <div class="buttonActions">
