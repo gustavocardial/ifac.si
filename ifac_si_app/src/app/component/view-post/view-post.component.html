@@ -16,12 +16,17 @@
                 <p [innerHTML]="post.texto"></p>
                 
                 <!-- Tags com estilo melhorado -->
-                <ng-container *ngIf="post.tags">
+                <ng-container *ngIf="post.tags?.length">
                     <div class="tags-section">
                         <p><strong>Tags:</strong></p>
-                        <p>{{post.tags}}</p>
+                        <p>
+                            <span *ngFor="let tag of post.tags; let last = last">
+                                #{{tag.nome}}{{!last ? ', ' : ''}}
+                            </span>
+                        </p>
                     </div>
                 </ng-container>
+
                 
                 <!-- Categoria com destaque -->
             </div>

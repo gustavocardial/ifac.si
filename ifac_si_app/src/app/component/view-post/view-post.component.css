@@ -71,6 +71,10 @@ div p {
     border-left: 4px solid #876beb;
 }
 
+.tags-section p{
+    margin: 0;
+}
+
 .category-badge {
     position: relative;
     align-self: flex-start;
@@ -81,7 +85,7 @@ div p {
     border-radius: 0 0 6px 0; /* Apenas canto inferior direito arredondado */
     border-top-left-radius: 10px; /* Acompanha o border-radius do container no canto */
     font-weight: 600;
-    font-size: 1.0rem;
+    font-size: 1.4rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     width: fit-content;
 }
