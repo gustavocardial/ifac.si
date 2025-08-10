@@ -1,7 +1,7 @@
 <div class="overlay">
     <div class="popUp">
         <label for="funcao">Função</label>
-        <select id="funcao" [(ngModel)]="profissional.funcao">
+        <select id="funcao" [(ngModel)]="this.funcao">
         <option value="Professor">Professor</option>
         <option value="Coordenador">Coordenador</option>
         <option value="Diretor">Diretor</option>
@@ -12,7 +12,7 @@
         <input id="nome" type="text" [(ngModel)]="profissional.nome" placeholder="Nome do profissional">
 
         <label for="titulo">Título</label>
-        <input id="titulo" type="text" [(ngModel)]="profissional.titulo" placeholder="Ex: Mestre, Doutor">
+        <input id="titulo" type="text" [(ngModel)]="this.titulo" placeholder="Ex: Mestre, Doutor">
 
 
         <div id="alignButton">

@@ -1,6 +1,6 @@
 import { Imagem } from "./imagem";
 
-export type Notificacao = {
+export type Profissional = {
   id: number;
   nome: string;
   descrição: string;
