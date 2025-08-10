@@ -73,6 +73,9 @@
                         <!-- <p *ngIf="docente.areas" class="areas">{{docente.areas}}</p> -->
                         <!-- <a *ngIf="docente.lattes" href="{{docente.lattes}}" target="_blank" class="link-lattes">Currículo Lattes</a> -->
                     </div>
+                    <div class="docente docente-adicionar" title="Clique para adicionar um novo profissional ao corpo docente" *ngIf='this.cargoAtual == "ADMIN"'>
+                        <span class="plus-icon">+</span>
+                    </div>
                 </div>
             </section>
 
