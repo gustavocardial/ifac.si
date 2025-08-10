@@ -1,0 +1,16 @@
+<div id="fundo">
+    <div id="container">
+        <h1>Produções Acadêmicas</h1>
+
+        <div *ngFor="let item of publicacoes">
+            <div class="card">
+                <h3>{{ item.titulo }}</h3>
+                <p><strong>Autores:</strong> {{ item.autores.join(', ') }}</p>
+                <p><strong>Tipo:</strong> {{ item.tipo }}</p>
+                <p><strong>Data:</strong> {{ item.data }}</p>
+                <p><strong>Resumo:</strong> {{ item.resumo }}</p>
+                <a [href]="item.link" target="_blank">📄 Acessar</a>
+            </div>
+        </div>
+    </div>
+</div>

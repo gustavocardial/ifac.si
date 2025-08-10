@@ -1,0 +1,45 @@
+div#fundo {
+    min-height: 100vh; /* Garante que cubra toda a tela */
+    padding: 40px;
+    margin: 0;
+    background-color: #876beb;
+}
+
+div#container {
+    margin: 10px;
+}
+
+div#container h1 {
+    margin-bottom: 20px;
+    color: white;
+}
+
+div#container h3 {
+    margin-bottom: 15px;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);   
+    border-right: 15px solid #47b455;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card a {
+    text-decoration: none;
+    background: linear-gradient(135deg, #53ba63, #2f883b);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.card a:hover {
+    background: linear-gradient(135deg, #876beb, #5238b3);
+}
+
+.card a:active {
+    background: linear-gradient(135deg, #6b98eb, #385fb3);
+}

@@ -27,6 +27,7 @@ import { OrdinationComponent } from './component/ordination/ordination.component
 import { authInterceptor } from './interceptor/auth.interceptor';
 import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
 import { TrashViewComponent } from './component/trash-view/trash-view.component';
+import { SearchProjectsComponent } from './component/search-projects/search-projects.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { TrashViewComponent } from './component/trash-view/trash-view.component'
     OrdinationComponent,
     MyPublicationsComponent,
     TrashViewComponent,
+    SearchProjectsComponent,
   ],
   imports: [
     BrowserModule,
