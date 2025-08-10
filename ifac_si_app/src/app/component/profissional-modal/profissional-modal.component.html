@@ -1,0 +1,32 @@
+<div class="overlay">
+    <div class="popUp">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" [(ngModel)]="profissional.nome">
+
+        <label for="funcao">Funções</label>
+        <select id="funcao" multiple [(ngModel)]="profissional.funcoes">
+        <option *ngFor="let f of listaFuncoes" [ngValue]="f">
+            {{ f.nome }}
+        </option>
+        </select>
+
+        <label for="titulo">Títulos</label>
+        <select id="titulo" multiple [(ngModel)]="profissional.titulos">
+        <option *ngFor="let t of listaTitulos" [ngValue]="t">
+            {{ t.nome }}
+        </option>
+        </select>
+
+
+        <div id="alignButton">
+            <div class="buttonActions">
+                <button #cancelButton id="cancelButton">Cancelar
+                    <div><i class="bi bi-x-lg"></i></div>
+                </button>
+                <button #confirmButton id="confirmButton">Confirmar
+                    <div><i class="bi bi-check-lg"></i></div>
+                </button>    
+            </div>
+        </div>
+    </div>
+</div>

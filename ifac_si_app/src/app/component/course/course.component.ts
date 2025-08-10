@@ -14,6 +14,8 @@ export class CourseComponent implements OnInit, OnDestroy{
 
   cargoAtual: ECargo | null = null;  
   usuario: Usuario = <Usuario>{};
+  show: boolean = false;
+  acaoModal: 'adicionar' | 'editar' | 'deletar' | null = null;
   private subscription: Subscription = new Subscription();
     
   constructor(private servicoLogin: LoginService) {}
@@ -63,6 +65,35 @@ export class CourseComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     // Importante para evitar memory leaks
     this.subscription.unsubscribe();
+  }
+
+  showModal(): void {
+    this.show = !this.show
+  }
+
+  adicionarProfissional(): void {
+    console.log ('Adicionando profissional...');
+  }
+
+  editarProfissional(): void {
+    console.log ('Editando profissional...');
+  }
+
+  deletarProfissional(): void {
+    console.log ('Deletando profissional...')
+  }
+
+  confirmarAcao(dados?: any) {
+    switch (this.acaoModal) {
+      case 'adicionar':
+        this.adicionarProfissional();
+        break;
+      case 'editar':
+        this.editarProfissional();
+        break;
+      case 'deletar':
+        this.deletarProfissional();
+    }
   }
 
   docentes: CorpoDocente[] = [

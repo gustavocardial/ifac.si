@@ -1,5 +1,20 @@
 <div id="fundo">
     <main>
+        <!-- Modal de confirmação -->
+        <app-modal-form 
+        *ngIf="show && acaoModal === 'deletar'"
+        [messageLine1]="'Tem certeza que deseja excluir este profissional?'"
+        (cancelForm)="show = false"
+        (confirmForm)="confirmarAcao()">
+        </app-modal-form>
+
+        <!-- Modal de criar/editar profissional -->
+        <app-profissional-modal
+        *ngIf="show && (acaoModal === 'adicionar' || acaoModal === 'editar')"
+        (cancelForm)="show = false"
+        (confirmForm)="confirmarAcao($event)">
+        </app-profissional-modal>
+
         <header class="header-curso">
             <img src="../../../assets/images/spi.png" alt="Logo SPI IFAC" class="logo-curso">    
         </header>
