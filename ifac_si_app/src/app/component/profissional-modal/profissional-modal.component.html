@@ -3,20 +3,8 @@
         <label for="nome">Nome</label>
         <input id="nome" type="text" [(ngModel)]="profissional.nome">
 
-        <label for="funcao">Funções</label>
-        <select id="funcao" multiple [(ngModel)]="profissional.funcoes">
-        <option *ngFor="let f of listaFuncoes" [ngValue]="f">
-            {{ f.nome }}
-        </option>
-        </select>
-
-        <label for="titulo">Títulos</label>
-        <select id="titulo" multiple [(ngModel)]="profissional.titulos">
-        <option *ngFor="let t of listaTitulos" [ngValue]="t">
-            {{ t.nome }}
-        </option>
-        </select>
-
+        <label for="funcao">Função</label>
+        <input id="funcao" type="text" [(ngModel)]="profissional.descricao" placeholder="Descrição sobre suas funções, seus títulos acadêmicos e informações importantes">
 
         <div id="alignButton">
             <div class="buttonActions">
