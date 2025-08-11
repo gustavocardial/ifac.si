@@ -530,7 +530,6 @@ public class PostService{
         original.setPublicacao(rascunho.getPublicacao());
         original.setData(LocalDateTime.now());
         original.setStatus(EStatus.PUBLICADO);
-        original.setData(LocalDateTime.now());
 
         // Salva o post original com as atualizações
         Post atualizado = postRepository.save(original);
