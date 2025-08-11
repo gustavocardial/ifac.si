@@ -1,5 +1,20 @@
 <div id="fundo">
     <main>
+        <!-- Modal de confirmação -->
+        <app-modal-form 
+        *ngIf="show && acaoModal === 'deletar'"
+        [messageLine1]="'Tem certeza que deseja excluir este profissional?'"
+        (cancelForm)="show = false"
+        (confirmForm)="confirmarAcao()">
+        </app-modal-form>
+
+        <!-- Modal de criar/editar profissional -->
+        <app-profissional-modal
+        *ngIf="show && (acaoModal === 'adicionar' || acaoModal === 'editar')"
+        (cancelForm)="show = false"
+        (confirmForm)="confirmarAcao($event)">
+        </app-profissional-modal>
+
         <header class="header-curso">
             <img src="../../../assets/images/spi.png" alt="Logo SPI IFAC" class="logo-curso">    
         </header>
@@ -70,8 +85,15 @@
                         <h3>{{docente.nome}}</h3>
                         <p class="titulacao">{{docente.nivel}}</p>
                         <p class="cargo">{{docente.cargo}}</p>
+                        <div *ngIf='this.cargoAtual == "ADMIN"' class="adminAction">
+                            <button #deleteButton><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
+                            <button #editButton><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+                        </div>
                         <!-- <p *ngIf="docente.areas" class="areas">{{docente.areas}}</p> -->
                         <!-- <a *ngIf="docente.lattes" href="{{docente.lattes}}" target="_blank" class="link-lattes">Currículo Lattes</a> -->
+                    </div>
+                    <div class="docente docente-adicionar" title="Clique para adicionar um novo profissional ao corpo docente" *ngIf='this.cargoAtual == "ADMIN"'>
+                        <span class="plus-icon">+</span>
                     </div>
                 </div>
             </section>

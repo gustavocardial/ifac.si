@@ -28,6 +28,7 @@ import { authInterceptor } from './interceptor/auth.interceptor';
 import { MyPublicationsComponent } from './component/my-publications/my-publications.component';
 import { TrashViewComponent } from './component/trash-view/trash-view.component';
 import { SearchProjectsComponent } from './component/search-projects/search-projects.component';
+import { ProfissionalModalComponent } from './component/profissional-modal/profissional-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,7 @@ import { SearchProjectsComponent } from './component/search-projects/search-proj
     MyPublicationsComponent,
     TrashViewComponent,
     SearchProjectsComponent,
+    ProfissionalModalComponent,
   ],
   imports: [
     BrowserModule,
