@@ -88,21 +88,10 @@ export class PostService{
     });
 
     const body = { mensagem: mensagem || '' };
-  
-    console.log('=== DEBUG REPROVAR POST ===');
-    console.log('URL completa:', url);
-    console.log('ID:', id);
-    console.log('Mensagem:', mensagem);
-    console.log('Body:', body);
-    console.log('API URL base:', this.apiUrl);
     
     return this.http.put<Post>(url, body, {headers}).pipe(
       tap(response => console.log('Sucesso:', response)),
       catchError(error => {
-        console.error('Erro na requisição:', error);
-        console.error('Status:', error.status);
-        console.error('Message:', error.message);
-        console.error('URL que falhou:', error.url);
         return throwError(error);
       })
     );
@@ -114,18 +103,6 @@ export class PostService{
 
     return this.http.put<Post>(url, formData, { headers });
   }
-
-  // private mapToPostRequestDTO(post: Post): any {
-  //   return {
-  //     titulo: post.titulo,
-  //     usuarioId: post.usuario?.id ?? null,
-  //     categoriaId: post.categoria?.id ?? null,
-  //     texto: post.texto,
-  //     legenda: post.legenda,
-  //     status: post.status ?? 'PUBLICADO',
-  //     tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.nome) : []
-  //   };
-  // }
   
 
 }
