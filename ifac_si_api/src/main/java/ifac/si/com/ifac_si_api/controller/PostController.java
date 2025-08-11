@@ -4,6 +4,7 @@ package ifac.si.com.ifac_si_api.controller;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -141,5 +143,83 @@ public class PostController{
         Post updatedPost = servico.atualizarStatus(id, status);
         return ResponseEntity.ok(updatedPost);
     }
+
+    @PostMapping(value = "/{id}/rascunho", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Salvar rascunho baseado em um post existente")
+    public ResponseEntity<?> salvarRascunho(
+            @PathVariable Long id,
+            PostRequestDTO objeto,
+            @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile,
+            @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+
+        Post rascunho = servico.salvarRascunho(id, objeto, file, imagemCapaFile);
+        return ResponseEntity.ok(rascunho);
+    }
+
+    @PostMapping("/{rascunhoId}/publicar")
+    @Operation(summary = "Publicar um rascunho como post definitivo")
+    public ResponseEntity<?> publicarRascunho(
+            @PathVariable Long rascunhoId,
+            @RequestBody(required = false) PostRequestDTO objeto) throws Exception {
+
+        Post postPublicado = servico.publicarRascunho(rascunhoId, objeto, null, null);
+        return ResponseEntity.ok(postPublicado);
+    }
+
+    @PostMapping(value = "/{rascunhoId}/publicar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Publicar um rascunho com atualizações como post definitivo")
+    public ResponseEntity<?> publicarRascunhoComAtualizacoes(
+            @PathVariable Long rascunhoId,
+            PostRequestDTO objeto,
+            @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile,
+            @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+
+        Post postPublicado = servico.publicarRascunho(rascunhoId, objeto, file, imagemCapaFile);
+        return ResponseEntity.ok(postPublicado);
+    }
+
+    @GetMapping("/rascunhos/usuario/{usuarioId}")
+    @Operation(summary = "Buscar todos os rascunhos de um usuário")
+    public ResponseEntity<List<Post>> getRascunhosPorUsuario(@PathVariable Long usuarioId) {
+        List<Post> rascunhos = servico.getRascunhosPorUsuario(usuarioId);
+        return ResponseEntity.ok(rascunhos);
+    }
+
+    @GetMapping("/{postId}/rascunho")
+    @Operation(summary = "Buscar rascunho associado a um post")
+    public ResponseEntity<?> getRascunhoDePost(@PathVariable Long postId) {
+        Optional<Post> rascunho = servico.getRascunhoDePost(postId);
+
+        if (rascunho.isPresent()) {
+            return ResponseEntity.ok(rascunho.get());
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @DeleteMapping("/rascunhos/{rascunhoId}")
+    @Operation(summary = "Descartar um rascunho permanentemente")
+    public ResponseEntity<?> descartarRascunho(@PathVariable Long rascunhoId) {
+        servico.descartarRascunho(rascunhoId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/rascunhos")
+    @Operation(summary = "Listar todos os rascunhos (paginado)")
+    public ResponseEntity<Page<Post>> getAllRascunhos(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "data") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDirection) {
+
+        Sort sort = sortDirection.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Post> pageRascunhos = servico.getRascunhos(pageable);
+        return ResponseEntity.ok(pageRascunhos);
+    }
+
     
 }
