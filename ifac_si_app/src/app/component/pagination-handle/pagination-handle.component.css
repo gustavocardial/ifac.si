@@ -37,13 +37,14 @@ nav {
     }
 
     li a {
-        color: inherit;
+        color: white;
         text-decoration: none;
+        font-weight: bold;
         padding: .25em .5em;
         margin: 0 .1em;
         &:hover, &.ativo {
-            background-color: #383838;
-            color: white;
+            background-color: #e7e7e7e5;
+            color: black;
             border-radius: .5em;
         }
     }

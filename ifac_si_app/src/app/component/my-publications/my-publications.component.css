@@ -1,6 +1,21 @@
 .page-background {
-  background-color: #e9e9e9;
-  min-height: 100vh; /* Garante que cubra toda a tela */
+    background: 
+    /* Manchas orgânicas suaves */
+    radial-gradient(ellipse 800px 600px at 15% 25%, rgba(135, 107, 235, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 800px at 85% 15%, rgba(63, 161, 76, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse 700px 500px at 70% 80%, rgba(135, 107, 235, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 900px 700px at 30% 90%, rgba(63, 161, 76, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 600px at 90% 40%, rgba(135, 107, 235, 0.2) 0%, transparent 50%),
+    
+    /* Gradiente base escuro */
+    linear-gradient(135deg, 
+      #2a1f4f 0%,    /* Roxo escuro */
+      #1e3a2e 30%,   /* Verde escuro */
+      #1a1a2e 70%,   /* Azul escuro */
+      #0f0f23 100%   /* Quase preto */
+    );
+    
+  min-height: 100vh;
   padding: 40px;
   margin: 0;
 }
@@ -20,7 +35,27 @@ div#alignContainer {
 
 div#userData {
     border-radius: 10px;
-    background-color: white;
+background: 
+        /* Sombras brancas nas pontas */
+        radial-gradient(ellipse 300px 200px at 0% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 100% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 0% 100%, rgba(255, 255, 255, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 100% 100%, rgba(255, 255, 255, 0.07) 0%, transparent 40%),
+        
+        /* Manchas orgânicas com tom mais ROXO */
+        radial-gradient(ellipse 800px 600px at 15% 25%, rgba(135, 107, 235, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 600px 800px at 85% 15%, rgba(98, 60, 234, 0.18) 0%, transparent 50%),
+        radial-gradient(ellipse 700px 500px at 70% 80%, rgba(135, 107, 235, 0.28) 0%, transparent 50%),
+        radial-gradient(ellipse 900px 700px at 30% 90%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 500px 600px at 90% 40%, rgba(135, 107, 235, 0.12) 0%, transparent 50%),
+        
+        /* Gradiente base mais ROXO */
+        linear-gradient(135deg, 
+          #2a1f4f 0%,    /* Roxo mais intenso */
+          #1e1a3a 30%,   /* Roxo médio */
+          #1a1a2e 70%,   /* Azul roxeado */
+          #0f0f23 100%   /* Preto azulado */
+        );
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,11 +68,15 @@ div#userData {
     box-sizing: border-box;
 }
 
+h2 {
+    color: white;
+}
+
 div.userCard {
     width: 100%;
     margin-top: 10px;
     max-width: 1200px;
-    background-color: #876beb;
+    background-color: #876beb41;
     color: black;
     padding: 20px;
     border-radius: 5px;
@@ -64,7 +103,27 @@ div.cardInfo > p {
 
 div.viewPost{
     border-radius: 10px;
-    background-color: white;
+background: 
+        /* Sombras brancas nas pontas */
+        radial-gradient(ellipse 300px 200px at 0% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 100% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 0% 100%, rgba(255, 255, 255, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 100% 100%, rgba(255, 255, 255, 0.07) 0%, transparent 40%),
+        
+        /* Manchas orgânicas com tom mais ROXO */
+        radial-gradient(ellipse 800px 600px at 15% 25%, rgba(135, 107, 235, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 600px 800px at 85% 15%, rgba(98, 60, 234, 0.18) 0%, transparent 50%),
+        radial-gradient(ellipse 700px 500px at 70% 80%, rgba(135, 107, 235, 0.28) 0%, transparent 50%),
+        radial-gradient(ellipse 900px 700px at 30% 90%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 500px 600px at 90% 40%, rgba(135, 107, 235, 0.12) 0%, transparent 50%),
+        
+        /* Gradiente base mais ROXO */
+        linear-gradient(135deg, 
+          #2a1f4f 0%,    /* Roxo mais intenso */
+          #1e1a3a 30%,   /* Roxo médio */
+          #1a1a2e 70%,   /* Azul roxeado */
+          #0f0f23 100%   /* Preto azulado */
+        );
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -77,7 +136,7 @@ div.viewPost{
 
 .container {
     border-radius: 10px;
-    background-color: #876beb;
+    background-color: #876beb41;
     width: 100%;
     margin-left: 2%;
     max-width: 1200px; /* Adicionar um max-width para controlar melhor o layout */

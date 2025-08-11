@@ -43,21 +43,10 @@ export class PostService{
       'enctype': 'multipart/form-data'
     });
 
-    console.log ('Testando', id);
-
     if (id) {
       let url = this.apiUrl + id;
-      for (const pair of (formData as any).entries()) {
-        console.log(pair[0], pair[1]);
-      }
-      
       return this.http.put<Post>(url, formData, { headers: headers });
-      
-    } else {
-      for (const pair of (formData as any).entries()) {
-        console.log(pair[0], pair[1]);
-      }
-      
+    } else {      
       return this.http.post<Post>(url, formData, { headers: headers });
     }
   }
@@ -104,5 +93,47 @@ export class PostService{
     return this.http.put<Post>(url, formData, { headers });
   }
   
+  // 📝 Salvar rascunho baseado em um post existente
+  salvarRascunho(postId: number, formData: FormData): Observable<Post> {
+    const url = `${this.apiUrl}${postId}/rascunho`;
+    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+
+    return this.http.post<Post>(url, formData, { headers });
+  }
+
+  // 🚀 Publicar rascunho sem atualizações (JSON puro)
+  publicarRascunho(rascunhoId: number, objeto: any): Observable<Post> {
+    const url = `${this.apiUrl}${rascunhoId}/publicar`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<Post>(url, objeto, { headers });
+  }
+
+  // 🚀 Publicar rascunho com atualizações (formData)
+  publicarRascunhoComAtualizacoes(rascunhoId: number, formData: FormData): Observable<Post> {
+    const url = `${this.apiUrl}${rascunhoId}/publicar`;
+    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+
+    return this.http.post<Post>(url, formData, { headers });
+  }
+
+  // 👤 Buscar todos os rascunhos de um usuário
+  getRascunhosPorUsuario(usuarioId: number): Observable<Post[]> {
+    const url = `${this.apiUrl}rascunhos/usuario/${usuarioId}`;
+    return this.http.get<Post[]>(url);
+  }
+
+  // 🔍 Buscar rascunho associado a um post
+  getRascunhoDePost(postId: number): Observable<Post | null> {
+    const url = `${this.apiUrl}${postId}/rascunho`;
+    return this.http.get<Post>(url);
+  }
+
+  // 🗑️ Descartar rascunho permanentemente
+  descartarRascunho(rascunhoId: number): Observable<void> {
+    const url = `${this.apiUrl}rascunhos/${rascunhoId}`;
+    return this.http.delete<void>(url);
+  }
+
 
 }
