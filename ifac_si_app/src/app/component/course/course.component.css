@@ -505,3 +505,33 @@ div.docente span {
         min-height: 200px; /* Card um pouco menor em mobile */
     }
 }
+
+div.adminAction {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 8px;
+    width: 100%;
+}
+
+div.adminAction i {
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+div.adminAction button {
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+div.adminAction button:hover {
+    background-color: #2a6815;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}

@@ -85,6 +85,10 @@
                         <h3>{{docente.nome}}</h3>
                         <p class="titulacao">{{docente.nivel}}</p>
                         <p class="cargo">{{docente.cargo}}</p>
+                        <div *ngIf='this.cargoAtual == "ADMIN"' class="adminAction">
+                            <button #deleteButton><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
+                            <button #editButton><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
+                        </div>
                         <!-- <p *ngIf="docente.areas" class="areas">{{docente.areas}}</p> -->
                         <!-- <a *ngIf="docente.lattes" href="{{docente.lattes}}" target="_blank" class="link-lattes">Currículo Lattes</a> -->
                     </div>
