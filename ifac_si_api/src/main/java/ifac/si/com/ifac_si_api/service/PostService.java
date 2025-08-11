@@ -499,8 +499,6 @@ public class PostService{
         Post rascunho = postRepository.findById(rascunhoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Rascunho não encontrado"));
 
-        System.out.println(rascunho.getStatus());
-
         if (rascunho.getStatus() != EStatus.RASCUNHO) {
             throw new IllegalArgumentException("Apenas rascunhos podem ser publicados através deste método");
         }
@@ -535,13 +533,14 @@ public class PostService{
         Post atualizado = postRepository.save(original);
 
         // Remove o rascunho
-        postRepository.delete(rascunho);
+        descartarRascunho(rascunhoId);
 
         return atualizado;
     }
 
     //Busca todos os rascunhos de um usuário
     public List<Post> getRascunhosPorUsuario(Long usuarioId) {
+        System.out.println(usuarioId);
         return postRepository.findByUsuarioIdAndStatus(usuarioId, EStatus.RASCUNHO);
     }
 
@@ -588,5 +587,8 @@ public class PostService{
         postRepository.deleteById(rascunhoId);
     }
 
+    public Page<Post> getRascunhos(Pageable pageable) {
+        return postRepository.findByStatus(EStatus.RASCUNHO, pageable);
+    }
 
 }

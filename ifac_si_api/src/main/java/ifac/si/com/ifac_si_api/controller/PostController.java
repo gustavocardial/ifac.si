@@ -200,21 +200,9 @@ public class PostController{
                 : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        List<Post> rascunhos = servico.getByStatus(EStatus.RASCUNHO);
-
-        if (rascunhos.isEmpty()) {
-            return ResponseEntity.ok(Page.empty(pageable));
-        }
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min(start + pageable.getPageSize(), rascunhos.size());
-
-        if (start >= rascunhos.size()) {
-            return ResponseEntity.ok(Page.empty(pageable));
-        }
-
-        Page<Post> pageRascunhos = new PageImpl<>(rascunhos.subList(start, end), pageable, rascunhos.size());
+        Page<Post> pageRascunhos = servico.getRascunhos(pageable);
         return ResponseEntity.ok(pageRascunhos);
     }
+
     
 }
