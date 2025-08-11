@@ -341,7 +341,6 @@ public class PostService{
         // Atualiza status se fornecido
         if (postDto.getStatus() != null) post.setStatus(EStatus.valueOf(postDto.getStatus()));
         
-
         if (postDto.getVisibilidade() != null) post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
 
         if (postDto.getPublicacao() != null) post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
@@ -500,6 +499,8 @@ public class PostService{
         Post rascunho = postRepository.findById(rascunhoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Rascunho não encontrado"));
 
+        System.out.println(rascunho.getStatus());
+
         if (rascunho.getStatus() != EStatus.RASCUNHO) {
             throw new IllegalArgumentException("Apenas rascunhos podem ser publicados através deste método");
         }
@@ -509,11 +510,35 @@ public class PostService{
             rascunho = update(rascunhoId, postDto, imagens, postCapa);
         }
 
-        // Muda o status para publicado
-        rascunho.setStatus(EStatus.PUBLICADO);
-        rascunho.setData(LocalDateTime.now());
+        Long originalId = rascunho.getPostOriginalId();
+        if (originalId == null) {
+            throw new IllegalArgumentException("Este rascunho não está vinculado a um post original");
+        }
 
-        return postRepository.save(rascunho);
+        Post original = postRepository.findById(originalId)
+            .orElseThrow(() -> new ResourceNotFoundException("Post original não encontrado"));
+        // Muda o status para publicado
+        original.setTitulo(rascunho.getTitulo());
+        original.setTexto(rascunho.getTexto());
+        original.setLegenda(rascunho.getLegenda());
+        original.setCategoria(rascunho.getCategoria());
+        original.setImagemCapa(rascunho.getImagemCapa());
+        original.getImagens().clear();
+        original.getImagens().addAll(rascunho.getImagens());
+        original.setTags(rascunho.getTags());
+        original.setVisibilidade(rascunho.getVisibilidade());
+        original.setPublicacao(rascunho.getPublicacao());
+        original.setData(LocalDateTime.now());
+        original.setStatus(EStatus.PUBLICADO);
+        original.setData(LocalDateTime.now());
+
+        // Salva o post original com as atualizações
+        Post atualizado = postRepository.save(original);
+
+        // Remove o rascunho
+        postRepository.delete(rascunho);
+
+        return atualizado;
     }
 
     //Busca todos os rascunhos de um usuário

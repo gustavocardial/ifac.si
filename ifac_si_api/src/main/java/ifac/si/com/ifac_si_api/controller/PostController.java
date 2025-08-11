@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -200,7 +201,20 @@ public class PostController{
         Pageable pageable = PageRequest.of(page, size, sort);
 
         List<Post> rascunhos = servico.getByStatus(EStatus.RASCUNHO);
-        return ResponseEntity.ok((Page<Post>) rascunhos);
+
+        if (rascunhos.isEmpty()) {
+            return ResponseEntity.ok(Page.empty(pageable));
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), rascunhos.size());
+
+        if (start >= rascunhos.size()) {
+            return ResponseEntity.ok(Page.empty(pageable));
+        }
+
+        Page<Post> pageRascunhos = new PageImpl<>(rascunhos.subList(start, end), pageable, rascunhos.size());
+        return ResponseEntity.ok(pageRascunhos);
     }
     
 }
