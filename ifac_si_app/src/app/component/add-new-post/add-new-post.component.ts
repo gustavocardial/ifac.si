@@ -57,6 +57,7 @@ export class AddNewPostComponent implements OnInit{
   editingTagId: number | null = null;
   isEditing: boolean = false;
   minDateTime: string = '';
+  postRascunho: Post = <Post>{};
   EStatus = EStatus;
   // dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
@@ -143,6 +144,8 @@ export class AddNewPostComponent implements OnInit{
         this.categorias = resposta;
       }
     });
+
+
   }
 
   ngAfterViewInit(): void {

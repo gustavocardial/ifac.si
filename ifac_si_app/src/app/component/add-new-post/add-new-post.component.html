@@ -3,221 +3,222 @@
 </nav> -->
 <div id="fundo">
     <div class="container">
-    <div class="row">
-        <!-- class="col-12 col-lg-9" -->
-        <div class="col-12 col-lg-9 col-md-7" id="editorElement">
-            <div class="col-nd-auto" id="topEditor">
-                    <label for="tituloPost">Título</label>
-                    <input type="text" name="tituloPost" id="tituloPost" [(ngModel)]="post.titulo" placeholder="Título da postagem">
-                <!-- <div class="row"> -->
-                    <label for="LegendaPost">Legenda</label>
-                    <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda" placeholder="Legenda ou resumo da postagem">
-                    
-                    <label for="capaPost">Imagem de Capa</label>
-                    <div *ngIf="post.imagemCapa?.nomeArquivo" id="imagemCapaPost">
-                        <p>Imagem cadastrada: {{post.imagemCapa?.nomeArquivo}}</p> 
-                        <img *ngIf="post.imagemCapa?.url" [src]="post.imagemCapa?.url" alt="Imagem de Capa" class="preview-img">
+        <div class="row">
+            <!-- class="col-12 col-lg-9" -->
+            <div class="col-12 col-lg-9 col-md-7" id="editorElement">
+                <div class="col-nd-auto" id="topEditor">
+                        <label for="tituloPost">Título</label>
+                        <input type="text" name="tituloPost" id="tituloPost" [(ngModel)]="post.titulo" placeholder="Título da postagem">
+                    <!-- <div class="row"> -->
+                        <label for="LegendaPost">Legenda</label>
+                        <input type="text" name="LegendaPost" id="LegendaPost" [(ngModel)]="post.legenda" placeholder="Legenda ou resumo da postagem">
+                        
+                        <label for="capaPost">Imagem de Capa</label>
+                        <div *ngIf="post.imagemCapa?.nomeArquivo" id="imagemCapaPost">
+                            <p>Imagem cadastrada: {{post.imagemCapa?.nomeArquivo}}</p> 
+                            <img *ngIf="post.imagemCapa?.url" [src]="post.imagemCapa?.url" alt="Imagem de Capa" class="preview-img">
+                        </div>
+
+                        <p *ngIf="post.imagemCapa?.nomeArquivo" id="perguntaImagem">Deseja mudar?</p>
+
+                        <input type="file" name="capaPost" id="capaPost" #imagemCapa>
+                </div>
+                <div class="row">
+                    <div class="col-nd-12">
+                        <quill-editor [styles]="{height: '800px', backgroundColor: 'white'}" [modules]="modules" (onEditorChanged)="changedEditor($event)" #content="ngModel" [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
+                        </quill-editor>
                     </div>
-
-                    <p *ngIf="post.imagemCapa?.nomeArquivo" id="perguntaImagem">Deseja mudar?</p>
-
-                    <input type="file" name="capaPost" id="capaPost" #imagemCapa>
-            </div>
-            <div class="row">
-                <div class="col-nd-12">
-                    <quill-editor [styles]="{height: '800px', backgroundColor: 'white'}" [modules]="modules" (onEditorChanged)="changedEditor($event)" #content="ngModel" [(ngModel)]="post.texto" placeholder="Por favor insira seu post aqui">
-                    </quill-editor>
                 </div>
             </div>
-        </div>
-        <!-- class="col-12 col-lg-3"  -->
-        <div class="col-12 col-lg-3 col-md-5 position-relative" id="postInfo">
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" #status>
-                                Status e Visibilidade
-                                    <ng-template [ngIf]="!buttonS" [ngIfElse]="dropdownIcon">
-                                        <i class="fa fa-caret-down"></i>
-                                    </ng-template>
-                                    <ng-template #dropdownIcon>
-                                        <i class="fa fa-caret-up"></i>
-                                    </ng-template>
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"> <!--show para aparecer aberto-->
-                        <div class="card-body">
-                            <div class="statusDiv viewPost">
-                                <button id="statusRascunho" (click)="salvarRascunho()">Salvar Rascunho</button>
-                                <button id="statusPreview">Preview</button>
-                            </div>
-                            <div class="viewPost" id="statusPost">
-                                <div class="statusDiv">
-                                    <p class="visible">Visibilidade:</p>
-                                    <div>
-                                        <ng-container *ngIf="visibilidadeContent; else visibilidadeSelect">
-                                            <div id="visibilidade" class="visibilidadeWrapper">
-                                                <span>{{ post.visibilidade ? post.visibilidade : 'PÚBLICO' }}</span> 
-                                                <button (click)="toggleVisibilidade()" class="editButton">Editar</button>
-                                            </div>
-                                        </ng-container>
-                                        <ng-template #visibilidadeSelect>
-                                            <select id="visibilidadeSelect" [(ngModel)]="selectedVisibilidade">
-                                                <option *ngFor="let option of visibilidadeOptions" [ngValue]="option.value">
-                                                    {{ option.label }}
-                                                </option>
-                                            </select>
-                                            <div class="buttonHandle">
-                                                <button (click)="confirmarVisibilidade()" class="editButton">Confirmar</button>
-                                                <button (click)="toggleVisibilidade()" class="editButton">Cancelar</button>
-                                            </div>
+            <!-- class="col-12 col-lg-3"  -->
+            <div class="col-12 col-lg-3 col-md-5 position-relative" id="postInfo">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" #status>
+                                    Status e Visibilidade
+                                        <ng-template [ngIf]="!buttonS" [ngIfElse]="dropdownIcon">
+                                            <i class="fa fa-caret-down"></i>
                                         </ng-template>
-                                    </div>
-                                    
+                                        <ng-template #dropdownIcon>
+                                            <i class="fa fa-caret-up"></i>
+                                        </ng-template>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"> <!--show para aparecer aberto-->
+                            <div class="card-body">
+                                <div class="statusDiv viewPost">
+                                    <button id="statusRascunho" (click)="salvarRascunho()">Salvar Rascunho</button>
+                                    <button id="statusPreview">Preview</button>
                                 </div>
-                                <div class="statusDiv">
-                                    <p class="visible">Publicação:</p>
-                                    <div>                                   
-                                        <div class="publicacaoWrapper">
-                                            <div class="selectWrapper">
-                                                <div *ngIf="publicacaoContent" class="selectWrapper">
-                                                <span id="publicacao">
-                                                    {{ post.publicacao ? post.publicacao : 'IMEDIATA' }}
-                                                </span>
-                                                <button (click)="togglePublicacao()" class="editButton" *ngIf="post.status != EStatus.Publicado">Editar</button>
+                                <div class="viewPost" id="statusPost">
+                                    <div class="statusDiv">
+                                        <p class="visible">Visibilidade:</p>
+                                        <div>
+                                            <ng-container *ngIf="visibilidadeContent; else visibilidadeSelect">
+                                                <div id="visibilidade" class="visibilidadeWrapper">
+                                                    <span>{{ post.visibilidade ? post.visibilidade : 'PÚBLICO' }}</span> 
+                                                    <button (click)="toggleVisibilidade()" class="editButton">Editar</button>
                                                 </div>
-
-                                                <div *ngIf="!publicacaoContent" class="selectWrapper">
-                                                    <select id="publicacaoSelect" [(ngModel)]="selectedPublicacao">
-                                                        <option *ngFor="let option of publicacaoOptions" [value]="option.value">
+                                            </ng-container>
+                                            <ng-template #visibilidadeSelect>
+                                                <select id="visibilidadeSelect" [(ngModel)]="selectedVisibilidade">
+                                                    <option *ngFor="let option of visibilidadeOptions" [ngValue]="option.value">
                                                         {{ option.label }}
-                                                        </option>
-                                                    </select>
-                                                    <div class="buttonHandle">
-                                                        <button (click)="confirmarPublicacao()" class="editButton">Confirmar</button>
-                                                        <button (click)="togglePublicacao()" class="editButton">Cancelar</button>
+                                                    </option>
+                                                </select>
+                                                <div class="buttonHandle">
+                                                    <button (click)="confirmarVisibilidade()" class="editButton">Confirmar</button>
+                                                    <button (click)="toggleVisibilidade()" class="editButton">Cancelar</button>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="statusDiv">
+                                        <p class="visible">Publicação:</p>
+                                        <div>                                   
+                                            <div class="publicacaoWrapper">
+                                                <div class="selectWrapper">
+                                                    <div *ngIf="publicacaoContent" class="selectWrapper">
+                                                    <span id="publicacao">
+                                                        {{ post.publicacao ? post.publicacao : 'IMEDIATA' }}
+                                                    </span>
+                                                    <button (click)="togglePublicacao()" class="editButton" *ngIf="post.status != EStatus.Publicado">Editar</button>
+                                                    </div>
+
+                                                    <div *ngIf="!publicacaoContent" class="selectWrapper">
+                                                        <select id="publicacaoSelect" [(ngModel)]="selectedPublicacao">
+                                                            <option *ngFor="let option of publicacaoOptions" [value]="option.value">
+                                                            {{ option.label }}
+                                                            </option>
+                                                        </select>
+                                                        <div class="buttonHandle">
+                                                            <button (click)="confirmarPublicacao()" class="editButton">Confirmar</button>
+                                                            <button (click)="togglePublicacao()" class="editButton">Cancelar</button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <input
-                                                type="datetime-local"
-                                                [min]="post.data && post.data > minDateTime ? post.data : minDateTime"
-                                                [value]="post.data || minDateTime"
-                                                [disabled]="post.status === EStatus.Publicado"
-                                                (change)="onDateTimeChange($event)"
-                                            *ngIf="post.publicacao === 'AGENDADA'"
-                                            />
+                                                <input
+                                                    type="datetime-local"
+                                                    [min]="post.data && post.data > minDateTime ? post.data : minDateTime"
+                                                    [value]="post.data || minDateTime"
+                                                    [disabled]="post.status === EStatus.Publicado"
+                                                    (change)="onDateTimeChange($event)"
+                                                *ngIf="post.publicacao === 'AGENDADA'"
+                                                />
+                                            </div>
                                         </div>
+                                        <!-- <button #editarPublicacao class="editButton">{{ publicacaoContent ? "Editar" : "Cancelar"}}</button> -->
                                     </div>
-                                    <!-- <button #editarPublicacao class="editButton">{{ publicacaoContent ? "Editar" : "Cancelar"}}</button> -->
-                                </div>
-                                <div class="statusDiv">
-                                    <p class="visible">Status:</p>
-                                    <div>
-                                        <ng-template [ngIf]="post.id" [ngIfElse]="statusSelect">
-                                            <p id="idStatus">{{post.status}}</p>
-                                        </ng-template>
-                                        <ng-template #statusSelect>
-                                            <p id="idStatus">RASCUNHO</p>
-                                        </ng-template>
+                                    <div class="statusDiv">
+                                        <p class="visible">Status:</p>
+                                        <div>
+                                            <ng-template [ngIf]="post.id" [ngIfElse]="statusSelect">
+                                                <p id="idStatus">{{post.status}}</p>
+                                            </ng-template>
+                                            <ng-template #statusSelect>
+                                                <p id="idStatus">RASCUNHO</p>
+                                            </ng-template>
+                                        </div>
+                                        <!-- <button #editarStatus class="editButton">Editar</button> -->
                                     </div>
-                                    <!-- <button #editarStatus class="editButton">Editar</button> -->
                                 </div>
-                            </div>
-                            <div class="statusDiv viewPost" id="saveDiv">
-                                <button id="statusDelete">Deletar</button>
-                                <button id="statusSave" (click)="saveContent()">Salvar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" #category> <!--data-bs-parent="#accordion" para aparecer somente um card aberto por vez-->
-                                Categorias
-                                    <ng-template [ngIf]="!buttonC" [ngIfElse]="dropdownIcon">
-                                        <i class="fa fa-caret-down"></i>
-                                    </ng-template>
-                                    <ng-template #dropdownIcon>
-                                        <i class="fa fa-caret-up"></i>
-                                    </ng-template>
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
-                        <div class="card-body">
-                            <div class="radio-group">
-                                <div *ngFor="let categoria of categorias" id="categorys">
-                                    <input type="radio" name="categoria" 
-                                    [value]="categoria.id"
-                                    [checked]="post.categoria?.id === categoria.id"
-                                    (change)="onCategoriaSelect(categoria)">
-                                    <label> {{categoria.nome}}</label>
+                                <div class="statusDiv viewPost" id="saveDiv">
+                                    <button id="statusDelete">Deletar</button>
+                                    <button id="statusSave" (click)="saveContent()">Salvar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" #tags>
-                                Tags
-                                    <ng-template [ngIf]="!buttonT" [ngIfElse]="dropdownIcon">
-                                        <i class="fa fa-caret-down"></i>
-                                    </ng-template>
-                                    <ng-template #dropdownIcon>
-                                        <i class="fa fa-caret-up"></i>
-                                    </ng-template>
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
-                        <div class="card-body">
-                            <div id="labelTag"><Label> <i class="bi bi-tags-fill"></i> Gerenciar tags </Label></div>
-                            
-                            <div>
-                                <div id="labelSelecionadas">
-                                    <label><i class="bi bi-check-square"></i> Tags selecionadas</label>
-                                </div>
-                                <div class="selected-tags-list">
-                                    <p *ngFor="let tag of tagsList">
-                                        {{ tag.nome }} 
-                                        <i class="bi bi-trash" (click)="removeTag(tag)"></i>
-                                        <i class="bi bi-pencil me-2" (click)="editTag(tag)" *ngIf="tag.id == null"></i>
-                                    </p>
-                                </div>
-                            </div>                        
-                            <div id="tagContainer">
-                                <div>
-                                    <label><i class="bi bi-plus"></i> Adicionar nova Tag</label>
-                                </div>
-                                <div class="input-with-button">
-                                    <input type="text" name="tag" id="newTag" #newTag placeholder="Digite o nome da tag">
-                                    <i *ngIf="!isEditing" class="bi bi-plus-circle" (click)="addTag()"></i>
-                                    <i *ngIf="isEditing" class="bi bi-check-circle" (click)="addTag()"></i>
-                                    <i *ngIf="isEditing" class="bi bi-x-circle ms-2" (click)="cancelEditTag()"></i>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button #optionTag id="tagButton"><i class="bi bi-bookmarks"></i> Tags disponíveis no sistema
-                                    <ng-template [ngIf]="!optionsButton" [ngIfElse]="dropdownIcon">
-                                    <i class="fa fa-caret-down"></i>
-                                    </ng-template>
-                                    <ng-template #dropdownIcon>
-                                        <i class="fa fa-caret-up"></i>
-                                    </ng-template>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" #category> <!--data-bs-parent="#accordion" para aparecer somente um card aberto por vez-->
+                                    Categorias
+                                        <ng-template [ngIf]="!buttonC" [ngIfElse]="dropdownIcon">
+                                            <i class="fa fa-caret-down"></i>
+                                        </ng-template>
+                                        <ng-template #dropdownIcon>
+                                            <i class="fa fa-caret-up"></i>
+                                        </ng-template>
                                 </button>
-                                <div #tagsPreview class="dropdown-content tags-scroll" id="tagPreview" *ngIf="optionsButton">
-                                    <p *ngFor="let tagP of tagsOptions">
-                                        {{ tagP.nome }} 
-                                        <!-- <i class="bi bi-x" (click)="removeTag(tag.tempId)"></i> -->
-                                        <i class="bi bi-plus-circle" (click)="addTagList(tagP)"></i>
-                                    </p>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
+                            <div class="card-body">
+                                <div class="radio-group">
+                                    <div *ngFor="let categoria of categorias" id="categorys">
+                                        <input type="radio" name="categoria" 
+                                        [value]="categoria.id"
+                                        [checked]="post.categoria?.id === categoria.id"
+                                        (change)="onCategoriaSelect(categoria)">
+                                        <label> {{categoria.nome}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" #tags>
+                                    Tags
+                                        <ng-template [ngIf]="!buttonT" [ngIfElse]="dropdownIcon">
+                                            <i class="fa fa-caret-down"></i>
+                                        </ng-template>
+                                        <ng-template #dropdownIcon>
+                                            <i class="fa fa-caret-up"></i>
+                                        </ng-template>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
+                            <div class="card-body">
+                                <div id="labelTag"><Label> <i class="bi bi-tags-fill"></i> Gerenciar tags </Label></div>
+                                
+                                <div>
+                                    <div id="labelSelecionadas">
+                                        <label><i class="bi bi-check-square"></i> Tags selecionadas</label>
+                                    </div>
+                                    <div class="selected-tags-list">
+                                        <p *ngFor="let tag of tagsList">
+                                            {{ tag.nome }} 
+                                            <i class="bi bi-trash" (click)="removeTag(tag)"></i>
+                                            <i class="bi bi-pencil me-2" (click)="editTag(tag)" *ngIf="tag.id == null"></i>
+                                        </p>
+                                    </div>
+                                </div>                        
+                                <div id="tagContainer">
+                                    <div>
+                                        <label><i class="bi bi-plus"></i> Adicionar nova Tag</label>
+                                    </div>
+                                    <div class="input-with-button">
+                                        <input type="text" name="tag" id="newTag" #newTag placeholder="Digite o nome da tag">
+                                        <i *ngIf="!isEditing" class="bi bi-plus-circle" (click)="addTag()"></i>
+                                        <i *ngIf="isEditing" class="bi bi-check-circle" (click)="addTag()"></i>
+                                        <i *ngIf="isEditing" class="bi bi-x-circle ms-2" (click)="cancelEditTag()"></i>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <button #optionTag id="tagButton"><i class="bi bi-bookmarks"></i> Tags disponíveis no sistema
+                                        <ng-template [ngIf]="!optionsButton" [ngIfElse]="dropdownIcon">
+                                        <i class="fa fa-caret-down"></i>
+                                        </ng-template>
+                                        <ng-template #dropdownIcon>
+                                            <i class="fa fa-caret-up"></i>
+                                        </ng-template>
+                                    </button>
+                                    <div #tagsPreview class="dropdown-content tags-scroll" id="tagPreview" *ngIf="optionsButton">
+                                        <p *ngFor="let tagP of tagsOptions">
+                                            {{ tagP.nome }} 
+                                            <!-- <i class="bi bi-x" (click)="removeTag(tag.tempId)"></i> -->
+                                            <i class="bi bi-plus-circle" (click)="addTagList(tagP)"></i>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -226,5 +227,7 @@
             </div>
         </div>
     </div>
+    <div class="container-rascunho" *ngIf="">
+
     </div>
 </div>
