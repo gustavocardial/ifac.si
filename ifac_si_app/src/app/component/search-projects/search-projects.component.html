@@ -1,6 +1,9 @@
 <div id="fundo">
     <div id="container">
-        <h1>Produções Acadêmicas</h1>
+        <div class="header">
+            <h1>Produções Acadêmicas</h1>
+            <button class="add-projects" *ngIf='cargoAtual == "ADMIN"' title="cadastrar uma nova pesquisa"><span>+</span></button>
+        </div>
 
         <div *ngFor="let item of publicacoes">
             <div class="card">

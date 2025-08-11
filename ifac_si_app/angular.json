@@ -23,6 +23,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "optimization": true,
+            "buildOptimizer": true,
             "outputPath": "dist/ifac_si_app",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -65,7 +67,13 @@
                   "maximumError": "6kb"
                 }
               ],
-              "outputHashing": "all"
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             },
             "development": {
               "optimization": false,

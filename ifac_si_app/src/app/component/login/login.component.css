@@ -3,7 +3,16 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background: 
+        /* Gradiente sutil que combina com o fundo */
+        linear-gradient(135deg, 
+            rgba(64, 49, 119, 0.98) 0%,     /* Roxo mais escuro com transparência */
+            rgba(41, 75, 59, 0.95) 50%,    /* Verde mais escuro */
+            rgba(45, 45, 77, 0.98) 100%    /* Azul mais escuro */
+        );
+    backdrop-filter: blur(20px);            /* Efeito de vidro fosco */
+    border-bottom: 1px solid rgba(135, 107, 235, 0.2); /* Borda sutil roxa */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 div#formDiv {
