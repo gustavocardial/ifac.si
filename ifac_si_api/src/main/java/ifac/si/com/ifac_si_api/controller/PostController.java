@@ -127,6 +127,13 @@ public class PostController{
         return ResponseEntity.ok(registro);
     }
 
+    @PutMapping("/aprovacao/{id}")
+    @Operation(summary = "Aprovar correção de post reprovado")
+    public ResponseEntity<?> aprovacao(@PathVariable Long id) {
+        Post registro = servico.aprovarCorrecao(id);
+        return new ResponseEntity<>(registro, HttpStatus.OK);
+    }    
+
     @DeleteMapping("/{postId}/imagens/{imagemId}")
     public ResponseEntity<Void> removerImagem(
             @PathVariable Long postId,

@@ -418,6 +418,22 @@ public class PostService{
         return postRepository.save(post);
     }
 
+    public Post aprovarCorrecao(Long id) {
+        Post post = postRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Correção não encontrada"));
+
+        if (post.getStatus() == EStatus.CORRECAO) {
+            throw new RuntimeException("Post não está em estado de correção pendente");
+        }
+
+        post.setStatus(EStatus.PUBLICADO);
+        post.setVisibilidade(EVisibilidade.PUBLICO);
+
+        postRepository.save(post);
+
+        return post;
+    }
+
     public void delete(Long id) {
         Optional<Post> obj = postRepository.findById(id);
         if (obj.isPresent()) {
