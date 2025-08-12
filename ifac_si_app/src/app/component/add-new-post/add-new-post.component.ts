@@ -57,7 +57,7 @@ export class AddNewPostComponent implements OnInit{
   editingTagId: number | null = null;
   isEditing: boolean = false;
   minDateTime: string = '';
-  postRascunho: Post = <Post>{};
+  postRascunho: Post | null = null;
   EStatus = EStatus;
   // dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
@@ -131,6 +131,13 @@ export class AddNewPostComponent implements OnInit{
           }
         }
       }) 
+
+      this.servicoPost.getRascunhoDePost(+id).subscribe({
+        next: (resposta: Post | null) => {
+          if (resposta)
+            this.postRascunho = resposta;
+        }
+      })
     }
 
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
@@ -144,8 +151,6 @@ export class AddNewPostComponent implements OnInit{
         this.categorias = resposta;
       }
     });
-
-
   }
 
   ngAfterViewInit(): void {
@@ -207,19 +212,19 @@ export class AddNewPostComponent implements OnInit{
     // console.log ('teste', this.editorText, "       ");
   }
 
-  testarEnvio() {
-    console.log('=== SIMULANDO ENVIO ===');
+  // testarEnvio() {
+  //   console.log('=== SIMULANDO ENVIO ===');
     
-    // Processar as imagens (como seria no envio real)
-    const result = this.extractBase64Images(this.post.texto);
+  //   // Processar as imagens (como seria no envio real)
+  //   const result = this.extractBase64Images(this.post.texto);
     
-    // Simular o que seria enviado
-    // this.post.texto = result.modifiedContent;
+  //   // Simular o que seria enviado
+  //   // this.post.texto = result.modifiedContent;
     
-    // console.log('Texto final:', this.post.texto);
-    console.log('Imagens para envio:', this.images);
-    console.log('Total de arquivos:', this.images.length);
-  }
+  //   // console.log('Texto final:', this.post.texto);
+  //   console.log('Imagens para envio:', this.images);
+  //   console.log('Total de arquivos:', this.images.length);
+  // }
 
   private extractBase64Images(content: string): { modifiedContent: string, images: File[] } {
     const imgRegex = /<img[^>]*src=["'](data:image\/(png|jpeg|jpg);base64,([^"']+))["'][^>]*>/g;
@@ -686,6 +691,30 @@ export class AddNewPostComponent implements OnInit{
         console.error('Erro ao salvar rascunho:', erro);
       }
     });
+  }
+
+  visualizarRascunho(): void {
+    
+  }
+
+  editarRascunho(): void {
+    
+  }
+
+  deletarRascunho(): void {
+    if (this.postRascunho) {
+      this.servicoPost.descartarRascunho(this.postRascunho.id)
+      .subscribe({
+        next: () => {
+          console.log('Rascunho descartado com sucesso.');
+          // this.postRascunho = null; // remove da tela
+          // você pode navegar para outra rota ou atualizar a UI
+        },
+        error: (err) => {
+          console.error('Erro ao descartar rascunho:', err);
+        }
+      });
+    }
   }
 
   modules = {

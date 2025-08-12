@@ -21,5 +21,6 @@ export type Post = {
     imagemCapa?: Imagem,
     status: EStatus,
     visibilidade: EVisibilidade,
-    publicacao: EPublicacao
+    publicacao: EPublicacao,
+    postOriginalId: number;
 }

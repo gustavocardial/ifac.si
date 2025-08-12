@@ -163,12 +163,15 @@ div.titulo-curso {
 }
 
 .info-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+  max-width: 1000px;        /* 🔸 controla o máximo de largura */
+  margin-left: auto;        /* 🔸 centraliza o grid */
+  margin-right: auto;
 }
-  
+
 .card {
     background-color: #f8f8f8;
     padding: 20px;

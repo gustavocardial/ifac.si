@@ -224,10 +224,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="container-rascunho" *ngIf="this.postRascunho != null">
+                    <div class="postView">
+                        <div class="postInformation">
+                            <div id="header-rascunho">
+                                <p id="postCategoria">{{postRascunho.categoria?.nome}}</p>
+                                <h4>Rascunho salvo</h4>
+                            </div>
+                            <p id="postTitulo">{{postRascunho.titulo}}</p>
+                            <div id="actionsRascunho">
+                                <button (click)="visualizarRascunho()" id="rascunhoView">Visualizar</button>
+                                <button (click)="editarRascunho()" id="rascunhoEdit">Editar</button>
+                                <button (click)="deletarRascunho()" id="rascunhoDelete">Deletar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container-rascunho" *ngIf="">
-
     </div>
 </div>

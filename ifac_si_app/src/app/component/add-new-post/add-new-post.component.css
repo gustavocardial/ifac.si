@@ -341,7 +341,7 @@ div#statusPost button {
     height: fit-content;
 }
 
-div.statusDiv #statusRascunho {
+div.statusDiv #statusRascunho, div#actionsRascunho button#rascunhoView {
     /* font-weight: 500; */
     color: #623CEA;
     background-color: #bcb0e9;
@@ -349,7 +349,7 @@ div.statusDiv #statusRascunho {
     border-radius: 4px;
 }
 
-div.statusDiv #statusPreview {
+div.statusDiv #statusPreview, div#actionsRascunho button#rascunhoEdit {
     /* font-weight: 500; */
     color: #343435;
     background-color: #bbbbbe;
@@ -357,12 +357,7 @@ div.statusDiv #statusPreview {
     border-radius: 4px;
 }
 
-
-/* div.statusDiv #statusPreview, div#statusPost p, div#statusPost button {
-    color: #3E3E3E;
-} */
-
-div.statusDiv #statusDelete {
+div.statusDiv #statusDelete, div#actionsRascunho button#rascunhoDelete {
     color: #EA3C3C;
     background-color: #e09696;
     padding: 4px 8px;
@@ -494,4 +489,49 @@ div#labelTag i {
 
 .selected-tags-list p i.bi.bi-pencil:hover {
   color: #007bff; /* Azul claro */
+}
+
+div.postView {
+    width: inherit; /* Fazer o postView ocupar 100% do espaço do seu container */
+    height: fit-content; /* Ajustar altura proporcionalmente */
+    padding: 16px;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+}
+
+div.postInformation p#postCategoria {
+    font-weight: bold;
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 25px;
+    color:floralwhite;
+    background-color: #3FA14C;
+}
+
+div.postInformation p#postTitulo {
+    font-weight: 500;
+    font-size:large;
+}
+
+div#header-rascunho {
+    display: flex;
+    gap: 10px;
+}
+
+div#actionsRascunho {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+div#actionsRascunho button {
+    border: 0;
+    font-weight: bold;
 }

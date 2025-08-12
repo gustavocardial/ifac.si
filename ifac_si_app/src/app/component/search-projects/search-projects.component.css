@@ -57,3 +57,32 @@ div#container h3 {
 .card a:active {
     background: linear-gradient(135deg, #6b98eb, #385fb3);
 }
+
+.header {
+    display: flex;
+    gap: 15px;
+}
+
+.add-projects {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff; /* azul padrão */
+  color: rgb(0, 0, 0);
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px; /* ou 0px se quiser bem quadrado */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 0;
+}
+
+.add-projects:hover {
+  background-color: #7d66e4;
+}
+
+.add-projects span {
+    height: 100%;
+}
