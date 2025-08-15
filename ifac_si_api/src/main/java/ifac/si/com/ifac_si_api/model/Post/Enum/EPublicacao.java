@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 public enum EPublicacao {
     IMEDIATA,
-    AGENDADA;
+    AGENDADA,
+    RESTRITA;
 
     public static EPublicacao fromString(String publicacao) {
         if (publicacao == null) {

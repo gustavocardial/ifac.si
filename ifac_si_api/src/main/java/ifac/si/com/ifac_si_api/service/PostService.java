@@ -294,13 +294,18 @@ public class PostService{
                 post.addImagem(img);
             }
         }
-
-        // Atualiza status se fornecido
-        if (postDto.getStatus() != null) post.setStatus(EStatus.valueOf(postDto.getStatus()));
         
-        if (postDto.getVisibilidade() != null) post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
+        if (postDto.getVisibilidade() != null) {
+            post.setVisibilidade(EVisibilidade.valueOf(postDto.getVisibilidade()));
 
-        if (postDto.getPublicacao() != null) post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
+            if (postDto.getVisibilidade() == EVisibilidade.PRIVADO.name()) {
+                post.setPublicacao(EPublicacao.RESTRITA);
+                //Adicionar regra para status de post com visiblidade privado
+            } else {
+                if (postDto.getPublicacao() != null) post.setPublicacao(EPublicacao.valueOf(postDto.getPublicacao()));
+                if (postDto.getStatus() != null) post.setStatus(EStatus.valueOf(postDto.getStatus()));
+            }
+        } 
 
         if (postDto.getData() != null) {
             post.setData(postDto.getData());
@@ -343,6 +348,7 @@ public class PostService{
         atualizarStatus(postId, EStatus.REPROVADO);
         post.setMensagemReprovacao(mensagemReprovacao);
         post.setVisibilidade(EVisibilidade.PRIVADO);
+        post.setPublicacao(EPublicacao.RESTRITA);
 
         return postRepository.save(post); //Ver sobre o atualizarStatus precisar realmente de salvar o status no repository
     }
@@ -350,6 +356,10 @@ public class PostService{
     public Post correcaoPost(Long id, PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
+
+        if (post.getStatus() != EStatus.REPROVADO) {
+            throw new RuntimeException("Post não está em estado de correção pendente");
+        }
 
         // Atualiza campos básicos usando o mapper
         postMapper.updateEntityFromDto(postDto, post);
@@ -422,12 +432,13 @@ public class PostService{
         Post post = postRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Correção não encontrada"));
 
-        if (post.getStatus() == EStatus.CORRECAO) {
+        if (post.getStatus() != EStatus.CORRECAO) {
             throw new RuntimeException("Post não está em estado de correção pendente");
         }
 
         post.setStatus(EStatus.PUBLICADO);
         post.setVisibilidade(EVisibilidade.PUBLICO);
+        post.setMensagemReprovacao(null);
 
         postRepository.save(post);
 
