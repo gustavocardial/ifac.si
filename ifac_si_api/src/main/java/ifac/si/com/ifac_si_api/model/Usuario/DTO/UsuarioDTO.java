@@ -1,6 +1,6 @@
 package ifac.si.com.ifac_si_api.model.Usuario.DTO;
 
-import ifac.si.com.ifac_si_api.model.ECargo;
+import ifac.si.com.ifac_si_api.model.Usuario.Enum.ECargo;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
