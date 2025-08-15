@@ -69,7 +69,7 @@ public class PostController{
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar post pelo ID")
+    @Operation(summary = "Buscar post pelo Id")
     public ResponseEntity<Post> get(@PathVariable("id") Long id) {
         Post registro = servico.get(id);
         return new ResponseEntity<>(registro, HttpStatus.OK);

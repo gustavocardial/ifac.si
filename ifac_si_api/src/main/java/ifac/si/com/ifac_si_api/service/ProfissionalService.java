@@ -23,12 +23,12 @@ public class ProfissionalService {
     @Autowired 
     private MinIOService minIOService;
 
-    public List<ProfissionalDTO> get() {
-        return ProfissionalMapper.toProfissionalDTOList(repo.findAll());
+    public List<Profissional> get() {
+        return repo.findAll();
     }
 
-    public ProfissionalDTO get(Long id) {
-        return ProfissionalMapper.toProfissionalDTO(repo.findById(id).orElse(null));
+    public Profissional get(Long id) {
+        return repo.findById(id).orElse(null);
     }
 
     public List<ProfissionalDTO> get(String termoBusca) {
