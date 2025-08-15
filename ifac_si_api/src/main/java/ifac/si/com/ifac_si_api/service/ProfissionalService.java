@@ -31,7 +31,7 @@ public class ProfissionalService {
         return repo.findById(id).orElse(null);
     }
 
-    public List<ProfissionalDTO> get(String termoBusca) {
+    public List<Profissional> get(String termoBusca) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
