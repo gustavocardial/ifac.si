@@ -1,5 +1,6 @@
-package ifac.si.com.ifac_si_api.model;
+package ifac.si.com.ifac_si_api.model.Profissional;
 
+import ifac.si.com.ifac_si_api.model.Imagem;
 import jakarta.persistence.*;
 
 @Entity
