@@ -6,8 +6,7 @@ import java.util.stream.Collectors;
 
 public enum EVisibilidade {
     PUBLICO,
-    PRIVADO,
-    RESTRITA;
+    PRIVADO;
 
     public static EVisibilidade fromString(String visibilidade) {
         if (visibilidade == null) {

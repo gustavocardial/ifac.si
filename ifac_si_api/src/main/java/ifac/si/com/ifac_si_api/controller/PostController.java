@@ -69,7 +69,7 @@ public class PostController{
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar post pelo ID")
+    @Operation(summary = "Buscar post pelo Id")
     public ResponseEntity<Post> get(@PathVariable("id") Long id) {
         Post registro = servico.get(id);
         return new ResponseEntity<>(registro, HttpStatus.OK);
@@ -126,6 +126,13 @@ public class PostController{
         Post registro = servico.correcaoPost(id, objeto, file, imagemCapaFile);
         return ResponseEntity.ok(registro);
     }
+
+    @PutMapping("/aprovacao/{id}")
+    @Operation(summary = "Aprovar correção de post reprovado")
+    public ResponseEntity<?> aprovacao(@PathVariable Long id) {
+        Post registro = servico.aprovarCorrecao(id);
+        return new ResponseEntity<>(registro, HttpStatus.OK);
+    }    
 
     @DeleteMapping("/{postId}/imagens/{imagemId}")
     public ResponseEntity<Void> removerImagem(

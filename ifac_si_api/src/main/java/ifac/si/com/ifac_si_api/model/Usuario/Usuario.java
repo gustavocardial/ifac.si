@@ -3,7 +3,7 @@ package ifac.si.com.ifac_si_api.model.Usuario;
 import java.io.Serializable;
 import java.util.Optional;
 
-import ifac.si.com.ifac_si_api.model.ECargo;
+import ifac.si.com.ifac_si_api.model.Usuario.Enum.ECargo;
 import jakarta.persistence.*;
 
 @Entity

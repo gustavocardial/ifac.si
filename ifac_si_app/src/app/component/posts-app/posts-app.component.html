@@ -1,49 +1,51 @@
-<div class="viewPost">
-    <app-filters
-    (catFilter)="getCategoria($event)"
-    (tagFilter)="getByTag($event)"
-    (nonSelectFilter)="getAll()"
-    (ordemMudou)="atualizarOrdem($event)"></app-filters>
-    <div *ngIf="show && acaoModal">
-        <app-modal-form 
-        [messageLine1]="getMensagemLinha1()"
-        [messageLine2]="getMensagemLinha2()"
-        [mostrarCampoTexto]="mostrarCampoTexto"
-        (cancelForm)="showModal()" 
-        (confirmForm)="confirmarAcao($event)">    
-        </app-modal-form>
-    </div>
-    <div class="container">
-        <div class="postList">
-            <div *ngFor="let post of posts">
-                <div class="postView">
-                    <div id="postComposition" #postComposition>
-                        <div class="categorys">{{post.categoria?.nome}}</div>
-                        <div id="postImage" #postImage>
-                            <button class="eyeButton" #showButton [attr.data-post-id]="post.id"><i class="bi bi-eye" style="font-weight: bold;"></i></button>
-                            <img *ngIf="post.imagemCapa" [src]="post.imagemCapa.url" alt="Imagem do post">
-                            <img *ngIf="!post.imagemCapa" src="../../../assets/images/no-photo.png" alt="Imagem indisponível">
+<div id="fundo">
+    <div class="viewPost">
+        <app-filters
+        (catFilter)="getCategoria($event)"
+        (tagFilter)="getByTag($event)"
+        (nonSelectFilter)="getAll()"
+        (ordemMudou)="atualizarOrdem($event)"></app-filters>
+        <div *ngIf="show && acaoModal">
+            <app-modal-form 
+            [messageLine1]="getMensagemLinha1()"
+            [messageLine2]="getMensagemLinha2()"
+            [mostrarCampoTexto]="mostrarCampoTexto"
+            (cancelForm)="showModal()" 
+            (confirmForm)="confirmarAcao($event)">    
+            </app-modal-form>
+        </div>
+        <div class="container">
+            <div class="postList">
+                <div *ngFor="let post of posts">
+                    <div class="postView">
+                        <div id="postComposition" #postComposition>
+                            <div class="categorys">{{post.categoria?.nome}}</div>
+                            <div id="postImage" #postImage>
+                                <button class="eyeButton" #showButton [attr.data-post-id]="post.id" aria-label="Visualizar post"><i class="bi bi-eye" aria-hidden="true" style="font-weight: bold;"></i></button>
+                                <img *ngIf="post.imagemCapa" [src]="post.imagemCapa.url" loading="lazy" alt="Imagem do post">
+                                <img *ngIf="!post.imagemCapa" src="../../../assets/images/no-photo.png" loading="lazy" alt="Imagem indisponível">
+                            </div>
+                        </div>
+                        <div id="postAction" #postAction *ngIf="post.usuario?.id == usuario.id  || usuario.cargo == 'EDITOR'">
+                            <button #deleteButton [attr.data-post-id]="post.id" aria-label="Deletar post"><i class="bi bi-trash3" aria-hidden="true" style="font-weight: bold;"></i></button>
+                            <button #editButton [attr.data-post-id]="post.id" aria-label="Editar post"><i class="bi bi-pencil-square" aria-hidden="true" style="font-weight: bold;"></i></button>
+                            <button #reprovButton [attr.data-post-id]="post.id" *ngIf="usuario.cargo == 'EDITOR'" aria-label="Reprovar post"><i class="bi bi-hand-thumbs-down" aria-hidden="true" style="font-weight: bold;"></i></button>
                         </div>
                     </div>
-                    <div id="postAction" #postAction *ngIf="post.usuario?.id == usuario.id  || usuario.cargo == 'EDITOR'">
-                        <button #deleteButton [attr.data-post-id]="post.id"><i class="bi bi-trash3" style="font-weight: bold;"></i></button>
-                        <button #editButton [attr.data-post-id]="post.id"><i class="bi bi-pencil-square" style="font-weight: bold;"></i></button>
-                        <button #reprovButton [attr.data-post-id]="post.id" *ngIf="usuario.cargo == 'EDITOR'"><i class="bi bi-hand-thumbs-down" style="font-weight: bold;"></i></button>
+                    <div class="postData">
+                        <h4> {{post.titulo}} </h4>
+                        <p> {{post.data | date: 'dd/MM/yyyy'}} </p>
+                        <p *ngIf="usuario.cargo =='EDITOR'"> {{post.usuario?.nomeUsuario}} </p>
                     </div>
-                </div>
-                <div class="postData">
-                    <p> {{post.titulo}} </p>
-                    <p> {{post.data | date: 'dd/MM/yyyy'}} </p>
-                    <p *ngIf="usuario.cargo =='EDITOR'"> {{post.usuario?.nomeUsuario}} </p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <app-pagination-handle
-    [totalItens]="paginaResposta.totalElements"
-    [totalPaginas]="paginaResposta.totalPages"
-    [paginaAtual]="paginaResposta.number"
-    [tamanhoPagina]="paginaResposta.size"
-    (paginaSelecionada)="mudarPagina($event)"></app-pagination-handle>
+        <app-pagination-handle
+        [totalItens]="paginaResposta.totalElements"
+        [totalPaginas]="paginaResposta.totalPages"
+        [paginaAtual]="paginaResposta.number"
+        [tamanhoPagina]="paginaResposta.size"
+        (paginaSelecionada)="mudarPagina($event)"></app-pagination-handle>
+    </div>
 </div>

@@ -98,35 +98,37 @@ export class CourseComponent implements OnInit, OnDestroy{
 
   docentes: CorpoDocente[] = [
     {
-      nome: 'Gustavo Cardial',
-      nivel: 'Mestre',
-      cargo: 'Coordenador e professor'
-    },
-    {
-      nome: 'Flávio Miranda',
-      nivel: 'Mestre e doutor',
-      cargo: 'Professor'
-    },
-    {
-      nome: 'Marlon',
-      nivel: 'Mestre e doutor',
-      cargo: 'Professor'
-    },
-    {
-      nome: 'Darueck',
-      nivel: 'Mestre',
-      cargo: 'Professor'
-    },
-    {
-      nome: 'Silvana',
-      nivel: 'Mestre',
+      nome: 'Renata Almeida',
+      nivel: 'Doutora',
       cargo: 'Professora'
     },
     {
-      nome: 'Breno Silveira',
+      nome: 'Eduardo Lima',
+      nivel: 'Mestre',
+      cargo: 'Professor'
+    },
+    {
+      nome: 'Camila Torres',
+      nivel: 'Mestre e doutora',
+      cargo: 'Professora'
+    },
+    {
+      nome: 'Felipe Rocha',
+      nivel: 'Mestre',
+      cargo: 'Professor'
+    },
+    {
+      nome: 'Patrícia Sampaio',
+      nivel: 'Doutora',
+      cargo: 'Coordenadora e professora'
+    },
+    {
+      nome: 'Lucas Mendes',
       nivel: 'Mestre',
       cargo: 'Professor'
     }
+
+
     // {
     //   nome: 'Marlon '
     // }

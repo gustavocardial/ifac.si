@@ -5,7 +5,8 @@ public enum TipoAcao {
     DELETAR("deletou um post"),
     ADICIONAR("adicionou um novo post"),
     REPROVAR("reprovou um post"),
-    CORRIGIR("correção de post reprovado");
+    CORRIGIR("correção de post reprovado"),
+    APROVAR("aprovação de post corrigido");
     
     private String descricao;
     

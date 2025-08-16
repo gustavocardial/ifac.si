@@ -2,8 +2,16 @@
 nav {
     width: 100%;
     padding: 10px;
-    background: white;
-    box-shadow: 0 2px 4px rgb(0, 0, 0, 0.1);
+    background: 
+        /* Gradiente sutil que combina com o fundo */
+        linear-gradient(135deg, 
+            rgba(20, 15, 38, 0.98) 0%,     /* Roxo mais escuro com transparência */
+            rgba(15, 28, 22, 0.95) 50%,    /* Verde mais escuro */
+            rgba(12, 12, 22, 0.98) 100%    /* Azul mais escuro */
+        );
+    backdrop-filter: blur(10px);            /* Efeito de vidro fosco */
+    border-bottom: 1px solid rgba(135, 107, 235, 0.2); /* Borda sutil roxa */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Container do menu */
@@ -28,7 +36,7 @@ nav {
 
 nav ul li a {
     text-decoration: none;
-    color: black;
+    color: #e2e8f0;
 }
 
 nav ul li a:hover,
@@ -60,7 +68,7 @@ nav ul li a:active {
 /* Responsivo - Mobile */
 @media (max-width: 991px) {
     .navbar-collapse {
-        background: white;
+        background: rgba(42, 31, 79, 0.98);
         padding: 10px 0 0 10px;
     }
 
@@ -78,7 +86,7 @@ nav ul li a:active {
     }
 
     .navbar-nav .nav-item:not(:last-child) {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(135, 107, 235, 0.3);
     }
 
     #menuPrincipal {
@@ -90,7 +98,7 @@ nav ul li a:active {
         margin-left: 0;
         flex-direction: column;
         gap: 10px;
-        border-top: 2px solid #eaeaea;
+        border-top: 2px solid rgba(135, 107, 235, 0.3);
     }
 
     .navbar-toggler {
@@ -98,7 +106,7 @@ nav ul li a:active {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.342);
         padding: 8px;
         border-radius: 5px;
-        background-color: #f8f8f8;
+        background-color: rgba(135, 107, 235, 0.2);
     }
     
     .navbar-toggler:focus {

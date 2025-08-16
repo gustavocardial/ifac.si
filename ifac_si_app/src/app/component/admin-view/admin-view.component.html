@@ -1,121 +1,123 @@
-<div *ngIf="show">
-    <app-user-form (cancelForm)="showForm()"></app-user-form>
-</div>
+<div id="fundo">
+    <div *ngIf="show">
+        <app-user-form (cancelForm)="showForm()"></app-user-form>
+    </div>
 
-<h2>Gerenciamento de Perfil</h2>
-<h5>Você pode adicionar novos usuários, alterar permissões existentes ou excluir usuários existentes.</h5>
-<section>
-    <div *ngIf="selectedUsers.length > 0" class="selection-indicator">
-        {{ selectedUsers.length }} item(s) selecionado(s)
+    <h1>Gerenciamento de Perfil</h1>
+    <h5>Você pode adicionar novos usuários, alterar permissões existentes ou excluir usuários existentes.</h5>
+    <section>
+        <div *ngIf="selectedUsers.length > 0" class="selection-indicator">
+            {{ selectedUsers.length }} item(s) selecionado(s)
 
-        <div id="batchButtons">
-            <button (click)="deleteUsers(selectedUsers)" class="edit-btn" title="Deletar usuário">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-            <ng-container *ngIf="!batchEditing; else editarUsuarioBatchTpl">
-                <button (click)="startBatchEditing()" class="edit-btn" title="Editar usuários selecionados">
-                    <i class="fas fa-pencil-alt"></i>
+            <div id="batchButtons">
+                <button (click)="deleteUsers(selectedUsers)" class="edit-btn" title="Deletar usuário">
+                    <i class="fas fa-trash-alt"></i>
                 </button>
-            </ng-container>
+                <ng-container *ngIf="!batchEditing; else editarUsuarioBatchTpl">
+                    <button (click)="startBatchEditing()" class="edit-btn" title="Editar usuários selecionados">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                </ng-container>
+                
+                <ng-template #editarUsuarioBatchTpl>
+                    <button (click)="saveBatchEdit()" class="save-btn" title="Salvar alteração">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button (click)="cancelBatchEdit()" class="cancel-btn" title="Cancelar edição">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </ng-template>    
+            </div>
             
-            <ng-template #editarUsuarioBatchTpl>
-                <button (click)="saveBatchEdit()" class="save-btn" title="Salvar alteração">
-                    <i class="fas fa-save"></i>
-                </button>
-                <button (click)="cancelBatchEdit()" class="cancel-btn" title="Cancelar edição">
-                    <i class="fas fa-times"></i>
-                </button>
-            </ng-template>    
         </div>
-        
-    </div>
-    <div>
-        <button>Todos os usuários <i class="bi bi-chevron-down"></i></button>
-        <button (click)="showForm()">Novo usuário <i class="bi bi-plus-lg"></i></button>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>
+        <div>
+            <button>Todos os usuários <i class="bi bi-chevron-down"></i></button>
+            <button (click)="showForm()">Novo usuário <i class="bi bi-plus-lg"></i></button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <input 
+                        type="checkbox" 
+                        [checked]="selectAll"
+                        (change)="selectAll = !selectAll; toggleSelectAll()">
+                    </th>
+                    <th>USUÁRIO <i class="bi bi-person-lines-fill"></i></th>
+                    <th>EMAIL</th>
+                    <th>ROLE</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios" [class.in-batch-edit]="isUserInBatchEdit(usuario.id)">
+                <td>
                     <input 
                     type="checkbox" 
-                    [checked]="selectAll"
-                    (change)="selectAll = !selectAll; toggleSelectAll()">
-                </th>
-                <th>USUÁRIO <i class="bi bi-person-lines-fill"></i></th>
-                <th>EMAIL</th>
-                <th>ROLE</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let usuario of usuarios" [class.in-batch-edit]="isUserInBatchEdit(usuario.id)">
-            <td>
-                <input 
-                type="checkbox" 
-                [checked]="isSelected(usuario.id)"
-                (change)="toggleSelect(usuario.id)"
-              >
-            </td>
-                <td>
-                    <ng-container *ngIf="editingUser?.id === usuario.id || isUserInBatchEdit(usuario.id); else displayUser">
-                        <input 
-                          type="text" 
-                          [ngModel]="isUserInBatchEdit(usuario.id) ? getBatchEditData(usuario.id).nomeUsuario : tempData.nomeUsuario" 
-                          (ngModelChange)="isUserInBatchEdit(usuario.id) ? batchEditData[usuario.id].nomeUsuario = $event : tempData.nomeUsuario = $event"
-                          class="edit-input"
-                        >
-                    </ng-container>
-                    <ng-template #displayUser>
-                        {{ usuario.nomeUsuario }}
-                    </ng-template>
+                    [checked]="isSelected(usuario.id)"
+                    (change)="toggleSelect(usuario.id)"
+                >
                 </td>
-                <td>
-                    <ng-container *ngIf="editingUser?.id === usuario.id || isUserInBatchEdit(usuario.id); else displayEmail">
-                        <input 
-                          type="text" 
-                          [ngModel]="isUserInBatchEdit(usuario.id) ? getBatchEditData(usuario.id).email : tempData.email" 
-                          (ngModelChange)="isUserInBatchEdit(usuario.id) ? batchEditData[usuario.id].email = $event : tempData.email = $event"
-                          class="edit-input"
-                        >
-                    </ng-container>
-                    <ng-template #displayEmail>
-                        {{ usuario.email }}
-                    </ng-template>
-                </td>
-                <td>
-                    <ng-container *ngIf="editingUser?.id === usuario.id || isUserInBatchEdit(usuario.id); else displayCargo">
-                        <select [ngModel]="isUserInBatchEdit(usuario.id) ? getBatchEditData(usuario.id).cargo : tempData.cargo"
-                        (ngModelChange)="isUserInBatchEdit(usuario.id) ? batchEditData[usuario.id].cargo = $event : tempData.cargo = $event" 
-                        class="edit-select">
-                        <option value="AUTOR">AUTOR</option>
-                        <option value="EDITOR">EDITOR</option>
-                        <option value="ADMIN">ADMIN</option>
-                        </select>
-                    </ng-container>
-                    <ng-template #displayCargo>
-                        {{ usuario.cargo }}
-                    </ng-template>
-                </td>
-                <td>
-                    <ng-container *ngIf="editingUser?.id === usuario.id  && !batchEditing; else editButton">
-                        <button (click)="saveEdit(usuario)" class="save-btn" title="Salvar alteração">
-                        <i class="fas fa-save"></i>
-                        </button>
-                        <button (click)="cancelEdit()" class="cancel-btn" title="Cancelar edição">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </ng-container>
-                    <ng-template #editButton>
-                        <button (click)="startEditing(usuario)" class="edit-btn" title="Editar usuário" *ngIf="!batchEditing">
-                            <i class="fas fa-pencil-alt"></i>
-                        </button>
-                        <button (click)="deleteUser(usuario.id)" class="edit-btn" title="Deletar usuário" *ngIf="!batchEditing">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </ng-template>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
+                    <td>
+                        <ng-container *ngIf="editingUser?.id === usuario.id || isUserInBatchEdit(usuario.id); else displayUser">
+                            <input 
+                            type="text" 
+                            [ngModel]="isUserInBatchEdit(usuario.id) ? getBatchEditData(usuario.id).nomeUsuario : tempData.nomeUsuario" 
+                            (ngModelChange)="isUserInBatchEdit(usuario.id) ? batchEditData[usuario.id].nomeUsuario = $event : tempData.nomeUsuario = $event"
+                            class="edit-input"
+                            >
+                        </ng-container>
+                        <ng-template #displayUser>
+                            {{ usuario.nomeUsuario }}
+                        </ng-template>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="editingUser?.id === usuario.id || isUserInBatchEdit(usuario.id); else displayEmail">
+                            <input 
+                            type="text" 
+                            [ngModel]="isUserInBatchEdit(usuario.id) ? getBatchEditData(usuario.id).email : tempData.email" 
+                            (ngModelChange)="isUserInBatchEdit(usuario.id) ? batchEditData[usuario.id].email = $event : tempData.email = $event"
+                            class="edit-input"
+                            >
+                        </ng-container>
+                        <ng-template #displayEmail>
+                            {{ usuario.email }}
+                        </ng-template>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="editingUser?.id === usuario.id || isUserInBatchEdit(usuario.id); else displayCargo">
+                            <select [ngModel]="isUserInBatchEdit(usuario.id) ? getBatchEditData(usuario.id).cargo : tempData.cargo"
+                            (ngModelChange)="isUserInBatchEdit(usuario.id) ? batchEditData[usuario.id].cargo = $event : tempData.cargo = $event" 
+                            class="edit-select">
+                            <option value="AUTOR">AUTOR</option>
+                            <option value="EDITOR">EDITOR</option>
+                            <option value="ADMIN">ADMIN</option>
+                            </select>
+                        </ng-container>
+                        <ng-template #displayCargo>
+                            {{ usuario.cargo }}
+                        </ng-template>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="editingUser?.id === usuario.id  && !batchEditing; else editButton">
+                            <button (click)="saveEdit(usuario)" class="save-btn" title="Salvar alteração">
+                            <i class="fas fa-save"></i>
+                            </button>
+                            <button (click)="cancelEdit()" class="cancel-btn" title="Cancelar edição">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </ng-container>
+                        <ng-template #editButton>
+                            <button (click)="startEditing(usuario)" class="edit-btn" title="Editar usuário" *ngIf="!batchEditing">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                            <button (click)="deleteUser(usuario.id)" class="edit-btn" title="Deletar usuário" *ngIf="!batchEditing">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

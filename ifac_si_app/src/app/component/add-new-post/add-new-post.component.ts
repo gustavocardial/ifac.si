@@ -57,6 +57,7 @@ export class AddNewPostComponent implements OnInit{
   editingTagId: number | null = null;
   isEditing: boolean = false;
   minDateTime: string = '';
+  postRascunho: Post | null = null;
   EStatus = EStatus;
   // dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
@@ -130,6 +131,13 @@ export class AddNewPostComponent implements OnInit{
           }
         }
       }) 
+
+      this.servicoPost.getRascunhoDePost(+id).subscribe({
+        next: (resposta: Post | null) => {
+          if (resposta)
+            this.postRascunho = resposta;
+        }
+      })
     }
 
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
@@ -204,19 +212,19 @@ export class AddNewPostComponent implements OnInit{
     // console.log ('teste', this.editorText, "       ");
   }
 
-  testarEnvio() {
-    console.log('=== SIMULANDO ENVIO ===');
+  // testarEnvio() {
+  //   console.log('=== SIMULANDO ENVIO ===');
     
-    // Processar as imagens (como seria no envio real)
-    const result = this.extractBase64Images(this.post.texto);
+  //   // Processar as imagens (como seria no envio real)
+  //   const result = this.extractBase64Images(this.post.texto);
     
-    // Simular o que seria enviado
-    // this.post.texto = result.modifiedContent;
+  //   // Simular o que seria enviado
+  //   // this.post.texto = result.modifiedContent;
     
-    // console.log('Texto final:', this.post.texto);
-    console.log('Imagens para envio:', this.images);
-    console.log('Total de arquivos:', this.images.length);
-  }
+  //   // console.log('Texto final:', this.post.texto);
+  //   console.log('Imagens para envio:', this.images);
+  //   console.log('Total de arquivos:', this.images.length);
+  // }
 
   private extractBase64Images(content: string): { modifiedContent: string, images: File[] } {
     const imgRegex = /<img[^>]*src=["'](data:image\/(png|jpeg|jpg);base64,([^"']+))["'][^>]*>/g;
@@ -625,6 +633,88 @@ export class AddNewPostComponent implements OnInit{
     );
     
     console.log('Tags disponíveis após filtro:', this.tagsOptions);
+  }
+
+  salvarRascunho(): void {
+    this.convertToTags();
+
+    const formData = new FormData();
+
+    formData.append('titulo', this.post.titulo || '');
+    formData.append('status', EStatus.Rascunho); // ou omitir se o backend definir automaticamente
+
+    if (this.post.id) formData.append('usuarioAlteraId', this.usuarioLogado?.id.toString());
+    else formData.append('usuarioId', this.usuarioLogado?.id.toString());
+
+    if (this.post.categoria?.id) formData.append('categoriaId', this.post.categoria.id.toString());
+
+    if (this.post.legenda) formData.append('legenda', this.post.legenda);
+    if (this.post.visibilidade) formData.append('visibilidade', this.post.visibilidade);
+    if (this.post.publicacao) formData.append('publicacao', this.post.publicacao);
+    if (this.post.data) formData.append('data', this.post.data);
+
+    if (this.capaInput?.nativeElement?.files[0]) {
+      formData.append('imagemCapa', this.capaInput.nativeElement.files[0]);
+    }
+
+    if (this.post.texto) {
+      const result = this.extractBase64Images(this.post.texto);
+      formData.append('texto', result.modifiedContent);
+
+      if (result.images) {
+        result.images.forEach((arquivo) => {
+          formData.append('file', arquivo);
+        });
+      }
+    }
+
+    if (this.post.tags && this.post.tags.length > 0) {
+      this.post.tags.forEach((tag, index) => {
+        formData.append(`tags[${index}].id`, tag.id?.toString() || '');
+        formData.append(`tags[${index}].nome`, tag.nome);
+      });
+    }
+
+    this.servicoPost.salvarRascunho(this.post.id, formData).subscribe({
+      next: (rascunhoSalvo) => {
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.SUCESSO,
+          mensagem: "Rascunho salvo com sucesso"
+        });
+        console.log('Rascunho salvo:', rascunhoSalvo);
+      },
+      error: (erro) => {
+        this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.ERRO,
+          mensagem: "Erro ao salvar rascunho"
+        });
+        console.error('Erro ao salvar rascunho:', erro);
+      }
+    });
+  }
+
+  visualizarRascunho(): void {
+    
+  }
+
+  editarRascunho(): void {
+    
+  }
+
+  deletarRascunho(): void {
+    if (this.postRascunho) {
+      this.servicoPost.descartarRascunho(this.postRascunho.id)
+      .subscribe({
+        next: () => {
+          console.log('Rascunho descartado com sucesso.');
+          // this.postRascunho = null; // remove da tela
+          // você pode navegar para outra rota ou atualizar a UI
+        },
+        error: (err) => {
+          console.error('Erro ao descartar rascunho:', err);
+        }
+      });
+    }
   }
 
   modules = {

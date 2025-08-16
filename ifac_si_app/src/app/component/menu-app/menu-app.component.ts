@@ -64,6 +64,7 @@ export class MenuAppComponent implements OnInit, OnDestroy{
     [null, new Map([  // Menu para visitantes (usuário não logado)
       ['Todas as Publicações', '/view_posts'],
       ['Curso', '/course'],
+      ['Artigos Científicos', '/search-projects'],
       ['<i class="bi bi-discord"></i>', 'https://discord.gg/VVMNNhFM']
     ])],
     [ECargo.autor, new Map([
@@ -79,7 +80,8 @@ export class MenuAppComponent implements OnInit, OnDestroy{
     ])],
     [ECargo.admin, new Map([
       ['Todas as Publicações', '/view_posts'],
-      ['Meus Dados', '/administration/my_publications'],
+      ['Curso', '/course'],
+      ['Artigos Científicos', '/search-projects'],
       ['Gerência de Perfis', '/administration/admin/viewUsers']
     ])]
   ]);

@@ -2,7 +2,21 @@ div#fundo {
     min-height: 100vh; /* Garante que cubra toda a tela */
     padding: 40px;
     margin: 0;
-    background-color: #876beb;
+    background: 
+    /* Manchas orgânicas suaves */
+    radial-gradient(ellipse 800px 600px at 15% 25%, rgba(135, 107, 235, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 800px at 85% 15%, rgba(63, 161, 76, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse 700px 500px at 70% 80%, rgba(135, 107, 235, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 900px 700px at 30% 90%, rgba(63, 161, 76, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 600px at 90% 40%, rgba(135, 107, 235, 0.2) 0%, transparent 50%),
+    
+    /* Gradiente base escuro */
+    linear-gradient(135deg, 
+      #2a1f4f 0%,    /* Roxo escuro */
+      #1e3a2e 30%,   /* Verde escuro */
+      #1a1a2e 70%,   /* Azul escuro */
+      #0f0f23 100%   /* Quase preto */
+    );
 }
 
 div#container {
@@ -42,4 +56,33 @@ div#container h3 {
 
 .card a:active {
     background: linear-gradient(135deg, #6b98eb, #385fb3);
+}
+
+.header {
+    display: flex;
+    gap: 15px;
+}
+
+.add-projects {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff; /* azul padrão */
+  color: rgb(0, 0, 0);
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px; /* ou 0px se quiser bem quadrado */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 0;
+}
+
+.add-projects:hover {
+  background-color: #7d66e4;
+}
+
+.add-projects span {
+    height: 100%;
 }

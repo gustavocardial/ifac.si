@@ -1,3 +1,25 @@
+div#fundo {
+  background: 
+    /* Manchas orgânicas suaves */
+    radial-gradient(ellipse 800px 600px at 15% 25%, rgba(135, 107, 235, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 800px at 85% 15%, rgba(63, 161, 76, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse 700px 500px at 70% 80%, rgba(135, 107, 235, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 900px 700px at 30% 90%, rgba(63, 161, 76, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 600px at 90% 40%, rgba(135, 107, 235, 0.2) 0%, transparent 50%),
+    
+    /* Gradiente base escuro */
+    linear-gradient(135deg, 
+      #2a1f4f 0%,    /* Roxo escuro */
+      #1e3a2e 30%,   /* Verde escuro */
+      #1a1a2e 70%,   /* Azul escuro */
+      #0f0f23 100%   /* Quase preto */
+    );
+    
+  min-height: 100vh;
+  padding: 40px;
+  margin: 0;
+}
+
 div#postInfo {
     /* background-color: aliceblue; */
     /* width: inherit; */
@@ -64,8 +86,11 @@ button.editButton {
     background-color: #2a2a2b;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 4px 8px;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 5px;
     font-size: 14px;
     cursor: pointer;
@@ -77,8 +102,23 @@ button.editButton {
     color: #f5f5f5;
 }
 
+.visible, #idStatus {
+    height: fit-content;
+    margin-bottom: 0;
+}
+
 #topEditor {
     margin: 10px auto;
+    color: white;
+    font-weight: 600;
+}
+
+/* Fundo branco para o editor Quill usando as classes específicas */
+.ql-container.ql-snow,
+.ql-editor,
+.ql-toolbar.ql-snow {
+  background-color: white !important;
+  color: #000 !important;
 }
 
 /* div.card-header {
@@ -277,6 +317,7 @@ select option:hover {
 div.statusDiv {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-evenly;
     position: relative;
     /* margin-bottom: 15px; */
@@ -300,25 +341,38 @@ div#statusPost button {
     height: fit-content;
 }
 
-div.statusDiv #statusRascunho {
+div.statusDiv #statusRascunho, div#actionsRascunho button#rascunhoView {
     /* font-weight: 500; */
     color: #623CEA;
+    background-color: #bcb0e9;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
-/* div.statusDiv #statusPreview, div#statusPost p, div#statusPost button {
-    color: #3E3E3E;
-} */
+div.statusDiv #statusPreview, div#actionsRascunho button#rascunhoEdit {
+    /* font-weight: 500; */
+    color: #343435;
+    background-color: #bbbbbe;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
 
-div.statusDiv #statusDelete {
+div.statusDiv #statusDelete, div#actionsRascunho button#rascunhoDelete {
     color: #EA3C3C;
+    background-color: #e09696;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
 div.statusDiv #statusSave {
     color: #3FA14C;
+    background-color: #a5ccaa;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
 div.statusDiv.viewPost {
-    margin-bottom: 15px;
+    margin: 15px auto;
 }
 
 .publicacaoWrapper {
@@ -327,12 +381,21 @@ div.statusDiv.viewPost {
   gap: 0.5rem;
 }
 
-.selectWrapper {
-    display: flex;
-    flex-direction: row;  /* Organiza o conteúdo dessa div interna em linha */
-    gap: 1rem;  /* Espaço entre o select e os botões */
-    align-items: center;  /* Garante que os elementos fiquem alinhados verticalmente */
+.selectWrapper p,
+.visibilidadeWrapper span {
+  margin: 0;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
 }
+
+.selectWrapper,
+.visibilidadeWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 
 div#imagemCapaPost {
     padding: 8px 12px;
@@ -426,4 +489,49 @@ div#labelTag i {
 
 .selected-tags-list p i.bi.bi-pencil:hover {
   color: #007bff; /* Azul claro */
+}
+
+div.postView {
+    width: inherit; /* Fazer o postView ocupar 100% do espaço do seu container */
+    height: fit-content; /* Ajustar altura proporcionalmente */
+    padding: 16px;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+}
+
+div.postInformation p#postCategoria {
+    font-weight: bold;
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 25px;
+    color:floralwhite;
+    background-color: #3FA14C;
+}
+
+div.postInformation p#postTitulo {
+    font-weight: 500;
+    font-size:large;
+}
+
+div#header-rascunho {
+    display: flex;
+    gap: 10px;
+}
+
+div#actionsRascunho {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+div#actionsRascunho button {
+    border: 0;
+    font-weight: bold;
 }

@@ -1,6 +1,21 @@
 .page-background {
-  background-color: #e9e9e9;
-  min-height: 100vh; /* Garante que cubra toda a tela */
+    background: 
+    /* Manchas orgânicas suaves */
+    radial-gradient(ellipse 800px 600px at 15% 25%, rgba(135, 107, 235, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 800px at 85% 15%, rgba(63, 161, 76, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse 700px 500px at 70% 80%, rgba(135, 107, 235, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 900px 700px at 30% 90%, rgba(63, 161, 76, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 600px at 90% 40%, rgba(135, 107, 235, 0.2) 0%, transparent 50%),
+    
+    /* Gradiente base escuro */
+    linear-gradient(135deg, 
+      #2a1f4f 0%,    /* Roxo escuro */
+      #1e3a2e 30%,   /* Verde escuro */
+      #1a1a2e 70%,   /* Azul escuro */
+      #0f0f23 100%   /* Quase preto */
+    );
+    
+  min-height: 100vh;
   padding: 40px;
   margin: 0;
 }
@@ -20,7 +35,29 @@ div#alignContainer {
 
 div#userData {
     border-radius: 10px;
-    background-color: white;
+background: 
+        /* Sombras brancas nas pontas */
+        radial-gradient(ellipse 300px 200px at 0% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 100% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 0% 100%, rgba(255, 255, 255, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 100% 100%, rgba(255, 255, 255, 0.07) 0%, transparent 40%),
+        
+        /* Manchas orgânicas com tom mais ROXO */
+        radial-gradient(ellipse 800px 600px at 15% 25%, rgba(191, 162, 219, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 600px 800px at 85% 15%, rgba(200, 191, 231, 0.18) 0%, transparent 50%),
+        radial-gradient(ellipse 700px 500px at 70% 80%, rgba(191, 162, 219, 0.28) 0%, transparent 50%),
+        radial-gradient(ellipse 900px 700px at 30% 90%, rgba(178, 141, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 500px 600px at 90% 40%, rgba(191, 162, 219, 0.12) 0%, transparent 50%)
+
+        
+        /* Gradiente base mais ROXO */
+        linear-gradient(135deg, 
+            #4B3A6A 0%,    /* Roxo desbotado */
+            #6A5C91 30%,   /* Lilás acinzentado */
+            #1a1a2e 70%,   /* Azul roxeado */
+            #0f0f23 100%   /* Preto azulado */
+            );
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,11 +70,15 @@ div#userData {
     box-sizing: border-box;
 }
 
+h2 {
+    color: white;
+}
+
 div.userCard {
     width: 100%;
     margin-top: 10px;
     max-width: 1200px;
-    background-color: #876beb;
+    background-color: #876beb41;
     color: black;
     padding: 20px;
     border-radius: 5px;
@@ -64,10 +105,32 @@ div.cardInfo > p {
 
 div.viewPost{
     border-radius: 10px;
-    background-color: white;
+background: 
+        /* Sombras brancas nas pontas */
+        radial-gradient(ellipse 300px 200px at 0% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 100% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 0% 100%, rgba(255, 255, 255, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse 300px 200px at 100% 100%, rgba(255, 255, 255, 0.07) 0%, transparent 40%),
+        
+        /* Manchas orgânicas com tom mais ROXO */
+        radial-gradient(ellipse 800px 600px at 15% 25%, rgba(191, 162, 219, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 600px 800px at 85% 15%, rgba(200, 191, 231, 0.18) 0%, transparent 50%),
+        radial-gradient(ellipse 700px 500px at 70% 80%, rgba(191, 162, 219, 0.28) 0%, transparent 50%),
+        radial-gradient(ellipse 900px 700px at 30% 90%, rgba(178, 141, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 500px 600px at 90% 40%, rgba(191, 162, 219, 0.12) 0%, transparent 50%)
+        
+        /* Gradiente base mais ROXO */
+        linear-gradient(135deg, 
+            #4B3A6A 0%,    /* Roxo desbotado */
+            #6A5C91 30%,   /* Lilás acinzentado */
+            #1a1a2e 70%,   /* Azul roxeado */
+            #0f0f23 100%   /* Preto azulado */
+            );
+
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     /* padding-left: 20px; */
     margin: 20px auto;
     padding: 0 40px;
@@ -77,7 +140,7 @@ div.viewPost{
 
 .container {
     border-radius: 10px;
-    background-color: #876beb;
+    background-color: #876beb41;
     width: 100%;
     margin-left: 2%;
     max-width: 1200px; /* Adicionar um max-width para controlar melhor o layout */
@@ -101,12 +164,14 @@ div.postList div.postData {
 }
 
 div.postList > div {
-    border-radius: 10px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.199);
+    border-radius: 8px;
+    padding: 10px;
     width: 100%; /* Ajusta para ocupar o espaço da coluna */
     max-width: none; /* Remove o max-width anterior */
     min-width: 0; /* Remove o min-width anterior */
     margin-bottom: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 1024px) {
@@ -224,17 +289,43 @@ div.categorys {
     width: fit-content;
 }
 
+div.postData h4 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Sombra no texto para dar profundidade */
+}
+
 div.postData p {
-    margin-left: 10px;
-    font-size: 18px;
+    color: #ffffff; /* Cor mais suave que o branco puro */
+    font-size: 16px;
+    font-weight: 400;
+    margin: 4px 0;
+    opacity: 0.9;
+}
+
+/* Estilo específico para a data */
+div.postData p:first-of-type {
+    color: #f1f5f9; /* Tom ainda mais suave para a data */
+    font-size: 14px;
+    font-weight: 300;
+}
+
+/* Estilo específico para o nome do usuário (se for editor) */
+div.postData p:last-child {
+    color: #4ade80; /* Verde da sua paleta */
+    font-size: 15px;
     font-weight: 500;
+    margin-top: 8px;
 }
 
 button#buttonTrash {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    padding: 12px 24px;
+    padding: 10px 20px;
     font-size: 24px;
     border-radius: 12px;
     width: fit-content;

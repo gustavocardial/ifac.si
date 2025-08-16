@@ -2,8 +2,8 @@ package ifac.si.com.ifac_si_api.service;
 
 import ifac.si.com.ifac_si_api.model.AuthRequest;
 import ifac.si.com.ifac_si_api.model.AuthResponse;
-import ifac.si.com.ifac_si_api.model.ECargo;
 import ifac.si.com.ifac_si_api.model.Usuario.DTO.UsuarioDTO;
+import ifac.si.com.ifac_si_api.model.Usuario.Enum.ECargo;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
