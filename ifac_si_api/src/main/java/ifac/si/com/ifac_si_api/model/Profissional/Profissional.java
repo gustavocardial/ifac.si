@@ -16,6 +16,8 @@ public class Profissional {
 
     private String descricao;
 
+    @OneToOne
+    @JoinColumn(name = "imagem_id")
     private Imagem perfil;
 
     public Long getId() {
