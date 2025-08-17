@@ -22,4 +22,36 @@ public class Acoes {
 
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime data_hora;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public LocalDateTime getData_hora() {
+        return data_hora;
+    }
+
+    public void setData_hora(LocalDateTime data_hora) {
+        this.data_hora = data_hora;
+    }
 }
