@@ -1,4 +1,4 @@
-package ifac.si.com.ifac_si_api.model;
+package ifac.si.com.ifac_si_api.model.Acao;
 
 import java.time.LocalDateTime;
 
@@ -6,7 +6,7 @@ import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import jakarta.persistence.*;
 
-public class Acoes {
+public class Acao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)

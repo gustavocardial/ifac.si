@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ifac.si.com.ifac_si_api.model.Acoes;
+import ifac.si.com.ifac_si_api.model.Acao.Acao;
 import ifac.si.com.ifac_si_api.service.AcoesService;
 
 @RestController
 @RequestMapping("/acoes")
 @Tag(name = "acoes", description = "Gerenciamento de Ações")
-public class AcoesController implements IController<Acoes>{
+public class AcoesController implements IController<Acao>{
     
     @Autowired
     private AcoesService servico;
@@ -30,23 +30,23 @@ public class AcoesController implements IController<Acoes>{
     @Override
     @GetMapping("/")
     @Operation(summary = "Buscar todas ações")
-    public ResponseEntity<List<Acoes>> get() {
-        List<Acoes> registros = servico.get();
+    public ResponseEntity<List<Acao>> get() {
+        List<Acao> registros = servico.get();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Buscar uma ação por Id")
-    public ResponseEntity<Acoes> get(@PathVariable("id") Long id) {
-        Acoes registro = servico.get(id);
+    public ResponseEntity<Acao> get(@PathVariable("id") Long id) {
+        Acao registro = servico.get(id);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
     @Override
     @GetMapping("/busca/{termoBusca}")
     @Operation(summary = "Buscar ações por um termo de busca")
-    public ResponseEntity<List<Acoes>> get(@PathVariable("termoBusca") String termoBusca) {
+    public ResponseEntity<List<Acao>> get(@PathVariable("termoBusca") String termoBusca) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
@@ -54,16 +54,16 @@ public class AcoesController implements IController<Acoes>{
     @Override
     @PostMapping("/")
     @Operation(summary = "Inserir nova ação")
-    public ResponseEntity<Acoes> insert(Acoes objeto) {
-        Acoes registro = servico.save(objeto);
+    public ResponseEntity<Acao> insert(Acao objeto) {
+        Acao registro = servico.save(objeto);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
     @Override
     @PutMapping("/")
     @Operation(summary = "Atualizar ação existente")
-    public ResponseEntity<Acoes> update(Acoes objeto) {
-        Acoes registro = servico.save(objeto);
+    public ResponseEntity<Acao> update(Acao objeto) {
+        Acao registro = servico.save(objeto);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
