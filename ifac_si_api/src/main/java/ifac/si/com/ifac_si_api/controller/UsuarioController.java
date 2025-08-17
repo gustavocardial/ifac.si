@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
+import ifac.si.com.ifac_si_api.model.Usuario.DTO.UsuarioResponseDTO;
 import ifac.si.com.ifac_si_api.service.UsuarioService;
 
 @RestController
@@ -28,22 +29,22 @@ public class UsuarioController{
 
     @GetMapping("/")
 //    @ApiOperation(value = "Listar todos os usuários")
-    public ResponseEntity<List<Usuario>> get() {
-        List<Usuario> registros = servico.getAll();
+    public ResponseEntity<List<UsuarioResponseDTO>> get() {
+        List<UsuarioResponseDTO> registros = servico.getAll();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
 //    @ApiOperation(value = "Buscar um usuário pelo ID")
-    public ResponseEntity<Usuario> get(@PathVariable("id") Long id) {
-        Usuario registro = servico.get(id);
+    public ResponseEntity<UsuarioResponseDTO> get(@PathVariable("id") Long id) {
+        UsuarioResponseDTO registro = servico.get(id);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
     @GetMapping("/busca/{termoBusca}")
 //    @ApiOperation(value = "Buscar usuários por um termo de busca")
-    public ResponseEntity<List<Usuario>> get(@PathVariable("termoBusca") String termoBusca) {
-        List<Usuario> registros = servico.busca(termoBusca);
+    public ResponseEntity<List<UsuarioResponseDTO>> get(@PathVariable("termoBusca") String termoBusca) {
+        List<UsuarioResponseDTO> registros = servico.busca(termoBusca);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 

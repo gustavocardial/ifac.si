@@ -7,7 +7,7 @@ public class UsuarioResponseDTO {
     private String cargo;
     private boolean ativo;
     
-    private UsuarioResponseDTO() {}
+    public UsuarioResponseDTO() {}
 
     public UsuarioResponseDTO(Long id, String nomeUsario, String email, String cargo, boolean ativo) {
         this.id = id;
