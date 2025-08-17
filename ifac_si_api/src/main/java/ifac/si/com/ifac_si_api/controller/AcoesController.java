@@ -45,7 +45,7 @@ public class AcoesController implements IController<Acoes>{
 
     @Override
     @GetMapping("/busca/{termoBusca}")
-    @Operation(summary = "Buscar ações com base em temo de busca")
+    @Operation(summary = "Buscar ações por um termo de busca")
     public ResponseEntity<List<Acoes>> get(@PathVariable("termoBusca") String termoBusca) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
