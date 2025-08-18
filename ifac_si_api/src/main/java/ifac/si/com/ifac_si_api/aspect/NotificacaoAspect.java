@@ -8,6 +8,7 @@ import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import ifac.si.com.ifac_si_api.repository.AcaoRepository;
 import ifac.si.com.ifac_si_api.repository.PostRepository;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
+import ifac.si.com.ifac_si_api.service.AcaoService;
 import ifac.si.com.ifac_si_api.service.NotificacaoService;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,9 @@ import org.springframework.stereotype.Component;
 public class NotificacaoAspect {
     @Autowired
     private NotificacaoService notificacaoService;
+
+    @Autowired
+    private AcaoService acaoService;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -117,6 +121,8 @@ public class NotificacaoAspect {
             acao.setPost(post);
             acao.setTipoAcao(tipoAcao);
             acao.setUsuario(usuarioLogado);
+
+            acaoService.save(acao);
 
             Notificacao notificacao = new Notificacao();
             // notificacao.setUsuario(usuarioAtual);
