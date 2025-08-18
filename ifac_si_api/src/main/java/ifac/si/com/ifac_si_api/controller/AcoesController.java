@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ifac.si.com.ifac_si_api.model.Acao.Acao;
-import ifac.si.com.ifac_si_api.service.AcoesService;
+import ifac.si.com.ifac_si_api.service.AcaoService;
 
 @RestController
 @RequestMapping("/acoes")
@@ -25,7 +25,7 @@ import ifac.si.com.ifac_si_api.service.AcoesService;
 public class AcoesController implements IController<Acao>{
     
     @Autowired
-    private AcoesService servico;
+    private AcaoService servico;
 
     @Override
     @GetMapping("/")

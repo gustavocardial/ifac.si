@@ -2,6 +2,7 @@ package ifac.si.com.ifac_si_api.model.Acao;
 
 import java.time.LocalDateTime;
 
+import ifac.si.com.ifac_si_api.model.Acao.Enum.TipoAcao;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import jakarta.persistence.*;
@@ -22,6 +23,9 @@ public class Acao {
 
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime data_hora;
+
+    @Enumerated(EnumType.STRING)
+    private TipoAcao tipoAcao;
 
     public Long getId() {
         return id;
@@ -53,5 +57,13 @@ public class Acao {
 
     public void setData_hora(LocalDateTime data_hora) {
         this.data_hora = data_hora;
+    }
+
+    public TipoAcao getTipoAcao() {
+        return tipoAcao;
+    }
+
+    public void setTipoAcao(TipoAcao tipoAcao) {
+        this.tipoAcao = tipoAcao;
     }
 }

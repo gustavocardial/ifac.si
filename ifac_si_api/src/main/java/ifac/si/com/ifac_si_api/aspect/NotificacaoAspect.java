@@ -1,9 +1,11 @@
 package ifac.si.com.ifac_si_api.aspect;
 
+import ifac.si.com.ifac_si_api.model.Acao.Acao;
+import ifac.si.com.ifac_si_api.model.Acao.Enum.TipoAcao;
 import ifac.si.com.ifac_si_api.model.Notificacao.Notificacao;
-import ifac.si.com.ifac_si_api.model.Notificacao.Enum.TipoAcao;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
+import ifac.si.com.ifac_si_api.repository.AcaoRepository;
 import ifac.si.com.ifac_si_api.repository.PostRepository;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 import ifac.si.com.ifac_si_api.service.NotificacaoService;
@@ -31,6 +33,9 @@ public class NotificacaoAspect {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private AcaoRepository acaoRepository;
     // Intercepta método que salva post
     @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.save(..))", returning = "result")
     public void afterPostCreation(JoinPoint joinPoint, Object result) {
@@ -38,7 +43,7 @@ public class NotificacaoAspect {
         if (result instanceof Post) {
             Post post = (Post) result;
             System.out.println("Post salvo com ID: " + post.getId());
-            criarNotificacao(post, TipoAcao.ADICIONAR, null);
+            criarNotificacaoeAcao(post, TipoAcao.ADICIONAR, null);
 
 
         } else {
@@ -52,7 +57,7 @@ public class NotificacaoAspect {
         if (result instanceof Post) {
             Post post = (Post) result;
             System.out.println("Post atualizado com ID: " + post.getId());
-            criarNotificacao(post, TipoAcao.EDITAR, null);
+            criarNotificacaoeAcao(post, TipoAcao.EDITAR, null);
 
 
         } else {
@@ -68,7 +73,7 @@ public class NotificacaoAspect {
             Post post = postRepository.findById(id).orElse(null);
             if (post != null) {
                 System.out.println("Post encontrado para exclusão: " + post.getId());
-                criarNotificacao(post, TipoAcao.DELETAR, null);
+                criarNotificacaoeAcao(post, TipoAcao.DELETAR, null);
             } else {
                 System.out.println("Post não encontrado para o ID: " + id);
             }
@@ -84,7 +89,7 @@ public class NotificacaoAspect {
             Post post = (Post) result;
             // Notificação para o autor do post (destinatário)
             Usuario autor = post.getUsuario();
-            criarNotificacao(post, TipoAcao.REPROVAR, autor);
+            criarNotificacaoeAcao(post, TipoAcao.REPROVAR, autor);
         }
     }
 
@@ -93,30 +98,34 @@ public class NotificacaoAspect {
         if (result instanceof Post) {
             Post post = (Post) result;
             // Aqui a notificação é geral, editor vê tudo, usuário destinatário = null
-            criarNotificacao(post, TipoAcao.CORRIGIR, null);
+            criarNotificacaoeAcao(post, TipoAcao.CORRIGIR, null);
         }
     }
 
 
     // Método auxiliar para criar a notificação
-    private void criarNotificacao(Post post, TipoAcao tipoAcao, Usuario usuarioPost) {
+    private void criarNotificacaoeAcao(Post post, TipoAcao tipoAcao, Usuario UsuarioDestinatario) {
         
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        Usuario usuarioLogado = usuarioRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
         // System.out.println("Entrou aqui");
         
         try {
+            Acao acao = new Acao();
+            acao.setPost(post);
+            acao.setTipoAcao(tipoAcao);
+            acao.setUsuario(usuarioLogado);
+
             Notificacao notificacao = new Notificacao();
             // notificacao.setUsuario(usuarioAtual);
-            notificacao.setPost(post);
-            notificacao.setTipoAcao(tipoAcao);
-            notificacao.setDataHora(LocalDateTime.now());
+            if (acao != null) notificacao.setAcao(acao);
+            if (UsuarioDestinatario != null) notificacao.setUsuario(UsuarioDestinatario);
             notificacao.setLida(false);
 
-            if (usuarioPost != null) {
-                notificacao.setUsuario(usuarioPost);
-            }
-
             notificacaoService.criarNotificacao(notificacao);
-            System.out.println(">> Notificação criada com sucesso!" + (usuarioPost != null ? " Para: " + usuarioPost.getEmail() : " (sem destinatário específico)"));
+            System.out.println(">> Notificação criada com sucesso!" + (UsuarioDestinatario != null ? " Para: " + UsuarioDestinatario.getEmail() : " (sem destinatário específico)"));
         } catch (Exception e) {
             // Log do erro
             System.err.println("Erro ao criar notificação: " + e.getMessage());

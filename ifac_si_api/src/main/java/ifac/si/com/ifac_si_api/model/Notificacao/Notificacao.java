@@ -3,7 +3,7 @@ package ifac.si.com.ifac_si_api.model.Notificacao;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import ifac.si.com.ifac_si_api.model.Notificacao.Enum.TipoAcao;
+import ifac.si.com.ifac_si_api.model.Acao.Acao;
 import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import jakarta.persistence.*;
@@ -16,23 +16,14 @@ public class Notificacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "usuario_id")
-    // private Usuario usuario;  // Usuário que realizou a ação
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_id")
-    private Post post;  // Post relacionado à notificação
+    @JoinColumn(name = "acao_id")
+    private Acao acao;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @Enumerated(EnumType.STRING)
-    private TipoAcao tipoAcao;  // Enum para tipo de ação (EDITAR, DELETAR, ADICIONAR, etc.)
-
-    private LocalDateTime dataHora;  // Data e hora da notificação
-    
     private boolean lida;  // Se a notificação foi lida ou não
 
     public Long getId() {
@@ -43,28 +34,20 @@ public class Notificacao implements Serializable {
         this.id = id;
     }
 
-    public Post getPost() {
-        return post;
+    public Acao getAcao() {
+        return acao;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setAcao(Acao acao) {
+        this.acao = acao;
     }
 
-    public TipoAcao getTipoAcao() {
-        return tipoAcao;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setTipoAcao(TipoAcao tipoAcao) {
-        this.tipoAcao = tipoAcao;
-    }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public boolean isLida() {
@@ -75,23 +58,4 @@ public class Notificacao implements Serializable {
         this.lida = lida;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-    // Getters e setters
-
-    @Override
-    public String toString() {
-        return "Notificacao{" +
-                "id=" + id +
-                ", tipoAcao=" + tipoAcao +
-                ", postId=" + (post != null ? post.getId() : "null") +
-                ", dataHora=" + dataHora +
-                ", lida=" + lida +
-                '}';
-    }
 }
