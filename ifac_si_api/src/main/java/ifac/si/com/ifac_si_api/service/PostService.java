@@ -491,13 +491,7 @@ public class PostService{
         if (postDto.getCategoriaId() != null) {
             rascunho.setCategoria(buscarCategoria(postDto.getCategoriaId()));
         }
-
-        if (postDto.getUsuarioAlteraId() != null) {
-            Usuario usuarioAltera = usuarioRepository.findById(postDto.getUsuarioAlteraId())
-                    .orElseThrow(() -> new IllegalArgumentException("Usuário que altera não encontrado"));
-            rascunho.setUsuarioAlteraId(usuarioAltera);
-        }
-
+        
         if (postDto.getTags() != null) {
             rascunho.setTags(processarTags(postDto.getTags()));
         } else {

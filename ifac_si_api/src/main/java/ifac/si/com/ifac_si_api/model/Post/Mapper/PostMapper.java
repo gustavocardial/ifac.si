@@ -34,10 +34,6 @@ public class PostMapper {
         if (post.getUsuario() != null) {
             postDTO.setUsuario(UsuarioMapper.toUsuarioResponseDTO(post.getUsuario()));
         }
-
-        if (post.getUsuarioAlteraId() != null) {
-            postDTO.setUsuarioAltera(UsuarioMapper.toUsuarioResponseDTO(post.getUsuarioAlteraId()));
-        }
         
         postDTO.setCategoriaId(post.getCategoria().getId());
         postDTO.setTitulo(post.getTitulo());

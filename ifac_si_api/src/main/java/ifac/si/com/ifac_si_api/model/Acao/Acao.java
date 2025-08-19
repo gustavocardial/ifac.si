@@ -7,6 +7,8 @@ import ifac.si.com.ifac_si_api.model.Post.Post;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "acoes")
 public class Acao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

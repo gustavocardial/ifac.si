@@ -37,7 +37,7 @@ public class NotificacaoService {
             // Se não for editor, não permitimos listagem
             throw new AccessDeniedException("Você não tem permissão para ver a lista de notificações.");
         }
-        return notificacaoRepository.findAllByOrderByDataHoraDesc();
+        return notificacaoRepository.findAll();
     }
     
     public Notificacao marcarComoLida(Long id) {

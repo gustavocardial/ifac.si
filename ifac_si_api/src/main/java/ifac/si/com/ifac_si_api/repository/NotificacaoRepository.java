@@ -8,6 +8,6 @@ import ifac.si.com.ifac_si_api.model.Notificacao.Notificacao;
 
 public interface NotificacaoRepository extends JpaRepository<Notificacao, Long>{
 
-    List<Notificacao> findAllByOrderByDataHoraDesc();
+    // List<Notificacao> findAllByOrderByDataHoraDesc();
     
 }

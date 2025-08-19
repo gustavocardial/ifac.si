@@ -11,7 +11,6 @@ public class PostDTO {
 
     private String titulo;
     private UsuarioResponseDTO usuario;
-    private UsuarioResponseDTO usuarioAltera;
     private Long categoriaId;
     private String texto;
     private LocalDateTime data;
@@ -124,13 +123,5 @@ public class PostDTO {
 
     public void setUsuario(UsuarioResponseDTO usuario) {
         this.usuario = usuario;
-    }
-
-    public UsuarioResponseDTO getUsuarioAltera() {
-        return usuarioAltera;
-    }
-
-    public void setUsuarioAltera(UsuarioResponseDTO usuarioAltera) {
-        this.usuarioAltera = usuarioAltera;
     }
 }

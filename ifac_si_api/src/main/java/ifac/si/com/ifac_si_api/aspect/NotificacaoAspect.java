@@ -121,6 +121,7 @@ public class NotificacaoAspect {
             acao.setPost(post);
             acao.setTipoAcao(tipoAcao);
             acao.setUsuario(usuarioLogado);
+            acao.setData_hora(LocalDateTime.now());
 
             acaoService.save(acao);
 
