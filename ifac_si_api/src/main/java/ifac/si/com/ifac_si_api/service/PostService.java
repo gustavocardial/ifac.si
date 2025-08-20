@@ -27,6 +27,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import ifac.si.com.ifac_si_api.model.Post.Post;
+import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostRequestDTO;
 import ifac.si.com.ifac_si_api.repository.PostRepository;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
@@ -54,33 +55,33 @@ public class PostService{
         this.postMapper = postMapper;
     }
 
-    public Page<Post> getAllPosts(int page, int size, String sortBy, String sortDirection) {
+    public Page<PostDTO> getAllPosts(int page, int size, String sortBy, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase("desc")
                 ? Sort.by(sortBy).descending()
                 : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
-        return postRepository.getAllPosts(pageable);
+        return postRepository.getAllPosts(pageable).map(postMapper::toDTO);
     }
 
-    public Page<Post> get(Pageable page) {
+    public Page<PostDTO> get(Pageable page) {
 
-        return postRepository.findAll(page);
+        return postRepository.findAll(page).map(postMapper::toDTO);
     }
 
-    public List<Post> getByTag(String tag) {
-        return postRepository.findPostsByTagName(tag);
+    public List<PostDTO> getByTag(String tag) {
+        return postMapper.toListOfDTO(postRepository.findPostsByTagName(tag));
     }
 
-    public List<Post> getByStatus(EStatus status) {
-        return postRepository.findByStatus(status);
+    public List<PostDTO> getByStatus(EStatus status) {
+        return postMapper.toListOfDTO(postRepository.findByStatus(status));
     }
 
-    public Post get(Long id) {
-        return postRepository.findById(id).orElse(null);
+    public PostDTO get(Long id) {
+        return postMapper.toDTO(postRepository.findById(id).orElse(null));
     }
 
-    public Page<Post> get(String termoBusca, Pageable page) {
-        return postRepository.busca(termoBusca, page);
+    public Page<PostDTO> get(String termoBusca, Pageable page) {
+        return postRepository.busca(termoBusca, page).map(postMapper::toDTO);
     }
 
     public Post save(PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
@@ -215,8 +216,8 @@ public class PostService{
         }
     }
 
-    public List<Post> getPostsPorCategoria(Long categoriaId) {
-        return postRepository.findByCategoriaId(categoriaId);
+    public List<PostDTO> getPostsPorCategoria(Long categoriaId) {
+        return postMapper.toListOfDTO(postRepository.findByCategoriaId(categoriaId));
     }
 
     private String substituirReferenciasPorUrls(String texto, List<String> urlsImagens) {
@@ -599,21 +600,20 @@ public class PostService{
     }
 
     //Busca todos os rascunhos de um usuário
-    public List<Post> getRascunhosPorUsuario(Long usuarioId) {
-        System.out.println(usuarioId);
-        return postRepository.findByUsuarioIdAndStatus(usuarioId, EStatus.RASCUNHO);
+    public List<PostDTO> getRascunhosPorUsuario(Long usuarioId) {
+        return postMapper.toListOfDTO(postRepository.findByUsuarioIdAndStatus(usuarioId, EStatus.RASCUNHO));
     }
 
     //Busca rascunho vinculado a um post publicado
-    public Optional<Post> getRascunhoDePost(Long postId) {
+    public Optional<PostDTO> getRascunhoDePost(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado"));
 
         if (post.getStatus() == EStatus.RASCUNHO) {
-            return Optional.of(post);
+            return Optional.of(postMapper.toDTO(post));
         }
 
-        return postRepository.findRascunhoByPostOriginal(postId);
+        return postRepository.findRascunhoByPostOriginal(postId).map(postMapper::toDTO);
     }
 
     //Exclui um rascunho permanentemente
@@ -647,8 +647,8 @@ public class PostService{
         postRepository.deleteById(rascunhoId);
     }
 
-    public Page<Post> getRascunhos(Pageable pageable) {
-        return postRepository.findByStatus(EStatus.RASCUNHO, pageable);
+    public Page<PostDTO> getRascunhos(Pageable pageable) {
+        return postRepository.findByStatus(EStatus.RASCUNHO, pageable).map(postMapper::toDTO);
     }
 
 }

@@ -39,11 +39,6 @@ public class Post implements Serializable{
 
     @ManyToOne
     @JsonManagedReference
-    @JoinColumn(name = "usuario_altera_id", nullable = true)
-    private Usuario usuarioAlteraId;
-
-    @ManyToOne
-    @JsonManagedReference
     @JoinColumn(name = "categoria_id", nullable = true)
     private Categoria categoria;
 
@@ -105,14 +100,6 @@ public class Post implements Serializable{
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public Usuario getUsuarioAlteraId() {
-        return usuarioAlteraId;
-    }
-
-    public void setUsuarioAlteraId(Usuario usuarioAlteraId) {
-        this.usuarioAlteraId = usuarioAlteraId;
     }
 
     public Categoria getCategoria() {
