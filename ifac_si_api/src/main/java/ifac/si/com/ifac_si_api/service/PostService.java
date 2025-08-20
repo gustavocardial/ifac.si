@@ -84,7 +84,7 @@ public class PostService{
         return postRepository.busca(termoBusca, page).map(postMapper::toDTO);
     }
 
-    public Post save(PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
+    public PostDTO save(PostRequestDTO postDto, List<MultipartFile> imagens, MultipartFile postCapa) throws Exception {
 
         Post post = postMapper.toEntity(postDto);
 
@@ -130,7 +130,7 @@ public class PostService{
         String textoFinal = substituirReferenciasPorUrls(postDto.getTexto(), urlsImagens);
         post.setTexto(textoFinal);
 
-        return postRepository.save(post);
+        return postMapper.toDTO(postRepository.save(post));
     }
 
     private Categoria buscarCategoria(Long categoriaId) {

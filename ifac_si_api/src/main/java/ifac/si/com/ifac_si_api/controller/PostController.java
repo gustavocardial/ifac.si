@@ -86,7 +86,8 @@ public class PostController{
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> insert(PostRequestDTO objeto, @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
         
-        Post registro = servico.save(objeto, file, imagemCapaFile);
+        PostDTO registro = servico.save(objeto, file, imagemCapaFile);
+
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
