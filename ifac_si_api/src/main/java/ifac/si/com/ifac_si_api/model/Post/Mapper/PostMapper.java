@@ -15,6 +15,7 @@ import ifac.si.com.ifac_si_api.model.Post.Enum.EPublicacao;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EStatus;
 import ifac.si.com.ifac_si_api.model.Post.Enum.EVisibilidade;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
+import ifac.si.com.ifac_si_api.model.Usuario.Mapper.UsuarioMapper;
 import ifac.si.com.ifac_si_api.repository.UsuarioRepository;
 
 @Service
@@ -30,9 +31,10 @@ public class PostMapper {
 
         PostDTO postDTO = new PostDTO();
 
-        postDTO.setUsuarioId(post.getUsuario().getId());
-        postDTO.setUsuarioAlteraId(post.getUsuario().getId());
-        postDTO.setCategoriaId(post.getCategoria().getId());
+        if (post.getUsuario() != null) {
+            postDTO.setUsuario(UsuarioMapper.toUsuarioResponseDTO(post.getUsuario()));
+        }
+        
         postDTO.setTitulo(post.getTitulo());
         postDTO.setTexto(post.getTexto());
         postDTO.setData(post.getData());
@@ -40,9 +42,12 @@ public class PostMapper {
         postDTO.setVisibilidade(post.getVisibilidade().name());
         postDTO.setPublicacao(post.getPublicacao().name());
         postDTO.setMensagemReprovacao(post.getMensagemReprovacao());
-        postDTO.setUsuarioAlteraId(post.getUsuarioAlteraId().getId());
+        postDTO.setImagemCapa(post.getImagemCapa());
+        if (post.getCategoria() != null) {
+            postDTO.setCategoriaId(post.getCategoria().getId());
+        }
         if ( post.getStatus() != null ) postDTO.setStatus(post.getStatus().name());
-        if ( post.getStatus() != null ) postDTO.setImagens(post.getImagens());
+        if (post.getImagens() != null) postDTO.setImagens(post.getImagens());
 
         return postDTO;
     }

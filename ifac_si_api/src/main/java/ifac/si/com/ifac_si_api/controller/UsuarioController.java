@@ -2,6 +2,7 @@ package ifac.si.com.ifac_si_api.controller;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
+import ifac.si.com.ifac_si_api.model.Usuario.DTO.UsuarioResponseDTO;
 import ifac.si.com.ifac_si_api.service.UsuarioService;
 
 @RestController
@@ -27,42 +29,42 @@ public class UsuarioController{
     private UsuarioService servico;
 
     @GetMapping("/")
-//    @ApiOperation(value = "Listar todos os usuários")
-    public ResponseEntity<List<Usuario>> get() {
-        List<Usuario> registros = servico.getAll();
+    @Operation(summary = "Buscar todos os usuários")
+    public ResponseEntity<List<UsuarioResponseDTO>> get() {
+        List<UsuarioResponseDTO> registros = servico.getAll();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-//    @ApiOperation(value = "Buscar um usuário pelo ID")
-    public ResponseEntity<Usuario> get(@PathVariable("id") Long id) {
-        Usuario registro = servico.get(id);
+    @Operation(summary = "Buscar um usuário pelo ID")
+    public ResponseEntity<UsuarioResponseDTO> get(@PathVariable("id") Long id) {
+        UsuarioResponseDTO registro = servico.get(id);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
     @GetMapping("/busca/{termoBusca}")
-//    @ApiOperation(value = "Buscar usuários por um termo de busca")
-    public ResponseEntity<List<Usuario>> get(@PathVariable("termoBusca") String termoBusca) {
-        List<Usuario> registros = servico.busca(termoBusca);
+    @Operation(summary = "Buscar usuários por um termo de busca")
+    public ResponseEntity<List<UsuarioResponseDTO>> get(@PathVariable("termoBusca") String termoBusca) {
+        List<UsuarioResponseDTO> registros = servico.busca(termoBusca);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @PostMapping("/")
-//    @ApiOperation(value = "Inserir um novo usuário")
+    @Operation(summary = "Inserir um novo usuário")
     public ResponseEntity<Usuario> insert(@RequestBody Usuario objeto) {
         Usuario registro = servico.save(objeto);
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
     @PutMapping("/")
-//    @ApiOperation(value = "Editar usuário")
+    @Operation(summary = "Atualizar usuário existente")
     public ResponseEntity<Usuario> update(@RequestBody Usuario objeto) {
         Usuario registro = servico.save(objeto);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-//    @ApiOperation(value = "Deletar um usuário pelo ID")
+    @Operation(summary = "Deletar um usuário pelo ID")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         servico.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);

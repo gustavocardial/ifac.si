@@ -15,11 +15,11 @@ VALUES
     (2, 'Esportes'),
     (3, 'Viagem');
 
-INSERT INTO posts (id, data, legenda, texto, titulo, categoria_id, usuario_id)
+INSERT INTO posts (id, data, legenda, texto, titulo, categoria_id, usuario_id, post_original_id, publicacao, status, visibilidade, imagem_capa_id, mensagem_reprovacao)
 VALUES
-    (1, '2023-05-01', 'Introdução à Programação', 'Este é um post sobre programação...', 'Introdução à Programação', 1, 1),
-    (2, '2023-05-02', 'Dicas para Correr Melhor', 'Aqui estão algumas dicas para melhorar sua corrida...', 'Dicas para Correr Melhor', 2, 2),
-    (3, '2023-05-03', 'Destinos Incríveis para Viajar', 'Descubra os lugares mais incríveis para viajar...', 'Destinos Incríveis para Viajar', 3, 3);
+    (1, '2023-05-01', 'Introdução à Programação', 'Este é um post sobre programação...', 'Introdução à Programação', 1, 1, NULL, 'IMEDIATA', 'PUBLICADO', 'PUBLICO', NULL, ''),
+    (2, '2023-05-02', 'Dicas para Correr Melhor', 'Aqui estão algumas dicas para melhorar sua corrida...', 'Dicas para Correr Melhor', 2, 2, NULL, 'IMEDIATA', 'PUBLICADO', 'PUBLICO', NULL, ''),
+    (3, '2023-05-03', 'Destinos Incríveis para Viajar', 'Descubra os lugares mais incríveis para viajar...', 'Destinos Incríveis para Viajar', 3, 3, NULL, 'IMEDIATA', 'PUBLICADO', 'PUBLICO', NULL, '');
 
 INSERT INTO post_tags (posts_id, tags_id)
 VALUES

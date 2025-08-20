@@ -1,4 +1,4 @@
-package ifac.si.com.ifac_si_api.model.Notificacao.Enum;
+package ifac.si.com.ifac_si_api.model.Acao.Enum;
 
 public enum TipoAcao {
     EDITAR("editou um post"),

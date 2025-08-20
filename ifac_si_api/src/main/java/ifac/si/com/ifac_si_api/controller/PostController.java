@@ -40,45 +40,45 @@ public class PostController{
     }
 
     @GetMapping("/getAllPostsPageable")
-    public ResponseEntity<Page<Post>> getAllPosts(
+    public ResponseEntity<Page<PostDTO>> getAllPosts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "data") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDirection) {
-        Page<Post> posts = servico.getAllPosts(page, size, sortBy, sortDirection);
+        Page<PostDTO> posts = servico.getAllPosts(page, size, sortBy, sortDirection);
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/")
     @Operation(summary = "Listar todos os posts")
-    public ResponseEntity<Page<Post>> get(Pageable page) {
-        Page<Post> registros = servico.get(page);
+    public ResponseEntity<Page<PostDTO>> get(Pageable page) {
+        Page<PostDTO> registros = servico.get(page);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @GetMapping("/status/{status}")
-    public List<Post> getByStatus(@RequestParam EStatus status) {
-        List<Post> registros = servico.getByStatus(status);
+    public List<PostDTO> getByStatus(@RequestParam EStatus status) {
+        List<PostDTO> registros = servico.getByStatus(status);
         return new ResponseEntity<>(registros, HttpStatus.OK).getBody();
     }
 
     @GetMapping("/tag/{tag}")
-    public ResponseEntity<List<Post>> getByTag(@PathVariable String tag) {
-        List<Post> registros = servico.getByTag(tag);
+    public ResponseEntity<List<PostDTO>> getByTag(@PathVariable String tag) {
+        List<PostDTO> registros = servico.getByTag(tag);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar post pelo Id")
-    public ResponseEntity<Post> get(@PathVariable("id") Long id) {
-        Post registro = servico.get(id);
+    public ResponseEntity<PostDTO> get(@PathVariable("id") Long id) {
+        PostDTO registro = servico.get(id);
         return new ResponseEntity<>(registro, HttpStatus.OK);
     }
 
     @GetMapping("/busca")
     @Operation(summary = "Buscar posts por um termo de busca")
-    public ResponseEntity<Page<Post>> get(@RequestParam String termoBusca, Pageable page) {
-        Page<Post> registros = servico.get(termoBusca, page);
+    public ResponseEntity<Page<PostDTO>> get(@RequestParam String termoBusca, Pageable page) {
+        Page<PostDTO> registros = servico.get(termoBusca, page);
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
@@ -86,13 +86,14 @@ public class PostController{
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> insert(PostRequestDTO objeto, @RequestParam(value = "imagemCapa", required = false) MultipartFile imagemCapaFile, @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
         
-        Post registro = servico.save(objeto, file, imagemCapaFile);
+        PostDTO registro = servico.save(objeto, file, imagemCapaFile);
+
         return new ResponseEntity<>(registro, HttpStatus.CREATED);
     }
 
     @GetMapping("/categoria/{categoriaId}")
-    public List<Post> getPostsPorCategoria(@PathVariable Long categoriaId) {
-        List<Post> registros = servico.getPostsPorCategoria(categoriaId);
+    public List<PostDTO> getPostsPorCategoria(@PathVariable Long categoriaId) {
+        List<PostDTO> registros = servico.getPostsPorCategoria(categoriaId);
         return new ResponseEntity<>(registros ,HttpStatus.OK).getBody();
     }
 
@@ -187,15 +188,15 @@ public class PostController{
 
     @GetMapping("/rascunhos/usuario/{usuarioId}")
     @Operation(summary = "Buscar todos os rascunhos de um usuário")
-    public ResponseEntity<List<Post>> getRascunhosPorUsuario(@PathVariable Long usuarioId) {
-        List<Post> rascunhos = servico.getRascunhosPorUsuario(usuarioId);
+    public ResponseEntity<List<PostDTO>> getRascunhosPorUsuario(@PathVariable Long usuarioId) {
+        List<PostDTO> rascunhos = servico.getRascunhosPorUsuario(usuarioId);
         return ResponseEntity.ok(rascunhos);
     }
 
     @GetMapping("/{postId}/rascunho")
     @Operation(summary = "Buscar rascunho associado a um post")
     public ResponseEntity<?> getRascunhoDePost(@PathVariable Long postId) {
-        Optional<Post> rascunho = servico.getRascunhoDePost(postId);
+        Optional<PostDTO> rascunho = servico.getRascunhoDePost(postId);
 
         if (rascunho.isPresent()) {
             return ResponseEntity.ok(rascunho.get());
@@ -213,7 +214,7 @@ public class PostController{
 
     @GetMapping("/rascunhos")
     @Operation(summary = "Listar todos os rascunhos (paginado)")
-    public ResponseEntity<Page<Post>> getAllRascunhos(
+    public ResponseEntity<Page<PostDTO>> getAllRascunhos(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "data") String sortBy,
@@ -224,7 +225,7 @@ public class PostController{
                 : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Post> pageRascunhos = servico.getRascunhos(pageable);
+        Page<PostDTO> pageRascunhos = servico.getRascunhos(pageable);
         return ResponseEntity.ok(pageRascunhos);
     }
 

@@ -12,12 +12,14 @@ import ifac.si.com.ifac_si_api.model.Usuario.DTO.UsuarioResponseDTO;
 import ifac.si.com.ifac_si_api.model.Usuario.Enum.ECargo;
 
 public class UsuarioMapper {
-    public static Usuario toEntity(UsuarioDTO usuarioDTO) {
-        if (usuarioDTO == null) return null;
-        Usuario usuario = new Usuario();
-        usuario.setNomeUsuario(usuarioDTO.getNomeUsuario());
-        usuario.setEmail(usuarioDTO.getEmail());
-        return usuario;
+    public static UsuarioResponseDTO toUsuarioResponseDTO (Usuario usuario) {
+        UsuarioResponseDTO usuarioResponseDTO = new UsuarioResponseDTO();
+        usuarioResponseDTO.setNomeUsuario(usuario.getNomeUsuario());
+        usuarioResponseDTO.setEmail(usuario.getEmail());
+        usuarioResponseDTO.setCargo(usuario.getCargo().name());
+        usuarioResponseDTO.setAtivo(usuario.isAtivo());
+        usuarioResponseDTO.setId(usuario.getId());
+        return usuarioResponseDTO;
     }
 
     // Converte de TagDTO para Tag
@@ -31,9 +33,9 @@ public class UsuarioMapper {
     }
 
     // Converte de Lista<Tag> para Lista<TagDTO>
-    public static List<TagDTO> toTagDTOList(List<Tag> tags) {
-        return tags.stream()
-                .map(TagMapper::toTagDTO)
+    public static List<UsuarioResponseDTO> toUsuarioResponseDTOList(List<Usuario> usuarios) {
+        return usuarios.stream()
+                .map(UsuarioMapper::toUsuarioResponseDTO)
                 .collect(Collectors.toList());
     }
 }

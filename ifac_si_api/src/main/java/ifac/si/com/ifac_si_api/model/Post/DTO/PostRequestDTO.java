@@ -16,7 +16,6 @@ public class PostRequestDTO {
 
     private String titulo;
     private Long usuarioId;
-    private Long usuarioAlteraId;
     private Long categoriaId;
     private String texto;
     private String legenda;
@@ -41,14 +40,6 @@ public class PostRequestDTO {
 
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
-    }
-
-    public Long getUsuarioAlteraId() {
-        return usuarioAlteraId;
-    }
-
-    public void setUsuarioAlteraId(Long usuarioAlteraId) {
-        this.usuarioAlteraId = usuarioAlteraId;
     }
 
     public Long getCategoriaId() {
