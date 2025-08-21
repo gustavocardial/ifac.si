@@ -28,6 +28,7 @@ export class NotificationComponent implements OnInit{
 
     // 🔄 Carrega as notificações antigas
     this.wsService.getNotificacoesAntigas().subscribe((antigas: Notificacao[]) => {
+      console.log('ksgksgksgkhgs');
       console.log('📜 Notificações antigas carregadas:', antigas);
       // Coloca as antigas na lista (do mais recente pro mais antigo, se quiser inverter use .reverse())
       this.notificacoes = antigas.reverse(); 

@@ -4,6 +4,7 @@ import ifac.si.com.ifac_si_api.model.Acao.Acao;
 import ifac.si.com.ifac_si_api.model.Acao.Enum.TipoAcao;
 import ifac.si.com.ifac_si_api.model.Notificacao.Notificacao;
 import ifac.si.com.ifac_si_api.model.Post.Post;
+import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import ifac.si.com.ifac_si_api.repository.AcaoRepository;
 import ifac.si.com.ifac_si_api.repository.PostRepository;
@@ -12,6 +13,7 @@ import ifac.si.com.ifac_si_api.service.AcaoService;
 import ifac.si.com.ifac_si_api.service.NotificacaoService;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -44,10 +46,14 @@ public class NotificacaoAspect {
     @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.save(..))", returning = "result")
     public void afterPostCreation(JoinPoint joinPoint, Object result) {
         System.out.println("Método save interceptado!");
-        if (result instanceof Post) {
-            Post post = (Post) result;
-            System.out.println("Post salvo com ID: " + post.getId());
-            criarNotificacaoeAcao(post, TipoAcao.ADICIONAR, null);
+        if (result instanceof PostDTO) {
+            PostDTO postdto = (PostDTO) result;
+            // System.out.println("Post salvo com ID: " + post.getId());
+            Optional<Post> postOptional = postRepository.findById(postdto.getId());
+            postOptional.ifPresent(post -> {
+                System.out.println("Post salvo com ID: " + post.getId());
+                criarNotificacaoeAcao(post, TipoAcao.ADICIONAR, null);
+            });
 
 
         } else {
