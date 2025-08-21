@@ -4,5 +4,5 @@ export type Profissional = {
   id: number;
   nome: string;
   descrição: string;
-  imagem: Imagem;
+  perfil: Imagem;
 };
