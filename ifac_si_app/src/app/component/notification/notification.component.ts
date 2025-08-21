@@ -5,6 +5,7 @@ import { Notificacao } from '../../model/notificacao';
 import { Subscription } from 'rxjs';
 import { AlertaService } from '../../service/alerta.service';
 import { ETipoAlerta } from '../../model/enum/e-tipo-alerta';
+import { query } from 'express';
 
 @Component({
   selector: 'app-notification',
@@ -28,7 +29,6 @@ export class NotificationComponent implements OnInit{
 
     // 🔄 Carrega as notificações antigas
     this.wsService.getNotificacoesAntigas().subscribe((antigas: Notificacao[]) => {
-      console.log('ksgksgksgkhgs');
       console.log('📜 Notificações antigas carregadas:', antigas);
       // Coloca as antigas na lista (do mais recente pro mais antigo, se quiser inverter use .reverse())
       this.notificacoes = antigas.reverse(); 
@@ -51,13 +51,23 @@ export class NotificationComponent implements OnInit{
     
   }
 
-  alertTeste(notification: any): void {
-    alert(`ID: ${notification.title}, Action: ${notification.action}`);
+  viewPost(notificacao: Notificacao): void {
+    this.router.navigate(['/view_post/'], {
+      queryParams: {postId: notificacao.acao.post.id}
+    })
 
-    if(notification.action == 'UPDATE') {
-      this.router.navigate(['/administration/editor/comparation_post'], {
-        queryParams: {postId: notification.id}
-      })
-    }
+    console.log (notificacao.acao.post.id);
   }
+
+  // alertTeste(notificacao: Notificacao): void {
+  //   alert(`ID: ${notificacao.id}, Action: ${notificacao.acao.tipoAcao}`);
+
+
+  //   this.viewPost(notificacao);
+  //   // if(notification.action == 'UPDATE') {
+  //   //   this.router.navigate(['/administration/editor/comparation_post'], {
+  //   //     queryParams: {postId: notification.id}
+  //   //   })
+  //   // }
+  // }
 }
