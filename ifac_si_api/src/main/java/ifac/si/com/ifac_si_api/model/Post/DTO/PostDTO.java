@@ -22,6 +22,7 @@ public class PostDTO {
     private String status;
     private String visibilidade;
     private String publicacao;
+    private Long postOriginalId;
 
     public PostDTO(Long id, String titulo) {
     }
@@ -132,5 +133,13 @@ public class PostDTO {
 
     public void setUsuario(UsuarioResponseDTO usuario) {
         this.usuario = usuario;
+    }
+
+    public Long getPostOriginalId() {
+        return postOriginalId;
+    }
+
+    public void setPostOriginalId(Long postOriginalId) {
+        this.postOriginalId = postOriginalId;
     }
 }

@@ -56,7 +56,6 @@ export class NotificationComponent implements OnInit{
       queryParams: {postId: notificacao.acao.post.id}
     })
 
-    console.log (notificacao.acao.post.id);
   }
 
   // alertTeste(notificacao: Notificacao): void {

@@ -126,12 +126,12 @@ button.editButton {
 } */
 
 #collapseThree.collapse.show {
-    overflow: visible;
+    overflow: hidden;
     height: auto;
 }
 
 #collapseThree.collapsing {
-    overflow: visible;
+    overflow: hidden;
 }
 
 .card-body {

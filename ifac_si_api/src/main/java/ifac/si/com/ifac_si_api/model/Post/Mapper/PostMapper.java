@@ -44,6 +44,7 @@ public class PostMapper {
         postDTO.setPublicacao(post.getPublicacao().name());
         postDTO.setMensagemReprovacao(post.getMensagemReprovacao());
         postDTO.setImagemCapa(post.getImagemCapa());
+        postDTO.setPostOriginalId(post.getPostOriginalId());
         if (post.getCategoria() != null) {
             postDTO.setCategoria(post.getCategoria());
         }
