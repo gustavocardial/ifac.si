@@ -190,6 +190,8 @@ export class PostsAppComponent implements OnInit{
         this.posts = resposta.content;
         this.paginaResposta = resposta;
 
+        console.log('Posts recebidos:', this.posts);
+
         this.ordenarPosts();
         setTimeout(() => this.setupButtonListeners(), 0);
       }

@@ -4,6 +4,14 @@
 <div id="fundo">
     <div class="container">
         <div class="row">
+            <h3 *ngIf="isEditandoRascunho" class="text-center text-warning">
+                ✏️ Editando rascunho
+            </h3>
+
+            <div *ngIf="isEditandoRascunho" class="text-center mb-3">
+                <button class="btn btn-secondary" (click)="voltarAoPostOriginal()">🔙 Ver post original</button>
+            </div>
+
             <!-- class="col-12 col-lg-9" -->
             <div class="col-12 col-lg-9 col-md-7" id="editorElement">
                 <div class="col-nd-auto" id="topEditor">
@@ -60,7 +68,7 @@
                                             <ng-container *ngIf="visibilidadeContent; else visibilidadeSelect">
                                                 <div id="visibilidade" class="visibilidadeWrapper">
                                                     <span>{{ post.visibilidade ? post.visibilidade : 'PÚBLICO' }}</span> 
-                                                    <button (click)="toggleVisibilidade()" class="editButton">Editar</button>
+                                                    <button (click)="toggleVisibilidade()" class="editButton" *ngIf="!isEditandoRascunho">Editar</button>
                                                 </div>
                                             </ng-container>
                                             <ng-template #visibilidadeSelect>
@@ -86,7 +94,7 @@
                                                     <span id="publicacao">
                                                         {{ post.publicacao ? post.publicacao : 'IMEDIATA' }}
                                                     </span>
-                                                    <button (click)="togglePublicacao()" class="editButton" *ngIf="post.status != EStatus.Publicado">Editar</button>
+                                                    <button (click)="togglePublicacao()" class="editButton" *ngIf="post.status != EStatus.Publicado && !isEditandoRascunho">Editar</button>
                                                     </div>
 
                                                     <div *ngIf="!publicacaoContent" class="selectWrapper">
@@ -121,16 +129,29 @@
                                                 <p id="idStatus">{{post.status}}</p>
                                             </ng-template>
                                             <ng-template #statusSelect>
-                                                <p id="idStatus">RASCUNHO</p>
+                                                <p id="idStatus" [ngClass]="{'text-muted': post.status === 'RASCUNHO'}">
+                                                  {{ post.status === 'RASCUNHO' ? '📝 RASCUNHO' : post.status }}
+                                                </p>
+
                                             </ng-template>
                                         </div>
                                         <!-- <button #editarStatus class="editButton">Editar</button> -->
                                     </div>
                                 </div>
+                                <!-- Se estiver editando um rascunho -->
+                                <div class="statusDiv viewPost" *ngIf="isEditandoRascunho; else botoesPadrao">
+                                <button id="descartarRascunho" (click)="deletarRascunho()">Descartar Rascunho</button>
+                                <button id="salvarRascunho" (click)="salvarRascunho()">Salvar Rascunho</button>
+                                </div>
+
+                                <!-- Botões padrão (publicar, etc) -->
+                                <ng-template #botoesPadrao>
                                 <div class="statusDiv viewPost" id="saveDiv">
                                     <button id="statusDelete">Deletar</button>
                                     <button id="statusSave" (click)="saveContent()">Salvar</button>
                                 </div>
+                                </ng-template>
+
                             </div>
                         </div>
                     </div>
@@ -233,9 +254,16 @@
                             </div>
                             <p id="postTitulo">{{postRascunho.titulo}}</p>
                             <div id="actionsRascunho">
-                                <button (click)="visualizarRascunho()" id="rascunhoView">Visualizar</button>
-                                <button (click)="editarRascunho()" id="rascunhoEdit">Editar</button>
-                                <button (click)="deletarRascunho()" id="rascunhoDelete">Deletar</button>
+                                <button (click)="visualizarRascunho(postRascunho)" id="rascunhoView">Visualizar</button>
+                                <button *ngIf="isEditandoRascunho" (click)="voltarAoPostOriginal()" id="voltarPostOriginal">
+                                    Voltar ao post original
+                                </button>
+
+                                <!-- Se NÃO estiver editando o rascunho, mostrar o botão para editar -->
+                                <button *ngIf="!isEditandoRascunho" (click)="editarRascunho()" id="rascunhoEdit">
+                                    Editar
+                                </button>
+                                <button (click)="deletarRascunho()" (click)="deletarRascunho()"  id="rascunhoDelete">Deletar</button>
                             </div>
                         </div>
                     </div>

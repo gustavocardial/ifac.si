@@ -35,6 +35,7 @@ public class PostMapper {
             postDTO.setUsuario(UsuarioMapper.toUsuarioResponseDTO(post.getUsuario()));
         }
         
+        postDTO.setId(post.getId());
         postDTO.setTitulo(post.getTitulo());
         postDTO.setTexto(post.getTexto());
         postDTO.setData(post.getData());
@@ -43,8 +44,9 @@ public class PostMapper {
         postDTO.setPublicacao(post.getPublicacao().name());
         postDTO.setMensagemReprovacao(post.getMensagemReprovacao());
         postDTO.setImagemCapa(post.getImagemCapa());
+        postDTO.setPostOriginalId(post.getPostOriginalId());
         if (post.getCategoria() != null) {
-            postDTO.setCategoriaId(post.getCategoria().getId());
+            postDTO.setCategoria(post.getCategoria());
         }
         if ( post.getStatus() != null ) postDTO.setStatus(post.getStatus().name());
         if (post.getImagens() != null) postDTO.setImagens(post.getImagens());

@@ -1,5 +1,6 @@
 package ifac.si.com.ifac_si_api.model.Post.DTO;
 
+import ifac.si.com.ifac_si_api.model.Categoria;
 import ifac.si.com.ifac_si_api.model.Imagem;
 import ifac.si.com.ifac_si_api.model.Usuario.DTO.UsuarioResponseDTO;
 
@@ -8,10 +9,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class PostDTO {
-
+    private Long id;
     private String titulo;
     private UsuarioResponseDTO usuario;
-    private Long categoriaId;
+    private Categoria categoria;
     private String texto;
     private LocalDateTime data;
     private String legenda;
@@ -21,12 +22,21 @@ public class PostDTO {
     private String status;
     private String visibilidade;
     private String publicacao;
+    private Long postOriginalId;
 
     public PostDTO(Long id, String titulo) {
     }
 
     public PostDTO() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -37,12 +47,12 @@ public class PostDTO {
         this.titulo = titulo;
     }
 
-    public Long getCategoriaId() {
-        return categoriaId;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaId(Long categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public String getTexto() {
@@ -123,5 +133,13 @@ public class PostDTO {
 
     public void setUsuario(UsuarioResponseDTO usuario) {
         this.usuario = usuario;
+    }
+
+    public Long getPostOriginalId() {
+        return postOriginalId;
+    }
+
+    public void setPostOriginalId(Long postOriginalId) {
+        this.postOriginalId = postOriginalId;
     }
 }

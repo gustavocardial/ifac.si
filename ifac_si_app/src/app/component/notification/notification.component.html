@@ -2,10 +2,10 @@
     <h2>Notificações<i class="bi bi-bell"></i></h2>
     <section *ngFor="let notificacao of notificacoes">
         <div id="notificationsView"      
-        [class.deleteView]="notificacao.tipoAcao == 'DELETAR'"
-        [class.addView]="notificacao.tipoAcao === 'ADICIONAR'"
-        [class.updateView]="notificacao.tipoAcao === 'EDITAR'"
-        (click)="alertTeste(notificacao)">
+        [class.deleteView]="notificacao.acao.tipoAcao == 'DELETAR'"
+        [class.addView]="notificacao.acao.tipoAcao === 'ADICIONAR'"
+        [class.updateView]="notificacao.acao.tipoAcao === 'EDITAR'"
+        (click)="viewPost(notificacao)">
             <div id="avatar-notification">
                 <div class="avatar-circle">
                     <img src="../../../assets/images/avatar.png" alt="Avatar do usuário">
@@ -13,19 +13,19 @@
             </div>
             <div id="notification">
                 <div id="notificationData">
-                    <p>{{notificacao.post.usuario?.nomeUsuario}}</p> 
-                    <ng-template [ngIf]='notificacao.tipoAcao == "DELETAR"'>
+                    <p>{{notificacao.acao.usuario?.nomeUsuario}}</p> 
+                    <ng-template [ngIf]='notificacao.acao.tipoAcao == "DELETAR"'>
                         <p> deletou um post</p>
                     </ng-template>   
-                    <ng-template [ngIf]='notificacao.tipoAcao == "ADICIONAR"'>
+                    <ng-template [ngIf]='notificacao.acao.tipoAcao == "ADICIONAR"'>
                         <p> adicionou um novo post</p>
                     </ng-template>
-                    <ng-template [ngIf]='notificacao.tipoAcao == "EDITAR"'>
+                    <ng-template [ngIf]='notificacao.acao.tipoAcao == "EDITAR"'>
                         <p> editou um post</p>
                     </ng-template> 
                 </div>
                 <div id="notificationTitle">
-                    <p>{{notificacao.post.titulo}}</p>
+                    <p>{{notificacao.acao.post.titulo}}</p>
                 </div>
             </div>
         </div>

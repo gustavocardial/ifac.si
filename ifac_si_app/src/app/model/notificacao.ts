@@ -1,12 +1,9 @@
-import { ETipoAcao } from "./enum/e-tipo-acao";
-import { Post } from "./post";
+import { Acao } from "./acao";
 import { Usuario } from "./usuario";
 
 export type Notificacao = {
   id: number;
+  acao: Acao;
   usuario?: Usuario;
-  post: Post;
-  tipoAcao: ETipoAcao;
-  dataHora: string; // ISO string (ex: 2025-04-08T15:30:00)
   lida: boolean;
 };

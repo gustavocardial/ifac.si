@@ -59,6 +59,7 @@ export class AddNewPostComponent implements OnInit{
   minDateTime: string = '';
   postRascunho: Post | null = null;
   EStatus = EStatus;
+  isEditandoRascunho: boolean = false;
   // dataSelecionada: string = '';
   @ViewChild('category') categoryButton!: ElementRef;
   @ViewChild('tags') tagButton!: ElementRef;
@@ -95,50 +96,51 @@ export class AddNewPostComponent implements OnInit{
 
     this.minDateTime = `${ano}-${mes}-${dia}T${horas}:${minutos}`;
 
-    const id = this.route.snapshot.queryParamMap.get('postId');
-    if (id){
-      // Para posts existentes, apenas busque as duas listas em paralelo
-      this.loadPostData(+id);
-      
-      this.servicoPost.getById(+id).subscribe({
-        next: (resposta: Post) => {
-          this.post = resposta;
-
-          console.log (this.post.texto);
-          console.log (this.post);
-        }
-      });
+    this.route.queryParams.subscribe(params => {
+    
+      console.log('queryParams changed:', params);
+      const id = params['postId'];
 
       if (id) {
-    
-    } else {
-      // Para posts novos, apenas busque as tags disponíveis
-      this.loadAvailableTags();
-    }
-
-      this.servicoTag.getTagByPost(+id).subscribe({
-        next: (resposta: Tag[]) => {
-          this.tagsList = resposta.map((tag, index) => {
-            return {
-              ...tag,
-              tempId: index // Use o índice como tempId para tags existentes
-            } as ITags;
-          });
-          console.log('Tags carregadas com tempId:', this.tagsList);
+      // Para posts existentes, apenas busque as duas listas em paralelo
+        this.loadPostData(+id);
         
-          if (this.tagsOptions.length > 0) {
-            this.filterAvailableTags(); // Filtra as tags disponíveis
-          }
-        }
-      }) 
+        this.servicoPost.getById(+id).subscribe({
+          next: (resposta: Post) => {
+            this.post = resposta;
 
-      this.servicoPost.getRascunhoDePost(+id).subscribe({
-        next: (resposta: Post | null) => {
-          if (resposta)
-            this.postRascunho = resposta;
-        }
-      })
-    }
+            console.log (this.post.texto);
+            console.log (this.post);
+          }
+        });
+
+        this.servicoTag.getTagByPost(+id).subscribe({
+          next: (resposta: Tag[]) => {
+            this.tagsList = resposta.map((tag, index) => {
+              return {
+                ...tag,
+                tempId: index // Use o índice como tempId para tags existentes
+              } as ITags;
+            });
+            console.log('Tags carregadas com tempId:', this.tagsList);
+          
+            if (this.tagsOptions.length > 0) {
+              this.filterAvailableTags(); // Filtra as tags disponíveis
+            }
+          }
+        }) 
+
+        this.servicoPost.getRascunhoDePost(+id).subscribe({
+          next: (resposta: Post | null) => {
+            if (resposta)
+              this.postRascunho = resposta;
+          }
+        })
+      } else {
+        // Para posts novos, apenas busque as tags disponíveis
+        this.loadAvailableTags();
+      }
+    });
 
     this.subscription = this.servicoLogin.usuarioAutenticado.subscribe({
       next: (usuario: Usuario) => {
@@ -682,6 +684,7 @@ export class AddNewPostComponent implements OnInit{
           mensagem: "Rascunho salvo com sucesso"
         });
         console.log('Rascunho salvo:', rascunhoSalvo);
+        window.location.reload();
       },
       error: (erro) => {
         this.servicoAlerta.enviarAlerta({
@@ -693,12 +696,28 @@ export class AddNewPostComponent implements OnInit{
     });
   }
 
-  visualizarRascunho(): void {
-    
+  visualizarRascunho(rascunho: Post): void {
+    this.router.navigate(['/view_post/'], {
+      queryParams: {postId: rascunho.id}
+    })
   }
 
   editarRascunho(): void {
-    
+    if (this.postRascunho) {
+      this.post = { ...this.postRascunho }; // Clona o rascunho para o editor
+      this.isEditandoRascunho = true;
+
+      this.servicoAlerta.enviarAlerta({
+        tipo: ETipoAlerta.ATENCAO,
+        mensagem: "Você está editando um rascunho"
+      });
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { postId: this.postRascunho.id },
+        queryParamsHandling: 'merge' // para preservar outros params, se houver
+      });
+    }
   }
 
   deletarRascunho(): void {
@@ -706,15 +725,37 @@ export class AddNewPostComponent implements OnInit{
       this.servicoPost.descartarRascunho(this.postRascunho.id)
       .subscribe({
         next: () => {
-          console.log('Rascunho descartado com sucesso.');
+          this.servicoAlerta.enviarAlerta({
+          tipo: ETipoAlerta.SUCESSO,
+          mensagem: "Rascunho descartado com sucesso"
+        });
+        console.log('Rascunho descartado com sucesso.');
+        window.location.reload();
           // this.postRascunho = null; // remove da tela
           // você pode navegar para outra rota ou atualizar a UI
         },
         error: (err) => {
+          this.servicoAlerta.enviarAlerta({
+            tipo: ETipoAlerta.ERRO,
+            mensagem: "Erro ao descartar rascunho"
+          });
           console.error('Erro ao descartar rascunho:', err);
         }
       });
     }
+  }
+
+  voltarAoPostOriginal(): void {
+    if (this.post.postOriginalId) {
+    // Exemplo: navegar para o post original
+      this.router.navigate(['/administration/autor/new_post'], { 
+        queryParams: { postId: this.post.postOriginalId }
+      });
+
+      this.isEditandoRascunho = false;
+    }
+
+
   }
 
   modules = {
