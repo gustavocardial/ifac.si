@@ -4,6 +4,8 @@ import ifac.si.com.ifac_si_api.model.Acao.Acao;
 import ifac.si.com.ifac_si_api.model.Acao.Enum.TipoAcao;
 import ifac.si.com.ifac_si_api.model.Notificacao.Notificacao;
 import ifac.si.com.ifac_si_api.model.Post.Post;
+import ifac.si.com.ifac_si_api.model.Post.PostFormatter;
+import ifac.si.com.ifac_si_api.model.Post.PostFormatter.FormattedPost;
 import ifac.si.com.ifac_si_api.model.Post.DTO.PostDTO;
 import ifac.si.com.ifac_si_api.model.Usuario.Usuario;
 import ifac.si.com.ifac_si_api.repository.AcaoRepository;
@@ -55,7 +57,7 @@ public class NotificacaoAspect {
                 criarNotificacaoeAcao(post, TipoAcao.ADICIONAR, null);
             });
 
-
+            FormattedPost fp = PostFormatter.formatarPost(postdto);
         } else {
             System.out.println("Resultado não é um Post: " + result.getClass().getName());
         }
