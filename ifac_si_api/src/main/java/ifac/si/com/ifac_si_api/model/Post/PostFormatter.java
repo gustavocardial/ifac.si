@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import ifac.si.com.ifac_si_api.model.Categoria;
 import ifac.si.com.ifac_si_api.model.Imagem;
@@ -17,16 +18,16 @@ import ifac.si.com.ifac_si_api.model.Tag.Tag;
 import ifac.si.com.ifac_si_api.repository.CategoriaRepository;
 import ifac.si.com.ifac_si_api.repository.TagRepository;
 
+@Component
 public class PostFormatter {
 
     @Autowired
-    private static CategoriaRepository categoriaRepository;
+    private CategoriaRepository categoriaRepository;
 
     @Autowired
-    private static TagRepository tagRepository;
+    private TagRepository tagRepository;
 
-    
-    public static FormattedPost formatarPost(PostDTO post) {
+    public FormattedPost formatarPost(PostDTO post) {
         String html = post.getTexto();
 
         Document doc = Jsoup.parse(html);
@@ -55,15 +56,16 @@ public class PostFormatter {
         StringBuilder descricao = new StringBuilder();
         descricao.append("📌 ").append(nomeCategoria).append("\n\n");
         descricao.append("📝 ").append(post.getTitulo()).append("\n");
-        descricao.append("📣 ").append(post.getLegenda()).append("\n\n");
+        if (post.getLegenda() != null) descricao.append("📣 ").append(post.getLegenda()).append("\n\n");
         descricao.append(doc.body().text()).append("\n");
-        descricao.append("\n🔖 Tags: ").append(String.join(" ", nomesTags));
+        if (nomesTags != null && !nomesTags.isEmpty()) descricao.append("\n🔖 Tags: ").append(String.join(" ", nomesTags));
 
         // Agrupar todas as imagens: embutidas + anexadas
         List<String> todasImagens = new ArrayList<>();
         if (post.getImagemCapa() != null && post.getImagemCapa().getUrl() != null) {
             todasImagens.add(post.getImagemCapa().getUrl());
         }
+        
         if (post.getImagens() != null) {
             for (Imagem img : post.getImagens()) {
                 if (img.getUrl() != null) {
@@ -71,12 +73,13 @@ public class PostFormatter {
                 }
             }
         }
+
         todasImagens.addAll(imagensDoTexto);
 
         return new FormattedPost(descricao.toString(), todasImagens);
     }
 
-    public static class FormattedPost {
+    public class FormattedPost {
         public String descricao;
         public List<String> imagens;
 
@@ -84,6 +87,12 @@ public class PostFormatter {
             this.descricao = descricao;
             this.imagens = imagens;
         }
+
+        @Override
+        public String toString() {
+            return "Descrição:\n" + descricao + "\n\nImagens:\n" + String.join("\n", imagens);
+        }
     }
+
 }
 

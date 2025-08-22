@@ -44,6 +44,10 @@ public class NotificacaoAspect {
 
     @Autowired
     private AcaoRepository acaoRepository;
+
+    @Autowired
+    private PostFormatter postFormatter;
+
     // Intercepta método que salva post
     @AfterReturning(pointcut = "execution(* ifac.si.com.ifac_si_api.service.PostService.save(..))", returning = "result")
     public void afterPostCreation(JoinPoint joinPoint, Object result) {
@@ -57,7 +61,9 @@ public class NotificacaoAspect {
                 criarNotificacaoeAcao(post, TipoAcao.ADICIONAR, null);
             });
 
-            FormattedPost fp = PostFormatter.formatarPost(postdto);
+            FormattedPost fp = postFormatter.formatarPost(postdto);
+
+            System.out.println(fp);
         } else {
             System.out.println("Resultado não é um Post: " + result.getClass().getName());
         }
