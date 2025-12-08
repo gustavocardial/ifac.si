@@ -189,7 +189,7 @@ function showAvailableDisciplines(cell) {
     const availableTitle = document.createElement('div');
     availableTitle.className = 'section-title available-section';
     availableTitle.innerHTML = `
-      ✓ Podem acontecer neste horário
+      ✓ Sem conflito
       <span class="section-count">${availableDisciplines.length}</span>
     `;
     disciplineList.appendChild(availableTitle);
@@ -217,7 +217,7 @@ function showAvailableDisciplines(cell) {
     const unavailableTitle = document.createElement('div');
     unavailableTitle.className = 'section-title unavailable-section';
     unavailableTitle.innerHTML = `
-      ⚠️ Com Conflito
+      ⚠️ Com conflito
       <span class="section-count">${unavailableDisciplines.length}</span>
     `;
     disciplineList.appendChild(unavailableTitle);
