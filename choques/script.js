@@ -189,7 +189,7 @@ function showAvailableDisciplines(cell) {
     const availableTitle = document.createElement('div');
     availableTitle.className = 'section-title available-section';
     availableTitle.innerHTML = `
-      ✓ Disponíveis
+      ✓ Podem acontecer neste horário
       <span class="section-count">${availableDisciplines.length}</span>
     `;
     disciplineList.appendChild(availableTitle);
