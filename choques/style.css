@@ -286,7 +286,7 @@ td:not(:first-child):not(.interval):hover {
 
 /* Header/Indicador */
 .page-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3fa14c 0%, #2d7a38 100%);
     color: white;
     padding: 30px 20px;
     margin: 0 auto 40px;
