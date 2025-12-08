@@ -352,20 +352,6 @@ td:not(:first-child):not(.interval):hover {
     line-height: 1.5;
 }
 
-.header-badge {
-    background: rgba(255, 255, 255, 0.25);
-    padding: 12px 20px;
-    border-radius: 25px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.badge-text {
-    font-weight: 600;
-    font-size: 16px;
-    white-space: nowrap;
-}
-
 .header-instructions {
     display: flex;
     gap: 15px;
@@ -493,16 +479,7 @@ td:not(:first-child):not(.interval):hover {
     .header-description {
         font-size: 14px;
     }
-    
-    .header-badge {
-        margin: 0 auto;
-        padding: 10px 16px;
-    }
-    
-    .badge-text {
-        font-size: 14px;
-    }
-    
+
     .header-instructions {
         flex-direction: column;
         gap: 10px;
@@ -592,9 +569,6 @@ td:not(:first-child):not(.interval):hover {
         font-size: 12px;
     }
     
-    .badge-text {
-        font-size: 13px;
-    }
 }
 
 @media print {
