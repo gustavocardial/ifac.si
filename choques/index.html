@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Verificador de Choques de Horários do curso de Sistemas para Internet do IFAC .">
+		<meta name="keywords" content="grade horária, sistemas para internet, horários de aula, cronograma acadêmico">
+		<meta name="author" content="Gustavo Cardial">
+		
+		<meta property="og:title" content="Verificador de Choques de Horários | Sistemas para Internet - IFAC">
+		<meta property="og:description" content="Verifique quais disciplinas podem ser ministradas sem choque de alunos.">
+		<meta property="og:type" content="website">
+		
+		<title>Verificador de Choques | Sistemas para Internet - IFAC</title>
+		
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<!-- Indicador de funcionalidade -->
+		<div class="page-header">
+			<div class="header-container">
+				<div class="header-icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+						<line x1="16" y1="2" x2="16" y2="6"></line>
+						<line x1="8" y1="2" x2="8" y2="6"></line>
+						<line x1="3" y1="10" x2="21" y2="10"></line>
+						<path d="M8 14h.01"></path>
+						<path d="M12 14h.01"></path>
+						<path d="M16 14h.01"></path>
+						<path d="M8 18h.01"></path>
+						<path d="M12 18h.01"></path>
+						<path d="M16 18h.01"></path>
+					</svg>
+				</div>
+				<div class="header-content">
+					<h1 class="header-title">Verificador de Choques de Horários</h1>
+					<p class="header-description">
+						Clique em qualquer horário da grade para verificar quais disciplinas podem ser ministradas sem choque de alunos
+					</p>
+				</div>
+			</div>
+			<div class="header-instructions">
+				<div class="instruction-item">
+					<span class="instruction-icon">👆</span>
+					<span class="instruction-text">Clique em um horário</span>
+				</div>
+				<div class="instruction-item">
+					<span class="instruction-icon">✅</span>
+					<span class="instruction-text">Veja disciplinas disponíveis</span>
+				</div>
+				<div class="instruction-item">
+					<span class="instruction-icon">⚠️</span>
+					<span class="instruction-text">Identifique choques</span>
+				</div>
+			</div>
+		</div>
+
+		<table data-period="2">
+		  <caption>Sistemas para Internet - 2º Período</caption>
+		  <thead>
+			<tr>
+			  <th></th>
+			  <th>Segunda</th>
+			  <th>Terça</th>
+			  <th>Quarta</th>
+			  <th>Quinta</th>
+			  <th>Sexta</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <td>TARDE<br>13:30 - 14:20</td>
+			  <td rowspan="3" data-day="Segunda" data-time="13:30-16:00" data-discipline="Construção de Páginas Web I">Construção de Páginas Web I<br>Darueck Campos<span class="class-location">LAB 2</span></td>
+			  <td rowspan="3" data-day="Terça" data-time="13:30-16:00" data-discipline="Linguagens de Programação">Linguagens de Programação<br>Alvaro Rios<span class="class-location">LAB 5</span></td>
+			  <td rowspan="3" data-day="Quarta" data-time="13:30-16:00" data-discipline="Estrutura de Dados">Estrutura de Dados<br>Jonas Pontes<span class="class-location">LAB 5</span></td>
+			  <td rowspan="2" data-day="Quinta" data-time="13:30-15:10" data-discipline="Engenharia de Software I">Engenharia de Software I<br>Flavio Farias<span class="class-location">LAB 2</span></td>
+			  <td rowspan="3" data-day="Sexta" data-time="13:30-16:00" data-discipline="Estrutura de Dados">Estrutura de Dados<br>Jonas Pontes<span class="class-location">LAB 5</span></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>14:20 - 15:10</td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>15:10 - 16:00</td>
+			  <td data-day="Quinta" data-time="15:10-16:00" data-discipline="Construção de Páginas Web I">Construção de Páginas Web I<br>Darueck Campos<span class="class-location">LAB 2</span></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>16:00 - 16:20</td>
+			  <td colspan="100%" class="interval">Intervalo</td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>16:20 - 17:10</td>
+			  <td rowspan="2" data-day="Segunda" data-time="16:20-18:00" data-discipline="Engenharia de Software I">Engenharia de Software I<br>Flavio Farias<span class="class-location">LAB 2</span></td>
+			  <td rowspan="2" data-day="Terça" data-time="16:20-18:00" data-discipline="Sistemas Operacionais">Sistemas Operacionais<br>Darueck Campos<span class="class-location">B 209</span></td>
+			  <td rowspan="2" data-day="Quarta" data-time="16:20-18:00" data-discipline="Banco de Dados I">Banco de Dados I<br>Airton Gaio<span class="class-location">LAB 5</span></td>
+			  <td rowspan="2" data-day="Quinta" data-time="16:20-18:00" data-discipline="Sistemas Operacionais">Sistemas Operacionais<br>Darueck Campos<span class="class-location">LAB 2</span></td>
+			  <td rowspan="2" data-day="Sexta" data-time="16:20-18:00" data-discipline="Banco de Dados I">Banco de Dados I<br>Airton Gaio<span class="class-location">LAB 5</span></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>17:10 - 18:00</td>
+			</tr>
+		  </tbody>
+		</table>
+
+
+		<table data-period="4">
+		  <caption>Sistemas para Internet - 4º Período</caption>
+		  <thead>
+			<tr>
+			  <th></th>
+			  <th>Segunda</th>
+			  <th>Terça</th>
+			  <th>Quarta</th>
+			  <th>Quinta</th>
+			  <th>Sexta</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <td>TARDE<br>13:30 - 14:20</td>
+			  <td rowspan="2" data-day="Segunda" data-time="13:30-15:10" data-discipline="Interação Homem Computador">Interação Homem Computador<br>Willian Bessa<span class="class-location">LAB 5</span></td>
+			  <td rowspan="3" data-day="Terça" data-time="13:30-16:00" data-discipline="Empreendedorismo">Empreendedorismo<br>Henrique Canizo<span class="class-location">B 210</span></td>
+			  <td rowspan="3" data-day="Quarta" data-time="13:30-16:00" data-discipline="Comércio Eletrônico">Comércio Eletrônico<br>Flavio Farias<span class="class-location">LAB 2</span></td>
+			  <td rowspan="3" data-day="Quinta" data-time="13:30-16:00" data-discipline="Programação Web I">Programação Web I<br>Marlon Teixeira<span class="class-location">LAB 5</span></td>
+			  <td rowspan="2" data-day="Sexta" data-time="13:30-15:10" data-discipline="Segurança da Informação">Segurança da Informação<br>Gustavo Cardial<span class="class-location">LAB 2</span></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>14:20 - 15:10</td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>15:10 - 16:00</td>
+			  <td data-day="Segunda" data-time="15:10-16:00" data-discipline="Programação Web I">Programação Web I<br>Marlon Teixeira<span class="class-location">LAB 5</span></td>
+			  <td data-day="Sexta" data-time="15:10-16:00" data-discipline="Interação Homem Computador">Interação Homem Computador<br>Willian Bessa<span class="class-location">LAB 2</span></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>16:00 - 16:20</td>
+			  <td colspan="100%" class="interval">Intervalo</td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>16:20 - 17:10</td>
+			  <td rowspan="2" data-day="Segunda" data-time="16:20-18:00" data-discipline="Programação Web I">Programação Web I<br>Marlon Teixeira<span class="class-location">LAB 5</span></td>
+			  <td rowspan="2" data-day="Terça" data-time="16:20-18:00" data-discipline="Redes de Computadores II">Redes de Computadores II<br>Ari Palu<span class="class-location">B 210</span></td>
+			  <td rowspan="2" data-day="Quarta" data-time="16:20-18:00" data-discipline="Informática e Sociedade">Informática e Sociedade<br>Tania Facanha<span class="class-location">B 210</span></td>
+			  <td rowspan="2" data-day="Quinta" data-time="16:20-18:00" data-discipline="Segurança da Informação">Segurança da Informação<br>Gustavo Cardial<span class="class-location">LAB 5</span></td>
+			  <td rowspan="2" data-day="Sexta" data-time="16:20-18:00" data-discipline="Redes de Computadores II">Redes de Computadores II<br>Ari Palu<span class="class-location">LAB 2</span></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>17:10 - 18:00</td>
+			</tr>
+		  </tbody>
+		</table>
+
+
+		<table data-period="6">
+		  <caption>Sistemas para Internet - 6º Período</caption>
+		  <thead>
+			<tr>
+			  <th></th>
+			  <th>Segunda</th>
+			  <th>Terça</th>
+			  <th>Quarta</th>
+			  <th>Quinta</th>
+			  <th>Sexta</th>
+			  <th>Sábado</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <td>MANHÃ<br>09:50 - 12:20</td>
+			  <td data-day="Segunda" data-time="09:50-12:20"></td>
+			  <td data-day="Terça" data-time="09:50-12:20"></td>
+			  <td data-day="Quarta" data-time="09:50-12:20"></td>
+			  <td data-day="Quinta" data-time="09:50-12:20"></td>
+			  <td data-day="Sexta" data-time="09:50-12:20"></td>
+			  <td data-day="Sábado" data-time="09:50-12:20" data-discipline="Inteligência Artificial">Inteligência Artificial<br>Breno Silveira<span class="class-location">LAB 1</span></td>
+			</tr>
+
+			<tr>
+			  <td>TARDE<br>13:30 - 14:20</td>
+			  <td rowspan="3" data-day="Segunda" data-time="13:30-16:00" data-discipline="Laboratório II">Laboratório II<br>Flavio Farias<span class="class-location">LAB 4</span></td>
+			  <td data-day="Terça" data-time="13:30-14:20"></td>
+			  <td data-day="Quarta" data-time="13:30-14:20"></td>
+			  <td rowspan="3" data-day="Quinta" data-time="13:30-16:00" data-discipline="Libras">Libras<br>Cristiane Nogueira<span class="class-location">LAB 4</span></td>
+			  <td rowspan="2" data-day="Sexta" data-time="13:30-15:10" data-discipline="Governança de TI">Governança de TI<br>Airton Gaio<span class="class-location">LAB 4</span></td>
+			  <td data-day="Sábado" data-time="13:30-14:20"></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>14:20 - 15:10</td>
+			  <td data-day="Terça" data-time="14:20-15:10"></td>
+			  <td rowspan="2" data-day="Quarta" data-time="14:20-16:00" data-discipline="Governança de TI">Governança de TI<br>Airton Gaio<span class="class-location">LAB 4</span></td>
+			  <td data-day="Sábado" data-time="14:20-15:10"></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>15:10 - 16:00</td>
+			  <td data-day="Terça" data-time="15:10-16:00"></td>
+			  <td data-day="Sexta" data-time="15:10-16:00" data-discipline="Laboratório II">Laboratório II<br>Flavio Farias<span class="class-location">LAB 4</span></td>
+			  <td data-day="Sábado" data-time="15:10-16:00"></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>16:00 - 16:20</td>
+			  <td colspan="6" class="interval">Intervalo</td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>16:20 - 17:10</td>
+			  <td data-day="Segunda" data-time="16:20-17:10"></td>
+			  <td data-day="Terça" data-time="16:20-17:10"></td>
+			  <td rowspan="2" data-day="Quarta" data-time="16:20-18:00" data-discipline="Dispositivos Móveis II">Dispositivos Móveis II<br>Flavio Farias<span class="class-location">LAB 4</span></td>
+			  <td rowspan="2" data-day="Quinta" data-time="16:20-18:00" data-discipline="Dispositivos Móveis II">Dispositivos Móveis II<br>Flavio Farias<span class="class-location">LAB 4</span></td>
+			  <td rowspan="2" data-day="Sexta" data-time="16:20-18:00" data-discipline="Laboratório II">Laboratório II<br>Flavio Farias<span class="class-location">LAB 4</span></td>
+			  <td data-day="Sábado" data-time="16:20-17:10"></td>
+			</tr>
+			<tr>
+			  <td>TARDE<br>17:10 - 18:00</td>
+			  <td data-day="Segunda" data-time="17:10-18:00"></td>
+			  <td data-day="Terça" data-time="17:10-18:00"></td>
+			  <td data-day="Sábado" data-time="17:10-18:00"></td>
+			</tr>
+		  </tbody>
+		</table>
+
+		<!-- Modal -->
+		<div id="modal" class="modal">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <span class="modal-close">&times;</span>
+			  <div id="modal-title">Disciplinas Disponíveis</div>
+			  <div class="time-info" id="time-info"></div>
+			</div>
+			<div class="modal-body">
+			  <ul class="discipline-list" id="discipline-list"></ul>
+			</div>
+		  </div>
+		</div>
+
+		<script src="script.js"></script>
+
+	</body>
+</html>
