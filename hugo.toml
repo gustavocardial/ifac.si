@@ -30,11 +30,16 @@ theme = 'mainroad'
   weight = 1
 
 [[menu.main]]
+  name = "Horários"
+  url = "https://ifac.si/horarios/"
+  weight = 2
+
+[[menu.main]]
   name = "Calendário"
   url = "https://ifac.si/calendario/"
-  weight = 2
+  weight = 3
 
 [[menu.main]]
   name = "Suap"
   url = "https://suap.ifac.edu.br/"
-  weight = 3
+  weight = 4
