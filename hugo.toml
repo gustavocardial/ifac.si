@@ -1,0 +1,40 @@
+baseURL = 'https://ifac.si/'
+languageCode = 'pt-br'
+title = 'ifac.si — Sistemas para Internet'
+theme = 'mainroad'
+
+[params]
+  copyright = 'Gustavo Cardial'
+
+[author]
+  name = 'Gustavo Cardial'
+
+[params.logo]
+  title = 'ifac<span style="color:#e22d30">.</span>si — Sistemas para Internet'
+
+[params.sidebar]
+  home = "right"
+  list = "right"
+  single = "right"
+  widgets = ["search", "recent", "taglist"]
+
+[params.widgets]
+  recent_num = 5
+
+[params.style.vars]
+  highlightColor = '#3fa14c'
+
+[[menu.main]]
+  name = "Início"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Calendário"
+  url = "https://ifac.si/calendario/"
+  weight = 2
+
+[[menu.main]]
+  name = "Suap"
+  url = "https://suap.ifac.edu.br/"
+  weight = 3
