@@ -1,0 +1,234 @@
+---
+title: "Horários"
+sidebar: false
+---
+
+<style>
+.horarios table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 40px 0;
+    position: relative;
+    border: 2px solid #000;
+}
+
+.horarios table caption {
+    font-size: 22px;
+    text-align: center;
+    padding: 20px 0 10px;
+}
+
+.horarios th {
+    border: 1px solid #000;
+    padding: 14px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    position: relative;
+}
+
+.horarios tr {
+    height: 80px;
+}
+
+.horarios td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+    width: 85px;
+    vertical-align: middle;
+    position: relative;
+}
+
+.horarios td:first-child {
+    font-size: 12px;
+    width: 70px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.horarios .interval {
+    background-color: #f9f9f9;
+    font-style: italic;
+    color: #666;
+}
+
+
+.horarios .teacher-name {
+    font-size: 12px;
+    color: #555;
+}
+
+.horarios .class-location {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    font-size: 10px;
+    color: #666;
+}
+
+@media screen and (max-width: 768px) {
+    .horarios table {
+        font-size: 12px;
+    }
+    .horarios td, .horarios th {
+        padding: 5px;
+    }
+    .horarios td:first-child {
+        width: 80px;
+    }
+}
+
+@media print {
+    .horarios table {
+        page-break-inside: avoid;
+        page-break-before: always;
+        page-break-after: always;
+    }
+}
+</style>
+
+<div class="horarios">
+
+<table>
+  <caption>Sistemas para Internet - 1º Período</caption>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Segunda</th>
+      <th>Terça</th>
+      <th>Quarta</th>
+      <th>Quinta</th>
+      <th>Sexta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TARDE<br>13:30 - 14:20</td>
+      <td rowspan="3">Algoritmos<br><span class="teacher-name">Breno Silveira</span><span class="class-location">LAB 2</span></td>
+      <td rowspan="3">Arquitetura de Computadores<br><span class="teacher-name">Gustavo Cardial</span><span class="class-location">LAB 5</span></td>
+      <td rowspan="3">Algoritmos<br><span class="teacher-name">Breno Silveira</span><span class="class-location">LAB 5</span></td>
+      <td rowspan="3">Inglês Técnico<br><span class="teacher-name">Francisco Marcelo</span><span class="class-location">LAB 2</span></td>
+      <td rowspan="2">IHC<br><span class="teacher-name">Mauricio Cunha</span><span class="class-location">LAB 5</span></td>
+    </tr>
+    <tr>
+      <td>TARDE<br>14:20 - 15:10</td>
+    </tr>
+    <tr>
+      <td>TARDE<br>15:10 - 16:00</td>
+      <td>Português Instrumental<br><span class="teacher-name">Risonete Amorim</span><span class="class-location">LAB 5</span></td>
+    </tr>
+    <tr>
+      <td>TARDE<br>16:00 - 16:20</td>
+      <td colspan="100%" class="interval">Intervalo</td>
+    </tr>
+    <tr>
+      <td>TARDE<br>16:20 - 17:10</td>
+      <td rowspan="2">IHC<br><span class="teacher-name">Mauricio Cunha</span><span class="class-location">LAB 2</span></td>
+      <td rowspan="2">Matemática Aplicada<br><span class="teacher-name">Paulo Roberto</span><span class="class-location">B 209</span></td>
+      <td rowspan="2">Matemática Aplicada<br><span class="teacher-name">Paulo Roberto</span><span class="class-location">LAB 5</span></td>
+      <td rowspan="2">Arquitetura de Computadores<br><span class="teacher-name">Gustavo Cardial</span><span class="class-location">LAB 2</span></td>
+      <td rowspan="2">Português Instrumental<br><span class="teacher-name">Risonete Amorim</span><span class="class-location">LAB 5</span></td>
+    </tr>
+    <tr>
+      <td>TARDE<br>17:10 - 18:00</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Sistemas para Internet - 3º Período</caption>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Segunda</th>
+      <th>Terça</th>
+      <th>Quarta</th>
+      <th>Quinta</th>
+      <th>Sexta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TARDE<br>13:30 - 14:20</td>
+      <td rowspan="3">Orientação a Objetos<br><span class="teacher-name">Darueck Campos, Jonas Pontes</span><span class="class-location">LAB 5</span></td>
+      <td rowspan="2">Engenharia de Software II<br><span class="teacher-name">Flavio Farias</span><span class="class-location">B 210</span></td>
+      <td rowspan="3">Orientação a Objetos<br><span class="teacher-name">Darueck Campos, Jonas Pontes</span><span class="class-location">LAB 2</span></td>
+      <td rowspan="3">Redes de Computadores I<br><span class="teacher-name">Gustavo Cardial</span><span class="class-location">LAB 5</span></td>
+      <td rowspan="2">Engenharia de Software II<br><span class="teacher-name">Flavio Farias</span><span class="class-location">LAB 2</span></td>
+    </tr>
+    <tr>
+      <td>TARDE<br>14:20 - 15:10</td>
+    </tr>
+    <tr>
+      <td>TARDE<br>15:10 - 16:00</td>
+      <td>Estatística<br><span class="teacher-name">Erasmo Souza</span><span class="class-location">B 210</span></td>
+      <td>Redes de Computadores I<br><span class="teacher-name">Gustavo Cardial</span><span class="class-location">LAB 2</span></td>
+    </tr>
+    <tr>
+      <td>TARDE<br>16:00 - 16:20</td>
+      <td colspan="100%" class="interval">Intervalo</td>
+    </tr>
+    <tr>
+      <td>TARDE<br>16:20 - 17:10</td>
+      <td rowspan="2">Banco de Dados II<br><span class="teacher-name">Alvaro Rios</span><span class="class-location">LAB 5</span></td>
+      <td rowspan="2">Estatística<br><span class="teacher-name">Erasmo Souza</span><span class="class-location">B 210</span></td>
+      <td rowspan="2">Banco de Dados II<br><span class="teacher-name">Alvaro Rios</span><span class="class-location">B 210</span></td>
+      <td rowspan="2">Construção de Página Web II<br><span class="teacher-name">Marlon Teixeira</span><span class="class-location">LAB 5</span></td>
+      <td rowspan="2">Construção de Página Web II<br><span class="teacher-name">Marlon Teixeira</span><span class="class-location">LAB 2</span></td>
+    </tr>
+    <tr>
+      <td>TARDE<br>17:10 - 18:00</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>Sistemas para Internet - 5º Período</caption>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Segunda</th>
+      <th>Terça</th>
+      <th>Quarta</th>
+      <th>Quinta</th>
+      <th>Sexta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TARDE<br>13:30 - 14:20</td>
+      <td rowspan="3">Lab de Desenvolvimento I<br><span class="teacher-name">Marlon Teixeira, Flavio Farias</span><span class="class-location">LAB 4</span></td>
+      <td rowspan="3">Metodologia da Pesquisa<br><span class="teacher-name">Darueck Campos</span><span class="class-location">LAB 4</span></td>
+      <td rowspan="3">Programação Web II<br><span class="teacher-name">Marlon Teixeira</span><span class="class-location">LAB 4</span></td>
+      <td rowspan="3">Lab de Desenvolvimento I<br><span class="teacher-name">Marlon Teixeira, Flavio Farias</span><span class="class-location">LAB 4</span></td>
+      <td rowspan="3">Programação Web II<br><span class="teacher-name">Marlon Teixeira</span><span class="class-location">LAB 4</span></td>
+    </tr>
+    <tr>
+      <td>TARDE<br>14:20 - 15:10</td>
+    </tr>
+    <tr>
+      <td>TARDE<br>15:10 - 16:00</td>
+    </tr>
+    <tr>
+      <td>TARDE<br>16:00 - 16:20</td>
+      <td colspan="100%" class="interval">Intervalo</td>
+    </tr>
+    <tr>
+      <td>TARDE<br>16:20 - 17:10</td>
+      <td rowspan="2">Desenv. p/ Dispositivos Móveis I<br><span class="teacher-name">Flavio Farias</span><span class="class-location">LAB 4</span></td>
+      <td>Metodologia da Pesquisa<br><span class="teacher-name">Darueck Campos</span><span class="class-location">LAB 4</span></td>
+      <td rowspan="2">Metodologia da Pesquisa<br><span class="teacher-name">Darueck Campos</span><span class="class-location">LAB 4</span></td>
+      <td rowspan="2">Legislação Aplicada<br><span class="teacher-name">Claudia Almeida</span><span class="class-location">LAB 4</span></td>
+      <td rowspan="2">Desenv. p/ Dispositivos Móveis I<br><span class="teacher-name">Flavio Farias</span><span class="class-location">LAB 4</span></td>
+    </tr>
+    <tr>
+      <td>TARDE<br>17:10 - 18:00</td>
+      <td>Legislação Aplicada<br><span class="teacher-name">Claudia Almeida</span><span class="class-location">LAB 4</span></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
