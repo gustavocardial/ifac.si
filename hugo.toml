@@ -48,3 +48,8 @@ theme = 'mainroad'
   name = "Suap"
   url = "https://suap.ifac.edu.br/"
   weight = 6
+
+[[menu.main]]
+  name = "Sobre"
+  url = "/sobre/"
+  weight = 7
