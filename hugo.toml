@@ -11,6 +11,7 @@ theme = 'mainroad'
 
 [params.logo]
   title = 'ifac<span style="color:#e22d30">.</span>si — Sistemas para Internet'
+  subtitle = 'Portal informativo independente sobre o curso'
 
 [params.sidebar]
   home = "right"
@@ -31,7 +32,7 @@ theme = 'mainroad'
 
 [[menu.main]]
   name = "O curso"
-  url = "/o-curso/"
+  url = "/curso/"
   weight = 2
 
 [[menu.main]]
