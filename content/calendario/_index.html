@@ -9,10 +9,6 @@ sidebar: false
         max-width: none;
         min-width: fit-content;
     }
-    .calendario .month-label {
-        align-items: flex-start;
-        padding-top: 14px;
-    }
 }
 
 .calendario .month {
@@ -113,6 +109,13 @@ sidebar: false
     padding-top: 4px;
     font-weight: bold;
     font-size: 0.75rem;
+}
+
+@media screen and (max-width: 768px) {
+    .calendario .month-label {
+        align-items: flex-start;
+        padding-top: 14px;
+    }
 }
 </style>
 
