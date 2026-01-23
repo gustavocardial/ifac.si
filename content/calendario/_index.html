@@ -1,0 +1,517 @@
+---
+title: "Calendário"
+sidebar: false
+---
+
+<style>
+@media screen and (max-width: 768px) {
+    .container, .container--outer, .wrapper {
+        max-width: none;
+        min-width: fit-content;
+    }
+}
+
+.calendario .month {
+    display: flex;
+    border: 1px solid #000;
+    border-bottom: none;
+    font-size: 0.8rem;
+}
+
+.calendario .month:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.calendario .month-label {
+    width: 100px;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+    border-right: 1px solid #000;
+    padding: 10px;
+    text-align: center;
+}
+
+.calendario .month-left {
+    border-right: 1px solid #000;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+}
+
+.calendario table {
+    border-collapse: collapse;
+    width: 196px;
+    table-layout: fixed;
+}
+
+.calendario th, .calendario td {
+    border: 1px solid #000;
+    padding: 2px;
+    text-align: center;
+    min-width: 24px;
+    font-size: 12px;
+}
+
+.calendario th {
+    font-weight: bold;
+    text-decoration: underline;
+    border: none;
+    padding: 2px 2px 4px;
+}
+
+.calendario td:first-child {
+    color: red;
+}
+
+.calendario .holidays {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+}
+
+.calendario .holidays p {
+    margin: 0;
+}
+
+.calendario .month-right {
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendario .events {
+    flex: 1;
+}
+
+.calendario .events ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.calendario .events li {
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
+}
+
+.calendario .dias-letivos {
+    border-top: 1px solid #000;
+    margin-top: 8px;
+    padding-top: 4px;
+    font-weight: bold;
+    font-size: 0.75rem;
+}
+</style>
+
+<div class="calendario">
+
+<!-- FEVEREIRO -->
+<div class="month">
+<div class="month-label">FEVEREIRO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+<tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+<tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
+<tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>16 e 17</strong> - Carnaval (ponto facultativo)</p>
+<p><strong>18</strong> - Cinzas (ponto facultativo)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>01 a 17 – Férias docentes;</li>
+<li>09 a 13 – Renovação de matrícula dos cursos de graduação e pós-graduação (SUAP);</li>
+<li>09 a 13 – Solicitação de matrícula especial em disciplinas isoladas (Protocolo);</li>
+<li>02 a 27 – Renovação de matrícula dos cursos técnicos (integrados e subsequentes) – processo automático Registro Escolar;</li>
+<li>19, 20 e 23 – Jornada pedagógica;</li>
+<li>23 – Término das férias dos estudantes;</li>
+<li>24 – Início do semestre letivo 2026.1;</li>
+<li>24 a 27 – Ajuste de matrículas (Registro Escolar);</li>
+<li>24/02 a 10/03 – Aproveitamento de estudos; validação de conhecimentos anteriores; extraordinário aproveitamento de estudos (Protocolo);</li>
+<li>24/02 a 10/03 – Trancamento voluntário de matrícula no semestre (Cursos de Graduação - Protocolo);</li>
+<li>24 a 28 – Período destinado ao planejamento pedagógico dos cursos;</li>
+<li>28 – Sábado letivo.</li>
+</ul>
+</div>
+<div class="dias-letivos">05 dias letivos</div>
+</div>
+</div>
+
+<!-- MARÇO -->
+<div class="month">
+<div class="month-label">MARÇO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+<tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+<tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
+<tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+<tr><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>08</strong> - Dia Internacional da Mulher (feriado estadual)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>07, 14, 21 e 28 – Sábados letivos;</li>
+<li>02 a 14 – Período destinado ao planejamento pedagógico dos cursos;</li>
+<li>02 a 10 – Aproveitamento de estudos; validação de conhecimentos anteriores; extraordinário aproveitamento de estudos (Protocolo);</li>
+<li>01 a 10 – Trancamento voluntário de matrícula no semestre (Cursos de Graduação / Protocolo);</li>
+<li>06 – Entrega do Plano de Ensino à coordenação do curso;</li>
+<li>09 a 13 – Semana escolar de combate à violência contra a mulher;</li>
+<li>16 – Entrega do PIT 2026.1 (Res. 116/2022, art. 44, inciso III);</li>
+<li>25 – Entrega do RIT 2025.2 (Res. 116/2022, art. 50).</li>
+</ul>
+</div>
+<div class="dias-letivos">26 dias letivos</div>
+</div>
+</div>
+
+<!-- ABRIL -->
+<div class="month">
+<div class="month-label">ABRIL</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+<tr><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td></tr>
+<tr><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+<tr><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td></td><td></td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>03</strong> - Sexta-feira da Paixão (feriado nacional)</p>
+<p><strong>21</strong> - Tiradentes (feriado nacional)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>11, 18 e 25 – Sábados letivos;</li>
+<li>02 – Dia mundial do autismo;</li>
+<li>13 – Publicação dos editais dos Processos Seletivos 2026.2 (cursos subsequentes e graduação);</li>
+<li>22 a 24 – Abril indígena (Neabi);</li>
+<li>27 a 30 – Semana Acadêmica do Curso Superior de Licenciatura em Ciências Biológicas;</li>
+<li>28 – Dia mundial de memória às vítimas de acidentes de trabalho (Abril Verde);</li>
+<li>20 a 30 – Período de fechamento de notas do bimestre;</li>
+<li>30 – Data limite para lançamento de notas no Sistema Acadêmico.</li>
+</ul>
+</div>
+<div class="dias-letivos">23 dias letivos</div>
+</div>
+</div>
+
+<!-- MAIO -->
+<div class="month">
+<div class="month-label">MAIO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
+<tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+<tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td></tr>
+<tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+<tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+<tr><td>31</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>01</strong> - Dia do Trabalho (feriado nacional)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>09, 16, 23 e 30 – Sábados letivos;</li>
+<li>06, 07, 08 – Conselhos de Classe 1º bimestre – Integrados;</li>
+<li>16 – Reunião de Pais/Responsáveis;</li>
+<li>25 a 29 – Jogos Escolares do Ifac – Jifac;</li>
+<li>25 a 28 – Semana Acadêmica de Tecnologia em Processos Escolares e Licenciatura em Matemática.</li>
+</ul>
+</div>
+<div class="dias-letivos">24 dias letivos</div>
+</div>
+</div>
+
+<!-- JUNHO -->
+<div class="month">
+<div class="month-label">JUNHO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+<tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
+<tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+<tr><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
+<tr><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>04</strong> - Corpus Christi (ponto facultativo)</p>
+<p><strong>15</strong> - Aniversário do Estado do Acre (feriado estadual)</p>
+<p><strong>21</strong> - Aniversário do IFAC</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>06, 13, 20 e 27 – Sábados letivos;</li>
+<li>02 – 1ª fase da OBMEP – Cursos Técnicos Integrados;</li>
+<li>22 – Publicação de edital de vagas residuais;</li>
+<li>22 a 30 – Reuniões de NDE por Curso/Eixos Tecnológicos;</li>
+<li>29 a 30 – Período de fechamento de notas do bimestre/semestre.</li>
+</ul>
+</div>
+<div class="dias-letivos">24 dias letivos</div>
+</div>
+</div>
+
+<!-- JULHO -->
+<div class="month">
+<div class="month-label">JULHO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+<tr><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td></tr>
+<tr><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+<tr><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>01 e 02 – Julho das pretas;</li>
+<li>03 – Data limite para lançamento de notas no Sistema Acadêmico;</li>
+<li>04 – Arraial do Ifac;</li>
+<li>04 – Término do semestre letivo 2026.1 (105 dias letivos);</li>
+<li>06 e 07 – Provas finais dos cursos técnicos subsequentes;</li>
+<li>08, 09, 10 – Conselhos de Classe 2º bimestre – Integrados e Subsequentes;</li>
+<li>11 – Reunião de Pais;</li>
+<li>13 a 17 – Renovação de matrícula dos cursos de graduação e pós-graduação (SUAP);</li>
+<li>13 a 17 – Solicitação de matrícula especial em disciplinas isoladas (Protocolo);</li>
+<li>13 a 27 – Renovação de matrícula dos cursos técnicos (integrados e subsequentes) – processo automático Registro Escolar;</li>
+<li>13 a 27 – Férias docentes;</li>
+<li>06 a 30 – Férias dos estudantes;</li>
+<li>28 a 30 – Jornada pedagógica;</li>
+<li>31 – Início do 2º semestre 2026.2.</li>
+</ul>
+</div>
+<div class="dias-letivos">05 dias letivos, sendo 1 do 1º semestre e 4 do 2º semestre</div>
+</div>
+</div>
+
+<!-- AGOSTO -->
+<div class="month">
+<div class="month-label">AGOSTO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td>1</td></tr>
+<tr><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+<tr><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+<tr><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td></tr>
+<tr><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td></tr>
+<tr><td>30</td><td>31</td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>07</strong> - Início da Revolução Acreana (ponto facultativo)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>01, 08, 15, 22 e 29 – Sábados letivos;</li>
+<li>03 a 06 – Ajuste de matrículas (Registro);</li>
+<li>03 a 17 – Aproveitamento de estudos; validação de conhecimentos anteriores; extraordinário aproveitamento de estudos (Protocolo);</li>
+<li>03 a 17 – Trancamento voluntário de matrícula no semestre (Cursos de Graduação / Protocolo);</li>
+<li>03 a 20 – Período destinado ao planejamento pedagógico dos cursos;</li>
+<li>06 – Prazo para entrega dos Diários de Classe referentes ao 1º semestre às Coordenações de Cursos Subsequentes e Superiores (formato digital, assinado);</li>
+<li>10 a 21 – Reuniões de NDE por Curso/Eixos Tecnológicos;</li>
+<li>11 – Dia do Estudante;</li>
+<li>17 – Entrega do Plano de Ensino à coordenação do curso;</li>
+<li>21 – Entrega do PIT 2026.2 (Res. 116/2022, art. 44, inciso III).</li>
+</ul>
+</div>
+<div class="dias-letivos">25 dias letivos</div>
+</div>
+</div>
+
+<!-- SETEMBRO -->
+<div class="month">
+<div class="month-label">SETEMBRO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+<tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+<tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+<tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+<tr><td>27</td><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>05</strong> - Dia da Amazônia (feriado estadual)</p>
+<p><strong>07</strong> - Independência do Brasil (feriado nacional)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>01 – Entrega do RIT 2026.1 (Res. 116/2022, art. 50);</li>
+<li>12, 19 e 26 – Sábados letivos;</li>
+<li>08 a 11 – Semana Acadêmica de Gestão e Negócios;</li>
+<li>21 – Publicação dos Editais do Processo Seletivo para os cursos técnicos e de graduação 2027.1;</li>
+<li>21 – Dia Nacional da Pessoa com Deficiência;</li>
+<li>21 e 22 – Diálogos Inclusivos;</li>
+<li>21 a 30 – Período de fechamento de notas do bimestre.</li>
+</ul>
+</div>
+<div class="dias-letivos">24 dias letivos</div>
+</div>
+</div>
+
+<!-- OUTUBRO -->
+<div class="month">
+<div class="month-label">OUTUBRO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+<tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+<tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
+<tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>12</strong> - Dia de Nossa Senhora Aparecida (feriado nacional)</p>
+<p><strong>15</strong> - Dia do Professor</p>
+<p><strong>28</strong> - Dia do Servidor Público (ponto facultativo)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>03, 10, 17, 24 e 31 – Sábados letivos;</li>
+<li>02 – Data limite para lançamento de notas no Sistema Acadêmico;</li>
+<li>05 – Publicação dos editais dos Processos Seletivos;</li>
+<li>07, 08 e 09 – Conselhos de Classe 3º bimestre – Integrados;</li>
+<li>15 e 16 – Semana Acadêmica da Pós-Graduação;</li>
+<li>16 – Dia da Ciência e Tecnologia;</li>
+<li>17 – Reunião de Pais;</li>
+<li>26 – Semana Acadêmica do Curso Técnico em Edificações (Dia do Construtor Civil).</li>
+</ul>
+</div>
+<div class="dias-letivos">25 dias letivos</div>
+</div>
+</div>
+
+<!-- NOVEMBRO -->
+<div class="month">
+<div class="month-label">NOVEMBRO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+<tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+<tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
+<tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+<tr><td>29</td><td>30</td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>02</strong> - Finados (feriado nacional)</p>
+<p><strong>15</strong> - Proclamação da República (feriado nacional)</p>
+<p><strong>17</strong> - Tratado de Petrópolis (feriado estadual)</p>
+<p><strong>20</strong> - Dia da Consciência Negra (feriado nacional)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>07, 14 e 28 – Sábados letivos;</li>
+<li>16 a 18 – Semana da Consciência Negra;</li>
+<li>24 a 26 – Congresso de Ciência e Tecnologia do Ifac (CONC&amp;T);</li>
+<li>25 a 27 – SIPAT.</li>
+</ul>
+</div>
+<div class="dias-letivos">21 dias letivos</div>
+</div>
+</div>
+
+<!-- DEZEMBRO -->
+<div class="month">
+<div class="month-label">DEZEMBRO</div>
+<div class="month-left">
+<table>
+<thead><tr><th>D</th><th>S</th><th>T</th><th>Q</th><th>Q</th><th>S</th><th>S</th></tr></thead>
+<tbody>
+<tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+<tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+<tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+<tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+<tr><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td></tr>
+</tbody>
+</table>
+<div class="holidays">
+<p><strong>24</strong> - Véspera de Natal (ponto facultativo)</p>
+<p><strong>25</strong> - Dia de Natal (feriado nacional)</p>
+<p><strong>31</strong> - Véspera de Ano Novo (ponto facultativo)</p>
+</div>
+</div>
+<div class="month-right">
+<div class="events">
+<ul>
+<li>05 e 12 – Sábados letivos;</li>
+<li>01 a 11 – Reuniões de NDE por Curso/Eixos Tecnológicos;</li>
+<li>01 a 12 – Período de fechamento de notas do bimestre/semestre;</li>
+<li>07 – Publicação de edital de vagas residuais;</li>
+<li>12 – Término do 2º semestre letivo;</li>
+<li>14 – Início das férias dos estudantes;</li>
+<li>14 a 18 – Período destinado às avaliações finais;</li>
+<li>15 – Data limite para lançamento de notas no Sistema Acadêmico;</li>
+<li>16, 17, 18 – Conselhos de Classe 4º bimestre – Integrados;</li>
+<li>28 – Prazo para entrega dos Diários de Classe referentes ao 2º semestre às Coordenações de Cursos Subsequentes e Superiores (formato digital, assinado);</li>
+<li>28 – Prazo para entrega dos Diários de Classe referentes ao ano letivo 2026 às Coordenações de Cursos Técnicos Integrados (formato digital, assinado);</li>
+<li>30 – Encerramento das atividades acadêmicas.</li>
+</ul>
+</div>
+<div class="dias-letivos">11 dias letivos</div>
+</div>
+</div>
+
+</div>
