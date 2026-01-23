@@ -47,7 +47,7 @@ theme = 'mainroad'
 
 [[menu.main]]
   name = "Calendário"
-  url = "https://ifac.si/calendario/"
+  url = "/calendario/"
   weight = 5
 
 [[menu.main]]
