@@ -1,5 +1,6 @@
 baseURL = 'https://ifac.si/'
 languageCode = 'pt-br'
+defaultContentLanguage = 'pt-br'
 title = 'ifac.si — Sistemas para Internet'
 theme = 'mainroad'
 
@@ -7,6 +8,9 @@ theme = 'mainroad'
   copyright = 'Gustavo Cardial'
   customCSS = ["/css/dropdown.css", "/css/tables.css"]
   mainSections = ["posts"]
+  description = "Portal informativo independente sobre o curso de Sistemas para Internet do IFAC — Campus Rio Branco. Horários, calendário, documentos, informações acadêmicas e conteúdos sobre computação."
+  opengraph = true
+  schema = true
 
 [author]
   name = 'Gustavo Cardial'
