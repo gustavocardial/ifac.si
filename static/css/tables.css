@@ -1,0 +1,21 @@
+/* Tabelas com colunas alinhadas (exceto a última) */
+.content table:not(:last-of-type) {
+	table-layout: fixed;
+	width: 100%;
+}
+
+/* Larguras das colunas */
+.content table:not(:last-of-type) th:nth-child(1),
+.content table:not(:last-of-type) td:nth-child(1) {
+	width: 120px; /* Código */
+}
+
+.content table:not(:last-of-type) th:nth-child(3),
+.content table:not(:last-of-type) td:nth-child(3) {
+	width: 70px; /* CH */
+}
+
+.content table:not(:last-of-type) th:nth-child(4),
+.content table:not(:last-of-type) td:nth-child(4) {
+	width: 120px; /* Pré-requisito */
+}

@@ -1,0 +1,85 @@
+/* Dropdown Menu Styles */
+
+/* Item com filhos */
+.menu__item--has-children {
+	position: relative;
+}
+
+.menu__item--has-children > .menu__link {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.menu__dropdown-icon {
+	transition: transform 0.2s ease;
+}
+
+/* Dropdown container */
+.menu__dropdown {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	min-width: 100%;
+	list-style: none;
+	background: #2a2a2a;
+	z-index: 100;
+}
+
+/* Mostrar dropdown no hover */
+.menu__item--has-children:hover > .menu__dropdown,
+.menu__item--has-children:focus-within > .menu__dropdown {
+	display: block;
+}
+
+.menu__item--has-children:hover > .menu__link .menu__dropdown-icon {
+	transform: rotate(180deg);
+}
+
+/* Itens do dropdown */
+.menu__dropdown-item {
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu__dropdown-item:first-child {
+	border-top: none;
+}
+
+.menu__dropdown-link {
+	display: block;
+	padding: 10px 15px;
+	font-weight: 700;
+	font-size: 13px;
+	color: #fff;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+.menu__dropdown-link:hover {
+	color: #fff;
+	background: #3fa14c;
+}
+
+.menu__dropdown-item--active .menu__dropdown-link {
+	background: #3fa14c;
+}
+
+/* Mobile: mostrar dropdown como lista normal */
+@media screen and (max-width: 766px) {
+	.menu__dropdown {
+		display: block;
+		position: static;
+		box-shadow: none;
+		min-width: 100%;
+		background: rgba(0, 0, 0, 0.2);
+	}
+
+	.menu__dropdown-link {
+		padding-left: 30px;
+	}
+
+	.menu__dropdown-icon {
+		display: none;
+	}
+}
