@@ -4,6 +4,8 @@ _build:
   list: never
 ---
 
+<div class="matriz-curricular">
+
 ## 1º Semestre
 
 | Código | Disciplina | CH | Pré-requisito |
@@ -82,6 +84,8 @@ _build:
 | COSSI-1034 | Libras | 45h | |
 | COSSI-1035 | Sistemas Distribuídos | 45h | |
 | COSSI-1036 | Fundamentos Teóricos da Computação | 45h | |
+
+</div>
 
 ## Resumo da Carga Horária
 
