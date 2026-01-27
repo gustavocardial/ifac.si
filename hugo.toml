@@ -5,6 +5,8 @@ theme = 'mainroad'
 
 [params]
   copyright = 'Gustavo Cardial'
+  customCSS = ["/css/dropdown.css", "/css/tables.css"]
+  mainSections = ["posts"]
 
 [author]
   name = 'Gustavo Cardial'
@@ -36,9 +38,21 @@ theme = 'mainroad'
   weight = 2
 
 [[menu.main]]
+  name = "Matriz curricular"
+  url = "/curso/matriz-curricular/"
+  parent = "O curso"
+  weight = 1
+
+[[menu.main]]
   name = "Documentos"
   url = "/documentos/"
   weight = 3
+
+[[menu.main]]
+  name = "Colegiado"
+  url = "/documentos/colegiado/"
+  parent = "Documentos"
+  weight = 1
 
 [[menu.main]]
   name = "Horários"
