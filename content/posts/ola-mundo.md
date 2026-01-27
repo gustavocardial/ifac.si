@@ -10,6 +10,6 @@ A proposta deste espaço é reunir, de forma acessível e organizada, as informa
 
 Eventualmente, este espaço também pode receber publicações sobre computação de forma geral.
 
-Olá, mundo!
+Como dizem no mundo da Computação: olá, mundo!
 
 <!--more-->
