@@ -1,12 +1,10 @@
 ---
 title: "Matriz curricular"
-_build:
-  list: never
 ---
 
 <div class="matriz-curricular">
 
-## 1º Semestre
+## 1º Período
 
 | Código | Disciplina | CH | Pré-requisito |
 |:------:|:----------:|:--:|:-------------:|
@@ -16,9 +14,9 @@ _build:
 | COSSI-1004 | Organização e Arquitetura de Computadores | 75h | |
 | COSSI-1005 | Algoritmos | 90h | |
 | COSSI-1006 | Interação Homem-Computador | 60h | |
-| | **Total do semestre** | **375h** | |
+| | **Total do período** | **375h** | |
 
-## 2º Semestre
+## 2º Período
 
 | Código | Disciplina | CH | Pré-requisito |
 |:------:|:----------:|:--:|:-------------:|
@@ -28,9 +26,9 @@ _build:
 | COSSI-1010 | Banco de Dados I | 60h | |
 | COSSI-1011 | Linguagens de Programação | 45h | |
 | COSSI-1012 | Construção de Páginas WEB I | 60h | |
-| | **Total do semestre** | **375h** | |
+| | **Total do período** | **375h** | |
 
-## 3º Semestre
+## 3º Período
 
 | Código | Disciplina | CH | Pré-requisito |
 |:------:|:----------:|:--:|:-------------:|
@@ -40,9 +38,9 @@ _build:
 | COSSI-1016 | Estatística | 45h | |
 | COSSI-1017 | Engenharia de Software II | 60h | COSSI-1009 |
 | COSSI-1018 | Banco de Dados II | 60h | COSSI-1010 |
-| | **Total do semestre** | **375h** | |
+| | **Total do período** | **375h** | |
 
-## 4º Semestre
+## 4º Período
 
 | Código | Disciplina | CH | Pré-requisito |
 |:------:|:----------:|:--:|:-------------:|
@@ -52,9 +50,9 @@ _build:
 | COSSI-1022 | Redes de Computadores II | 60h | COSSI-1015 |
 | COSSI-1023 | Informática e Sociedade | 30h | |
 | COSSI-1024 | Segurança da Informação | 60h | |
-| | **Total do semestre** | **330h** | |
+| | **Total do período** | **330h** | |
 
-## 5º Semestre
+## 5º Período
 
 | Código | Disciplina | CH | Pré-requisito |
 |:------:|:----------:|:--:|:-------------:|
@@ -63,9 +61,9 @@ _build:
 | COSSI-1027 | Laboratório de Desenvolvimento de Software I | 90h | |
 | COSSI-1028 | Metodologia da Pesquisa para Computação | 90h | |
 | COSSI-1029 | Legislação Aplicada à Informática | 45h | |
-| | **Total do semestre** | **375h** | |
+| | **Total do período** | **375h** | |
 
-## 6º Semestre
+## 6º Período
 
 | Código | Disciplina | CH | Pré-requisito |
 |:------:|:----------:|:--:|:-------------:|
@@ -74,7 +72,7 @@ _build:
 | COSSI-1032 | Governança de Tecnologia da Informação | 60h | |
 | | Disciplina Optativa I | 45h | |
 | | Disciplina Optativa II | 45h | |
-| | **Total do semestre** | **300h** | |
+| | **Total do período** | **300h** | |
 
 ## Disciplinas Optativas
 
