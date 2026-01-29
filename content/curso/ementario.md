@@ -1,5 +1,7 @@
 ---
 title: "Ementário"
+_build:
+  list: never
 ---
 
 <div class="ementario">
