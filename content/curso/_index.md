@@ -1,6 +1,7 @@
 +++
 title = 'O curso'
 draft = false
+layout = 'single'
 +++
 
 O Curso Superior de Tecnologia em Sistemas para Internet do Instituto Federal de Educação, Ciência e Tecnologia do Acre (IFAC) é uma oportunidade única para aqueles que desejam se especializar no desenvolvimento de soluções tecnológicas voltadas para a internet. Situado no eixo tecnológico de Informação e Comunicação, o curso é oferecido presencialmente no Campus Rio Branco, com 40 vagas anuais e em regime semestral, durante o turno vespertino.
