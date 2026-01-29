@@ -48,6 +48,12 @@ theme = 'mainroad'
   weight = 1
 
 [[menu.main]]
+  name = "Ementário"
+  url = "/curso/ementario/"
+  parent = "O curso"
+  weight = 2
+
+[[menu.main]]
   name = "Documentos"
   url = "/documentos/"
   weight = 3
@@ -57,6 +63,12 @@ theme = 'mainroad'
   url = "/documentos/colegiado/"
   parent = "Documentos"
   weight = 1
+
+[[menu.main]]
+  name = "NDE"
+  url = "/documentos/nde/"
+  parent = "Documentos"
+  weight = 2
 
 [[menu.main]]
   name = "Horários"
