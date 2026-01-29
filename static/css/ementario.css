@@ -1,0 +1,24 @@
+/* Estilos específicos para a página de Ementário */
+
+.ementario h2 {
+	margin-top: 2.5rem;
+	padding: 0.6rem 1rem;
+	background: linear-gradient(135deg, #3fa14c 0%, #2d7a38 100%);
+	color: #fff;
+	font-size: 1.4rem;
+	font-weight: 600;
+	border-radius: 4px;
+	border: none;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.ementario h2:first-of-type {
+	margin-top: 1rem;
+}
+
+.ementario h3 {
+	margin-top: 1.5rem;
+	font-size: 1.1rem;
+	color: #333;
+}

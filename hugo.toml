@@ -6,7 +6,7 @@ theme = 'mainroad'
 
 [params]
   copyright = 'Gustavo Cardial'
-  customCSS = ["/css/dropdown.css", "/css/tables.css"]
+  customCSS = ["/css/dropdown.css", "/css/tables.css", "/css/ementario.css"]
   mainSections = ["posts"]
   description = "Portal informativo independente sobre o curso de Sistemas para Internet do IFAC — Campus Rio Branco. Horários, calendário, documentos, informações acadêmicas e conteúdos sobre computação."
   opengraph = true
@@ -89,3 +89,8 @@ theme = 'mainroad'
   name = "Sobre"
   url = "/sobre/"
   weight = 7
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
