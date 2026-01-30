@@ -3,6 +3,18 @@ title: "Calendário Acadêmico 2026"
 sidebar: false
 ---
 
+<script>
+// Ajusta o viewport em mobile para que o calendário caiba na tela
+(function() {
+    if (window.innerWidth <= 768) {
+        var viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=900');
+        }
+    }
+})();
+</script>
+
 <style>
 @media screen and (max-width: 768px) {
     .container, .container--outer, .wrapper {
