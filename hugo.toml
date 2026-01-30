@@ -71,6 +71,12 @@ theme = 'mainroad'
   weight = 2
 
 [[menu.main]]
+  name = "TCC"
+  url = "/documentos/tcc/"
+  parent = "Documentos"
+  weight = 3
+
+[[menu.main]]
   name = "Horários"
   url = "/horarios/"
   weight = 4
