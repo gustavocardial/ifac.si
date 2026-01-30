@@ -37,3 +37,20 @@
 .matriz-curricular table td:nth-child(4) {
 	width: 120px; /* Pré-requisito */
 }
+
+/* Responsividade para mobile */
+@media screen and (max-width: 768px) {
+	.matriz-curricular {
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.matriz-curricular table {
+		min-width: 500px;
+	}
+
+	.matriz-curricular h2 {
+		font-size: 1.1rem;
+		padding: 0.5rem 0.8rem;
+	}
+}
