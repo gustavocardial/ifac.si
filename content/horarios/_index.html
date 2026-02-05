@@ -4,25 +4,24 @@ sidebar: false
 ---
 
 <script>
-// Ajusta o viewport em mobile para que as tabelas caibam na tela
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     if (window.innerWidth <= 768) {
-        var viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport) {
-            viewport.setAttribute('content', 'width=900');
+        var horarios = document.querySelector('.horarios');
+        if (horarios) {
+            var parent = horarios.parentElement;
+            var parentStyle = getComputedStyle(parent);
+            var availableWidth = parent.clientWidth - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight);
+            var targetWidth = 900;
+            if (availableWidth < targetWidth) {
+                horarios.style.width = targetWidth + 'px';
+                horarios.style.zoom = (availableWidth / targetWidth).toString();
+            }
         }
     }
-})();
+});
 </script>
 
 <style>
-@media screen and (max-width: 768px) {
-    .container, .container--outer, .wrapper {
-        max-width: none;
-        min-width: fit-content;
-    }
-}
-
 .horarios table {
     width: 100%;
     border-collapse: collapse;
@@ -86,18 +85,6 @@ sidebar: false
     right: 4px;
     font-size: 10px;
     color: #666;
-}
-
-@media screen and (max-width: 768px) {
-    .horarios table {
-        font-size: 12px;
-    }
-    .horarios td, .horarios th {
-        padding: 5px;
-    }
-    .horarios td:first-child {
-        width: 80px;
-    }
 }
 
 @media print {
