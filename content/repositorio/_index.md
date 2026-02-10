@@ -1,8 +1,8 @@
----
-title: "Repositório"
-sidebar: false
----
++++
+title = "Repositório"
+sidebar = false
+layout = "single"
++++
 
-| Título | Autores | Orientador | Ano | Acesso |
-|--------|---------|------------|-----|--------|
-|        |         |            |     |        |
+- [TCCs](/repositorio/tccs/) — Trabalhos de Conclusão de Curso dos nossos alunos.
+- [Publicações](/repositorio/publicacoes/) — Publicações de alunos e professores em eventos e periódicos.

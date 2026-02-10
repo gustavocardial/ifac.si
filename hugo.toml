@@ -83,24 +83,41 @@ theme = 'mainroad'
   weight = 3
 
 [[menu.main]]
+  name = "Repositório"
+  url = "/repositorio/"
+  weight = 4
+
+[[menu.main]]
+  name = "TCCs"
+  url = "/repositorio/tccs/"
+  parent = "Repositório"
+  weight = 1
+
+[[menu.main]]
+  name = "Publicações"
+  url = "/repositorio/publicacoes/"
+  parent = "Repositório"
+  weight = 2
+
+[[menu.main]]
   name = "Horários"
   url = "/horarios/"
-  weight = 4
+  weight = 5
 
 [[menu.main]]
   name = "Calendário"
   url = "/calendario/"
-  weight = 5
+  weight = 6
 
 [[menu.main]]
   name = "Suap"
   url = "https://suap.ifac.edu.br/"
-  weight = 6
+  weight = 7
 
 [[menu.main]]
   name = "Sobre"
   url = "/sobre/"
-  weight = 7
+  weight = 8
 
 [markup]
   [markup.goldmark]
