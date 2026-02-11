@@ -3,6 +3,13 @@ title: "TCCs"
 sidebar: false
 ---
 
+<style>
+.post__content table {
+    display: block;
+    overflow-x: auto;
+}
+</style>
+
 Em construção.
 
 | Título | Autores | Orientador | Ano | Acesso |
