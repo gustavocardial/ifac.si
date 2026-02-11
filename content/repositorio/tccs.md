@@ -10,7 +10,6 @@ sidebar: false
 }
 </style>
 
-Em construção.
 
 | Título | Autores | Orientador | Ano | Acesso |
 |--------|---------|------------|-----|--------|
