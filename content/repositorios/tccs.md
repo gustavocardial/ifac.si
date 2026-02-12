@@ -1,5 +1,5 @@
 ---
-title: "TCCs"
+title: "Repositório de TCCs"
 sidebar: false
 ---
 
@@ -10,6 +10,7 @@ sidebar: false
 }
 </style>
 
+Trabalhos de Conclusão de Curso dos alunos do Curso Superior de Tecnologia em Sistemas para Internet - IFAC.
 
 | Título | Autores | Orientador | Ano | Acesso |
 |--------|---------|------------|-----|--------|

@@ -83,20 +83,20 @@ theme = 'mainroad'
   weight = 3
 
 [[menu.main]]
-  name = "Repositório"
-  url = "/repositorio/"
+  name = "Repositórios"
+  url = "/repositorios/"
   weight = 4
 
 [[menu.main]]
   name = "TCCs"
-  url = "/repositorio/tccs/"
-  parent = "Repositório"
+  url = "/repositorios/tccs/"
+  parent = "Repositórios"
   weight = 1
 
 [[menu.main]]
   name = "Publicações"
-  url = "/repositorio/publicacoes/"
-  parent = "Repositório"
+  url = "/repositorios/publicacoes/"
+  parent = "Repositórios"
   weight = 2
 
 [[menu.main]]
