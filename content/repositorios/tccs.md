@@ -12,6 +12,25 @@ sidebar: false
 
 Trabalhos de Conclusão de Curso dos alunos do Curso Superior de Tecnologia em Sistemas para Internet - IFAC.
 
+<input type="text" id="busca-tcc" placeholder="Buscar por título, autor, orientador ou ano..." style="width: 100%; padding: 8px 12px; font-size: 14px; border: 1px solid #ccc; box-sizing: border-box;">
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var input = document.getElementById("busca-tcc");
+  var table = input.closest(".post__content").querySelector("table");
+  var rows = Array.from(table.querySelectorAll("tbody tr"));
+
+  input.addEventListener("input", function () {
+    var terms = this.value.toLowerCase().split(/\s+/).filter(Boolean);
+    rows.forEach(function (row) {
+      var text = row.textContent.toLowerCase();
+      var match = terms.length === 0 || terms.every(function (t) { return text.indexOf(t) !== -1; });
+      row.style.display = match ? "" : "none";
+    });
+  });
+});
+</script>
+
 | Título | Autores | Orientador | Ano | Acesso |
 |--------|---------|------------|-----|--------|
 | **MARIOT**: Automação na Amazônia Ocidental | Fredson Gomes da Silva Junior | Angelo Maggioni e Silva | 2025 | [Acessar](https://drive.google.com/file/d/1KJqr54x92Ca-rtW2EW3rH1ZbdMAgbn-o/view?usp=drive_link) |
