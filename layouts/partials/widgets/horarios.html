@@ -1,0 +1,183 @@
+<style>
+.widget-horarios__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    table-layout: fixed;
+}
+
+.widget-horarios__table caption {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 2px 0;
+    text-align: center;
+}
+
+.widget-horarios__table th {
+    font-size: 10px;
+    padding: 2px 1px;
+    text-align: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    font-weight: bold;
+}
+
+.widget-horarios__table td {
+    font-size: 10px;
+    padding: 2px 1px;
+    text-align: center;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    font-weight: 600;
+}
+
+.widget-horarios__table td.alterado {
+    color: #c00;
+}
+
+.widget-horarios__table .interval {
+    font-size: 8px;
+    padding: 0;
+    color: #999;
+    font-style: italic;
+    font-weight: normal;
+    background-color: #fafafa;
+}
+
+.widget-horarios__link {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 2px;
+}
+</style>
+
+<div class="widget-horarios widget">
+    <h4 class="widget__title" id="widget-horarios-titulo">Aulas da Semana</h4>
+    <div id="widget-horarios-content">
+        <p style="font-size:11px;text-align:center;color:#999;">Carregando...</p>
+    </div>
+</div>
+
+<script>
+(function() {
+    var API_URL = 'https://coordenacao.ifac.si/api/horarios';
+    var DIAS = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+    function carregarHorarios() {
+        var hoje = new Date().toISOString().split('T')[0];
+        if (hoje < '2026-02-24') hoje = '2026-02-24';
+        var container = document.getElementById('widget-horarios-content');
+        var titulo = document.getElementById('widget-horarios-titulo');
+
+        fetch(API_URL + '?inicio=' + hoje)
+            .then(function(r) {
+                if (!r.ok) throw new Error();
+                return r.json();
+            })
+            .then(function(data) {
+                var inicio = data.inicio.split('-');
+                titulo.textContent = 'Aulas da Semana (' + inicio[2] + '/' + inicio[1] + ')';
+
+                var numDias = data.datas.length;
+
+                // Verificar se sábado tem aula
+                var temSabado = false;
+                if (numDias >= 6) {
+                    for (var p = 0; p < data.periodos.length; p++) {
+                        for (var s = 0; s < 5; s++) {
+                            var cell = data.periodos[p].slots[s][5];
+                            if (cell && cell.s) { temSabado = true; break; }
+                        }
+                        if (temSabado) break;
+                    }
+                }
+                var diasMostrar = temSabado ? 6 : 5;
+
+                var html = '';
+                for (var p = 0; p < data.periodos.length; p++) {
+                    html += renderTabela(data.periodos[p], diasMostrar);
+                }
+                html += '<a class="widget-horarios__link" href="/horarios/">Ver horários completos →</a>';
+                container.innerHTML = html;
+            })
+            .catch(function() {
+                container.innerHTML = '<p style="font-size:11px;text-align:center;color:#666;">' +
+                    'Não foi possível carregar.<br><a href="/horarios/">Ver horários</a></p>';
+            });
+    }
+
+    function renderTabela(periodo, numDias) {
+        // Calcular rowspans por coluna
+        // Blocos: slots 0-2 (antes do intervalo), slots 3-4 (depois)
+        var blocks = [[0,1,2], [3,4]];
+        var grid = [];
+        for (var s = 0; s < 5; s++) {
+            grid[s] = [];
+            for (var d = 0; d < numDias; d++) {
+                grid[s][d] = { render: true, span: 1, alt: false };
+            }
+        }
+
+        for (var d = 0; d < numDias; d++) {
+            for (var b = 0; b < blocks.length; b++) {
+                var block = blocks[b];
+                var i = 0;
+                while (i < block.length) {
+                    var startSlot = block[i];
+                    var val = periodo.slots[startSlot][d] ? periodo.slots[startSlot][d].s : null;
+                    var hasAlt = periodo.slots[startSlot][d] && periodo.slots[startSlot][d].alt;
+                    var span = 1;
+                    while (i + span < block.length) {
+                        var nextSlot = block[i + span];
+                        var nextCell = periodo.slots[nextSlot][d];
+                        var nextVal = nextCell ? nextCell.s : null;
+                        if (nextVal === val) {
+                            if (nextCell && nextCell.alt) hasAlt = true;
+                            span++;
+                        } else {
+                            break;
+                        }
+                    }
+                    grid[startSlot][d].span = span;
+                    grid[startSlot][d].alt = hasAlt;
+                    for (var k = 1; k < span; k++) {
+                        grid[block[i + k]][d].render = false;
+                    }
+                    i += span;
+                }
+            }
+        }
+
+        var html = '<table class="widget-horarios__table">';
+        html += '<caption>' + periodo.nome + '</caption>';
+        html += '<thead><tr>';
+        for (var d = 0; d < numDias; d++) {
+            html += '<th>' + DIAS[d] + '</th>';
+        }
+        html += '</tr></thead><tbody>';
+
+        for (var s = 0; s < 5; s++) {
+            if (s === 3) {
+                html += '<tr><td colspan="' + numDias + '" class="interval">intervalo</td></tr>';
+            }
+            html += '<tr>';
+            for (var d = 0; d < numDias; d++) {
+                if (!grid[s][d].render) continue;
+                var cell = periodo.slots[s][d];
+                var sigla = (cell && cell.s) ? cell.s : '';
+                var attrs = '';
+                if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
+                if (grid[s][d].alt) attrs += ' class="alterado"';
+                html += '<td' + attrs + '>' + sigla + '</td>';
+            }
+            html += '</tr>';
+        }
+
+        html += '</tbody></table>';
+        return html;
+    }
+
+    document.addEventListener('DOMContentLoaded', carregarHorarios);
+})();
+</script>

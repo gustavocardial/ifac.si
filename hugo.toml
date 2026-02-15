@@ -23,7 +23,7 @@ theme = 'mainroad'
   home = "right"
   list = "right"
   single = "right"
-  widgets = ["search", "recent", "taglist"]
+  widgets = ["search", "horarios", "recent", "taglist"]
 
 [params.widgets]
   recent_num = 5
