@@ -69,12 +69,10 @@
     var DIAS = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
     function carregarHorarios() {
-        var hoje = new Date().toISOString().split('T')[0];
-        if (hoje < '2026-02-24') hoje = '2026-02-24';
         var container = document.getElementById('widget-horarios-content');
         var titulo = document.getElementById('widget-horarios-titulo');
 
-        fetch(API_URL + '?inicio=' + hoje)
+        fetch(API_URL)
             .then(function(r) {
                 if (!r.ok) throw new Error();
                 return r.json();
