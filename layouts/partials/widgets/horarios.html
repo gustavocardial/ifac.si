@@ -98,6 +98,7 @@
 
                 var html = '';
                 for (var p = 0; p < data.periodos.length; p++) {
+                    if (!temAulas(data.periodos[p], diasMostrar)) continue;
                     html += renderTabela(data.periodos[p], diasMostrar);
                 }
                 html += '<a class="widget-horarios__link" href="/horarios/">Ver horários completos →</a>';
@@ -107,6 +108,16 @@
                 container.innerHTML = '<p style="font-size:11px;text-align:center;color:#666;">' +
                     'Não foi possível carregar.<br><a href="/horarios/">Ver horários</a></p>';
             });
+    }
+
+    function temAulas(periodo, numDias) {
+        for (var s = 0; s < 5; s++) {
+            for (var d = 0; d < numDias; d++) {
+                var cell = periodo.slots[s][d];
+                if (cell && cell.s) return true;
+            }
+        }
+        return false;
     }
 
     function renderTabela(periodo, numDias) {
