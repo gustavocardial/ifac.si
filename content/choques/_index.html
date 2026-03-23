@@ -947,6 +947,23 @@ function showAvailableDisciplines(cell) {
   modal.style.display = 'block';
 }
 
+// Mobile zoom fix
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.innerWidth <= 768) {
+        var choquesPage = document.querySelector('.choques-page');
+        if (choquesPage) {
+            var parent = choquesPage.parentElement;
+            var parentStyle = getComputedStyle(parent);
+            var availableWidth = parent.clientWidth - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight);
+            var targetWidth = 900;
+            if (availableWidth < targetWidth) {
+                choquesPage.style.width = targetWidth + 'px';
+                choquesPage.style.zoom = (availableWidth / targetWidth).toString();
+            }
+        }
+    }
+});
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
   // Adiciona click em todas as células com data-day
