@@ -115,9 +115,20 @@ theme = 'mainroad'
   weight = 7
 
 [[menu.main]]
+  name = "Outros"
+  url = "#"
+  weight = 8
+
+[[menu.main]]
+  name = "Choques"
+  url = "/choques/"
+  parent = "Outros"
+  weight = 1
+
+[[menu.main]]
   name = "Sobre"
   url = "/sobre/"
-  weight = 8
+  weight = 9
 
 [markup]
   [markup.goldmark]
