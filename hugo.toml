@@ -65,6 +65,12 @@ theme = 'mainroad'
   weight = 3
 
 [[menu.main]]
+  name = "Geral"
+  url = "/documentos/"
+  parent = "Documentos"
+  weight = 0
+
+[[menu.main]]
   name = "Colegiado"
   url = "/documentos/colegiado/"
   parent = "Documentos"
