@@ -68,7 +68,7 @@ theme = 'mainroad'
   name = "Geral"
   url = "/documentos/"
   parent = "Documentos"
-  weight = 0
+  weight = -1
 
 [[menu.main]]
   name = "Colegiado"
