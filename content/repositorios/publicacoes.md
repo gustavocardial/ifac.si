@@ -37,4 +37,4 @@ document.addEventListener("DOMContentLoaded", function () {
 |--------|---------|------|-----|--------|
 | O Perfil dos Ingressantes nos Cursos Técnicos Integrados ao Ensino Médio em Informática para Internet e Redes de Computadores | Antonio Rege, Victor Vieira | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/26387) |
 
-<small>* Autores vinculados ao curso</small>
+<small>* Autores então vinculados ao curso</small>
