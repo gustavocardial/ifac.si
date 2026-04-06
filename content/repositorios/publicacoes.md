@@ -12,6 +12,8 @@ sidebar: false
 
 Publicações de professores e alunos do Curso Superior de Tecnologia em Sistemas para Internet - IFAC.
 
+> **Seção em construção.** Em breve, mais publicações serão adicionadas.
+
 <input type="text" id="busca-publicacao" placeholder="Buscar por título, autor, tipo ou ano..." style="width: 100%; padding: 8px 12px; font-size: 14px; border: 1px solid #ccc; box-sizing: border-box;">
 
 <script>
