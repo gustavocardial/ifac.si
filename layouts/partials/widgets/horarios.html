@@ -221,9 +221,13 @@
             }
             html += '<tr>';
             for (var d = 0; d < numDias; d++) {
-                // Slots >= 5: Mon-Sex invisíveis para manter posicionamento do Sáb
+                // Slots >= 5: Mon-Sex invisíveis; Sex mantém border-right para alinhar com Sáb
                 if (s >= 5 && d < dSab) {
-                    html += '<td class="slot-extra-oculto"></td>';
+                    if (d === dSab - 1) {
+                        html += '<td style="border:none;border-right:1px solid #ccc;background:white"></td>';
+                    } else {
+                        html += '<td class="slot-extra-oculto"></td>';
+                    }
                     continue;
                 }
                 if (!grid[s][d].render) continue;
@@ -232,8 +236,7 @@
                 var oculto = sabVazio && d === dSab;
                 var cls = oculto ? 'col-sab-oculto' : (grid[s][d].alt ? 'alterado' : '');
                 var attrs = cls ? ' class="' + cls + '"' : '';
-                var needsBorderLeft = !oculto && (d === 0 || (s >= 5 && d === dSab));
-                if (needsBorderLeft) attrs += ' style="border-left:1px solid #ccc"';
+                if (!oculto && d === 0) attrs += ' style="border-left:1px solid #ccc"';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
                 html += '<td' + attrs + '>' + (oculto ? '' : sigla) + '</td>';
             }
