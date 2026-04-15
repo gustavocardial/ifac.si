@@ -39,7 +39,9 @@
     color: #c00;
 }
 
-.widget-horarios__table td.slot-extra-oculto {
+.widget-horarios__table td.slot-extra-oculto,
+.widget-horarios__table th.col-sab-oculto,
+.widget-horarios__table td.col-sab-oculto {
     border: none;
     background: white;
 }
@@ -187,9 +189,14 @@
 
         var html = '<table class="widget-horarios__table">';
         html += '<caption>' + periodo.nome + '</caption>';
+        var dSab = numDias - 1;
         html += '<thead><tr>';
         for (var d = 0; d < numDias; d++) {
-            html += '<th>' + DIAS[d] + '</th>';
+            if (sabVazio && d === dSab) {
+                html += '<th class="col-sab-oculto"></th>';
+            } else {
+                html += '<th>' + DIAS[d] + '</th>';
+            }
         }
         html += '</tr></thead><tbody>';
 
@@ -199,18 +206,20 @@
             }
             html += '<tr>';
             for (var d = 0; d < numDias; d++) {
-                // Slots >= 5: renderizar Mon-Sex como células invisíveis para manter posicionamento
-                if (s >= 5 && d < numDias - 1) {
+                // Slots >= 5: Mon-Sex invisíveis para manter posicionamento do Sáb
+                if (s >= 5 && d < dSab) {
                     html += '<td class="slot-extra-oculto"></td>';
                     continue;
                 }
                 if (!grid[s][d].render) continue;
                 var cell = periodo.slots[s] && periodo.slots[s][d];
                 var sigla = (cell && cell.s) ? cell.s : '';
-                var attrs = '';
+                var cls = '';
+                if (sabVazio && d === dSab) cls = 'col-sab-oculto';
+                else if (grid[s][d].alt) cls = 'alterado';
+                var attrs = cls ? ' class="' + cls + '"' : '';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
-                if (grid[s][d].alt) attrs += ' class="alterado"';
-                html += '<td' + attrs + '>' + sigla + '</td>';
+                html += '<td' + attrs + '>' + (cls === 'col-sab-oculto' ? '' : sigla) + '</td>';
             }
             html += '</tr>';
         }
