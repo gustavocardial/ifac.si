@@ -193,8 +193,6 @@
         for (var d = 0; d < numDias; d++) {
             if (sabVazio && d === numDias - 1) {
                 html += '<th class="vazio-extra"></th>';
-            } else if (sabVazio && d === numDias - 2) {
-                html += '<th style="border-right:none">' + DIAS[d] + '</th>';
             } else {
                 html += '<th>' + DIAS[d] + '</th>';
             }
@@ -214,11 +212,8 @@
                 var attrs = '';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
                 var sabadoVazioCel = sabVazio && d === numDias - 1;
-                var anteSabVazio = sabVazio && d === numDias - 2;
                 var extraSlotVazio = s >= 5 && !sigla;
                 if (sabadoVazioCel) { attrs += ' class="vazio-extra"'; sigla = ''; }
-                else if (anteSabVazio && extraSlotVazio) attrs += ' class="vazio-extra" style="border-right:none"';
-                else if (anteSabVazio) attrs += ' style="border-right:none"';
                 else if (extraSlotVazio) attrs += ' class="vazio-extra"';
                 else if (grid[s][d].alt) attrs += ' class="alterado"';
                 html += '<td' + attrs + '>' + sigla + '</td>';
