@@ -139,10 +139,9 @@
         }
 
         // Calcular rowspans por coluna
-        // Bloco 1: slots 0-2 (antes do intervalo), Bloco 2: slots 3..maxSlots-1 (depois)
-        var afterBreak = [];
-        for (var i = 3; i < maxSlots; i++) afterBreak.push(i);
-        var blocks = [[0,1,2], afterBreak];
+        // Bloco 1: slots 0-2 (antes do intervalo), Bloco 2: slots 3-4 (depois)
+        // Slots >= 5 são renderizados à parte: só aparecem na coluna Sáb
+        var blocks = [[0,1,2], [3,4]];
         var grid = [];
         for (var s = 0; s < maxSlots; s++) {
             grid[s] = [];
@@ -157,12 +156,12 @@
                 var i = 0;
                 while (i < block.length) {
                     var startSlot = block[i];
-                    var val = periodo.slots[startSlot][d] ? periodo.slots[startSlot][d].s : null;
-                    var hasAlt = periodo.slots[startSlot][d] && periodo.slots[startSlot][d].alt;
+                    var val = periodo.slots[startSlot] && periodo.slots[startSlot][d] ? periodo.slots[startSlot][d].s : null;
+                    var hasAlt = periodo.slots[startSlot] && periodo.slots[startSlot][d] && periodo.slots[startSlot][d].alt;
                     var span = 1;
                     while (i + span < block.length) {
                         var nextSlot = block[i + span];
-                        var nextCell = periodo.slots[nextSlot][d];
+                        var nextCell = periodo.slots[nextSlot] && periodo.slots[nextSlot][d];
                         var nextVal = nextCell ? nextCell.s : null;
                         if (nextVal === val) {
                             if (nextCell && nextCell.alt) hasAlt = true;
@@ -179,23 +178,9 @@
                     i += span;
                 }
             }
-        }
-
-        // Para slots extras (>= 5), absorver células vazias de colunas não-Sáb no rowspan anterior
-        if (maxSlots > 5) {
+            // Slots >= 5: só Sáb (último dia) renderiza; demais ficam ocultos
             for (var s = 5; s < maxSlots; s++) {
-                for (var d = 0; d < numDias - 1; d++) {
-                    if (!grid[s][d].render) continue;
-                    var c = periodo.slots[s] && periodo.slots[s][d];
-                    if (c && c.s) continue;
-                    for (var prev = s - 1; prev >= 3; prev--) {
-                        if (grid[prev][d].render) {
-                            grid[prev][d].span++;
-                            grid[s][d].render = false;
-                            break;
-                        }
-                    }
-                }
+                if (d < numDias - 1) grid[s][d].render = false;
             }
         }
 
