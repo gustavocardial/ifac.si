@@ -202,8 +202,12 @@
             }
         }
 
+        var colWidth = (100 / numDias).toFixed(4) + '%';
         var html = '<table class="widget-horarios__table">';
         html += '<caption>' + periodo.nome + '</caption>';
+        html += '<colgroup>';
+        for (var d = 0; d < numDias; d++) html += '<col style="width:' + colWidth + '">';
+        html += '</colgroup>';
         html += '<thead><tr>';
         for (var d = 0; d < numDias; d++) {
             if (sabVazio && d === numDias - 1) {
@@ -217,7 +221,9 @@
         for (var s = 0; s < maxSlots; s++) {
             if (s === 3) {
                 var colSpan = sabVazio ? numDias - 1 : numDias;
-                html += '<tr><td colspan="' + colSpan + '" class="interval">intervalo</td></tr>';
+                html += '<tr><td colspan="' + colSpan + '" class="interval">intervalo</td>';
+                if (sabVazio) html += '<td class="vazio-extra"></td>';
+                html += '</tr>';
             }
             html += '<tr>';
             for (var d = 0; d < numDias; d++) {
