@@ -221,9 +221,9 @@
             }
             html += '<tr>';
             for (var d = 0; d < numDias; d++) {
-                // Slots >= 5: Mon-Sex invisíveis; Sex mantém border-right para alinhar com Sáb
+                // Slots >= 5: Mon-Sex invisíveis; Sex mantém border-right só quando há aula Sáb
                 if (s >= 5 && d < dSab) {
-                    if (d === dSab - 1) {
+                    if (d === dSab - 1 && !sabVazio) {
                         html += '<td style="border:none;border-right:1px solid #ccc;background:white"></td>';
                     } else {
                         html += '<td class="slot-extra-oculto"></td>';
