@@ -39,7 +39,8 @@
     color: #c00;
 }
 
-.widget-horarios__table td.vazio-extra {
+.widget-horarios__table td.vazio-extra,
+.widget-horarios__table th.vazio-extra {
     border: none;
     background: none;
 }
@@ -134,6 +135,15 @@
     }
 
     function renderTabela(periodo, numDias, maxSlots) {
+        // Verificar se este período tem aulas no sábado (último dia)
+        var sabVazio = numDias >= 6;
+        if (sabVazio) {
+            for (var s = 0; s < maxSlots; s++) {
+                var c = periodo.slots[s] && periodo.slots[s][numDias - 1];
+                if (c && c.s) { sabVazio = false; break; }
+            }
+        }
+
         // Calcular rowspans por coluna
         // Bloco 1: slots 0-2 (antes do intervalo), Bloco 2: slots 3..maxSlots-1 (depois)
         var afterBreak = [];
@@ -181,7 +191,11 @@
         html += '<caption>' + periodo.nome + '</caption>';
         html += '<thead><tr>';
         for (var d = 0; d < numDias; d++) {
-            html += '<th>' + DIAS[d] + '</th>';
+            if (sabVazio && d === numDias - 1) {
+                html += '<th class="vazio-extra"></th>';
+            } else {
+                html += '<th>' + DIAS[d] + '</th>';
+            }
         }
         html += '</tr></thead><tbody>';
 
@@ -196,8 +210,10 @@
                 var sigla = (cell && cell.s) ? cell.s : '';
                 var attrs = '';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
+                var sabadoVazioCel = sabVazio && d === numDias - 1;
                 var extraSlotVazio = s >= 5 && !sigla;
-                if (extraSlotVazio) attrs += ' class="vazio-extra"';
+                if (sabadoVazioCel) { attrs += ' class="vazio-extra"'; sigla = ''; }
+                else if (extraSlotVazio) attrs += ' class="vazio-extra"';
                 else if (grid[s][d].alt) attrs += ' class="alterado"';
                 html += '<td' + attrs + '>' + sigla + '</td>';
             }
