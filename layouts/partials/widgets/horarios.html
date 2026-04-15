@@ -5,6 +5,7 @@
     border-spacing: 0;
     margin-bottom: 10px;
     table-layout: fixed;
+    border: none;
 }
 
 .widget-horarios__table caption {
@@ -231,7 +232,8 @@
                 var oculto = sabVazio && d === dSab;
                 var cls = oculto ? 'col-sab-oculto' : (grid[s][d].alt ? 'alterado' : '');
                 var attrs = cls ? ' class="' + cls + '"' : '';
-                if (!oculto && d === 0) attrs += ' style="border-left:1px solid #ccc"';
+                var needsBorderLeft = !oculto && (d === 0 || (s >= 5 && d === dSab));
+                if (needsBorderLeft) attrs += ' style="border-left:1px solid #ccc"';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
                 html += '<td' + attrs + '>' + (oculto ? '' : sigla) + '</td>';
             }
