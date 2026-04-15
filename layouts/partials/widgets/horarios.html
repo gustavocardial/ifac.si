@@ -39,6 +39,11 @@
     color: #c00;
 }
 
+.widget-horarios__table td.slot-extra-oculto {
+    border: hidden;
+    background: white;
+}
+
 .widget-horarios__table .interval {
     font-size: 8px;
     padding: 0;
@@ -178,10 +183,6 @@
                     i += span;
                 }
             }
-            // Slots >= 5: só Sáb (último dia) renderiza; demais ficam ocultos
-            for (var s = 5; s < maxSlots; s++) {
-                if (d < numDias - 1) grid[s][d].render = false;
-            }
         }
 
         var html = '<table class="widget-horarios__table">';
@@ -198,8 +199,13 @@
             }
             html += '<tr>';
             for (var d = 0; d < numDias; d++) {
+                // Slots >= 5: renderizar Mon-Sex como células invisíveis para manter posicionamento
+                if (s >= 5 && d < numDias - 1) {
+                    html += '<td class="slot-extra-oculto"></td>';
+                    continue;
+                }
                 if (!grid[s][d].render) continue;
-                var cell = periodo.slots[s][d];
+                var cell = periodo.slots[s] && periodo.slots[s][d];
                 var sigla = (cell && cell.s) ? cell.s : '';
                 var attrs = '';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
