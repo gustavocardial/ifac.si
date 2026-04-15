@@ -154,9 +154,9 @@
         }
 
         // Calcular rowspans por coluna
-        // Bloco 1: slots 0-2 (antes do intervalo), Bloco 2: slots 3-4 (depois)
-        // Slots >= 5 são renderizados à parte: só aparecem na coluna Sáb
-        var blocks = [[0,1,2], [3,4]];
+        // Seg-Sex: blocos [0-2] e [3-4]; Sáb: blocos [0-2] e [3-maxSlots] (funde slot extra)
+        var afterBreakSab = [];
+        for (var i = 3; i < maxSlots; i++) afterBreakSab.push(i);
         var grid = [];
         for (var s = 0; s < maxSlots; s++) {
             grid[s] = [];
@@ -166,8 +166,9 @@
         }
 
         for (var d = 0; d < numDias; d++) {
-            for (var b = 0; b < blocks.length; b++) {
-                var block = blocks[b];
+            var colBlocks = [[0,1,2], d === dSab ? afterBreakSab : [3,4]];
+            for (var b = 0; b < colBlocks.length; b++) {
+                var block = colBlocks[b];
                 var i = 0;
                 while (i < block.length) {
                     var startSlot = block[i];
