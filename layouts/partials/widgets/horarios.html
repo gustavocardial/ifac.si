@@ -1,8 +1,7 @@
 <style>
 .widget-horarios__table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
     margin-bottom: 10px;
     table-layout: fixed;
 }
@@ -19,15 +18,8 @@
     padding: 2px 1px;
     text-align: center;
     background-color: #f0f0f0;
-    border-top: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: none;
+    border: 1px solid #ccc;
     font-weight: bold;
-}
-
-.widget-horarios__table thead tr th:first-child {
-    border-left: 1px solid #ccc;
 }
 
 .widget-horarios__table tbody tr {
@@ -38,26 +30,13 @@
     font-size: 10px;
     padding: 2px 1px;
     text-align: center;
-    border-top: none;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: none;
+    border: 1px solid #ccc;
     vertical-align: middle;
     font-weight: 600;
 }
 
-.widget-horarios__table tbody td:first-child {
-    border-left: 1px solid #ccc;
-}
-
 .widget-horarios__table td.alterado {
     color: #c00;
-}
-
-.widget-horarios__table td.vazio-extra,
-.widget-horarios__table th.vazio-extra {
-    border: none;
-    background: none;
 }
 
 .widget-horarios__table .interval {
@@ -202,35 +181,28 @@
             }
         }
 
+        var colsRender = sabVazio ? numDias - 1 : numDias;
+
         var html = '<table class="widget-horarios__table">';
         html += '<caption>' + periodo.nome + '</caption>';
         html += '<thead><tr>';
-        for (var d = 0; d < numDias; d++) {
-            if (sabVazio && d === numDias - 1) {
-                html += '<th class="vazio-extra"></th>';
-            } else {
-                html += '<th>' + DIAS[d] + '</th>';
-            }
+        for (var d = 0; d < colsRender; d++) {
+            html += '<th>' + DIAS[d] + '</th>';
         }
         html += '</tr></thead><tbody>';
 
         for (var s = 0; s < maxSlots; s++) {
             if (s === 3) {
-                var colSpan = sabVazio ? numDias - 1 : numDias;
-                html += '<tr><td colspan="' + colSpan + '" class="interval">intervalo</td></tr>';
+                html += '<tr><td colspan="' + colsRender + '" class="interval">intervalo</td></tr>';
             }
             html += '<tr>';
-            for (var d = 0; d < numDias; d++) {
+            for (var d = 0; d < colsRender; d++) {
                 if (!grid[s][d].render) continue;
                 var cell = periodo.slots[s][d];
                 var sigla = (cell && cell.s) ? cell.s : '';
                 var attrs = '';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
-                var sabadoVazioCel = sabVazio && d === numDias - 1;
-                var extraSlotVazio = s >= 5 && !sigla;
-                if (sabadoVazioCel) { attrs += ' class="vazio-extra"'; sigla = ''; }
-                else if (extraSlotVazio) attrs += ' class="vazio-extra"';
-                else if (grid[s][d].alt) attrs += ' class="alterado"';
+                if (grid[s][d].alt) attrs += ' class="alterado"';
                 html += '<td' + attrs + '>' + sigla + '</td>';
             }
             html += '</tr>';
