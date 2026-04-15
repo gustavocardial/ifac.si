@@ -1,7 +1,8 @@
 <style>
 .widget-horarios__table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-bottom: 10px;
     table-layout: fixed;
 }
@@ -18,7 +19,10 @@
     padding: 2px 1px;
     text-align: center;
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: none;
     font-weight: bold;
 }
 
@@ -30,7 +34,10 @@
     font-size: 10px;
     padding: 2px 1px;
     text-align: center;
-    border: 1px solid #ccc;
+    border-top: none;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: none;
     vertical-align: middle;
     font-weight: 600;
 }
@@ -187,22 +194,29 @@
             }
         }
 
+        var dSab = numDias - 1;
+        var colsVisiveis = sabVazio ? numDias - 1 : numDias;
+
         var html = '<table class="widget-horarios__table">';
         html += '<caption>' + periodo.nome + '</caption>';
-        var dSab = numDias - 1;
         html += '<thead><tr>';
         for (var d = 0; d < numDias; d++) {
-            if (sabVazio && d === dSab) {
+            var oculto = sabVazio && d === dSab;
+            var bleft = d === 0 && !oculto ? ' style="border-left:1px solid #ccc"' : '';
+            if (oculto) {
                 html += '<th class="col-sab-oculto"></th>';
             } else {
-                html += '<th>' + DIAS[d] + '</th>';
+                html += '<th' + bleft + '>' + DIAS[d] + '</th>';
             }
         }
         html += '</tr></thead><tbody>';
 
         for (var s = 0; s < maxSlots; s++) {
             if (s === 3) {
-                html += '<tr><td colspan="' + numDias + '" class="interval">intervalo</td></tr>';
+                var intervalHtml = '<tr><td colspan="' + colsVisiveis + '" class="interval" style="border-left:1px solid #ccc">intervalo</td>';
+                if (sabVazio) intervalHtml += '<td class="col-sab-oculto"></td>';
+                intervalHtml += '</tr>';
+                html += intervalHtml;
             }
             html += '<tr>';
             for (var d = 0; d < numDias; d++) {
@@ -214,12 +228,12 @@
                 if (!grid[s][d].render) continue;
                 var cell = periodo.slots[s] && periodo.slots[s][d];
                 var sigla = (cell && cell.s) ? cell.s : '';
-                var cls = '';
-                if (sabVazio && d === dSab) cls = 'col-sab-oculto';
-                else if (grid[s][d].alt) cls = 'alterado';
+                var oculto = sabVazio && d === dSab;
+                var cls = oculto ? 'col-sab-oculto' : (grid[s][d].alt ? 'alterado' : '');
                 var attrs = cls ? ' class="' + cls + '"' : '';
+                if (!oculto && d === 0) attrs += ' style="border-left:1px solid #ccc"';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
-                html += '<td' + attrs + '>' + (cls === 'col-sab-oculto' ? '' : sigla) + '</td>';
+                html += '<td' + attrs + '>' + (oculto ? '' : sigla) + '</td>';
             }
             html += '</tr>';
         }
