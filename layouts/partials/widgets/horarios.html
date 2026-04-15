@@ -201,7 +201,8 @@
 
         for (var s = 0; s < maxSlots; s++) {
             if (s === 3) {
-                html += '<tr><td colspan="' + numDias + '" class="interval">intervalo</td></tr>';
+                var colSpan = sabVazio ? numDias - 1 : numDias;
+                html += '<tr><td colspan="' + colSpan + '" class="interval">intervalo</td></tr>';
             }
             html += '<tr>';
             for (var d = 0; d < numDias; d++) {
