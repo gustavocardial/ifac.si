@@ -181,22 +181,38 @@
             }
         }
 
-        var colsRender = sabVazio ? numDias - 1 : numDias;
+        // Para slots extras (>= 5), absorver células vazias de colunas não-Sáb no rowspan anterior
+        if (maxSlots > 5) {
+            for (var s = 5; s < maxSlots; s++) {
+                for (var d = 0; d < numDias - 1; d++) {
+                    if (!grid[s][d].render) continue;
+                    var c = periodo.slots[s] && periodo.slots[s][d];
+                    if (c && c.s) continue;
+                    for (var prev = s - 1; prev >= 3; prev--) {
+                        if (grid[prev][d].render) {
+                            grid[prev][d].span++;
+                            grid[s][d].render = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         var html = '<table class="widget-horarios__table">';
         html += '<caption>' + periodo.nome + '</caption>';
         html += '<thead><tr>';
-        for (var d = 0; d < colsRender; d++) {
+        for (var d = 0; d < numDias; d++) {
             html += '<th>' + DIAS[d] + '</th>';
         }
         html += '</tr></thead><tbody>';
 
         for (var s = 0; s < maxSlots; s++) {
             if (s === 3) {
-                html += '<tr><td colspan="' + colsRender + '" class="interval">intervalo</td></tr>';
+                html += '<tr><td colspan="' + numDias + '" class="interval">intervalo</td></tr>';
             }
             html += '<tr>';
-            for (var d = 0; d < colsRender; d++) {
+            for (var d = 0; d < numDias; d++) {
                 if (!grid[s][d].render) continue;
                 var cell = periodo.slots[s][d];
                 var sigla = (cell && cell.s) ? cell.s : '';
