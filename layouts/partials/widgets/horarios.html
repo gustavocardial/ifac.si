@@ -39,6 +39,11 @@
     color: #c00;
 }
 
+.widget-horarios__table td.vazio-extra {
+    border-color: transparent;
+    background: none;
+}
+
 .widget-horarios__table .interval {
     font-size: 8px;
     padding: 0;
@@ -191,7 +196,9 @@
                 var sigla = (cell && cell.s) ? cell.s : '';
                 var attrs = '';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
-                if (grid[s][d].alt) attrs += ' class="alterado"';
+                var extraSlotVazio = s >= 5 && !sigla;
+                if (extraSlotVazio) attrs += ' class="vazio-extra"';
+                else if (grid[s][d].alt) attrs += ' class="alterado"';
                 html += '<td' + attrs + '>' + sigla + '</td>';
             }
             html += '</tr>';
