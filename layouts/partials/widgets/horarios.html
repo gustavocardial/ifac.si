@@ -189,20 +189,21 @@
 
         var html = '<table class="widget-horarios__table">';
         html += '<caption>' + periodo.nome + '</caption>';
+        if (sabVazio) {
+            html += '<colgroup>';
+            for (var d = 0; d < numDias - 1; d++) html += '<col>';
+            html += '<col style="visibility:collapse">';
+            html += '</colgroup>';
+        }
         html += '<thead><tr>';
         for (var d = 0; d < numDias; d++) {
-            if (sabVazio && d === numDias - 1) {
-                html += '<th class="vazio-extra"></th>';
-            } else {
-                html += '<th>' + DIAS[d] + '</th>';
-            }
+            html += '<th>' + DIAS[d] + '</th>';
         }
         html += '</tr></thead><tbody>';
 
         for (var s = 0; s < maxSlots; s++) {
             if (s === 3) {
-                var colSpan = sabVazio ? numDias - 1 : numDias;
-                html += '<tr><td colspan="' + colSpan + '" class="interval">intervalo</td></tr>';
+                html += '<tr><td colspan="' + numDias + '" class="interval">intervalo</td></tr>';
             }
             html += '<tr>';
             for (var d = 0; d < numDias; d++) {
@@ -211,10 +212,8 @@
                 var sigla = (cell && cell.s) ? cell.s : '';
                 var attrs = '';
                 if (grid[s][d].span > 1) attrs += ' rowspan="' + grid[s][d].span + '"';
-                var sabadoVazioCel = sabVazio && d === numDias - 1;
                 var extraSlotVazio = s >= 5 && !sigla;
-                if (sabadoVazioCel) { attrs += ' class="vazio-extra"'; sigla = ''; }
-                else if (extraSlotVazio) attrs += ' class="vazio-extra"';
+                if (extraSlotVazio) attrs += ' class="vazio-extra"';
                 else if (grid[s][d].alt) attrs += ' class="alterado"';
                 html += '<td' + attrs + '>' + sigla + '</td>';
             }
