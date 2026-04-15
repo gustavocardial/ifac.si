@@ -153,6 +153,9 @@
             }
         }
 
+        var dSab = numDias - 1;
+        var colsVisiveis = sabVazio ? numDias - 1 : numDias;
+
         // Calcular rowspans por coluna
         // Seg-Sex: blocos [0-2] e [3-4]; Sáb: blocos [0-2] e [3-maxSlots] (funde slot extra)
         var afterBreakSab = [];
@@ -195,9 +198,6 @@
                 }
             }
         }
-
-        var dSab = numDias - 1;
-        var colsVisiveis = sabVazio ? numDias - 1 : numDias;
 
         var html = '<table class="widget-horarios__table">';
         html += '<caption>' + periodo.nome + '</caption>';
