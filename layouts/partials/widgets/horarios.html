@@ -83,11 +83,19 @@
 
                 var numDias = data.datas.length;
 
+                // Número máximo de slots vem da própria API
+                var maxSlots = 5;
+                for (var p = 0; p < data.periodos.length; p++) {
+                    if (data.periodos[p].slots.length > maxSlots) {
+                        maxSlots = data.periodos[p].slots.length;
+                    }
+                }
+
                 // Verificar se sábado tem aula
                 var temSabado = false;
                 if (numDias >= 6) {
                     for (var p = 0; p < data.periodos.length; p++) {
-                        for (var s = 0; s < 5; s++) {
+                        for (var s = 0; s < maxSlots; s++) {
                             var cell = data.periodos[p].slots[s][5];
                             if (cell && cell.s) { temSabado = true; break; }
                         }
@@ -98,8 +106,8 @@
 
                 var html = '';
                 for (var p = 0; p < data.periodos.length; p++) {
-                    if (!temAulas(data.periodos[p], diasMostrar)) continue;
-                    html += renderTabela(data.periodos[p], diasMostrar);
+                    if (!temAulas(data.periodos[p], diasMostrar, maxSlots)) continue;
+                    html += renderTabela(data.periodos[p], diasMostrar, maxSlots);
                 }
                 html += '<a class="widget-horarios__link" href="/horarios/">Ver horários completos →</a>';
                 container.innerHTML = html;
@@ -110,8 +118,8 @@
             });
     }
 
-    function temAulas(periodo, numDias) {
-        for (var s = 0; s < 5; s++) {
+    function temAulas(periodo, numDias, maxSlots) {
+        for (var s = 0; s < maxSlots; s++) {
             for (var d = 0; d < numDias; d++) {
                 var cell = periodo.slots[s][d];
                 if (cell && cell.s) return true;
@@ -120,12 +128,14 @@
         return false;
     }
 
-    function renderTabela(periodo, numDias) {
+    function renderTabela(periodo, numDias, maxSlots) {
         // Calcular rowspans por coluna
-        // Blocos: slots 0-2 (antes do intervalo), slots 3-4 (depois)
-        var blocks = [[0,1,2], [3,4]];
+        // Bloco 1: slots 0-2 (antes do intervalo), Bloco 2: slots 3..maxSlots-1 (depois)
+        var afterBreak = [];
+        for (var i = 3; i < maxSlots; i++) afterBreak.push(i);
+        var blocks = [[0,1,2], afterBreak];
         var grid = [];
-        for (var s = 0; s < 5; s++) {
+        for (var s = 0; s < maxSlots; s++) {
             grid[s] = [];
             for (var d = 0; d < numDias; d++) {
                 grid[s][d] = { render: true, span: 1, alt: false };
@@ -170,7 +180,7 @@
         }
         html += '</tr></thead><tbody>';
 
-        for (var s = 0; s < 5; s++) {
+        for (var s = 0; s < maxSlots; s++) {
             if (s === 3) {
                 html += '<tr><td colspan="' + numDias + '" class="interval">intervalo</td></tr>';
             }
