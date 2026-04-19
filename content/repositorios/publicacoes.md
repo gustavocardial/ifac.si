@@ -35,9 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 | Título | Autores* | Tipo | Ano | Acesso |
 |--------|---------|------|-----|--------|
+| **Verifying Open Data Portals Completeness in Compliance to a Grounding Framework** | Victor Vieira | Capítulo de livro | 2023 | [Acessar](https://doi.org/10.1007/978-3-031-41138-0_16) |
 | **O Perfil dos Ingressantes nos Cursos Técnicos Integrados ao Ensino Médio em Informática para Internet e Redes de Computadores** | Antonio Rege, Victor Vieira | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/26387) |
 | **Uma Abordagem Baseada no Scrum para Melhorar a Integração entre Coordenador de Curso e Professor**: Relato de Experiência no Acompanhamento das Atividades de Ensino em Disciplinas de Computação | Antonio Rege, Victor Vieira | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/26326) |
 | **Beto, o simulador de memória cache** | Victor Vieira | Artigo em congresso | 2022 | [Acessar](https://sol.sbc.org.br/index.php/cbie_estendido/article/view/22603) |
 | **Desenvolvimento de um Instrumento para o Registro da Experiência Docente no Uso de Laboratórios Virtuais** | Victor Vieira | Artigo em congresso | 2018 | [Acessar](https://sol.sbc.org.br/index.php/sbie/article/view/41422) |
+| **Comparando as opiniões do professor e seus alunos sobre o uso de um laboratório virtual de robótica**: um relato de experiência | Victor Vieira | Artigo em congresso | 2018 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/14346) |
+| **Experiências na adoção de Laboratórios Virtuais para o ensino de Montagem e Manutenção de Computadores** | Antonio Rege, Dirceu de Lima, Victor Vieira | Artigo em congresso | 2018 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/14312) |
 
 <small>* Autores então vinculados ao curso</small>
