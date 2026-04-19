@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 | Título | Autores* | Tipo | Ano | Acesso |
 |--------|---------|------|-----|--------|
+| **Temporal analysis on pull request patterns: an approach with sliding window** | Silvana Gonçalves | Artigo em congresso | 2021 | [Acessar](https://doi.org/10.1145/3483899.3483906) |
 | **Verifying Open Data Portals Completeness in Compliance to a Grounding Framework** | Victor Vieira | Capítulo de livro | 2023 | [Acessar](https://doi.org/10.1007/978-3-031-41138-0_16) |
 | **O Perfil dos Ingressantes nos Cursos Técnicos Integrados ao Ensino Médio em Informática para Internet e Redes de Computadores** | Antonio Rege, Victor Vieira | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/26387) |
 | **Uma Abordagem Baseada no Scrum para Melhorar a Integração entre Coordenador de Curso e Professor**: Relato de Experiência no Acompanhamento das Atividades de Ensino em Disciplinas de Computação | Antonio Rege, Victor Vieira | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/26326) |
