@@ -10,7 +10,7 @@ sidebar: false
 }
 </style>
 
-Publicações em Computação e áreas correlatas por professores e alunos do Curso Superior de Tecnologia em Sistemas para Internet - IFAC.
+Publicações em Computação pura, aplicada e áreas correlatas por professores e alunos do Curso Superior de Tecnologia em Sistemas para Internet - IFAC.
 
 > **Seção em construção.** Em breve, mais publicações serão adicionadas.
 
