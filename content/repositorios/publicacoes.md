@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 | Título | Autores* | Tipo | Ano | Acesso |
 |--------|---------|------|-----|--------|
+| **Evaluating pending interest table performance under the collusive interest flooding attack in named data networks** | Diego Lopes | Artigo em periódico | 2024 | [Acessar](https://doi.org/10.1007/s12243-024-01016-6) |
 | **Autoria Imersiva em Realidade Virtual para Aplicações Mulsemídia Interativas** | Flávio Farias | Artigo em congresso | 2024 | [Acessar](https://sol.sbc.org.br/index.php/webmedia_estendido/article/view/30466) |
 | **Aplicando a metodologia Design Sprint na produção de objetos educacionais** | Rodrigo Souza | Artigo em congresso | 2024 | [Acessar](https://sol.sbc.org.br/index.php/wei/article/view/29632) |
 | **O Perfil dos Ingressantes nos Cursos Técnicos Integrados ao Ensino Médio em Informática para Internet e Redes de Computadores** | Antonio Rege, Victor Vieira | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/26387) |
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 | **Ataques de Mudança de Rótulo no Contexto da Detecção de Malwares Android**: Uma Análise Experimental | Jonas Pontes | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/sbseg/article/view/27216) |
 | **Aplicando Design Sprint em Sala de Aula Invertida**: Um Estudo de Caso | Rodrigo Souza | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/sbie/article/view/26680) |
 | **Verifying Open Data Portals Completeness in Compliance to a Grounding Framework** | Victor Vieira | Capítulo de livro | 2023 | [Acessar](https://doi.org/10.1007/978-3-031-41138-0_16) |
+| **The Impact of the Interest Flooding Attack on the Pending Interest Table of CCN routers** | Diego Lopes | Artigo em congresso | 2022 | [Acessar](https://doi.org/10.1109/CSNet56116.2022.9955613) |
 | **An Immersive Memory Game as a Cognitive Exercise for Elderly Users** | Flávio Farias | Artigo em congresso | 2022 | [Acessar](https://sol.sbc.org.br/index.php/lique/article/view/19997) |
 | **Immersive Authoring of 360 Degree Interactive Applications** | Flávio Farias | Artigo em periódico | 2022 | [Acessar](https://doi.org/10.1109/ACCESS.2022.3217799) |
 | **Avaliação de Ferramentas de AutoML em Datasets de Detecção de Malwares Android** | Jonas Pontes | Artigo em congresso | 2022 | [Acessar](https://sol.sbc.org.br/index.php/sbseg/article/view/21676) |
