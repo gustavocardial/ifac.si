@@ -8,6 +8,21 @@ sidebar: false
     display: block;
     overflow-x: auto;
 }
+.post__content table th {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+.post__content table th .sort-arrow {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 0.7em;
+    opacity: 0.4;
+}
+.post__content table th.sort-asc .sort-arrow,
+.post__content table th.sort-desc .sort-arrow {
+    opacity: 1;
+}
 </style>
 
 Trabalhos de Conclusão de Curso dos alunos do Curso Superior de Tecnologia em Sistemas para Internet - IFAC.
@@ -18,11 +33,44 @@ Trabalhos de Conclusão de Curso dos alunos do Curso Superior de Tecnologia em S
 document.addEventListener("DOMContentLoaded", function () {
   var input = document.getElementById("busca-tcc");
   var table = input.closest(".post__content").querySelector("table");
-  var rows = Array.from(table.querySelectorAll("tbody tr"));
+  var tbody = table.querySelector("tbody");
+  var headers = Array.from(table.querySelectorAll("thead th, tr:first-child th"));
+
+  headers.forEach(function (th, colIndex) {
+    var arrow = document.createElement("span");
+    arrow.className = "sort-arrow";
+    arrow.textContent = "▲";
+    th.appendChild(arrow);
+    th.dataset.sortDir = "";
+
+    th.addEventListener("click", function () {
+      var asc = th.dataset.sortDir !== "asc";
+      headers.forEach(function (h) {
+        h.dataset.sortDir = "";
+        h.classList.remove("sort-asc", "sort-desc");
+        h.querySelector(".sort-arrow").textContent = "▲";
+      });
+      th.dataset.sortDir = asc ? "asc" : "desc";
+      th.classList.add(asc ? "sort-asc" : "sort-desc");
+      th.querySelector(".sort-arrow").textContent = asc ? "▲" : "▼";
+
+      var isNumeric = colIndex === 3;
+      var rows = Array.from(tbody.querySelectorAll("tr"));
+      rows.sort(function (a, b) {
+        var aVal = a.cells[colIndex] ? a.cells[colIndex].textContent.trim() : "";
+        var bVal = b.cells[colIndex] ? b.cells[colIndex].textContent.trim() : "";
+        if (isNumeric) {
+          return asc ? Number(aVal) - Number(bVal) : Number(bVal) - Number(aVal);
+        }
+        return asc ? aVal.localeCompare(bVal, "pt") : bVal.localeCompare(aVal, "pt");
+      });
+      rows.forEach(function (row) { tbody.appendChild(row); });
+    });
+  });
 
   input.addEventListener("input", function () {
     var terms = this.value.toLowerCase().split(/\s+/).filter(Boolean);
-    rows.forEach(function (row) {
+    Array.from(tbody.querySelectorAll("tr")).forEach(function (row) {
       var text = row.textContent.toLowerCase();
       var match = terms.length === 0 || terms.every(function (t) { return text.indexOf(t) !== -1; });
       row.style.display = match ? "" : "none";
