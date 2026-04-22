@@ -12,7 +12,7 @@ sidebar: false
 
 Publicações em Computação pura, aplicada e áreas correlatas por professores e alunos do Curso Superior de Tecnologia em Sistemas para Internet - IFAC.
 
-> **Seção em construção.** Em breve, mais publicações serão adicionadas.
+> **Publicou?** Informe à Coordenação!
 
 <input type="text" id="busca-publicacao" placeholder="Buscar por título, autor, tipo ou ano..." style="width: 100%; padding: 8px 12px; font-size: 14px; border: 1px solid #ccc; box-sizing: border-box;">
 
@@ -35,9 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 | Título | Autores* | Tipo | Ano | Acesso |
 |--------|---------|------|-----|--------|
+| **Pensamento Computacional e Soft Skills no Contexto do Ensino de Programação**: Um Mapeamento Sistemático | Antonio Rege | Artigo em congresso | 2025 | [Acessar](https://sol.sbc.org.br/index.php/sbie/article/view/38510) |
+| **Identificação de Seis Espécies de Palmeiras Nativas na Amazônia Utilizando Redes Neurais Convolucionais e Imagens de VANT** | Airton Gaio Júnior | Artigo em congresso | 2024 | [Acessar](https://static.even3.com/anais/867303.pdf?v=638996984241248460) |
 | **Evaluating pending interest table performance under the collusive interest flooding attack in named data networks** | Diego Lopes | Artigo em periódico | 2024 | [Acessar](https://doi.org/10.1007/s12243-024-01016-6) |
 | **Autoria Imersiva em Realidade Virtual para Aplicações Mulsemídia Interativas** | Flávio Farias | Artigo em congresso | 2024 | [Acessar](https://sol.sbc.org.br/index.php/webmedia_estendido/article/view/30466) |
 | **Aplicando a metodologia Design Sprint na produção de objetos educacionais** | Rodrigo Souza | Artigo em congresso | 2024 | [Acessar](https://sol.sbc.org.br/index.php/wei/article/view/29632) |
+| **Identificação de Palmeiras (Arecaceae) Nativas em Áreas de floresta tropical baseado em Rede Neural Convolucional com imagens de VANT** | Airton Gaio Júnior | Artigo em periódico | 2023 | [Acessar](https://doi.org/10.26848/rbgf.v16.5.p2360-2374) |
 | **O Perfil dos Ingressantes nos Cursos Técnicos Integrados ao Ensino Médio em Informática para Internet e Redes de Computadores** | Antonio Rege, Victor Vieira | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/26387) |
 | **Uma Abordagem Baseada no Scrum para Melhorar a Integração entre Coordenador de Curso e Professor**: Relato de Experiência no Acompanhamento das Atividades de Ensino em Disciplinas de Computação | Antonio Rege, Victor Vieira | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/26326) |
 | **Ataques de Mudança de Rótulo no Contexto da Detecção de Malwares Android**: Uma Análise Experimental | Jonas Pontes | Artigo em congresso | 2023 | [Acessar](https://sol.sbc.org.br/index.php/sbseg/article/view/27216) |
