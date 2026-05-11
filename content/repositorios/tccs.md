@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 | Título | Autores | Orientador | Ano | Acesso |
 |--------|---------|------------|-----|--------|
+| **Driver Time**: Sistema de Agendamento e Atendimento de Oficina Automotiva | Warlysson Vasconcelos de Souza | Angelo Maggioni e Silva | 2026 | [Acessar](https://drive.google.com/file/d/1yTCK8tTP_kQPoN0aGcxjXJGd4s9okykK/view?usp=drive_link) |
 | **MARIOT**: Automação na Amazônia Ocidental | Fredson Gomes da Silva Junior | Angelo Maggioni e Silva | 2025 | [Acessar](https://drive.google.com/file/d/1KJqr54x92Ca-rtW2EW3rH1ZbdMAgbn-o/view?usp=drive_link) |
 | **JOANA**: Um Chatbot para Entrega de Informações sobre Transtorno de Ansiedade | Greyck Paiva | Diego Canizio Lopes | 2025 | [Acessar](https://drive.google.com/file/d/1xQ4uStg9xQKSCPizl_ACkh3GBD3r1PF4/view?usp=drive_link) |
 | **Bula Fácil**: Aplicação de Bulário Inteligente | José Orlando, Pedro Moreira | Flávio Miranda de Farias | 2025 | [Acessar](https://drive.google.com/file/d/1tNkTyFwYydolwgyEqT874njc6OWbU7N-/view?usp=drive_link) |
