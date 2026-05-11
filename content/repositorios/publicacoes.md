@@ -85,8 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 | Título | Autores* | Tipo | Ano | Acesso |
 |--------|---------|------|-----|--------|
-| **Avaliando a Importância do Arquivo contributing.md em Projetos de Código Aberto** | Silvana Gonçalves | Artigo em congresso | 2025 | [Acessar](https://sol.sbc.org.br/index.php/semish/article/view/36794) |
 | **Pensamento Computacional e Soft Skills no Contexto do Ensino de Programação**: Um Mapeamento Sistemático | Antonio Rege | Artigo em congresso | 2025 | [Acessar](https://sol.sbc.org.br/index.php/sbie/article/view/38510) |
+| **Avaliando a Importância do Arquivo contributing.md em Projetos de Código Aberto** | Silvana Gonçalves | Artigo em congresso | 2025 | [Acessar](https://sol.sbc.org.br/index.php/semish/article/view/36794) |
 | **Identificação de Seis Espécies de Palmeiras Nativas na Amazônia Utilizando Redes Neurais Convolucionais e Imagens de VANT** | Airton Gaio Júnior | Artigo em congresso | 2024 | [Acessar](https://static.even3.com/anais/867303.pdf?v=638996984241248460) |
 | **Evaluating pending interest table performance under the collusive interest flooding attack in named data networks** | Diego Lopes | Artigo em periódico | 2024 | [Acessar](https://doi.org/10.1007/s12243-024-01016-6) |
 | **Autoria Imersiva em Realidade Virtual para Aplicações Mulsemídia Interativas** | Flávio Farias | Artigo em congresso | 2024 | [Acessar](https://sol.sbc.org.br/index.php/webmedia_estendido/article/view/30466) |
