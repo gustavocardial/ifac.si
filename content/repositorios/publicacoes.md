@@ -108,8 +108,11 @@ document.addEventListener("DOMContentLoaded", function () {
 | **Detecção de Malwares Android**: datasets e reprodutibilidade | Jonas Pontes | Artigo em congresso | 2021 | [Acessar](https://sol.sbc.org.br/index.php/errc/article/view/18540) |
 | **Ferramentas de extração de características para análise estática de aplicativos Android** | Jonas Pontes | Artigo em congresso | 2021 | [Acessar](https://sol.sbc.org.br/index.php/errc/article/view/18539) |
 | **Temporal analysis on pull request patterns: an approach with sliding window** | Silvana Gonçalves | Artigo em congresso | 2021 | [Acessar](https://doi.org/10.1145/3483899.3483906) |
+| **A utilização de ferramentas computacionais para a identificação de problemas de acessibilidade em espaços públicos** | José William Menezes, Marlon Teixeira | Artigo em congresso | 2019 | [Acessar](http://www.xiwticifes.ufba.br/modulos/submissao/Upload-353/86013.pdf) |
 | **Experiências na adoção de Laboratórios Virtuais para o ensino de Montagem e Manutenção de Computadores** | Antonio Rege, Dirceu de Lima, Victor Vieira | Artigo em congresso | 2018 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/14312) |
+| **Data mart construction based on semantic annotation of scientific articles**: A case study for the prioritization of drug targets | Marlon Teixeira | Artigo em periódico | 2018 | [Acessar](https://doi.org/10.1016/j.cmpb.2018.01.010) |
 | **Comparando as opiniões do professor e seus alunos sobre o uso de um laboratório virtual de robótica**: um relato de experiência | Victor Vieira | Artigo em congresso | 2018 | [Acessar](https://sol.sbc.org.br/index.php/wie/article/view/14346) |
 | **Desenvolvimento de um Instrumento para o Registro da Experiência Docente no Uso de Laboratórios Virtuais** | Victor Vieira | Artigo em congresso | 2018 | [Acessar](https://sol.sbc.org.br/index.php/sbie/article/view/41422) |
+| **New Approaches for XML Data Compression** | Marlon Teixeira | Artigo em congresso | 2012 | [Acessar](https://doi.org/10.5220/0003896202330237) |
 
 <small>* Autores então vinculados ao curso</small>
