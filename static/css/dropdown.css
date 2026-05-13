@@ -1,5 +1,11 @@
 /* Dropdown Menu Styles */
 
+/* Garante que o header apareça acima do conteúdo da página */
+.header {
+	position: relative;
+	z-index: 10;
+}
+
 /* Item com filhos */
 .menu__item--has-children {
 	position: relative;
