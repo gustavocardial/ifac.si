@@ -20,6 +20,7 @@ layout = 'single'
 | Francisco Marcelo da Silva Araujo | [francisco.araujo@ifac.edu.br](mailto:francisco.araujo@ifac.edu.br) | Letras |
 | Gustavo Gonçalves Cardial | [gustavo.cardial@ifac.edu.br](mailto:gustavo.cardial@ifac.edu.br) | Computação |
 | Jonas Pontes | [jonas.pontes@ifac.edu.br](mailto:jonas.pontes@ifac.edu.br) | Computação |
+| Luís Pedro de Melo Plese | [pedro.plese@ifac.edu.br](mailto:pedro.plese@ifac.edu.br) | Agronomia |
 | Marlon Amaro Coelho Teixeira | [marlon.teixeira@ifac.edu.br](mailto:marlon.teixeira@ifac.edu.br) | Computação |
 | Maurício Mesquita Cunha | [mauricio.cunha@ifac.edu.br](mailto:mauricio.cunha@ifac.edu.br) | Computação |
 | Paulo Roberto de Souza | [paulo.souza@ifac.edu.br](mailto:paulo.souza@ifac.edu.br) | Matemática |
