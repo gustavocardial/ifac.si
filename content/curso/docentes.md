@@ -1,5 +1,5 @@
 +++
-title = 'Professores'
+title = 'Docentes'
 draft = false
 layout = 'single'
 +++
@@ -18,7 +18,7 @@ layout = 'single'
 | Erasmo Menezes de Souza | [erasmo.souza@ifac.edu.br](mailto:erasmo.souza@ifac.edu.br) | Matemática |
 | Flávio Miranda de Farias | [flavio.farias@ifac.edu.br](mailto:flavio.farias@ifac.edu.br) | Computação |
 | Francisco Marcelo da Silva Araujo | [francisco.araujo@ifac.edu.br](mailto:francisco.araujo@ifac.edu.br) | Letras |
-| Gustavo Gonçalves Cardial | [gustavo.cardial@ifac.edu.br](mailto:gustavo.cardial@ifac.edu.br) | Computação |
+| Gustavo Cardial | [gustavo.cardial@ifac.edu.br](mailto:gustavo.cardial@ifac.edu.br) | Computação |
 | Jonas Pontes | [jonas.pontes@ifac.edu.br](mailto:jonas.pontes@ifac.edu.br) | Computação |
 | Luís Pedro de Melo Plese | [pedro.plese@ifac.edu.br](mailto:pedro.plese@ifac.edu.br) | Agronomia |
 | Marlon Amaro Coelho Teixeira | [marlon.teixeira@ifac.edu.br](mailto:marlon.teixeira@ifac.edu.br) | Computação |
