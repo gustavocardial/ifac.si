@@ -60,8 +60,8 @@ theme = 'mainroad'
   weight = 3
 
 [[menu.main]]
-  name = "Professores"
-  url = "/curso/professores/"
+  name = "Docentes"
+  url = "/curso/docentes/"
   parent = "O curso"
   weight = 4
 
