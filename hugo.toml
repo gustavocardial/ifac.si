@@ -122,9 +122,14 @@ theme = 'mainroad'
   weight = 6
 
 [[menu.main]]
+  name = "CASPI"
+  url = "/caspi/"
+  weight = 7
+
+[[menu.main]]
   name = "Suap"
   url = "https://suap.ifac.edu.br/"
-  weight = 7
+  weight = 8
 
 [[menu.main]]
   name = "Sobre"
