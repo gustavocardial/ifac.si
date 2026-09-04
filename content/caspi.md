@@ -8,6 +8,6 @@ Entre os objetivos do CASPI estão representar os interesses dos discentes junto
 
 A entidade é organizada em Assembleia Geral — instância máxima de deliberação, aberta a todos os estudantes matriculados no curso — e Diretoria Executiva, eleita anualmente por voto direto, universal e secreto para um mandato de um ano.
 
-A Assembleia Geral de Fundação do CASPI aconteceu em 28 de agosto de 2026, às 15h, no Auditório do Ifac — Campus Rio Branco.
+A Assembleia Geral de Fundação do CASPI aconteceu em 28 de agosto de 2026, no Auditório do Ifac — Campus Rio Branco.
 
 - [Estatuto do CASPI](https://drive.google.com/file/d/1UEpllr-jFTxn2FyBHoYamzXr_cGPfZUI/view?usp=sharing)
