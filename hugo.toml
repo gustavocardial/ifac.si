@@ -23,10 +23,7 @@ theme = 'mainroad'
   home = "right"
   list = "right"
   single = "right"
-  widgets = ["search", "horarios", "recent", "taglist"]
-
-[params.widgets]
-  recent_num = 5
+  widgets = ["search", "horarios", "taglist"]
 
 [params.style.vars]
   highlightColor = '#3fa14c'
