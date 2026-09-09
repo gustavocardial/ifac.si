@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 | Título | Autores* | Tipo | Ano | Acesso |
 |--------|---------|------|-----|--------|
+| **Inteligência Artificial na Educação Brasileira**: o que dizem as pesquisas? | Antonio Rege | Artigo em periódico | 2026 | [Acessar](https://seer.ufrgs.br/index.php/renote/article/view/153532) |
 | **Barreiras Invisíveis à Permanência de Mulheres na Tecnologia**: Relato de Experiências na Amazônia Ocidental | Esther Hadassa, Thay Bellona | Artigo em congresso | 2026 | [Acessar](https://sol.sbc.org.br/index.php/wit/article/view/43371) |
 | **Pensamento Computacional e Soft Skills no Contexto do Ensino de Programação**: Um Mapeamento Sistemático | Antonio Rege | Artigo em congresso | 2025 | [Acessar](https://sol.sbc.org.br/index.php/sbie/article/view/38510) |
 | **Remédio Já**: Otimizando o Acesso a Medicamentos em Postos de Saúde | Joel Lima, Luis Ratis, Luís Pedro de Melo Plese, Flávio Miranda de Farias | Artigo em revista | 2025 | [Acessar](https://drive.google.com/file/d/1fARMUX6FiWTTZk-9vRju3ftAiEtEb9Pd/view?usp=drive_link) |
