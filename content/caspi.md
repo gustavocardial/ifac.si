@@ -17,10 +17,10 @@ A Assembleia Geral de Fundação do CASPI aconteceu em 28 de agosto de 2026, no 
 - **Presidente:** Edwiller de Lima Araujo
 - **Vice-Presidente:** Esther Hadassa Lima de Carvalho
 - **Secretária-Geral:** Anna Julia de Araújo Celestino
-- **Diretor Financeiro:** Josilene dos Santos Dias
+- **Diretora Financeira:** Josilene dos Santos Dias
 - **Diretor Financeiro:** Pedro Sales da Costa Araujo
-- **Diretor de Comunicação:** Karina Martins Dias da Silva
-- **Diretor de Assuntos Acadêmicos, Pesquisa, Extensão e Inovação:** Ágnes Marcela Coelho Bittar
+- **Diretora de Comunicação:** Karina Martins Dias da Silva
+- **Diretora de Assuntos Acadêmicos, Pesquisa, Extensão e Inovação:** Ágnes Marcela Coelho Bittar
 - **Diretor de Eventos e Relações Institucionais:** Edwiller de Lima Araujo
 - **Diretor de Esportes, Cultura e Integração:** Pedro Sales da Costa Araujo
 - **Diretor de Esportes, Cultura e Integração:** Cauã Danilo Domingos Farrapo
