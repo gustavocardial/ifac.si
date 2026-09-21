@@ -12,7 +12,7 @@ A Assembleia Geral de Fundação do CASPI aconteceu em 28 de agosto de 2026, no 
 
 - [Estatuto do CASPI](https://drive.google.com/file/d/1UEpllr-jFTxn2FyBHoYamzXr_cGPfZUI/view?usp=sharing)
 
-## Composição atual
+## Diretoria Executiva
 
 - **Presidente:** Edwiller de Lima Araujo
 - **Vice-Presidente:** Esther Hadassa Lima de Carvalho
