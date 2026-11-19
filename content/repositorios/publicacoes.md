@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
 |--------|---------|------|-----|--------|
 | **Inteligência Artificial na Educação Brasileira**: o que dizem as pesquisas? | Antonio Rege | Artigo em periódico | 2026 | [Acessar](https://seer.ufrgs.br/index.php/renote/article/view/153532) |
 | **Barreiras Invisíveis à Permanência de Mulheres na Tecnologia**: Relato de Experiências na Amazônia Ocidental | Esther Hadassa, Thay Bellona | Artigo em congresso | 2026 | [Acessar](https://sol.sbc.org.br/index.php/wit/article/view/43371) |
+| **A Missing Persons Alert System for DTV+** | Flávio Farias, Alice Lima Soares, Marcos Vinícios Mesquita de Morais | Artigo em congresso | 2026 | [Acessar](https://ieeexplore.ieee.org/document/11760800) |
 | **PhysicsWorld**: realidade virtual imersiva sobre colisões elásticas e inelásticas em aulas de física | Flávio Farias, Luis Gustavo Fernandes da Silva | Artigo em congresso | 2026 | [Acessar](https://sol.sbc.org.br/index.php/webmedia_estendido/article/view/46590) |
 | **Geração de audiodescrição de cena em transmissões DTV+** | Lucas Álefe Estevo de Araújo, Flávio Farias | Artigo em congresso | 2026 | [Acessar](https://sol.sbc.org.br/index.php/webmedia_estendido/article/view/46608) |
 | **Extração e Análise de Dados de Rádio FM**: Utilizando SDR com Inteligência Artificial | Thay Bellona, Davi Brito do Nascimento, Flávio Farias | Artigo em congresso | 2026 | [Acessar](https://sol.sbc.org.br/index.php/webmedia_estendido/article/view/46572) |
